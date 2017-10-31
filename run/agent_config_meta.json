@@ -161,6 +161,7 @@
     "author": "/home/xj/project/company/StoreMonitor/node_modules/egg/config/config.default.js",
     "license": "/home/xj/project/company/StoreMonitor/node_modules/egg/config/config.default.js",
     "dependencies": {
+      "bluebird": "/home/xj/project/company/StoreMonitor/node_modules/egg/config/config.default.js",
       "egg": "/home/xj/project/company/StoreMonitor/node_modules/egg/config/config.default.js",
       "pg-promise": "/home/xj/project/company/StoreMonitor/node_modules/egg/config/config.default.js"
     },

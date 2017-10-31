@@ -138,6 +138,7 @@
       "author": "",
       "license": "ISC",
       "dependencies": {
+        "bluebird": "^3.5.1",
         "egg": "^1.10.0",
         "pg-promise": "^7.2.0"
       },

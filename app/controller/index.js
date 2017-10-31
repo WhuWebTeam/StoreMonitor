@@ -8,7 +8,6 @@ module.exports = app => {
         }
 
         async pgTest() {
-            console.log(app.db);
             const str = 'select * from users';
             const user = await this.app.db.query(str, []);
             this.ctx.body = {
