@@ -18,6 +18,59 @@
     },
     "allowDebugAtProd": "/home/xj/company/StoreMonitor/node_modules/egg/config/config.default.js"
   },
+  "database": {
+    "pg": {
+      "user": "/home/xj/company/StoreMonitor/config/config.default.js",
+      "database": "/home/xj/company/StoreMonitor/config/config.default.js",
+      "host": "/home/xj/company/StoreMonitor/config/config.default.js",
+      "password": "/home/xj/company/StoreMonitor/config/config.default.js",
+      "poolSize": "/home/xj/company/StoreMonitor/config/config.default.js"
+    }
+  },
+  "security": {
+    "csrf": {
+      "ignoreJSON": "/home/xj/company/StoreMonitor/config/config.default.js",
+      "enable": "/home/xj/company/StoreMonitor/node_modules/egg-security/config/config.default.js",
+      "useSession": "/home/xj/company/StoreMonitor/node_modules/egg-security/config/config.default.js",
+      "cookieName": "/home/xj/company/StoreMonitor/node_modules/egg-security/config/config.default.js",
+      "sessionName": "/home/xj/company/StoreMonitor/node_modules/egg-security/config/config.default.js",
+      "headerName": "/home/xj/company/StoreMonitor/node_modules/egg-security/config/config.default.js",
+      "bodyName": "/home/xj/company/StoreMonitor/node_modules/egg-security/config/config.default.js",
+      "queryName": "/home/xj/company/StoreMonitor/node_modules/egg-security/config/config.default.js"
+    },
+    "domainWhiteList": "/home/xj/company/StoreMonitor/node_modules/egg-security/config/config.default.js",
+    "protocolWhiteList": "/home/xj/company/StoreMonitor/node_modules/egg-security/config/config.default.js",
+    "defaultMiddleware": "/home/xj/company/StoreMonitor/node_modules/egg-security/config/config.default.js",
+    "xframe": {
+      "enable": "/home/xj/company/StoreMonitor/node_modules/egg-security/config/config.default.js",
+      "value": "/home/xj/company/StoreMonitor/node_modules/egg-security/config/config.default.js"
+    },
+    "hsts": {
+      "enable": "/home/xj/company/StoreMonitor/node_modules/egg-security/config/config.local.js",
+      "maxAge": "/home/xj/company/StoreMonitor/node_modules/egg-security/config/config.default.js",
+      "includeSubdomains": "/home/xj/company/StoreMonitor/node_modules/egg-security/config/config.default.js"
+    },
+    "dta": {
+      "enable": "/home/xj/company/StoreMonitor/node_modules/egg-security/config/config.default.js"
+    },
+    "methodnoallow": {
+      "enable": "/home/xj/company/StoreMonitor/node_modules/egg-security/config/config.default.js"
+    },
+    "noopen": {
+      "enable": "/home/xj/company/StoreMonitor/node_modules/egg-security/config/config.default.js"
+    },
+    "nosniff": {
+      "enable": "/home/xj/company/StoreMonitor/node_modules/egg-security/config/config.default.js"
+    },
+    "xssProtection": {
+      "enable": "/home/xj/company/StoreMonitor/node_modules/egg-security/config/config.default.js",
+      "value": "/home/xj/company/StoreMonitor/node_modules/egg-security/config/config.default.js"
+    },
+    "csp": {
+      "enable": "/home/xj/company/StoreMonitor/node_modules/egg-security/config/config.default.js",
+      "policy": "/home/xj/company/StoreMonitor/node_modules/egg-security/config/config.default.js"
+    }
+  },
   "onerror": {
     "errorPageUrl": "/home/xj/company/StoreMonitor/node_modules/egg-onerror/config/config.default.js",
     "appErrorFilter": "/home/xj/company/StoreMonitor/node_modules/egg-onerror/config/config.default.js"
@@ -52,50 +105,6 @@
     "files": "/home/xj/company/StoreMonitor/node_modules/egg-multipart/config/config.default.js",
     "fileExtensions": "/home/xj/company/StoreMonitor/node_modules/egg-multipart/config/config.default.js",
     "whitelist": "/home/xj/company/StoreMonitor/node_modules/egg-multipart/config/config.default.js"
-  },
-  "security": {
-    "domainWhiteList": "/home/xj/company/StoreMonitor/node_modules/egg-security/config/config.default.js",
-    "protocolWhiteList": "/home/xj/company/StoreMonitor/node_modules/egg-security/config/config.default.js",
-    "defaultMiddleware": "/home/xj/company/StoreMonitor/node_modules/egg-security/config/config.default.js",
-    "csrf": {
-      "enable": "/home/xj/company/StoreMonitor/node_modules/egg-security/config/config.default.js",
-      "useSession": "/home/xj/company/StoreMonitor/node_modules/egg-security/config/config.default.js",
-      "ignoreJSON": "/home/xj/company/StoreMonitor/node_modules/egg-security/config/config.default.js",
-      "cookieName": "/home/xj/company/StoreMonitor/node_modules/egg-security/config/config.default.js",
-      "sessionName": "/home/xj/company/StoreMonitor/node_modules/egg-security/config/config.default.js",
-      "headerName": "/home/xj/company/StoreMonitor/node_modules/egg-security/config/config.default.js",
-      "bodyName": "/home/xj/company/StoreMonitor/node_modules/egg-security/config/config.default.js",
-      "queryName": "/home/xj/company/StoreMonitor/node_modules/egg-security/config/config.default.js"
-    },
-    "xframe": {
-      "enable": "/home/xj/company/StoreMonitor/node_modules/egg-security/config/config.default.js",
-      "value": "/home/xj/company/StoreMonitor/node_modules/egg-security/config/config.default.js"
-    },
-    "hsts": {
-      "enable": "/home/xj/company/StoreMonitor/node_modules/egg-security/config/config.local.js",
-      "maxAge": "/home/xj/company/StoreMonitor/node_modules/egg-security/config/config.default.js",
-      "includeSubdomains": "/home/xj/company/StoreMonitor/node_modules/egg-security/config/config.default.js"
-    },
-    "dta": {
-      "enable": "/home/xj/company/StoreMonitor/node_modules/egg-security/config/config.default.js"
-    },
-    "methodnoallow": {
-      "enable": "/home/xj/company/StoreMonitor/node_modules/egg-security/config/config.default.js"
-    },
-    "noopen": {
-      "enable": "/home/xj/company/StoreMonitor/node_modules/egg-security/config/config.default.js"
-    },
-    "nosniff": {
-      "enable": "/home/xj/company/StoreMonitor/node_modules/egg-security/config/config.default.js"
-    },
-    "xssProtection": {
-      "enable": "/home/xj/company/StoreMonitor/node_modules/egg-security/config/config.default.js",
-      "value": "/home/xj/company/StoreMonitor/node_modules/egg-security/config/config.default.js"
-    },
-    "csp": {
-      "enable": "/home/xj/company/StoreMonitor/node_modules/egg-security/config/config.default.js",
-      "policy": "/home/xj/company/StoreMonitor/node_modules/egg-security/config/config.default.js"
-    }
   },
   "helper": {
     "shtml": "/home/xj/company/StoreMonitor/node_modules/egg-security/config/config.default.js"
@@ -152,7 +161,8 @@
     "author": "/home/xj/company/StoreMonitor/node_modules/egg/config/config.default.js",
     "license": "/home/xj/company/StoreMonitor/node_modules/egg/config/config.default.js",
     "dependencies": {
-      "egg": "/home/xj/company/StoreMonitor/node_modules/egg/config/config.default.js"
+      "egg": "/home/xj/company/StoreMonitor/node_modules/egg/config/config.default.js",
+      "pg-promise": "/home/xj/company/StoreMonitor/node_modules/egg/config/config.default.js"
     },
     "devDependencies": {
       "egg-bin": "/home/xj/company/StoreMonitor/node_modules/egg/config/config.default.js"

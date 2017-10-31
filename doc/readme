@@ -1,0 +1,4 @@
+export NODE_HOME=/usr/lib/node
+export NPM_HOME=${NODE_HOME}/lib/node_modules/npm
+export CLASSPATH=.:${NODE_HOME}/lib:${NPM_HOME}/lib
+export PATH=${NODE_HOME}/bin:$PATH 

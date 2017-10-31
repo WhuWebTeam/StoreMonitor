@@ -42,7 +42,7 @@
       "csrf": {
         "enable": true,
         "useSession": false,
-        "ignoreJSON": false,
+        "ignoreJSON": true,
         "cookieName": "csrfToken",
         "sessionName": "csrfToken",
         "headerName": "x-csrf-token",
@@ -138,7 +138,8 @@
       "author": "",
       "license": "ISC",
       "dependencies": {
-        "egg": "^1.10.0"
+        "egg": "^1.10.0",
+        "pg-promise": "^7.2.0"
       },
       "devDependencies": {
         "egg-bin": "^4.3.5"
@@ -231,6 +232,15 @@
     },
     "clusterClient": {
       "responseTimeout": 60000
+    },
+    "database": {
+      "pg": {
+        "user": "company",
+        "database": "StoreMonitor",
+        "host": "127.0.0.1",
+        "password": "<String len: 12>",
+        "poolSize": 1
+      }
     },
     "coreMiddlewares": [
       "meta",

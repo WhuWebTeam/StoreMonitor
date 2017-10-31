@@ -6,6 +6,15 @@ module.exports = app => {
                 data: 'access successful'
             };
         }
+
+        async pgTest() {
+            let sqlStr = 'select * from test';
+            const result = await this.app.pg.query(str);
+            this.ctx.body = {
+                code: 400,
+                result
+            };
+        }
     }
 
     return Index;
