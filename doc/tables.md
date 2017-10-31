@@ -1,5 +1,7 @@
 ### users
 
+1. structure
+
     | attributes  | type         | limit        | description      |
     | ---         | ---          | ---          | ---              |
     | id          | serial       |              | table increase   |

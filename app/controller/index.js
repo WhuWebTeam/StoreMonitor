@@ -8,9 +8,9 @@ module.exports = app => {
         }
 
         async pgTest() {
-            Console.log(1);
-            const sqlStr = 'select * from user';
-            const user = await this.app.pg.query(str);
+            console.log(app.db);
+            const str = 'select * from users';
+            const user = await this.app.db.query(str, []);
             this.ctx.body = {
                 code: 400,
                 user
