@@ -9,9 +9,9 @@ module.exports = appInfo => {
         database: {
             pg: {
                 user: 'company',
-                database: 'StoreMonitor',
+                database: 'company',
                 host: '127.0.0.1',
-                password: 'StoreMonitor',
+                password: '123',
                 poolSize: 1,
             }
         },

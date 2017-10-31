@@ -8,11 +8,12 @@ module.exports = app => {
         }
 
         async pgTest() {
-            let sqlStr = 'select * from test';
-            const result = await this.app.pg.query(str);
+            Console.log(1);
+            const sqlStr = 'select * from user';
+            const user = await this.app.pg.query(str);
             this.ctx.body = {
                 code: 400,
-                result
+                user
             };
         }
     }
