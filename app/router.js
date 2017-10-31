@@ -3,5 +3,5 @@ module.exports = app => {
     app.get('/database', 'index.pgTest');
 
     require('./router/user')(app);
-    require('./router/event')(app);
+    require('./router/vedio')(app);
 }

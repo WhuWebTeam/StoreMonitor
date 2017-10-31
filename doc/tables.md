@@ -36,4 +36,99 @@
     OWNER TO company;
 
 
-### 
+
+### shops
+
+1. structure
+
+
+
+2. sqlStr
+
+
+
+### lists
+
+1. structure
+
+
+2. sqlStr
+
+    CREATE TABLE public.lists
+    (
+        id serial,
+        transId varchar(50) primary key,
+        regId varchar(50),
+        cashierId varchar(50),
+        tsStart int,
+        tsEnd int,
+        scriptVer varchar(50),
+        vedioUrl varchar(200),
+        priority int,
+        createAt timestamp,
+        updateAt timestamp,
+        state varchar(50),
+        result varchar(50),
+        shopId varchar(50)
+    ) 
+    WITH (
+        OIDS = FALSE
+    );
+    ALTER TABLE public.lists
+    OWNER TO company;
+
+
+### styles 
+
+1. structure
+
+
+2. sqlStr
+
+    CREATE TABLE public.styles
+    (
+        id serial,
+        style varchar(50) primary key,
+        fontType varchar(50),
+        fontSize int,
+        fontRGB varchar(50),
+        iconUrl varchar(200),
+        iconW int,
+        iconH int,
+        transId varchar(50)
+    ) 
+    WITH (
+        OIDS = FALSE
+    );
+    ALTER TABLE public.styles
+    OWNER TO company;
+
+
+
+### events
+
+1. structure
+
+
+2. sqlStr
+
+    CREATE TABLE public.events
+    (
+        id serial primary key,
+        eventStart varchar(50),
+        eventEnd varchar(50),
+        text varchar(50),
+        centerX int,
+        centerY int,
+        hide boolean,
+        type varchar(50),
+        transId varchar(50),
+        style varchar(50)
+    ) 
+    WITH (
+        OIDS = FALSE
+    );
+    ALTER TABLE public.events
+    OWNER TO company;
+
+
