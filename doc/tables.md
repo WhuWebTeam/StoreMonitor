@@ -1,6 +1,4 @@
 ### users
- 
- 1. 
 
     | attributes  | type         | limit        | description      |
     | ---         | ---          | ---          | ---              |
