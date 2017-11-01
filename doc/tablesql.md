@@ -1,5 +1,6 @@
 ### users
 
+    ```
     CREATE TABLE public."users"
     (
         id serial,
@@ -15,6 +16,7 @@
     );
     ALTER TABLE public."users"
     OWNER TO company;
+    ```
 
 
 ### shops
@@ -22,6 +24,7 @@
 
 ### lists
 
+   ```
    -- DROP TABLE public.lists;
 
     CREATE TABLE public.lists
@@ -47,10 +50,12 @@
     );
     ALTER TABLE public.lists
     OWNER TO company;
+   ```
 
 
 ### styles 
 
+    ```
     CREATE TABLE public.styles
     (
         id serial,
@@ -70,10 +75,12 @@
     );
     ALTER TABLE public.styles
     OWNER TO company;
+    ```
 
 
 ### events
 
+    ```
     CREATE TABLE public.events
     (
         id serial primary key,
@@ -94,3 +101,4 @@
     );
     ALTER TABLE public.events
     OWNER TO company;
+    ```
