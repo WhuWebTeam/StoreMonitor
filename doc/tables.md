@@ -54,28 +54,32 @@
 
 2. sqlStr
 
+   -- DROP TABLE public.lists;
+
     CREATE TABLE public.lists
     (
         id serial,
-        transId varchar(50) primary key,
-        regId varchar(50),
-        cashierId varchar(50),
-        tsStart int,
-        tsEnd int,
-        scriptVer varchar(50),
-        vedioUrl varchar(200),
-        priority int,
-        createAt timestamp,
-        updateAt timestamp,
-        state varchar(50),
-        result varchar(50),
-        shopId varchar(50)
-    ) 
+        transid character varying(50) NOT NULL,
+        regid character varying(50),
+        cashierid character varying(50),
+        tsstart bigint,
+        tsend bigint,
+        scriptver character varying(50),
+        vediourl character varying(200),
+        priority integer,
+--        state character varying(50),
+        result character varying(50),
+        shopid character varying(50),
+        createAt bigint,
+        updateAt bigint,
+        CONSTRAINT lists_pkey PRIMARY KEY (transid)
+    )
     WITH (
-        OIDS = FALSE
+        OIDS=FALSE
     );
     ALTER TABLE public.lists
     OWNER TO company;
+
 
 
 ### styles 
@@ -115,15 +119,15 @@
     CREATE TABLE public.events
     (
         id serial primary key,
-        eventStart varchar(50),
-        eventEnd varchar(50),
+        eStart varchar(50),
+        eEnd varchar(50),
         text varchar(50),
         centerX int,
         centerY int,
         hide boolean,
         type varchar(50),
-        transId varchar(50),
-        style varchar(50)
+        transId varchar(50) not null,
+        style varchar(50) not null
     ) 
     WITH (
         OIDS = FALSE

@@ -14,7 +14,7 @@ export PATH=${NODE_HOME}/bin:$PATH
     "ScriptVer":"v1.00",
     "Priority":	1,
     "VideoUrl":"http://115.156.188.230/clips.vorwaerts-gmbh.de/big_buck_bunny.mp4",
-    "Styles":	
+    "Styles":
 	[
 		{
 			"Style":"Default",

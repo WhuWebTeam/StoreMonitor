@@ -26,7 +26,9 @@ module.exports = app => {
          * @return {boolean} judge entry[1] isn't exist
          */
         _judge(entry) {
-            if (entry[1] === 0) {
+            if (entry[1] === false) {
+                return true;
+            } else if (entry[1] === 0) {
                 return true;
             } else if (entry[1]) {
                 return true;
@@ -102,6 +104,8 @@ module.exports = app => {
             temp = temp.substr(0, temp.length - 2) + ')';
             str = str + ' values ' + temp;
 
+            console.log(str);
+            console.log(values);
             await this.app.db.query(str, values);
         }
 
@@ -153,7 +157,7 @@ module.exports = app => {
          * @public
          * @function count
          * @param {string} tableName - name of table which will be oprated 
-         * @param {string} attribute - attribute which will be accorded when count
+         * @param {string} attribute - attribute which will be counted when count
          * attributes must consistant with database's attributes name
          * @param {object} wheres - where condition of query 
          * attributes must consistant with database's attributes name
