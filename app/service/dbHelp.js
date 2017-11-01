@@ -3,20 +3,20 @@
  * realize some easy sql including insert, update, delete, query, count and some VersionControllerSystem business opration function
  * @module dbHelp
  * 
- * @file VersionControllerSystem
+ * @file StoreMonitor
  * @version 0.0.1
  */
 
 const Promise = require('bluebird');
 
-/** DbOpration */
+/** DbHelp */
 module.exports = app => {
     /**
-     * used to complete module dbOpration function
+     * used to complete module DbHelp function
      * @class
      * @extends app.Service
      */
-    class DbOpration extends app.Service {
+    class DbHelp extends app.Service {
 
         /**
          * a inner function used to judge te entry's sencond value is exist or not
@@ -200,5 +200,5 @@ module.exports = app => {
         }
     }
 
-    return DbOpration;
+    return DbHelp;
 }

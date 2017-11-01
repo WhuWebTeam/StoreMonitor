@@ -1,6 +1,7 @@
-### users
+# structure of table in StoreMonitorSystem
 
-1. structure
+
+### users
 
     | attributes  | type         | limit        | description              |
     | ---         | ---          | ---          | ---                      |
@@ -12,127 +13,70 @@
     | phone       | varchar(11)  |              |                          |
     | email       | varchar(20)  |              |                          |
 
-2. sqlStr
-    
-    -- Table: public."users"
-
-    -- DROP TABLE public."users";
-
-    CREATE TABLE public."users"
-    (
-        id serial,
-        usernumber character varying(50),
-        username character varying(50) NOT NULL,
-        password character varying(50) NOT NULL,
-        level integer NOT NULL,
-        phone character varying(50),
-        email character varying(50),
-        CONSTRAINT user_pkey PRIMARY KEY (username)
-    )
-    WITH (
-        OIDS=FALSE
-    );
-    ALTER TABLE public."users"
-    OWNER TO company;
-
-
 
 ### shops
 
-1. structure
-
-
-
-2. sqlStr
-
+    | attributes  | type         | limit        | description              |
+    | ---         | ---          | ---          | ---                      |
+    | id          | serial       |              | table increase           |
 
 
 ### lists
 
-1. structure
-
-
-2. sqlStr
-
-   -- DROP TABLE public.lists;
-
-    CREATE TABLE public.lists
-    (
-        id serial,
-        transid character varying(50) NOT NULL,
-        regid character varying(50),
-        cashierid character varying(50),
-        tsstart bigint,
-        tsend bigint,
-        scriptver character varying(50),
-        vediourl character varying(200),
-        priority integer,
---        state character varying(50),
-        result character varying(50),
-        shopid character varying(50),
-        createAt bigint,
-        updateAt bigint,
-        CONSTRAINT lists_pkey PRIMARY KEY (transid)
-    )
-    WITH (
-        OIDS=FALSE
-    );
-    ALTER TABLE public.lists
-    OWNER TO company;
-
+    | attributes  | type         | limit        | description              |
+    | ---         | ---          | ---          | ---                      |
+    | id          | serial       |              | table increase           |
+    | transId     | varchar(50)  | primary key  |                          |
+    | regId       | varchar(50)  |              | counter id               |
+    | cashierId   | varchar(50)  |              | cashier id               |
+    | tsStart     | bigint       |              | video start time         |
+    | tsEnd       | bigint       |              | video end time           |
+    | scriptVer   | varchar(50)  |              | pos record version       |
+    | videoURL    | VARCHAR(200) |              | URL of video             |
+    | priority    | int          |              |                          |
+    | result      | varchar(50)  |              | result confirmed         |
+    | createAt    | bigint       |              | create time of record    |
+    | updateAt    | bigint       |              | update time of record    |
+    | shopId      | varchar(50)  |              | shop's id ---- shops     |
 
 
 ### styles 
 
-1. structure
-
-
-2. sqlStr
-
-    CREATE TABLE public.styles
-    (
-        id serial,
-        style varchar(50) primary key,
-        fontType varchar(50),
-        fontSize int,
-        fontRGB varchar(50),
-        iconUrl varchar(200),
-        iconW int,
-        iconH int,
-        transId varchar(50)
-    ) 
-    WITH (
-        OIDS = FALSE
-    );
-    ALTER TABLE public.styles
-    OWNER TO company;
-
+    | attribute   | type         | limit        | description              |
+    | ---         | ---          | ---          | ---                      |
+    | id          | serial       |              | table increase           |
+    | fontType    | varchar(50)  | primary key  |                          |
+    | fontSize    | int          |              |                          |
+    | foneRGB     | varchar(50)  |              |                          |
+    | iconURL     | varchar(200) |              | URL of event icon        |
+    | iconW       | int          |              | width of event icon      |
+    | iconH       | int          |              | height of event icon     |
+    | createAt    | bigint       |              | record's create time     |
+    | updateAt    | bigint       |              | record's update time     |
+    | transId     | varchar(50)  |              | transaction id --- lists |
 
 
 ### events
 
-1. structure
+    | attribute   | type         | limit        | description              |
+    | ---         | ---          | ---          | ---                      |
+    | id          | serial       |              | table increase           |
+    | eStart      | varchar(50)  |              | event start time in pos  |
+    | eEnd        | varchar(50)  |              | event end time in pos    |
+    | text        | varchar(50)  |              | text description of event|
+    | centerX     | int          |              | position X of event      |
+    | centerY     | int          |              | postion Y of event       |
+    | createAt    | bigint       |              | record create time       |
+    | updateAt    | bigint       |              | record update time       |
+    | transId     | varchar(50)  |              | transaction id --- lists |
+    | style       | varchar(50)  |              | event stylr --- styles   |
 
 
-2. sqlStr
 
-    CREATE TABLE public.events
-    (
-        id serial primary key,
-        eStart varchar(50),
-        eEnd varchar(50),
-        text varchar(50),
-        centerX int,
-        centerY int,
-        hide boolean,
-        type varchar(50),
-        transId varchar(50) not null,
-        style varchar(50) not null
-    ) 
-    WITH (
-        OIDS = FALSE
-    );
-    ALTER TABLE public.events
-    OWNER TO company;
+[Table Structure] (http:www.com)
 
 
+![Table Structure] (http:www.com)
+
+
+` `

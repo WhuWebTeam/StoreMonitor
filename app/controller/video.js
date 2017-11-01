@@ -8,7 +8,7 @@ module.exports = app => {
         }
 
 
-        async addVedioRecord() {
+        async addVideoRecord() {
             const posList = this.ctx.request.body;
 
             const Styles = posList.Styles;
@@ -27,10 +27,16 @@ module.exports = app => {
             list.updateAt = Date.parse(new Date());
             list.result = '';
 
-            try {
+            // try {
                 await this.service.dbHelp.insert('lists', list);
 
                 for (const style in Styles) {
+
+                    // format style structure in database.styles
+                    Styles[style].createAt = Date.parse(new Date());
+                    Styles[style].updateAt = Date.parse(new Date());
+                    Styles[style].transId = posList.TransID;
+
                     await this.service.dbHelp.insert('styles', Styles[style]);
                 }
 
@@ -48,16 +54,18 @@ module.exports = app => {
                         }
                     });
                     tempEvent.transId = posList.TransID;
+                    tempEvent.createAt = Date.parse(new Date());
+                    tempEvent.updateAt = Date.parse(new Date());
 
 
                     await this.service.dbHelp.insert('events', tempEvent);
                 }
 
-                this.ctx.body = this.service.util.generateResponse(200, 'add vedio record successfully');
-            }
-            catch(e) {
-                this.ctx.body = this.service.util.generateResponse(400, 'add vedio record failed');
-            }
+                this.ctx.body = this.service.util.generateResponse(200, 'add video record successfully');
+            // }
+            // catch(e) {
+            //     this.ctx.body = this.service.util.generateResponse(400, 'add video record failed');
+            // }
         }
     }
 

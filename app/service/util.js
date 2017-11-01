@@ -5,7 +5,7 @@ module.exports = app => {
             if(code >= 400) {
                 return {
                     code,
-                    info: message
+                    info: {message}
                 };
             } else {
                 return {
