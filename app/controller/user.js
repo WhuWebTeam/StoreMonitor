@@ -8,8 +8,7 @@ module.exports = app => {
         }
 
         async getUsers() {
-            const users = await this.service.dbHelp.query('users', '*', {});
-            this.ctx.body
+
         }
 
         async getUser() {
@@ -20,6 +19,10 @@ module.exports = app => {
 
         }
 
+        async changePassword() {
+            
+        }
+        
         async addUser() {
 
         }

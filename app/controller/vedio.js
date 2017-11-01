@@ -26,7 +26,6 @@ module.exports = app => {
             list.createAt = Date.parse(new Date());
             list.updateAt = Date.parse(new Date());
             list.result = '';
-            console.log(list);
 
             try {
                 await this.service.dbHelp.insert('lists', list);
