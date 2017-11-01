@@ -7,7 +7,7 @@
     | ---         | ---          | ---          | ---                      |
     | id          | serial       |              | table increase           |
     | userNumber  | varchar(50)  | primary key  |                          |
-    | userName    | varchar(50)  | not null     |                          |  
+    | userName    | varchar(50)  | not null     |                          |
     | password    | varchar(50)  | not null     |                          |
     | level       | int          | not null     | 1:防损员 2：经理 3：区域经理 |
     | phone       | varchar(11)  |              |                          |
@@ -79,4 +79,4 @@
 ![Table Structure] (http:www.com)
 
 
-` `
+`function test() {} `
