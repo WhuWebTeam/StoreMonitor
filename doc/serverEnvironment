@@ -1,0 +1,5 @@
+postgre: maybe just need postgre-server, let me to comfirm it
+
+nodejs: version >= 6.0.0
+
+port: 7005
