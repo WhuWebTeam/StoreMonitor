@@ -4,7 +4,7 @@
 ### users
 
     | attributes  | type         | limit        | description              |
-    | ---         | ---          | ---          | ---                      |
+    | ---:        | ---:         | ---:         | ---:                     |
     | id          | serial       |              | table increase           |
     | userNumber  | varchar(50)  | primary key  |                          |
     | userName    | varchar(50)  | not null     |                          |
