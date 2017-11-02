@@ -1,6 +1,6 @@
 ### users
 
-    ```
+    ```Postgresql
     CREATE TABLE public."users"
     (
         id serial,
@@ -80,7 +80,7 @@
 
 ### events
 
-    ```
+    ``` 
     CREATE TABLE public.events
     (
         id serial primary key,
