@@ -59,7 +59,7 @@
 ### events
 
     | attribute   | type         | limit        | description              |
-    | ---         | ---          | ---          | ---                      |
+    | ---:        | ---:         | ---:         | ---:                     |
     | id          | serial       |              | table increase           |
     | eStart      | varchar(50)  |              | event start time in pos  |
     | eEnd        | varchar(50)  |              | event end time in pos    |
@@ -76,4 +76,4 @@
 [Table Structure] (https://github.com/qwasxj/StoreMonitor/blob/develop/doc/StoreMonitor.png?raw=true "StoreMonitor Table Structure")
 
 
-![] (https://github.com/qwasxj/StoreMonitor/blob/develop/doc/StoreMonitor.png?raw=true)
+![Table Structure] (https://github.com/qwasxj/StoreMonitor/blob/develop/doc/StoreMonitor.png?raw=true)
