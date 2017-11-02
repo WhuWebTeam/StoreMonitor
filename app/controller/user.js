@@ -41,28 +41,31 @@ module.exports = app => {
             
             // oprate man's info
             const oprateMan = this.ctx.query.userId;
-            const oprateLevel = await this.ctx.users.getUserLevel(oprateMan);
-            
+            const oprateLevel = await this.service.users.getUserLevel(oprateMan);
+
             // info of man whoes level is oprated
             const opratedMan = this.ctx.request.body;
-            const opratedLevel = await this.ctx.users.getUserLevel(opratedMan.userNumber);
+            const opratedLevel = await this.service.users.getUserLevel(opratedMan.userNumber);
             
-            if (await this.ctx.service.users.exists(oprateMan)) {
+            if (!await this.ctx.service.users.exists(oprateMan)) {
                 this.ctx.body = this.service.util.generateResponse(400, `user doesn't exists`);
+                return;
             }
 
             // oprate man's level < oprated man's level
-            if (+oprateLevel < +opratedLevel) {
+            if (oprateLevel < opratedLevel) {
                 this.ctx.body = this.service.util.generateResponse(400, `you don't have the priority`);
+                return;
             }
 
             // oprate man's level > level will be modified to
-            if (+opratedLevel > +opratedMan.level) {
-                this.ctx.body = this.service.util.generateResponse(400, 'priority modified to more than you priority')
+            if (opratedLevel > opratedMan.level) {
+                this.ctx.body = this.service.util.generateResponse(400, 'priority modified to more than you priority');
+                return;
             }
             
             await this.service.dbHelp.update('users', {level: opratedMan.level}, {userNumber: opratedMan.userNumber});
-            this.ctx.body = this.service.generateResponse(200, 'level modify successfully');
+            this.ctx.body = this.service.util.generateResponse(200, 'level modify successfully');
         }
 
 
@@ -134,13 +137,19 @@ module.exports = app => {
             // oprate man's info
             const oprateMan = this.ctx.params.userId;
             let oprateLevel = await this.service.users.getUserLevel(oprateMan);
-            console.log(oprateLevel);
 
             // info of man to be deleted
             const opratedMan = this.ctx.request.body;
             const opratedLevel = await this.service.users.getUserLevel(opratedMan.userNumber);
 
-            if (+oprateLevel <= opratedLevel) {
+            // user exists or not
+            if (!await this.service.users.exists(opratedMan.userNumber)) {
+                this.ctx.body = this.service.util.generateResponse(400, `user doesn't exists`);
+                return;
+            }
+
+            // operated man's level more than oprate man's level
+            if (oprateLevel <= opratedLevel) {
                 this.ctx.body = this.service.util.generateResponse(400, `you don't have the priority to delete user whoes priority don't less than you`);
                 return;
             }
