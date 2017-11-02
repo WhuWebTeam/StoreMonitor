@@ -1,6 +1,7 @@
 module.exports = app => {
     class User extends app.Controller {
 
+        // user index page test
         async index() {
             this.ctx.body = {
                 code: 200,
@@ -26,8 +27,9 @@ module.exports = app => {
                 const user = await this.service.dbHelp.query('users', ['*'], {userNumber});
                 this.ctx.body = {
                     code: 400,
-                    data: user
+                    data: user[0]
                 };
+                return;
             }
     
             this.ctx.body = this.service.util.generateResponse(400, 'get user info failed');
@@ -68,11 +70,14 @@ module.exports = app => {
         async changePassword() {
             const userNumber = this.ctx.params.userId;
             const password = this.ctx.request.body.password;
-            if (await this.service.user.exists(userNumber)) {
+            if (await this.service.users.exists(userNumber)) {
                 await this.service.dbHelp.update('users', {password}, {userNumber});
+
+                this.ctx.body = this.service.util.generateResponse(200, 'password modify successful');
+                return;
             }
 
-            this.ctx.body = this.service.util.generateResponse(200, 'password modify successful');
+            this.ctx.body = this.service.util.generateResponse(400, `user doesn't exists`);            
         }
 
         
@@ -86,9 +91,16 @@ module.exports = app => {
             // info of user to be added
             const user = this.ctx.request.body;
 
+            // oprated user exists
+            if (await this.service.users.exists(user.userNumber)) {
+                this.ctx.body = this.service.util.generateResponse(400, `user to be added exists`);
+                return;
+            }
+
             // level to be setted higher than oprate man's level
-            if (+oprateLevel < user.level) {
-                this.ctx.body = this.service.users.generateResponse(400, `you don't have the priority to set someone's priority more than you`);
+            if (oprateLevel < user.level) {
+                this.ctx.body = this.service.util.generateResponse(400, `you don't have the priority to set someone's priority more than you`);
+                return;
             }
 
             await this.service.dbHelp.insert('users', user);
@@ -102,16 +114,17 @@ module.exports = app => {
 
             // user exists
             if (await this.service.users.exists(user.userNumber)) {
-                const result = await this.service.users.passwordRight(user.usernumber, user.password);
+                const result = await this.service.users.passwordRight(user.userNumber, user.password);
                 this.ctx.body = {
                     code: 200,
                     data: {
                         result
                     }
                 };
+                return;
             }
         
-            this.ctx.body = this.service.util.generateResponse(400, `user doesn't exists`);
+             this.ctx.body = this.service.util.generateResponse(400, `user doesn't exists`);
         }        
 
 
@@ -120,7 +133,8 @@ module.exports = app => {
 
             // oprate man's info
             const oprateMan = this.ctx.params.userId;
-            const oprateLevel = await this.service.users.getUserLevel(oprateMan);
+            let oprateLevel = await this.service.users.getUserLevel(oprateMan);
+            console.log(oprateLevel);
 
             // info of man to be deleted
             const opratedMan = this.ctx.request.body;
@@ -128,6 +142,7 @@ module.exports = app => {
 
             if (+oprateLevel <= opratedLevel) {
                 this.ctx.body = this.service.util.generateResponse(400, `you don't have the priority to delete user whoes priority don't less than you`);
+                return;
             }
 
             await this.service.dbHelp.delete('users', {userNumber: opratedMan.userNumber});

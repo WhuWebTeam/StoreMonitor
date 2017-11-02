@@ -131,6 +131,7 @@ module.exports = app => {
             }
             str = str.substr(0, str.length - 2);
             str = str + ' from ' + tableName;
+        
 
             // when query without where condition(wheres is a {})
             if (JSON.stringify(wheres) === '{}') {
@@ -147,6 +148,7 @@ module.exports = app => {
                 values.push(entries[i][1]);
             }
             str = str.substr(0, str.length - 5);
+            //console.log(str);
 
             const result = await this.app.db.query(str, values);
             return result;

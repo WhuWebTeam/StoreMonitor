@@ -11,7 +11,7 @@ module.exports = app => {
         }
 
         // judge some user's password right or not
-        async passwordRight(userNubmer, password) {
+        async passwordRight(userNumber, password) {
             if (await this.service.dbHelp.count('users', 'userNumber', {userNumber, password})) {
                 return true;
             } else {
@@ -21,7 +21,9 @@ module.exports = app => {
 
         // get some user's level
         async getUserLevel(userNumber) {
-            return await this.service.dbHelp.query('users', ['level'], {userNumber});
+            let level = await this.service.dbHelp.query('users', ['level'], {userNumber});
+            level = level && level[0] && level[0].level || 1;
+            return +level;
         }
     }
 
