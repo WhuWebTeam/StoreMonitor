@@ -73,10 +73,7 @@
 
 
 
-[Table Structure] (https://github.com/qwasxj/StoreMonitor/blob/develop/doc/StoreMonitor.png?raw=true)
+[Table Structure] (https://github.com/qwasxj/StoreMonitor/blob/develop/doc/StoreMonitor.png?raw=true "StoreMonitor Table Structure")
 
 
-![Table Structure] (https://github.com/qwasxj/StoreMonitor/blob/develop/doc/StoreMonitor.png?raw=true)
-
-
-`function test() {} `
+![] (https://github.com/qwasxj/StoreMonitor/blob/develop/doc/StoreMonitor.png?raw=true)
