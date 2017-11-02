@@ -3,20 +3,20 @@
  * realize some easy sql including insert, update, delete, query, count and some VersionControllerSystem business opration function
  * @module dbHelp
  * 
- * @file VersionControllerSystem
+ * @file StoreMonitor
  * @version 0.0.1
  */
 
 const Promise = require('bluebird');
 
-/** DbOpration */
+/** DbHelp */
 module.exports = app => {
     /**
-     * used to complete module dbOpration function
+     * used to complete module DbHelp function
      * @class
      * @extends app.Service
      */
-    class DbOpration extends app.Service {
+    class DbHelp extends app.Service {
 
         /**
          * a inner function used to judge te entry's sencond value is exist or not
@@ -26,7 +26,9 @@ module.exports = app => {
          * @return {boolean} judge entry[1] isn't exist
          */
         _judge(entry) {
-            if (entry[1] === 0) {
+            if (entry[1] === false) {
+                return true;
+            } else if (entry[1] === 0) {
                 return true;
             } else if (entry[1]) {
                 return true;
@@ -102,6 +104,8 @@ module.exports = app => {
             temp = temp.substr(0, temp.length - 2) + ')';
             str = str + ' values ' + temp;
 
+            console.log(str);
+            console.log(values);
             await this.app.db.query(str, values);
         }
 
@@ -127,6 +131,7 @@ module.exports = app => {
             }
             str = str.substr(0, str.length - 2);
             str = str + ' from ' + tableName;
+        
 
             // when query without where condition(wheres is a {})
             if (JSON.stringify(wheres) === '{}') {
@@ -143,6 +148,7 @@ module.exports = app => {
                 values.push(entries[i][1]);
             }
             str = str.substr(0, str.length - 5);
+            //console.log(str);
 
             const result = await this.app.db.query(str, values);
             return result;
@@ -153,7 +159,7 @@ module.exports = app => {
          * @public
          * @function count
          * @param {string} tableName - name of table which will be oprated 
-         * @param {string} attribute - attribute which will be accorded when count
+         * @param {string} attribute - attribute which will be counted when count
          * attributes must consistant with database's attributes name
          * @param {object} wheres - where condition of query 
          * attributes must consistant with database's attributes name
@@ -196,5 +202,5 @@ module.exports = app => {
         }
     }
 
-    return DbOpration;
+    return DbHelp;
 }
