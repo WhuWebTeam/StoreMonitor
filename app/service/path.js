@@ -1,13 +1,37 @@
-
+/**
+ * enclosure of file and directory's opration
+ * realize judge a path exists or not and this path stand for file or directory,
+ * create directory with the father directory of the directory specified by path doesn't exist,
+ * open a file whoes father directory doesn't exist
+ * @module path
+ * 
+ * @file StoreMonitor
+ * @version 0.0.1
+ */
 
 
 const fs = require('fs');
 const path = require('path');
 
+/** path */
 module.exports = app => {
+    /**
+     * used to complete module path's function
+     * @class
+     * @extends app.Service
+     */
     class Path extends app.Service {
 
-        // judge specified path exists or not and judge is a file or directory
+        /**
+         * judge specified path exists or not and judge is a file or directory
+         * @public
+         * @function pathExists
+         * @param {string} path - file or directory's path waited to judge
+         * @return {Promise<Object>} 
+         * object with exists is true, file is true when path is a file and exists
+         * object with exists is ture, file is false when path is a directory and exists
+         * object with exists is false, file is false when path doesn't exists
+         */
         async pathExists(path) {
             return new Promise((resolve, reject) => {
                 try {
@@ -46,7 +70,15 @@ module.exports = app => {
             }).then(result => result).catch(result => result);
         }
 
-        // create a directory specified by path
+
+        /**
+         * create a directory specified by path, maybe directory's father directory doesn't exist
+         * will throw exception when opration error
+         * @public
+         * @function mkdir
+         * @param {string} path - path of directory waited to be created
+         * @return {Promise<>} do not return value
+         */
         async mkdir(path) {
 
             // directory specified by path exists
@@ -95,7 +127,16 @@ module.exports = app => {
             });
         }
 
-        // open some file specified by path
+
+        /**
+         * open some file specified by path, maybe file's father directory's path doesn't exist
+         * will throw Exception when opration error
+         * @public
+         * @function openFile
+         * @param {string} path - path of file waited to be open 
+         * @param {string} mode - mode of opnning file
+         * @return {Promise<int>} the file description of file opened
+         */
         async openFile(path, mode) {
             
             // file's father's path doesn't exists

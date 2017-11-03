@@ -1,3 +1,13 @@
+/**
+ * urls releated to users work for safe of count line
+ * @module users
+ * 
+ * @file StroeMonitor
+ * @version 0.0.1
+ */
+
+/** users */
+
 module.exports = app => {
     app.get('/api/v1/user/index', 'user.index'); // user module index test
 

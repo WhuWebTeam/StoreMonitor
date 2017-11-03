@@ -9,10 +9,10 @@
 
 const Promise = require('bluebird');
 
-/** DbHelp */
+/** dbHelp */
 module.exports = app => {
     /**
-     * used to complete module DbHelp function
+     * used to complete module dbHelp function
      * @class
      * @extends app.Service
      */
