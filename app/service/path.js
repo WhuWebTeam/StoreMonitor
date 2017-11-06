@@ -79,7 +79,6 @@ module.exports = app => {
          * @return {Promise<>} do not return value
          */
         async mkdir(path) {
-            console.log('---------');
             // directory specified by path exists
             const result = await this.pathExists(path);
             if (result.exists) {
@@ -95,8 +94,6 @@ module.exports = app => {
 
                 // directory exists
                 const result = await this.pathExists(tempPath);
-                console.log(tempPath);
-                console.log(result.exists);
                 if (result.exists) {
                     continue;
                 }
@@ -186,9 +183,8 @@ module.exports = app => {
         }
 
         async appendFile(path, content) {
+
             const fatherPath = path.substring(0, path.lastIndexOf('/'));
-            console.log(path);
-            console.log(fatherPath);
             await this.mkdir(fatherPath);
 
             return new Promise((resolve, reject) => {

@@ -1,22 +1,25 @@
-class Test {
-    constructor() {
-        this.name = 'sfrgb';
+const path = require('path');
+
+function logDefault(type, message) {
+    let logPath = __dirname;
+
+    switch (type) {
+        case type.includes('err'):
+            console.log(true);
+            logPath = path.join(logPath, './error/log_error.txt');
+            break;
+        case type.includes('req'):
+            logPath = path.join(logPath, './request/log_req.txt');
+            break;
+        case type.includes('run'):
+            logPath = path.join(logPath, './running/log_running.txt');
+            break;
+        default:
+            console.log('default');
+            break;
     }
 
-    async getName() {
-        return this.name;
-    }
-
-    async setName(name) {
-        this.name = name;
-    }
-
-    async printName() {
-        const name = await this.getName();
-        console.log(name);
-    }
+    console.log(logPath);
 }
 
-
-const t = new Test();
-t.printName();
+logDefault('error', 'test');
