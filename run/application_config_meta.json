@@ -5,17 +5,15 @@
     "encoding": "/home/xj/project/company/StoreMonitor/node_modules/egg/config/config.default.js",
     "env": "/home/xj/project/company/StoreMonitor/node_modules/egg/config/config.default.js",
     "level": "/home/xj/project/company/StoreMonitor/node_modules/egg/config/config.default.js",
-    "consoleLevel": "/home/xj/project/company/StoreMonitor/node_modules/egg/config/config.default.js",
+    "consoleLevel": "/home/xj/project/company/StoreMonitor/node_modules/egg/config/config.unittest.js",
     "disableConsoleAfterReady": "/home/xj/project/company/StoreMonitor/node_modules/egg/config/config.default.js",
     "outputJSON": "/home/xj/project/company/StoreMonitor/node_modules/egg/config/config.default.js",
-    "buffer": "/home/xj/project/company/StoreMonitor/node_modules/egg/config/config.default.js",
+    "buffer": "/home/xj/project/company/StoreMonitor/node_modules/egg/config/config.unittest.js",
     "appLogName": "/home/xj/project/company/StoreMonitor/node_modules/egg/config/config.default.js",
     "coreLogName": "/home/xj/project/company/StoreMonitor/node_modules/egg/config/config.default.js",
     "agentLogName": "/home/xj/project/company/StoreMonitor/node_modules/egg/config/config.default.js",
     "errorLogName": "/home/xj/project/company/StoreMonitor/node_modules/egg/config/config.default.js",
-    "coreLogger": {
-      "consoleLevel": "/home/xj/project/company/StoreMonitor/node_modules/egg/config/config.local.js"
-    },
+    "coreLogger": "/home/xj/project/company/StoreMonitor/node_modules/egg/config/config.default.js",
     "allowDebugAtProd": "/home/xj/project/company/StoreMonitor/node_modules/egg/config/config.default.js"
   },
   "path": {
@@ -50,7 +48,7 @@
       "value": "/home/xj/project/company/StoreMonitor/node_modules/egg-security/config/config.default.js"
     },
     "hsts": {
-      "enable": "/home/xj/project/company/StoreMonitor/node_modules/egg-security/config/config.local.js",
+      "enable": "/home/xj/project/company/StoreMonitor/node_modules/egg-security/config/config.default.js",
       "maxAge": "/home/xj/project/company/StoreMonitor/node_modules/egg-security/config/config.default.js",
       "includeSubdomains": "/home/xj/project/company/StoreMonitor/node_modules/egg-security/config/config.default.js"
     },
@@ -93,7 +91,7 @@
     "cookieMaxAge": "/home/xj/project/company/StoreMonitor/node_modules/egg-i18n/config/config.default.js"
   },
   "watcher": {
-    "type": "/home/xj/project/company/StoreMonitor/node_modules/egg-watcher/config/config.local.js",
+    "type": "/home/xj/project/company/StoreMonitor/node_modules/egg-watcher/config/config.unittest.js",
     "eventSources": {
       "default": "/home/xj/project/company/StoreMonitor/node_modules/egg-watcher/config/config.default.js",
       "development": "/home/xj/project/company/StoreMonitor/node_modules/egg-watcher/config/config.default.js"
@@ -112,12 +110,6 @@
   },
   "helper": {
     "shtml": "/home/xj/project/company/StoreMonitor/node_modules/egg-security/config/config.default.js"
-  },
-  "development": {
-    "watchDirs": "/home/xj/project/company/StoreMonitor/node_modules/egg-development/config/config.default.js",
-    "ignoreDirs": "/home/xj/project/company/StoreMonitor/node_modules/egg-development/config/config.default.js",
-    "fastReady": "/home/xj/project/company/StoreMonitor/node_modules/egg-development/config/config.default.js",
-    "reloadOnDebug": "/home/xj/project/company/StoreMonitor/node_modules/egg-development/config/config.default.js"
   },
   "logrotator": {
     "filesRotateByHour": "/home/xj/project/company/StoreMonitor/node_modules/egg-logrotator/config/config.default.js",
@@ -142,7 +134,7 @@
   },
   "view": {
     "root": "/home/xj/project/company/StoreMonitor/node_modules/egg-view/config/config.default.js",
-    "cache": "/home/xj/project/company/StoreMonitor/node_modules/egg-view/config/config.local.js",
+    "cache": "/home/xj/project/company/StoreMonitor/node_modules/egg-view/config/config.default.js",
     "defaultExtension": "/home/xj/project/company/StoreMonitor/node_modules/egg-view/config/config.default.js",
     "defaultViewEngine": "/home/xj/project/company/StoreMonitor/node_modules/egg-view/config/config.default.js",
     "mapping": "/home/xj/project/company/StoreMonitor/node_modules/egg-view/config/config.default.js"
@@ -170,7 +162,8 @@
       "pg-promise": "/home/xj/project/company/StoreMonitor/node_modules/egg/config/config.default.js"
     },
     "devDependencies": {
-      "egg-bin": "/home/xj/project/company/StoreMonitor/node_modules/egg/config/config.default.js"
+      "egg-bin": "/home/xj/project/company/StoreMonitor/node_modules/egg/config/config.default.js",
+      "egg-mock": "/home/xj/project/company/StoreMonitor/node_modules/egg/config/config.default.js"
     }
   },
   "baseDir": "/home/xj/project/company/StoreMonitor/node_modules/egg/config/config.default.js",

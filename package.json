@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "egg-bin test",
-    "dev": "egg-bin dev --port 7001"
+    "dev": "egg-bin dev --port 7002"
   },
   "author": "",
   "license": "ISC",
@@ -15,6 +15,7 @@
     "pg-promise": "^7.2.0"
   },
   "devDependencies": {
-    "egg-bin": "^4.3.5"
+    "egg-bin": "^4.3.5",
+    "egg-mock": "^3.13.1"
   }
 }
