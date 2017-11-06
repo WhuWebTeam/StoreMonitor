@@ -178,7 +178,7 @@
       }
     },
     "logger": {
-      "dir": "/home/xj/logs",
+      "dir": "/home/xj/project/company/StoreMonitorInfo/log/logs",
       "encoding": "utf8",
       "env": "local",
       "level": "INFO",
@@ -233,6 +233,10 @@
     },
     "clusterClient": {
       "responseTimeout": 60000
+    },
+    "path": {
+      "infoDir": "/home/xj/project/company/StoreMonitorInfo",
+      "logDir": "/home/xj/project/company/StoreMonitorInfo/log"
     },
     "database": {
       "pg": {

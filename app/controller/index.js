@@ -15,6 +15,16 @@ module.exports = app => {
                 user
             };
         }
+
+        async logTest() {
+            this.service.logger.logDefault('error', 'test');
+            this.ctx.body = {
+                code: 200,
+                info: {
+                    message: 'successed'
+                }
+            }
+        }
     }
 
     return Index;

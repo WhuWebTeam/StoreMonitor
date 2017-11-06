@@ -4,7 +4,11 @@ module.exports = appInfo => {
     const Config = {
         keys: appInfo.name + 'StoreMonitor',
         logger:  {
-            dir: path.join(appInfo.HOME, 'logs')
+            dir: path.join(appInfo.baseDir, '../StoreMonitorInfo/log/logs')
+        },
+        path: {
+            infoDir: path.join(appInfo.baseDir, '../StoreMonitorInfo'),
+            logDir: path.join(appInfo.baseDir, '../StoreMonitorInfo/log'),
         },
         database: {
             pg: {

@@ -18,6 +18,10 @@
     },
     "allowDebugAtProd": "/home/xj/project/company/StoreMonitor/node_modules/egg/config/config.default.js"
   },
+  "path": {
+    "infoDir": "/home/xj/project/company/StoreMonitor/config/config.default.js",
+    "logDir": "/home/xj/project/company/StoreMonitor/config/config.default.js"
+  },
   "database": {
     "pg": {
       "user": "/home/xj/project/company/StoreMonitor/config/config.default.js",

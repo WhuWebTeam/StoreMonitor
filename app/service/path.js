@@ -11,7 +11,6 @@
 
 
 const fs = require('fs');
-const path = require('path');
 
 /** path */
 module.exports = app => {
@@ -59,7 +58,7 @@ module.exports = app => {
                             file: false
                         });
                     });
-                } catch (err) {
+                } catch(err) {
 
                     // excetion, doesn't exists
                     return reject({
@@ -80,9 +79,9 @@ module.exports = app => {
          * @return {Promise<>} do not return value
          */
         async mkdir(path) {
-
+            console.log('---------');
             // directory specified by path exists
-            const result = await pathExists(path);
+            const result = await this.pathExists(path);
             if (result.exists) {
                 return;
             }
@@ -95,7 +94,9 @@ module.exports = app => {
                 const tempPath = path.substring(0, index);
 
                 // directory exists
-                const result = await pathExists(temp);
+                const result = await this.pathExists(tempPath);
+                console.log(tempPath);
+                console.log(result.exists);
                 if (result.exists) {
                     continue;
                 }
@@ -141,7 +142,7 @@ module.exports = app => {
             
             // file's father's path doesn't exists
             const fatherPath = path.substring(0, path.lastIndexOf('/'));
-            await mkdir(fatherPath);
+            await this.mkdir(fatherPath);
         
             return new Promise((resolve, reject) => {
                 try {
@@ -152,10 +153,57 @@ module.exports = app => {
 
                         return resolve(fd);
                     });
-                } catch (err) {
+                } catch(err) {
                     return reject(err);
                 }
             }).then(fd => fd).catch(err => {
+                throw err;
+            });
+        }
+
+
+        async writeFile(path, content, mode) {
+
+            // file's father directory exists or not
+            const fatherPath = path.substring(0, path.lastIndexOf('/'));
+            await this.mkdir(fatherPath);
+
+            return new Promise((resolve, reject) => {
+                try {
+                    fs.writeFile(path, content, mode, err => {
+                        if (err) {
+                            return reject(err);
+                        }
+
+                        return resolve();
+                    });
+                } catch(err) {
+                    reject (err);
+                }
+            }).then(() => {}).catch(err => {
+                throw err;
+            });
+        }
+
+        async appendFile(path, content) {
+            const fatherPath = path.substring(0, path.lastIndexOf('/'));
+            console.log(path);
+            console.log(fatherPath);
+            await this.mkdir(fatherPath);
+
+            return new Promise((resolve, reject) => {
+                try {
+                    fs.appendFile(path, content, err => {
+                        if (err) {
+                            return reject(err);
+                        }
+
+                        return resolve();
+                    });
+                } catch(err) {
+                    return reject(err);
+                }
+            }).then(() => {}).catch(err => {
                 throw err;
             });
         }

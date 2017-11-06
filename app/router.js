@@ -11,6 +11,7 @@ module.exports = app => {
 
     app.get('/', 'index.index');
     app.get('/database', 'index.pgTest');
+    app.get('/log', 'index.logTest');
 
     require('./router/user')(app);
     require('./router/video')(app);
