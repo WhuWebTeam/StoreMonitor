@@ -17,7 +17,7 @@ module.exports = app => {
         }
 
         async logTest() {
-            this.service.logger.logDefault('error', 'test');
+            this.service.logger.logDefault('running', 'test');
             this.ctx.body = {
                 code: 200,
                 info: {
