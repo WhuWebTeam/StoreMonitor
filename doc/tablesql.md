@@ -56,6 +56,7 @@ ALTER TABLE public.authorities
 
 CREATE TABLE public."counterUser"
 (
+    id serial primary key,
     userId varchar(50),
     counterId varchar(50)
 ) 
