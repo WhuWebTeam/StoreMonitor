@@ -17,9 +17,9 @@
 
 
 
-### wuMartUsers
+### userswm
 
-CREATE TABLE public."wuMartUsers"
+CREATE TABLE public."userswm"
 (
     wmUserId varchar(50) primary key,
     wmUserLvl int,
@@ -31,7 +31,7 @@ CREATE TABLE public."wuMartUsers"
 WITH (
   OIDS = FALSE
 );
-ALTER TABLE public."wuMartUsers"
+ALTER TABLE public."userswm"
   OWNER TO company;
 
 

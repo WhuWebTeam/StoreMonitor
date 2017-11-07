@@ -11,7 +11,7 @@ module.exports = app => {
 
 
         async getUsers() {
-            const users = await this.service.dbHelp.query('wuMartUsers', ['*'], {});
+            const users = await this.service.dbHelp.query('userswm', ['*'], {});
             this.ctx.body = {
                 code: 200,
                 data: users
@@ -22,13 +22,13 @@ module.exports = app => {
             const wmUserId = this.ctx.params.userId;
 
             // user exists or not
-            if (!await this.service.WuMartUsers.exists(wmUserId)) {
+            if (!await this.service.userswm.exists(wmUserId)) {
                 this.ctx.body = this.service.util.generateResponse(400, `user doesn't exists`);
                 return;
             }
             
             
-            const user = await this.service.dbHelp.query('wuMartUsers', ['*'], { wmUserId });
+            const user = await this.service.dbHelp.query('userswm', ['*'], { wmUserId });
             this.ctx.body = {
                 code: 200,
                 data: user[0]
