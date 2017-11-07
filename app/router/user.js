@@ -13,7 +13,7 @@ module.exports = app => {
 
     app.get('/api/v1/user', 'user.getUsers'); // get users' info
     app.get('/api/v1/user/:userId', 'user.getUser'); // get some user's info
-    app.put('/api/v1/users/:userId', 'user.changeLevel'); // change user's level, high level user can modify low level user's level
+    app.put('/api/v1/users/authority/:userId', 'user.changeAuthority'); // change user's authority, high level user can modify low level user's level
     app.put('/api/v1/user/password/:userId', 'user.changePassword'); // change some user's password
     app.post('/api/v1/user/:userId', 'user.addUser'); // add some user
     app.post('/api/v1/user/signIn', 'user.signIn'); // user login
@@ -21,28 +21,27 @@ module.exports = app => {
 }
 
 
-// app.put('/api/v1/users/:userId', 'user.changeLevel'); // change user's level, high level user can modify low level user's level
-// :userId oprateman's userNumber
+// app.put('/api/v1/users/:userId', 'user.changeAuthority'); // change user's level, high authority user can modify low level user's level
+// :userId oprateman's id
 // {
-//      userNumber,
-//      level   
+//      id,
+//      authorityId
 // }
 
 
 // app.put('/api/v1/user/password/:userId', 'user.changePassword'); // change some user's password
-// :userId oprateman's userNumber
+// :userId oprateman's id
 // {
 //     password
 // }
 
 
 // app.post('/api/v1/user/:userId', 'user.addUser'); // add some user
-// :userId oprateman's userNumber
+// :userId oprateman's id
 // {
-//     userNumber,
+//     id,
 //     userName,
 //     password,
-//     level,
 //     phone,
 //     email
 // }
@@ -50,12 +49,12 @@ module.exports = app => {
 
 // app.post('/api/v1/user/signIn', 'user.signIn'); // user login
 // {
-//     userNumber,
+//     id,
 //     password
 // }
 
 // app.delete('/api/v1/user/:userId', 'user.deleteUser'); // delete some user
-// :userId oprateman's userNumber
+// :userId oprateman's id
 // {
-//     userNmuber
+//     id
 // }

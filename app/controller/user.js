@@ -22,9 +22,9 @@ module.exports = app => {
 
         // get some user's info
         async getUser() {
-            const userNumber = this.ctx.params.userId;
-            if (await this.service.users.exists(userNumber)) {
-                const user = await this.service.dbHelp.query('users', ['*'], {userNumber});
+            const id = this.ctx.params.userId;
+            if (await this.service.users.exists(id)) {
+                const user = await this.service.dbHelp.query('users', ['*'], { id });
                 this.ctx.body = {
                     code: 400,
                     data: user[0]
@@ -37,73 +37,66 @@ module.exports = app => {
 
 
         // change some user's level related to priority
-        async changeLevel() {
+        async changeAuthority() {
             
-            // oprate man's info
-            const oprateMan = this.ctx.query.userId;
-            const oprateLevel = await this.service.users.getUserLevel(oprateMan);
-
-            // info of man whoes level is oprated
-            const opratedMan = this.ctx.request.body;
-            const opratedLevel = await this.service.users.getUserLevel(opratedMan.userNumber);
-            
-            if (!await this.ctx.service.users.exists(oprateMan)) {
+            // oprate man exists or not
+            const id = this.ctx.query.userId;
+            if (!await this.service.users.exists(id)) {
                 this.ctx.body = this.service.util.generateResponse(400, `user doesn't exists`);
                 return;
             }
-
-            // oprate man's level < oprated man's level
-            if (oprateLevel < opratedLevel) {
-                this.ctx.body = this.service.util.generateResponse(400, `you don't have the priority`);
-                return;
-            }
-
-            // oprate man's level > level will be modified to
-            if (opratedLevel > opratedMan.level) {
-                this.ctx.body = this.service.util.generateResponse(400, 'priority modified to more than you priority');
-                return;
-            }
             
-            await this.service.dbHelp.update('users', {level: opratedMan.level}, {userNumber: opratedMan.userNumber});
-            this.ctx.body = this.service.util.generateResponse(200, 'level modify successfully');
+
+            // oprated user exists or not
+            const user = this.ctx.request.body;
+            if (!await this.service.users.exists(user.id)) {
+                this.ctx.body = this.servicee.util.generateResponse(400, `user whose authority waited to be changed doesn't exists`);
+                return;
+            }
+
+            // change authority of user specified by id 
+            await this.service.dbHelp.update('users', user, { id: user.id });
+            this.ctx.body = this.service.util.generateResponse(200, `change user's authority successed`);
         }
 
 
         // change some user's password
         async changePassword() {
-            const userNumber = this.ctx.params.userId;
+            const id = this.ctx.params.userId;
             const password = this.ctx.request.body.password;
-            if (await this.service.users.exists(userNumber)) {
-                await this.service.dbHelp.update('users', {password}, {userNumber});
-
-                this.ctx.body = this.service.util.generateResponse(200, 'password modify successful');
+            
+            
+            // user doesn't exist
+            if (!await this.service.users.exists(id)) {
+                this.ctx.body = this.service.util.generateResponse(400, `user doesn't exists`);
                 return;
             }
 
-            this.ctx.body = this.service.util.generateResponse(400, `user doesn't exists`);            
+            await this.service.dbHelp.update('users', { password }, { id });
+            this.ctx.body = this.service.util.generateResponse(200, 'password modify successful');                        
         }
 
         
         // add some user whoes priority doesn't more than oprate man's level 
         async addUser() {
 
-            // oprate man's info
+            // oprate man exists or not
             const oprateMan = this.ctx.params.userId;
-            const oprateLevel = await this.service.users.getUserLevel(oprateMan);
-
-            // info of user to be added
-            const user = this.ctx.request.body;
-
-            // oprated user exists
-            if (await this.service.users.exists(user.userNumber)) {
-                this.ctx.body = this.service.util.generateResponse(400, `user to be added exists`);
+            if (!await this.service.users.exists(oprateMan)) {
+                this.ctx.body = this.service.util.generateResponse(400, `user doesn't exists`);
                 return;
             }
 
-            // level to be setted higher than oprate man's level
-            if (oprateLevel < user.level) {
-                this.ctx.body = this.service.util.generateResponse(400, `you don't have the priority to set someone's priority more than you`);
+            // oprated user exists or not
+            const user = this.ctx.request.body;
+            if (await this.service.users.exists(user.id)) {
+                this.ctx.body = this.service.util.generateResponse(400, `user waited to be added exists`);
                 return;
+            }
+
+            // set authority to null when user's authority exists
+            if (user.authorityId) {
+                user.authorityId = '';
             }
 
             await this.service.dbHelp.insert('users', user);
@@ -116,8 +109,8 @@ module.exports = app => {
             const user = this.ctx.request.body;
 
             // user exists
-            if (await this.service.users.exists(user.userNumber)) {
-                const result = await this.service.users.passwordRight(user.userNumber, user.password);
+            if (await this.service.users.exists(user.id)) {
+                const result = await this.service.users.passwordRight(user.id, user.password);
                 this.ctx.body = {
                     code: 200,
                     data: {
@@ -127,34 +120,30 @@ module.exports = app => {
                 return;
             }
         
-             this.ctx.body = this.service.util.generateResponse(400, `user doesn't exists`);
-        }        
+            this.ctx.body = this.service.util.generateResponse(400, `user doesn't exists`);
+
+            // ----------------------
+        }
 
 
         // delete some user whoes level less than oprated man
         async deleteUser() {
 
-            // oprate man's info
+            // oprate man exists or not
             const oprateMan = this.ctx.params.userId;
-            let oprateLevel = await this.service.users.getUserLevel(oprateMan);
+            if (!await this.service.users.exists(oprateMan)) {
+                this.ctx.body = this.service.util.generateResponse(400 `user doesn't exsits`);
+                return;
+            }
 
-            // info of man to be deleted
+            // oprated man exists or not
             const opratedMan = this.ctx.request.body;
-            const opratedLevel = await this.service.users.getUserLevel(opratedMan.userNumber);
-
-            // user exists or not
-            if (!await this.service.users.exists(opratedMan.userNumber)) {
-                this.ctx.body = this.service.util.generateResponse(400, `user doesn't exists`);
+            if (!await this.service.util.exists(opratedMan.id)) {
+                this.ctx.body = this.service.util.generateResponse(400, `user wait to be deleted doesn't exists`);
                 return;
             }
 
-            // operated man's level more than oprate man's level
-            if (oprateLevel <= opratedLevel) {
-                this.ctx.body = this.service.util.generateResponse(400, `you don't have the priority to delete user whoes priority don't less than you`);
-                return;
-            }
-
-            await this.service.dbHelp.delete('users', {userNumber: opratedMan.userNumber});
+            await this.service.dbHelp.delete('users', { id: opratedMan.id });
             this.ctx.body = this.service.util.generateResponse(200, 'delete user successfully');
         }
     }

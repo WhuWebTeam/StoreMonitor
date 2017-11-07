@@ -82,6 +82,12 @@
     "helper": {
       "shtml": {}
     },
+    "development": {
+      "watchDirs": [],
+      "ignoreDirs": [],
+      "fastReady": true,
+      "reloadOnDebug": true
+    },
     "logrotator": {
       "filesRotateByHour": null,
       "filesRotateBySize": null,
@@ -108,12 +114,12 @@
     },
     "view": {
       "root": "/home/xj/project/company/StoreMonitor/app/view",
-      "cache": true,
+      "cache": false,
       "defaultExtension": ".html",
       "defaultViewEngine": "",
       "mapping": {}
     },
-    "env": "unittest",
+    "env": "local",
     "name": "storemonitor",
     "keys": "<String len: 24>",
     "proxy": false,
@@ -175,17 +181,19 @@
     "logger": {
       "dir": "/home/xj/project/company/StoreMonitorInfo/log/logs",
       "encoding": "utf8",
-      "env": "unittest",
+      "env": "local",
       "level": "INFO",
-      "consoleLevel": "WARN",
+      "consoleLevel": "INFO",
       "disableConsoleAfterReady": false,
       "outputJSON": false,
-      "buffer": false,
+      "buffer": true,
       "appLogName": "storemonitor-web.log",
       "coreLogName": "egg-web.log",
       "agentLogName": "egg-agent.log",
       "errorLogName": "common-error.log",
-      "coreLogger": {},
+      "coreLogger": {
+        "consoleLevel": "WARN"
+      },
       "allowDebugAtProd": true,
       "type": "agent"
     },
@@ -319,6 +327,21 @@
       "path": "/home/xj/project/company/StoreMonitor/node_modules/egg-security",
       "version": "1.12.1"
     },
+    "development": {
+      "enable": true,
+      "package": "egg-development",
+      "name": "development",
+      "dependencies": [
+        "watcher"
+      ],
+      "optionalDependencies": [],
+      "env": [
+        "local"
+      ],
+      "from": "/home/xj/project/company/StoreMonitor/node_modules/egg/config/plugin.js",
+      "path": "/home/xj/project/company/StoreMonitor/node_modules/egg-development",
+      "version": "1.3.1"
+    },
     "schedule": {
       "enable": true,
       "package": "egg-schedule",
@@ -377,15 +400,6 @@
       "from": "/home/xj/project/company/StoreMonitor/node_modules/egg/config/plugin.js",
       "path": "/home/xj/project/company/StoreMonitor/node_modules/egg-view",
       "version": "1.1.2"
-    },
-    "egg-mock": {
-      "enable": true,
-      "path": "/home/xj/project/company/StoreMonitor/node_modules/egg-mock",
-      "name": "egg-mock",
-      "dependencies": [],
-      "optionalDependencies": [],
-      "env": [],
-      "version": "3.13.1"
     }
   }
 }

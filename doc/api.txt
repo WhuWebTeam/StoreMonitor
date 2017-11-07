@@ -1,0 +1,41 @@
+app/controller/users
+
+app.put('/api/v1/users/:userId', 'user.changeAuthority'); // change user's level, high authority user can modify low level user's level
+:userId oprateman's id
+{
+     id,
+     authorityId
+}
+
+
+app.put('/api/v1/user/password/:userId', 'user.changePassword'); // change some user's password
+:userId oprateman's id
+{
+    password
+}
+
+
+app.post('/api/v1/user/:userId', 'user.addUser'); // add some user
+:userId oprateman's id
+{
+    id,
+    userName,
+    password,
+    phone,
+    email
+}
+
+
+app.post('/api/v1/user/signIn', 'user.signIn'); // user login
+{
+    id,
+    password
+}
+
+app.delete('/api/v1/user/:userId', 'user.deleteUser'); // delete some user
+:userId oprateman's id
+{
+    id
+}
+
+注: 前一行为接口， 后面注释， 下面为请求格式
