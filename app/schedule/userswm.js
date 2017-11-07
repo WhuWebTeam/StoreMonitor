@@ -4,7 +4,7 @@ module.exports = app => {
             cron: '* * */1 * * *',
             type: 'all',
             immediate: true,
-            disable: app.config.env === 'server'
+            disable: app.config.env === 'local'
         },
 
         async task(ctx) {

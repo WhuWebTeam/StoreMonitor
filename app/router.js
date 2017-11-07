@@ -16,4 +16,7 @@ module.exports = app => {
     require('./router/user')(app);
     require('./router/video')(app);
     require('./router/userswm')(app);
+    require('./router/areas')(app);
+    require('./router/shops')(app);
+    require('./router/counters')(app);
 }
