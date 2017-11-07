@@ -15,4 +15,5 @@ module.exports = app => {
 
     require('./router/user')(app);
     require('./router/video')(app);
+    require('./router/wuMartUsers')(app);
 }

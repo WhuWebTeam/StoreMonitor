@@ -3,7 +3,9 @@ module.exports = app => {
         async index() {
             this.ctx.body = {
                 code: 200,
-                data: 'access successful'
+                data: {
+                    info: 'access successful'
+                }
             };
         }
 
@@ -11,7 +13,7 @@ module.exports = app => {
             const str = 'select * from users';
             const user = await this.app.db.query(str, []);
             this.ctx.body = {
-                code: 400,
+                code: 200,
                 user
             };
         }
@@ -20,8 +22,8 @@ module.exports = app => {
             this.service.logger.logDefault('running', 'test');
             this.ctx.body = {
                 code: 200,
-                info: {
-                    message: 'successed'
+                data: {
+                    info: 'successed'
                 }
             }
         }
