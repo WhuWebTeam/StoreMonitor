@@ -10,28 +10,32 @@ module.exports = app => {
         async task(ctx) {
             
             // get users' info of Wu Mei supermarket
-            const wmusers = await ctx.curl('https://registry.npm.taobao.org/egg/latest', {
-                contentType: 'json',
+            let wmusers = await ctx.curl('https://httpbin.org/get?foo=bar', {
+                dataType: 'json',
+                timeout: 60000,
             });
+            // console.log(wmusers.data);
 
-            console.log(wmusers.data);
             // write users' info of Wu Mei supermarket to local database(company.userswm)
             // wmusers.map(wmuser => {
 
             //     // format users' info of Wu Mei supermarket to table structure
             //     let user = {};
-            //     user.wmUserId = wmuser.id || ''; //-----  not null restrict
+            //     user.wmUserId = wmuser.id || '10001'; //-----  not null restrict
             //     user.wmUserLvl = wmuser.level || '';
             //     user.userName = wmuser.name || '';
             //     user.phone = wmuser.phone || '';
             //     user.email = wmuser.email || '';
             //     user.authorityId = '';
 
-            // //     if (!await ctx.app.service.userswm.exists(user.wmUserId)) {
-            // //         return;
-            // //     }
+                // if (!await ctx.service.userswm.exists(user.wmUserId)) {
+                //     return;
+                // }
 
-            // //     await app.service.dbHelp.insert('userswm', user);
+                // await app.service.dbHelp.insert('userswm', user);
+
+
+                //  ctx.service.test.print('cron');
             // });
         }
     }

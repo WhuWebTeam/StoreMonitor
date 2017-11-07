@@ -1,6 +1,6 @@
 module.exports = app => {
     class Test extends app.Service {
-        print(message) {
+        async print(message) {
             console.log(message);
         }
     }
