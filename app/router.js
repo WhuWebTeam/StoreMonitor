@@ -19,4 +19,9 @@ module.exports = app => {
     require('./router/shops')(app);
     require('./router/counters')(app);
     require('./router/counterUser')(app);
+    require('./router/cashiers')(app);
+    require('./router/customers')(app);
+    require('./router/products')(app);
 }
+
+cashiers
