@@ -22,12 +22,12 @@ module.exports = app => {
         }
 
         // get come counter's info specified by userId or counterId
-        async getCounter() {
-            const counterUser = this.ctx.request.body;
+        async getCounterUser() {
+            let counterUser = this.ctx.request.body;
 
             // userId and counterId exists in request
             if (counterUser.userId && counterUser.counterId) {
-                const counterUser = await this.service.dbHelp.query('counterUser', ['*'], { userId: countUser.userId, counterId: counterUser.counterId });
+                counterUser = await this.service.dbHelp.query('counterUser', ['*'], { userId: countUser.userId, counterId: counterUser.counterId });
 
                 this.ctx.body = {
                     code: 200,
@@ -38,7 +38,7 @@ module.exports = app => {
 
             // userId exists in request
             if (counterUser.userId) {
-                const counterUser = await this.service.dbHelp.query('counterUser', ['*'], { userId: counterUser.userId });
+                counterUser = await this.service.dbHelp.query('counterUser', ['*'], { userId: counterUser.userId });
 
                 this.ctx.body = {
                     code: 200,
@@ -48,8 +48,8 @@ module.exports = app => {
             }
 
             // counterId exists in request
-            if (counterId.counterId) {
-                const counterUser = await this.service.dbHelp.query('counterUser', ['*'], { counterId: counterUser.counterId });
+            if (counterUser.counterId) {
+                counterUser = await this.service.dbHelp.query('counterUser', ['*'], { counterId: counterUser.counterId });
 
                 this.ctx.body = {
                     code: 200,
@@ -58,7 +58,7 @@ module.exports = app => {
                 return;
             }
 
-            const counterUser = await this.service.dbHelp.query('counterUser', ['*'], counterUser);
+            counterUser = await this.service.dbHelp.query('counterUser', ['*'], counterUser);
             this.ctx.body = {
                 code: 200,
                 counterUser
@@ -68,7 +68,7 @@ module.exports = app => {
         async modifyCounterUser() {
             const type = this.ctx.request.body.type;
 
-            
+
         }
 
         // assign some counter specified by counter id to some user specified by userId

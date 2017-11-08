@@ -9,3 +9,25 @@ module.exports = app => {
     app.post('/api/v1/counterUser/:userId/:counterId', 'counterUser.assignCounter'); // assign some counter specified by counterId to some user specified by userId
     app.delete('/api/v1/counterUser/:userId/:counterId', 'counterUser.retrieveCounter'); // retrieve some counter specified by counterId from user specified by userId
 }
+
+    // get assigned info condition query
+    // app.post('/api/v1/counterUser', 'counterUser.getCounterUser');
+    // one or more attributes of the following object
+    // {
+    //     id,
+    //     counterId,
+    //     userId,
+    //     type   
+    // }
+
+    // assign some counter specified by counterId to some user specified by userId
+    // app.post('/api/v1/counterUser/:userId/:counterId', 'counterUser.assignCounter');
+    // counterId and userId must exists
+    // {
+    //     counterId,
+    //     userId,
+    //     type   
+    // }
+
+    // retrieve some counter specified by counterId from user specified by userId
+    // app.delete('/api/v1/counterUser/:userId/:counterId', 'counterUser.retrieveCounter');

@@ -1,5 +1,7 @@
 module.exports = app => {
     class Counters extends app.Controller {
+        
+        // index test
         async index() {
             this.ctx.body = {
                 code: 200,
@@ -9,6 +11,7 @@ module.exports = app => {
             };
         }
 
+        // get info of counters
         async getCounters() {
             const counters = await this.service.dbHelp.query('counters', ['*'], {});
             this.ctx.body = {
@@ -17,6 +20,7 @@ module.exports = app => {
             };
         }
 
+        // get info of some counter specified by id
         async getCounter() {
             const id = this.ctx.params.counterId;
 
@@ -32,6 +36,31 @@ module.exports = app => {
             };
         }
 
+
+        // get counters have been assigned
+        async getCountersAssigned() {
+            
+            const sqlStr = '';
+
+            const counters = await this.app.db.query(sqlStr, []);
+            this.ctx.body = {
+                code: 200,
+                data: counters
+            };
+        }
+
+        // get counters haven't been assigned
+        async getCountersNotAssigned() {
+            const sqlStr = '';
+
+            const counters = await this.app.db.query(sqlStr, []);
+            this.ctx.body = {
+                code: 200,
+                data: counters
+            };
+        }
+
+        // modify info of some counter specified by id
         async modifyCounter() {
             const id = this.ctx.params.counterId;
 
@@ -52,6 +81,7 @@ module.exports = app => {
             this.ctx.body = this.service.util.generateResponse(200, 'modify counter info successed');
         }
 
+        // add a new counter
         async addCounter() {
             const counter = this.ctx.request.body;
 

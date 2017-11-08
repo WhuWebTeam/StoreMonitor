@@ -13,7 +13,7 @@ module.exports = app => {
     app.get('/database', 'index.pgTest');
     app.get('/log', 'index.logTest');
 
-    require('./router/user')(app);
+    require('./router/users')(app);
     require('./router/userswm')(app);
     require('./router/areas')(app);
     require('./router/shops')(app);

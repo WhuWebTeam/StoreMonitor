@@ -7,7 +7,7 @@ module.exports = app => {
     app.get('/api/v1/counters', 'counters.getCounters'); // get counters' info
     app.get('/api/v1/counters/:counterId', 'counters.getCounter'); // get info of some counter spoecified by id
     app.get('/api/v1/counters/assigned', 'counters.getCountersAssigned'); // get info of counters assigned
-    app.get('/api/v1/counters/notAssaigned', 'counters.getCOuntersNotAssigned'); // get info of counters not assigned
+    app.get('/api/v1/counters/notAssaigned', 'counters.getCountersNotAssigned'); // get info of counters not assigned
     app.put('/api/v1/counters/:counterId', 'counters.modifyCounter'); // modify info of some counter specified by id
     app.post('/api/v1/counters', 'counters.addCounter'); // add a new counter
 }

@@ -16,11 +16,31 @@
 
 
 6. 关联款台查询
-    // get counterUsers' intfo
-    app.get('/api/v1/counterUsers', 'conuterUser.getCounterUsers');
+    // get info of counters assigned
+    app.get('/api/v1/counters/assigned', 'counters.getCountersAssigned');
 
-    // get info of some counterUser specified by userId and CounterId
-    app.get('/api/v1/counterUser/:userId/:counterId', 'counterUser.getCOunterUser');
+    
+    
+    // get info of counters not assigned
+    app.get('/api/v1/counters/notAssaigned', 'counters.getCountersNotAssigned');
+
+    
+    
+    // get all assigned counters and thier manage users
+    app.get('/api/v1/counterUsers', 'counterUser.getCounterUsers');
+
+    
+    
+    // get assigned info condition query
+    app.post('/api/v1/counterUser', 'counterUser.getCounterUser');
+    // one or more attributes of the following object
+    {
+        id,
+        counterId,
+        userId,
+        type   
+    }
+
 
 
 
@@ -37,11 +57,15 @@
 
 
 4. 防损员关联款台设定
-    // modify counterUser bind and info
-    app.put('/api/v1/counterUser', 'counterUser.modifyCounterUser');
     
     // assign some counter specified by counterId to some user specified by userId
     app.post('/api/v1/counterUser/:userId/:counterId', 'counterUser.assignCounter');
+    // counterId and userId must exists
+    {
+        counterId,
+        userId,
+        type   
+    }
 
     // retrieve some counter specified by counterId from user specified by userId
     app.delete('/api/v1/counterUser/:userId/:counterId', 'counterUser.retrieveCounter');
