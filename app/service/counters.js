@@ -1,5 +1,5 @@
 module.exports = app => {
-    class Counter extends app.Service {
+    class Counters extends app.Service {
         async exists(id) {
             if (await this.service.dbHelp.count('counters', id, { id })) {
                 return true;
@@ -9,5 +9,5 @@ module.exports = app => {
         }
     }
 
-    return Counter;
+    return Counters;
 }

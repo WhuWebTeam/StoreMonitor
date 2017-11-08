@@ -35,7 +35,7 @@ module.exports = app => {
         async modifyCounter() {
             const id = this.ctx.params.counterId;
 
-            if (!await this.service.counter.exists(id)) {
+            if (!await this.service.counters.exists(id)) {
                 this.ctx.body = this.service.util.generateResponse(400, `counter  doesn't exists`);
                 return;
             }
@@ -48,7 +48,7 @@ module.exports = app => {
                 return;
             }
 
-            const counter = await this.service.dbHelp.update('counters', counter, { id });
+            await this.service.dbHelp.update('counters', counter, { id });
             this.ctx.body = this.service.util.generateResponse(200, 'modify counter info successed');
         }
 
