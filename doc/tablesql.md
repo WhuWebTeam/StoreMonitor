@@ -1,25 +1,25 @@
 ### users
 
-    CREATE TABLE public."users"
+    CREATE TABLE public.users
     (
         id varchar(50) primary key,
         username varchar(50),
         password varchar(50) not null,
         phone varchar(11),
         email varchar(50),
-	authorityId varchar(50)
+	      authorityId varchar(50)
     )
     WITH (
         OIDS=FALSE
     );
-    ALTER TABLE public."users"
+    ALTER TABLE public.users
     OWNER TO company;
 
 
 
 ### userswm
 
-CREATE TABLE public."userswm"
+CREATE TABLE public.userswm
 (
     wmUserId varchar(50) primary key,
     wmUserLvl int,
@@ -31,7 +31,7 @@ CREATE TABLE public."userswm"
 WITH (
   OIDS = FALSE
 );
-ALTER TABLE public."userswm"
+ALTER TABLE public.userswm
   OWNER TO company;
 
 
@@ -54,7 +54,7 @@ ALTER TABLE public.authorities
 
 ### userCounter
 
-CREATE TABLE public."counterUser"
+CREATE TABLE public.counterUser
 (
     id serial primary key,
     userId varchar(50),
@@ -63,7 +63,7 @@ CREATE TABLE public."counterUser"
 WITH (
   OIDS = FALSE
 );
-ALTER TABLE public."counterUser"
+ALTER TABLE public.counterUser
   OWNER TO company;
 
 
@@ -117,7 +117,32 @@ ALTER TABLE public.areas
   OWNER TO company;
 
 
+
 ### bills
+
+CREATE TABLE public.bills
+(
+    id serial primary key,
+    price int,
+    quantity int,
+    amount int,
+    ts bigint,
+    scriptVer int,
+    eventFlag varchar(50),
+    startTime bigint,
+    endTime bigint,
+    cashierId varchar(50),
+    customerId varchar(50),
+    transId varchar(50),
+    shopId varchar(50),
+    counterId varchar(50),
+    productId varchar(50)
+) 
+WITH (
+  OIDS = FALSE
+);
+ALTER TABLE public.bills
+  OWNER TO company;
 
 
 
@@ -171,7 +196,7 @@ ALTER TABLE public.products
 
 ### eventsList
 
-CREATE TABLE public."eventsList"
+CREATE TABLE public.eventsList
 (
     id serial primary key,
     transId varchar(50),
@@ -186,42 +211,16 @@ WITH (
   OIDS = FALSE
 )
 ;
-ALTER TABLE public."eventsList"
+ALTER TABLE public.eventsList
   OWNER TO company;
 
 
 
-### styles 
-
-    ```
-    CREATE TABLE public.styles
-    (
-        id serial,
-        style varchar(50) primary key,
-        fontType varchar(50),
-        fontSize int,
-        fontRGB varchar(50),
-        iconUrl varchar(200),
-        iconW int,
-        iconH int,
-        createAt bigint,
-        updateAt bigint,
-        transId varchar(50)
-    ) 
-    WITH (
-        OIDS = FALSE
-    );
-    ALTER TABLE public.styles
-    OWNER TO company;
-    ```
-
-
-
-# statistics table
+# statistics tables
 
 ### cashierSalesInfo
 
-CREATE TABLE public."cashierSalesInfo"
+CREATE TABLE public.cashierSalesInfo
 (
     id serial primary key,
     ts bigint,
@@ -234,14 +233,14 @@ WITH (
   OIDS = FALSE
 )
 ;
-ALTER TABLE public."cashierSalesInfo"
+ALTER TABLE public.cashierSalesInfo
   OWNER TO company;
 
 
 
 ### customerSalesInfo
 
-CREATE TABLE public."customerSalesInfo"
+CREATE TABLE public.customerSalesInfo
 (
     id serial primary key,
     ts bigint,
@@ -255,14 +254,14 @@ CREATE TABLE public."customerSalesInfo"
 WITH (
   OIDS = FALSE
 );
-ALTER TABLE public."customerSalesInfo"
+ALTER TABLE public.customerSalesInfo
   OWNER TO company;
 
 
 
 ### productSalesInfo
 
-CREATE TABLE public."productSalesInfo"
+CREATE TABLE public.productSalesInfo
 (
     id serial primary key,
     ts bigint,
@@ -277,5 +276,5 @@ WITH (
   OIDS = FALSE
 )
 ;
-ALTER TABLE public."productSalesInfo"
+ALTER TABLE public.productSalesInfo
   OWNER TO company;
