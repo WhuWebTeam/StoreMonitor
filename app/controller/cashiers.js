@@ -61,7 +61,7 @@ module.exports = app => {
                 return;
             }
 
-            // add cashier exists;
+            // add a new cashier;
             await this.service.dbHelp.insert('cashiers', cashier);
             this.ctx.body = this.service.generateResponse(200, ``)
         }

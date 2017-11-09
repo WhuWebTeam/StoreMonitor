@@ -22,4 +22,8 @@ module.exports = app => {
     require('./router/cashiers')(app);
     require('./router/customers')(app);
     require('./router/products')(app);
+    require('./router/cashierSalesInfo')(app);
+    require('./router/productSalesInfo')(app);
+    require('./router/customerSalesInfo')(app);
+    require('./router/video')(app);
 }
