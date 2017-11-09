@@ -4,7 +4,7 @@ module.exports = app => {
             interval: '1s',
             type: 'all',
             immediate: false,
-            disable: app.config.env === 'server'
+            disable: app.config.env === 'local'
         },
 
         async task(ctx) {

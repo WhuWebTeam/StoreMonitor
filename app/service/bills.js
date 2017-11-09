@@ -1,5 +1,5 @@
 module.exports = app => {
-	class Bills extends app.service {
+	class Bills extends app.Controller {
 
 		// judge bill exists or not
 		async exists(transId, ts) {
@@ -10,12 +10,16 @@ module.exports = app => {
 			}
 		}
 
+		
 		// insert a bill record to bills
 		async insert(bill) {
+
+			// bill exists
 			if (await this.exists(bill.transId, bill.ts)) {
 				return false;
 			}
 
+			// insert bill to bills
 			await this.service.dbHelp.insert('bills', bill);
 			return true;
 		}

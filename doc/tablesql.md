@@ -127,7 +127,7 @@ CREATE TABLE public.bills
     quantity int,
     amount int,
     ts bigint,
-    scriptVer int,
+    scriptVer varchar(50),
     eventFlag varchar(50),
     startTime bigint,
     endTime bigint,
@@ -205,12 +205,12 @@ CREATE TABLE public.eventsList
     videoUrl varchar(200),
     pic1Url varchar(200),
     pic2Url varchar(200),
-    pic3Url varchar(200)
+    pic3Url varchar(200),
+    pic4Url varchar(200)
 ) 
 WITH (
   OIDS = FALSE
-)
-;
+);
 ALTER TABLE public.eventsList
   OWNER TO company;
 

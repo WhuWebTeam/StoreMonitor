@@ -9,15 +9,16 @@ module.exports = app => {
                 return false;
             }
         }
+        
 
-        // insert a product to products
+        // insert a product record to products
         async insert(product) {
             // product exists
             if (await this.exists(product.id)) {
                 return false;
             }
 
-            
+            // insert product to products
             await this.service.dbHelp.insert('products', product);
             return true;
         }

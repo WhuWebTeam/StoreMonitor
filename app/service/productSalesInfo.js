@@ -1,5 +1,5 @@
 module.exports = app => {
-    class ProductSalesInfo extends app.ProductSalesInfo {
+    class ProductSalesInfo extends app.Service {
         
         // judge productSalesInfo exists or not
         async exists(productId, transId, ts) {

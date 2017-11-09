@@ -3,13 +3,14 @@ module.exports = app => {
         
         // judge cashier exists or not
         async exists(id) {
-            if (!await this.service.dbHelp.count('cashiers', 'id', { id })) {
+            if (await this.service.dbHelp.count('cashiers', 'id', { id })) {
                 return true;
             } else {
                 return false;
             }
         }
 
+        
         // insert record to cashiers
         async insert(cashier) {
 
@@ -18,7 +19,7 @@ module.exports = app => {
                 return false;
             }
 
-            // add a new cashier;
+            // add a new cashier
             await this.service.dbHelp.insert('cashiers', cashier);
             return true;
         }

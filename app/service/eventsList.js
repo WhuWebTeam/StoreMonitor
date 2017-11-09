@@ -10,14 +10,30 @@ module.exports = app => {
             }
         }
 
+        
         // insert a eventList record to eventsList
         async insert(eventList) {
+
+            // eventList exists
             if (await this.exists(eventList.transId, eventList.ts)) {
                 return false;
             } 
 
+            // insert a eventList to eventsList
             await this.service.dbHelp.insert('eventsList', eventList);
             return true;
+        }
+
+
+        // update a evetList record in eventsList
+        async update(eventList) {
+
+            // eventList doesn't exist
+            if (!await this.exists(eventList.transId, eventList.ts)) {
+                return false;
+            }
+
+            await this.service.dbHelp.update('eventsList', { editResult: eventList.})
         }
     }
 
