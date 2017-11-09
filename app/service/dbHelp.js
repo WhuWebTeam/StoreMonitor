@@ -49,6 +49,7 @@ module.exports = app => {
          * @return {Promise<>} do not return value 
          */
         async update(tableName, obj, wheres) {
+            console.log(obj);
             const _this = this;
             // generate query str and values
             const values = [];
@@ -70,12 +71,15 @@ module.exports = app => {
             str = str + ' where ';
             entries = Object.entries(wheres).filter(entry => _this._judge(entry));
             for (let j = 0; j < entries.length; j++) {
-                str = str + entries[j][0] + ' = $' + (j + i + 1) + ', ';
+                str = str + entries[j][0] + ' = $' + (j + i + 1) + ' and ';
                 values.push(entries[j][1]);
             }
-            str = str.substr(0, str.length - 2);
+            str = str.substr(0, str.length - 5);
+            console.log(str);
+            console.log(values);
             await this.app.db.query(str, values);
         }
+
 
         /**
          * used to deal insert opration of database

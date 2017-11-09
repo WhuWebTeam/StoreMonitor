@@ -7,6 +7,14 @@
 
 
 3. 针对每一事件进行处理，并提交处理结果（可暂存）--- 暂存，前端处理
+    // confirm the scan result
+    app.put('/api/v1/eventsList/result', 'eventLists.setResult');
+    transId, ts must exist
+    {
+        transId,
+        ts,
+        editResult
+    }
 
 
 4. 查看历史数据的统计和图表显示
