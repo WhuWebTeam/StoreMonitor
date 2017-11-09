@@ -1,5 +1,5 @@
 module.exports = app => {
-    class products extends app.Controller {
+    class Products extends app.Controller {
         
         // index test
         async index() {
@@ -25,7 +25,13 @@ module.exports = app => {
         async getProduct() {
             let product = this.ctx.request.body;
 
-            // get info of product specified by id
+            // product doesn't exist specified by product id
+            if (product.id && !await this.service.products.exists(product.id)) {
+                this.ctx.body = this.service.util.generateResponse(400, `product doesn't exists`);
+                return;
+            }
+
+            // get info of product specified by product id 
             if (product.id) {
                 product = await this.service.dbHelp.query('products', ['*'], product);
                 this.ctx.body = {
@@ -35,6 +41,7 @@ module.exports = app => {
                 return;
             }
 
+            // get info of products specified by other attributes
             product = await this.service.dbHelp.query('products', ['*'], product);
             this.ctx.body = {
                 code: 200,
@@ -46,6 +53,13 @@ module.exports = app => {
         async addProduct() {
             const product = this.ctx.request.body;
 
+            // product exists
+            if (await this.service.products.exists(product.id)) {
+                this.ctx.body = this.service.util.generateResponse(400, `product exists`);
+                return;
+            }
+
+            
             await this.service.dbHelp.insert('products', product);
             this.service.util.generateResponse(200, `add product successed`);
         }

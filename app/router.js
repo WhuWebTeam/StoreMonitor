@@ -23,5 +23,3 @@ module.exports = app => {
     require('./router/customers')(app);
     require('./router/products')(app);
 }
-
-cashiers
