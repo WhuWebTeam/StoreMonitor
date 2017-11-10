@@ -1,5 +1,7 @@
 module.exports = app => {
     class WuMartUsers extends app.Controller {
+
+        // index test
         async index() {
             this.ctx.body = {
                 code: 200,
@@ -10,29 +12,17 @@ module.exports = app => {
         }
 
 
+        // query all wu mei users info
         async getUsers() {
-            const users = await this.service.dbHelp.query('userswm', ['*'], {});
-            this.ctx.body = {
-                code: 200,
-                data: users
-            };
+            this.ctx.body = await this.service.userswm.query({});
         }
 
-        async getUser() {
-            const wmUserId = this.ctx.params.userId;
 
-            // user exists or not
-            if (!await this.service.userswm.exists(wmUserId)) {
-                this.ctx.body = this.service.util.generateResponse(400, `user doesn't exists`);
-                return;
-            }
-            
-            
-            const user = await this.service.dbHelp.query('userswm', ['*'], { wmUserId });
-            this.ctx.body = {
-                code: 200,
-                data: user[0]
-            }
+        // query info of some wu mei users with condition query or not
+        async getUser() {
+            const userwm = this.ctx.request.body;
+
+            this.ctx.body = await this.service.userswm.query(userwm);
         }
     }
 
