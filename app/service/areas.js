@@ -43,7 +43,7 @@ module.exports = app => {
             }
 
             // query info of areas specified by attributes without id
-            const areas = await this.service.dbHelp.query('area', ['*'], area);
+            const areas = await this.service.dbHelp.query('areas', ['*'], area);
             return {
                 code: 200,
                 data: areas
@@ -55,7 +55,7 @@ module.exports = app => {
             
             // area doesn't exist
             if (!await this.exists(area.id)) {
-                return this.service.util.generateResponse(`area doesn't exist`);
+                return this.service.util.generateResponse(400, `area doesn't exist`);
             }
 
             // modify info of area specified by id

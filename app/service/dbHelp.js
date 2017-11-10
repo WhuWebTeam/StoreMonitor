@@ -146,6 +146,14 @@ module.exports = app => {
             str = str + ' where ';
             // change object to array
             const entries = Object.entries(wheres).filter(entry => _this._judge(entry));
+            if (entries.length === 0) {
+                str = str.substr(0, str.length - 7);
+                const result = await this.app.db.query(str, values);
+                console.log(str);
+                console.log(values);
+                return result;
+            }
+
             for (let i = 0; i < entries.length; i++) {
                 str = str + entries[i][0] + ' = $' + (i + 1) + ' and ';
                 values.push(entries[i][1]);

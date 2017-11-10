@@ -20,7 +20,7 @@ module.exports = app => {
 
         // get info of shops with condition query or not
         async getShop() {
-            const id = this.ctx.params.shopId;
+            const shop = this.ctx.request.body;
 
             this.ctx.body = await this.service.shops.query(shop);
         }
