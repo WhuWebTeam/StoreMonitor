@@ -23,6 +23,32 @@ module.exports = app => {
             await this.service.dbHelp.insert('customers', customer);
             return true;
         }
+
+
+        // query customers with condition query or not
+        async query(customer) {
+            
+            // customer doesn't exists
+            if (customer.id && !await this.exists(customer.id)) {
+                return this.service.util.generateResponse(400, `customer doesn't exists`);
+            }
+                 
+            // get info of customer specified by id
+            if (customer.id) {
+                customer = await this.service.dbHelp.query('customers', ['*'], { id: customer.id });
+                return {
+                    code: 200,
+                    data: customer && customer[0]
+                };
+            }
+            
+            // get info of customer specified by other attributes
+            const customers = await this.service.dbHelp.query('customers', ['*'], customer);
+            return {
+                code: 200,
+                data: customers
+            }
+        }
     }
 
     return Customers;

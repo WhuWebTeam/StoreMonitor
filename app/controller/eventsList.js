@@ -13,10 +13,10 @@ module.exports = app => {
 
         // set editResult
         async setResult() {
-
+            const ts = this.ctx.params.ts;
             const eventList = this.ctx.request.body;
 
-            if (!await this.service.eventsList.setResult(eventList.transId, eventList.ts, eventList.editResult)) {
+            if (!await this.service.eventsList.setResult(ts, eventList.editResult)) {
                 this.ctx.body = this.service.util.generateResponse(400, `eventList doesn't exists`);
                 return;
             }

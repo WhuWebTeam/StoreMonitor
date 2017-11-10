@@ -6,43 +6,21 @@ module.exports = app => {
             this.ctx.body = {
                 code: 200,
                 data: {
-                    info: 'test index'
+                    info: 'test successed'
                 }
             };
         }
 
         // get customers' info
         async getCustomers() {
-            const customers = await this.service.dbHelp.query('customers', ['*'], {});
-
-            this.ctx.body = {
-                code: 200,
-                data: customers
-            };
+            this.ctx.body = await this.service.customers.query({});
         }
 
         // get some customers info  specified by id or name
         async getCustomer() {
-            let customer = this.ctx.request.body;
+            const customer = this.ctx.request.body;
 
-            // customer doesn't exists
-            if (customer.id && !await this.service.customers.exists(id)) {
-                this.ctx.body = this.service.util.generateResponse(400, `customer doesn't exists`);
-                return;
-            }
-
-
-            // get info of customer specified by id
-            if (customer.id) {
-                customer = await this.service.dbHelp.query('customers', ['*'], { id: customer.id });
-                this.ctx.body = {
-                    code: 200,
-                    data: customer && customer[0]
-                };
-            }
-
-            // get info of customer specified by other attributes
-            customer = await this.service.dbHelp.query('customers', ['*'], customer);
+            this.ctx.body = await this.service.customers.query(customer);
         }
 
         // add a new customer info
@@ -50,13 +28,12 @@ module.exports = app => {
             const customer = this.ctx.request.body;
 
             // customer exists
-            if (await this.service.customers.exists(customer.id)) {
-                this.ctx.body = this.service.util.generateResponse(400, `customer exists`);
+            if (!await this.service.customers.insert(customer)) {
+                this.ctx.body = this.service.util.generateResponse(400, 'customer exists');
                 return;
             }
 
-            // add a new customer record
-            await this.service.dbHelp.insert('customers', customer);
+            this.ctx.body = this.service.util.generateResponse(200, 'add customer record successed');
         }
     }
 

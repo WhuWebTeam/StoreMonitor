@@ -3,8 +3,8 @@ module.exports = app => {
     app.get('/api/v1/cashiers/index', 'cashiers.index');
 
     app.get('/api/v1/cashiers', 'cashiers.getCashiers'); // get info of all cashiers
-    app.post('/api/v1/cashier', 'cashiers.getCashier'); // get some cashier info specified by id or name
-    app.post('/api/v1/cashier', 'cashiers.addCashier'); // add a new cashier
+    app.post('/api/v1/cashiers/query', 'cashiers.getCashier'); // get some cashier info specified by id or name
+    app.post('/api/v1/cashiers', 'cashiers.addCashier'); // add a new cashier
 }
 
 // app.post('/api/v1/cashier', 'cashiers.getCashier'); // get some cashier info specified by id or name

@@ -1,5 +1,7 @@
 module.exports = app => {
     class Shops extends app.Controller {
+
+        // index test
         async index() {
             this.ctx.body = {
                 code: 200,
@@ -9,29 +11,18 @@ module.exports = app => {
             };
         }
 
+        
+        // get info of all shops
         async getShops() {
-            const shops = await this.service.dbHelp.query('shops', ['*'], {});
-
-            this.ctx.body = {
-                code: 200,
-                data: shops
-            };
+            this.ctx.body = await this.service.shops.query({});
         }
 
+
+        // get info of shops with condition query or not
         async getShop() {
             const id = this.ctx.params.shopId;
 
-            // shops exists or not
-            if (!await this.service.shops.exists(id)) {
-                this.ctx.body = this.service.util.generateResponse(400, `shop whose id is ${id} doesn't exists`);
-                return;
-            }
-
-            const shop = await this.service.dbHelp.query('shops', ['*'], { id });
-            this.ctx.body = {
-                code: 200,
-                data: shops[0]
-            };
+            this.ctx.body = await this.service.shops.query(shop);
         }
 
         async modifyShop() {
@@ -69,16 +60,17 @@ module.exports = app => {
             this.ctx.body = this.service.util.generateResponse(200, `shop's position modify successed`);
         }
 
+
+        // insert a new shop record to shops
         async addShop() {
             const shop = await this.ctx.request.body;
 
-            if (await this.service.shops.exists(shop.id)) {
-                this.ctx.body = await this.service.util.generateResponse(400, 'shop exists');
-                return;
+            // shop exists
+            if (!await this.servcie.shops.insert(shop)) {
+                this.ctx.body = this.service.util.generateResponse(400, 'shop exists');
             }
 
-            await this.service.dbHelp.insert('shops', shop);
-            this.ctx.body = this.service.util.generateResponse(200, 'add shop successed');
+            this.ctx.body = this.service.util.generateResponse(200, 'add shop record successed');
         }
     }
 

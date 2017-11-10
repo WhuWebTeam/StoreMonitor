@@ -3,9 +3,9 @@ module.exports = app => {
     app.get('/api/v1/shops/index', 'shops.index');
 
     app.get('/api/v1/shops', 'shops.getShops'); // get shops' info
-    app.get('/api/v1/shops/:shopId', 'shops.getShop'); // get info of some shop specified by shopId
     app.put('/api/v1/shops/:shopId', 'shops.modifyShop'); // modify info of some shop specified by shop id 
     app.put('/api/v1/shops/areaId/:shopId', 'shops.changeShopArea'); // change shops position
+    app.post('/api/v1/shops/query', 'shops.getShop'); // get info of shops specified by id, areaId, name, detail
     app.post('/api/v1/shops', 'shops.addShop'); // add a new shops
 }
 
@@ -17,12 +17,23 @@ module.exports = app => {
 // }
 
 
+
 // app.put('/api/v1/shops/areaId/:shopId', 'shops.changeShopArea'); // change shops position
 // :shopId shop's serail number
 // {
 //     areaId
 // }
 
+
+
+// app.post('/api/v1/shops/query', 'shops.getShop'); // get info of shops specified by id, areaId, name, detail
+// attributes belongs to the following object
+// {
+//     id,
+//     areaId,
+//     name,
+//     details
+// }
 
 
 // app.post('/api/v1/shops', 'shops.addShop'); // add a new shops

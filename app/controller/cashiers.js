@@ -14,56 +14,29 @@ module.exports = app => {
 
         // get cashiers info
         async getCashiers() {
-            const cashiers = await this.service.dbHelp.query('cashiers', ['*'], {});
-
-            this.ctx.body = {
-                code: 200,
-                data: cashiers
-            };
+            this.ctx.body = await this.service.cashiers.query({});
         }
+
 
         // get info of cashier specified by id or name
         async getCashier() {
             let cashier = this.ctx.request.body;
             
-            // cashier doesn't exists
-            if (cashier.id && !await this.service.cashiers.exists(cashier.id)) {
-                this.ctx.body = this.service.util.generateResponse(400, `cashier doesn't exists`);
-                return;
-            }
-
-            // get info of cashier specified by cashier id
-            if (cashier.id) {
-                cashier = await this.service.dbHelp.query('cashiers', ['*'], { id: cashier.id });
-                this.ctx.body = {
-                    code: 200,
-                    data: cashier[0]
-                };
-
-                return;
-            }
-
-            // get info of cashiers secified by other attributes
-            cashier = await this.service.dbHelp.query('cashiers', ['*'], cashier);
-            this.ctx.body = {
-                code: 200,
-                data: cashier
-            };
+            this.ctx.body = await this.service.cashiers.query(cashier);
         }
 
+        
         // add a new cashier
         async addCashier() {
             const cashier = this.ctx.request.body;
 
             // cashier exists
-            if (await this.service.cashiers.exists(cashier.id)) {
-                this.ctx.body = this.service.util.generateResponse(400, 'cashier exists');
+            if (!await this.service.cashiers.insert(cashier)) {
+                this.ctx.body = this.service.util.generateResponse(400, `cashier exists`);
                 return;
             }
 
-            // add a new cashier;
-            await this.service.dbHelp.insert('cashiers', cashier);
-            this.ctx.body = this.service.generateResponse(200, ``)
+            this.ctx.body = this.service.util.generateResponse(200, 'add cashier record successed');
         }
     }
 

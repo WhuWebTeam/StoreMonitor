@@ -2,8 +2,8 @@ module.exports = app => {
     class EventsList extends app.Controller {
 
         // judge eventsList record exists or not 
-        async exists(transId, ts) {
-            if (await this.service.dbHelp.count('eventsList', 'id', { transId, ts })) {
+        async exists(ts) {
+            if (await this.service.dbHelp.count('eventsList', 'id', { ts })) {
                 return true;
             } else {
                 return false;
@@ -15,7 +15,7 @@ module.exports = app => {
         async insert(eventList) {
 
             // eventList exists
-            if (await this.exists(eventList.transId, eventList.ts)) {
+            if (await this.exists(eventList.ts)) {
                 return false;
             }
 
@@ -26,14 +26,14 @@ module.exports = app => {
 
 
         // set EventList's result
-        async setResult(transId, ts, editResult) {
+        async setResult(ts, editResult) {
             // eventList doesn't exist
-            if (!await this.exists(transId, ts)) {
+            if (!await this.exists(ts)) {
                 return false;
             }
 
             // set eventList's editResult
-            await this.service.dbHelp.update('eventsList', { editResult }, { transId, ts });
+            await this.service.dbHelp.update('eventsList', { editResult }, { ts });
             return true;
         }
     }

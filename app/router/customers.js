@@ -3,7 +3,7 @@ module.exports = app => {
     app.get('/api/v1/customers/index', 'customers.index');
 
     app.get('/api/v1/customers', 'customers.getCustomers'); // get info of all customers
-    app.post('/api/v1/customers', 'customers.getCustomer'); // get some cashier info customers by id or name
+    app.post('/api/v1/customers/query', 'customers.getCustomer'); // get some cashier info customers by id or name
     app.post('/api/v1/customers', 'customers.addCustomer'); // add a new customers
 }
 
