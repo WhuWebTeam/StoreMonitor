@@ -16,7 +16,7 @@ module.exports = appInfo => {
                 database: 'company',
                 host: '127.0.0.1',
                 password: '123',
-                poolSize: 1,
+                poolSize: 5,
             }
         },
         security: {
