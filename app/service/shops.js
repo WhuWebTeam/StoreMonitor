@@ -48,6 +48,26 @@ module.exports = app => {
                 data: shops
             };
         }
+
+
+        // update info of shop specified by id
+        async update(shop) {
+            
+            // shop doesn't exist
+            if (!await this.exists(shop.id)) {
+                return this.service.util.generateResponse(400, `shop doesn't exists`);
+            }
+
+
+            // areaId attributes included in shop and area specified by areaId doesn't exists
+            if (shop.areaId && !await this.service.areas.exists(shop.areaId)) {
+                return this.service.util.generateResponse(400, `modify shop info failed with area doesn't exists`);
+            }
+
+            // modify shops info
+            await this.service.dbHelp.update('shops', shop, { id: shop.id });
+            return this.service.util.generateResponse(200, 'modify shop info successed');
+        }
     }
 
     return Shops;

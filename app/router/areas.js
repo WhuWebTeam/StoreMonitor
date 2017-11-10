@@ -1,11 +1,10 @@
 module.exports = app => {
+    // app.controller.areas test
     app.get('/api/v1/areas/index', 'areas.index');
 
-    app.get('/api/v1/areas', 'areas.getAreas'); // get all areas info 
-    app.get('/api/v1/areas/:areaId', 'areas.getAreaById'); // get info of some area specified by area id
-    app.get('/api/v1/areas/:areaName', 'areas.getAreaByName'); // get info of some area specified by area name
-    app.put('/api/v1/areas/:areaId', 'areas.modifyAreaById'); // modify info of some area specified by area id
-    app.put('/api/v1/areas/:areaName', 'areas.modifyAreaByName'); // modify info of some area specified by area name
+    app.get('/api/v1/areas', 'areas.getAreas'); // get all areas' info
+    app.put('/api/v1/areas/:areaId', 'areas.modifyArea'); // modify info of some area specified by area id
+    app.post('/api/v1/areas/query', 'areas.getArea'); // get info of area specified by id, name or details
     app.post('/api/v1/areas', 'areas.addArea'); // add a new area info
 }
 
@@ -19,17 +18,19 @@ module.exports = app => {
 // }
 
 
-// app.put('/api/v1/areas/:areaName', 'areas.modifyAreaByName'); // modify info of some area specified by area name
-// subset of area, means name and details can exists or not
-// :areaName name of area
+
+// app.post('/api/v1/areas/query', 'areas.getArea'); // get info of area specified by id, name or details
+// attributes belongs to the following object
 // {
+//     id,
 //     name,
 //     details
 // }
 
 
+
 // app.post('/api/v1/areas', 'areas.addArea'); // add a new area info
-// subset of area, id must exists
+// attributes belongs to the following object, id must exists
 // :areaName name of area
 // {
 //     id,

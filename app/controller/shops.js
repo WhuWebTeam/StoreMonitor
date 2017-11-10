@@ -25,39 +25,31 @@ module.exports = app => {
             this.ctx.body = await this.service.shops.query(shop);
         }
 
+
+
         async modifyShop() {
             const id = this.ctx.params.shopId;
-            
-            // shops exists or not
-            if(!await this.service.shops.exists(id)) {
-                this.ctx.body = this.service.util.generateResponse(400, `shop doesn't exists`);
-                return;
-            }
 
-            const shop = this.ctx.request.body;
-            await this.service.dbHelp.update('shops', shop, { id });
-            this.ctx.body = this.service.util.generateResponse(200, 'modify shop info successed');
+            // shop object without id
+            let shop = this.ctx.request.body;
+            
+            // add id to shop object
+            shop.id = id;
+
+            this.ctx.body = await this.service.shops.update(shop);
         }
 
 
         async changeShopArea() {
             const id = this.ctx.params.shopId;
 
-            // shop exists or not
-            if(!await this.service.shops.exists(id)) {
-                this.ctx.body = this.service.util.generateResponse(400, `shop doesn't exists`);
-                return;
-            }
+            // shop object with areaId attribute only and without id
+            let shop = this.ctx.request.body;
 
-            // area exists or not
-            const areaId = this.ctx.request.body.areaId;
-            if (!await this.service.areas.existsId(areaId)) {
-                this.ctx.body = this.service.generateResponse(400, `area doesn't exist`);
-                return;
-            }
+            // add id attributes to shop
+            shop.id = id;
 
-            await this.service.dbHelp.update('shops', { areaId }, { id });
-            this.ctx.body = this.service.util.generateResponse(200, `shop's position modify successed`);
+            this.ctx.body = await this.service.shops.update(shop);
         }
 
 
