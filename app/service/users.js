@@ -50,16 +50,70 @@ module.exports = app => {
         }
 
 
-        // /**
-        //  * used to get user's level
-        //  * @param {string} id - account of user
-        //  * @return {Promise<int>} user's level
-        //  */
-        // async getUserLevel(id) {
-        //     let level = await this.service.dbHelp.query('users', ['level'], { id });
-        //     level = level && level[0] && level[0].level || 1;
-        //     return +level;
-        // }
+        // add a user record to users
+        async insert(user) {
+
+            // user exists
+            if (await this.exists(user.id)) {
+                return false;
+            }
+
+            await this.service.dbHelp.insert('users', user);
+            return;
+        }
+
+
+        // query some info of some users specified by id, userName, password, authorityId, phone, email
+        async query(user) {
+            
+            // user doesn't exists
+            if (user.id && !await this.exists(user.id)) {
+                return this.service.util.generateResponse(400, `user doesn't eixst`);
+            }
+
+            // query info of some user specified by user's id
+            if (user.id) {
+                user = await this.service.dbHelp.query('users', ['*'], { id: user.id });
+                return {
+                    code: 200,
+                    data: user && user[0]
+                };
+            }
+
+            // query info of users specified by attributes without user's id
+            const users = await this.service.dbHelp.query('users', ['*'], user);
+            return {
+                code: 200,
+                data: users
+            };
+        }
+
+
+        // update info of user specified by user's id
+        async update(user) {
+
+            // user doesn't exists
+            if (!await this.exists(user.id)) {
+                return this.service.util.generateResponse(400, `user doesn't exist`);
+            }
+
+            // update user's info
+            await this.service.dbHelp.update('users', user, { id: user.id });
+            return this.service.util.generateResponse(200, `modify user's info successed`);
+        }
+
+
+        // delete some user specified by user's id
+        async delete(id) {
+            
+            // user doesn't exist
+            if (!await this.exists(id)) {
+                return false;
+            }
+
+            await this.service.dbHelp.delete('users', { id });
+            return true;
+        }
     }
 
     return Users;
