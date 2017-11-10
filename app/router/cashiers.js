@@ -14,8 +14,10 @@ module.exports = app => {
 //     name
 // }
 
+
+
 // app.post('/api/v1/cashier', 'cashiers.addCashier'); // add a new cashier
-// attributes belongs to the following object
+// attributes belongs to the following object, id must exists
 // {
 //     id,
 //     name

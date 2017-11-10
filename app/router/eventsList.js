@@ -7,7 +7,7 @@ module.exports = app => {
 
 
 // app.put('/api/v1/eventsList/result/:ts', 'eventLists.setResult'); // confirm the scan result
-// transId, ts must exist
+// ts must exist
 // {
 //     editResult
 // }

@@ -19,7 +19,7 @@ module.exports = app => {
 
 
 // app.post('/api/v1/customers', 'customers.addCustomer'); // add a new customers
-// attributes belongs to the following object
+// attributes belongs to the following object, id must exists
 // {
 //     id,
 //     name

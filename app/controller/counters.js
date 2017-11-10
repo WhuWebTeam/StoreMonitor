@@ -11,29 +11,18 @@ module.exports = app => {
             };
         }
 
+
         // get info of counters
         async getCounters() {
-            const counters = await this.service.dbHelp.query('counters', ['*'], {});
-            this.ctx.body = {
-                code: 200,
-                data: counters
-            };
+            this.ctx.body = await this.service.counters.query({});
         }
 
-        // get info of some counter specified by id
+
+        // get info of some counter specified by id, type, shopId or details
         async getCounter() {
-            const id = this.ctx.params.counterId;
+            const counter = this.ctx.request.body;
 
-            if (!await this.service.counters.exists(id)) {
-                this.ctx.body = this.service.util.generateResponse(400, `counter doesn't exists`);
-                return;
-            }
-
-            const counter = await this.service.dbHelp.query('counters', ['*'], { id });
-            this.ctx.body = {
-                code: 200,
-                data: counter[0]
-            };
+            this.ctx.body = await this.service.counters.query(counter);
         }
 
 
@@ -53,6 +42,7 @@ module.exports = app => {
             };
         }
 
+
         // get counters haven't been assigned
         async getCountersNotAssigned() {
             const sqlStr = `select *
@@ -68,37 +58,31 @@ module.exports = app => {
             };
         }
 
+
         // modify info of some counter specified by id
         async modifyCounter() {
             const id = this.ctx.params.counterId;
 
-            if (!await this.service.counters.exists(id)) {
-                this.ctx.body = this.service.util.generateResponse(400, `counter  doesn't exists`);
-                return;
-            }
+            // counter without id attribute
+            let counter = this.ctx.request.body;
 
-            const counter = this.ctx.request.body;
+            // add attribute id to counter object
+            counter.id = id;
 
-            // modify info refer to shopsId
-            if (counter.shopId && !await this.service.shops.exists(counter.shopId)) {
-                this.ctx.body = this.service.util.generateResponse(400, `shop wanted to be bind doesn't exist`);
-                return;
-            }
-
-            await this.service.dbHelp.update('counters', counter, { id });
-            this.ctx.body = this.service.util.generateResponse(200, 'modify counter info successed');
+            this.ctx.body = await this.service.counters.update(counter);
         }
+
 
         // add a new counter
         async addCounter() {
             const counter = this.ctx.request.body;
 
-            if (await this.service.counters.exists(counter.id)) {
+            // counter exists
+            if (!await this.service.counters.insert(counter)) {
                 this.ctx.body = this.service.util.generateResponse(400, 'counter exists');
                 return;
             }
 
-            await this.service.dbHelp.insert('counters', counter);
             this.ctx.body = this.service.util.generateResponse(200, 'add counter successed');
         }
     }
