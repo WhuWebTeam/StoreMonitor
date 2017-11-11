@@ -1,14 +1,15 @@
 module.exports = app => {
     return {
         schedule: {
-            interval: '1s',
+            interval: '10m',
             type: 'all',
-            immediate: false,
-            disable: app.config.env === 'local'
+            immediate: true,
+            disable: app.config.env === 'server'
         },
 
         async task(ctx) {
-            console.log('producSalesInfo');
+            await ctx.service.logger.logDefault('running', 'migrate new data from bills to productSalesInfo');
+            await ctx.service.productSalesInfo.migrate();
         }
     }
 }

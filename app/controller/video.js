@@ -11,6 +11,7 @@ module.exports = app => {
             };
         }
 
+
         // get data from DVA system
         async getDVAData() {
             const _this = this;

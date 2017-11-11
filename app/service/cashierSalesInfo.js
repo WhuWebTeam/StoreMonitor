@@ -37,7 +37,7 @@ module.exports = app => {
             const str = 'select max(ts) from cashierSalesInfo';
             let ts = await this.app.db.query(str);
 
-            return ts && ts[0] || 0;
+            return ts && ts[0] && ts[0].max || 0;
         }
 
 
@@ -64,6 +64,28 @@ module.exports = app => {
                 code: 200,
                 data: cashierSalesInfo
             };
+        }
+
+
+        // migrate new data from bills to cashierSalesInfo
+        async migrate() {
+            const ts = await this.maxTs();
+
+            const str = `insert into cashierSalesInfo(cashierId, transId, ts, duration, amount)
+                         select b.cashierId, b.transId, b.ts, c.duration, b.amount
+                         from bills b inner join 
+                             (select transId, max(ts) - min(ts) duration
+                             from bills
+                             where ts > $1
+                             group by transId) c on b.transId = c.transId
+                         where ts > $1`;
+
+            try {
+                await this.app.db.query(str, [ts]);
+                await this.service.logger.logDefault('running', 'migrate new data from bills to cashierSalesInfo successed');
+            } catch (err) {
+                await this.service.logger.logDefault('error', `migrate new data from bills to cashierSalesInfo failed: ${err}`);
+            }
         }
     }
 

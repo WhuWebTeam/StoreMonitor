@@ -2,8 +2,8 @@ module.exports = app => {
 	class Bills extends app.Controller {
 
 		// judge bill exists or not
-		async exists(transId, ts) {
-			if (await this.service.dbHelp.count('bills', 'id', { transId, ts })) {
+		async exists(ts) {
+			if (await this.service.dbHelp.count('bills', 'id', { ts })) {
 				return true;
 			} else {
 				return false;
@@ -15,7 +15,7 @@ module.exports = app => {
 		async insert(bill) {
 
 			// bill exists
-			if (await this.exists(bill.transId, bill.ts)) {
+			if (await this.exists(bill.ts)) {
 				return false;
 			}
 

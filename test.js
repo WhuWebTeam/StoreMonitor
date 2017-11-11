@@ -1,3 +1,2 @@
-for (let elem of ['a', 'b'].entries()) {
-    console.log(elem);
-  }
+const a = 1 || 0;
+console.log(a);

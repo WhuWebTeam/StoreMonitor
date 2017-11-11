@@ -36,9 +36,9 @@ module.exports = app => {
 
         // query max ts time
         async maxTs() {
-            const str = 'select max(ts) from prodctSalesInfo';
+            const str = 'select max(ts) from productSalesInfo';
             let ts = await this.app.db.query(str);
-            return ts && ts[0] || 0;
+            return ts && ts[0] && ts[0].max || 0;
         }
 
 
@@ -65,6 +65,23 @@ module.exports = app => {
                 code: 200,
                 data: productSaleInfo
             };
+        }
+
+
+        // migrate new data from bills to productSalesInfo
+        async migrate() {
+            const ts = await this.maxTs();
+
+            const str = `insert into productSalesInfo(shopId, transId, productId, ts, price, quantity, amount)
+                         select b.shopId, b.transId, b.productId, b.ts, b.price, b.quantity, b.amount from bills b
+                         where ts > $1`;
+
+            try {
+                await this.app.db.query(str, [ts]);
+                await this.service.logger.logDefault('running', 'migrate new data from bills to productSalesInfo successed')
+            } catch (err) {
+                await this.service.logger.logDefault('error', 'migrate new data from bills to productSalesInfo failed')
+            }
         }
     }
 
