@@ -8,7 +8,8 @@ module.exports = app => {
         },
 
         async task(ctx) {
-            console.log('customerSalesInfo');
+            console.log('')
+            // const ts = await ctx.service.
         }
     }
 }

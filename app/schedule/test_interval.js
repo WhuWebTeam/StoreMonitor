@@ -8,7 +8,7 @@ module.exports = app => {
         },
 
         async task(ctx) {
-            ctx.service.test.print('interval');
+            console.log('cron');
         }
     }
 }
