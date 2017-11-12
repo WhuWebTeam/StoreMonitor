@@ -11,6 +11,15 @@ module.exports = app => {
         }
 
         
+        // judge eventsList record exists or not through eventList's id
+        async existsId(id) {
+            if (await this.service.dbHelp.count('eventsList', 'id', { id })) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
         // insert a eventList record to eventsList
         async insert(eventList) {
 
@@ -22,6 +31,33 @@ module.exports = app => {
             // insert a eventList to eventsList
             await this.service.dbHelp.insert('eventsList', eventList);
             return true;
+        }
+
+
+
+        // query info of eventsList with condition query or not
+        async query(eventList) {
+            
+            // eventList doesn't exist
+            if (eventList.id && await this.existsId(eventList.id)) {
+                return this.service.util.generateResponse(400, 'eventList doesn.t exist');
+            }
+
+            // query info of eventList through eventList's id
+            if (eventList.id) {
+                eventList = await this.service.dbHelp.query('eventsList', ['*'], { id: eventList.id });
+                return {
+                    code: 200,
+                    data: eventList && eventList[0]
+                };
+            }
+
+            // query info of eventList by attributes without id
+            const evnetsList = await this.service.dbHelp.query('eventsList', ['*'], eventList);
+            return {
+                code: 200,
+                data: eventsList
+            };
         }
 
 
