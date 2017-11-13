@@ -12,6 +12,7 @@
   "dependencies": {
     "bluebird": "^3.5.1",
     "egg": "^1.10.0",
+    "egg-static": "^2.0.0",
     "pg-promise": "^7.2.0"
   },
   "devDependencies": {

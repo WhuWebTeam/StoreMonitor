@@ -20,8 +20,8 @@
     "watcher": {
       "type": "development",
       "eventSources": {
-        "default": "/home/xj/project/company/StoreMonitor/node_modules/egg-watcher/lib/event-sources/default",
-        "development": "/home/xj/project/company/StoreMonitor/node_modules/egg-watcher/lib/event-sources/development"
+        "default": "/root/company/StoreMonitor/node_modules/egg-watcher/lib/event-sources/default",
+        "development": "/root/company/StoreMonitor/node_modules/egg-watcher/lib/event-sources/development"
       }
     },
     "multipart": {
@@ -98,7 +98,7 @@
     },
     "static": {
       "prefix": "/public/",
-      "dir": "/home/xj/project/company/StoreMonitor/app/public",
+      "dir": "/root/company/StoreMonitor/app/public",
       "dynamic": true,
       "preload": false,
       "buffer": false,
@@ -113,7 +113,7 @@
       "csrf": false
     },
     "view": {
-      "root": "/home/xj/project/company/StoreMonitor/app/view",
+      "root": "/root/company/StoreMonitor/app/view",
       "cache": false,
       "defaultExtension": ".html",
       "defaultViewEngine": "",
@@ -140,6 +140,7 @@
       "dependencies": {
         "bluebird": "^3.5.1",
         "egg": "^1.10.0",
+        "egg-static": "^2.0.0",
         "pg-promise": "^7.2.0"
       },
       "devDependencies": {
@@ -147,9 +148,9 @@
         "egg-mock": "^3.13.1"
       }
     },
-    "baseDir": "/home/xj/project/company/StoreMonitor",
-    "HOME": "/home/xj",
-    "rundir": "/home/xj/project/company/StoreMonitor/run",
+    "baseDir": "/root/company/StoreMonitor",
+    "HOME": "/root",
+    "rundir": "/root/company/StoreMonitor/run",
     "dump": {
       "ignore": "<Set>"
     },
@@ -179,7 +180,7 @@
       }
     },
     "logger": {
-      "dir": "/home/xj/project/company/StoreMonitorInfo/log/logs",
+      "dir": "/root/company/StoreMonitorInfo/log/logs",
       "encoding": "utf8",
       "env": "local",
       "level": "INFO",
@@ -236,8 +237,8 @@
       "responseTimeout": 60000
     },
     "path": {
-      "infoDir": "/home/xj/project/company/StoreMonitorInfo",
-      "logDir": "/home/xj/project/company/StoreMonitorInfo/log"
+      "infoDir": "/root/company/StoreMonitorInfo",
+      "logDir": "/root/company/StoreMonitorInfo/log"
     },
     "database": {
       "pg": {
@@ -266,8 +267,8 @@
       "dependencies": [],
       "optionalDependencies": [],
       "env": [],
-      "from": "/home/xj/project/company/StoreMonitor/node_modules/egg/config/plugin.js",
-      "path": "/home/xj/project/company/StoreMonitor/node_modules/egg-onerror",
+      "from": "/root/company/StoreMonitor/node_modules/egg/config/plugin.js",
+      "path": "/root/company/StoreMonitor/node_modules/egg-onerror",
       "version": "1.5.0"
     },
     "session": {
@@ -277,8 +278,8 @@
       "dependencies": [],
       "optionalDependencies": [],
       "env": [],
-      "from": "/home/xj/project/company/StoreMonitor/node_modules/egg/config/plugin.js",
-      "path": "/home/xj/project/company/StoreMonitor/node_modules/egg-session",
+      "from": "/root/company/StoreMonitor/node_modules/egg/config/plugin.js",
+      "path": "/root/company/StoreMonitor/node_modules/egg-session",
       "version": "2.1.1"
     },
     "i18n": {
@@ -288,8 +289,8 @@
       "dependencies": [],
       "optionalDependencies": [],
       "env": [],
-      "from": "/home/xj/project/company/StoreMonitor/node_modules/egg/config/plugin.js",
-      "path": "/home/xj/project/company/StoreMonitor/node_modules/egg-i18n",
+      "from": "/root/company/StoreMonitor/node_modules/egg/config/plugin.js",
+      "path": "/root/company/StoreMonitor/node_modules/egg-i18n",
       "version": "1.2.0"
     },
     "watcher": {
@@ -299,8 +300,8 @@
       "dependencies": [],
       "optionalDependencies": [],
       "env": [],
-      "from": "/home/xj/project/company/StoreMonitor/node_modules/egg/config/plugin.js",
-      "path": "/home/xj/project/company/StoreMonitor/node_modules/egg-watcher",
+      "from": "/root/company/StoreMonitor/node_modules/egg/config/plugin.js",
+      "path": "/root/company/StoreMonitor/node_modules/egg-watcher",
       "version": "2.2.0"
     },
     "multipart": {
@@ -310,8 +311,8 @@
       "dependencies": [],
       "optionalDependencies": [],
       "env": [],
-      "from": "/home/xj/project/company/StoreMonitor/node_modules/egg/config/plugin.js",
-      "path": "/home/xj/project/company/StoreMonitor/node_modules/egg-multipart",
+      "from": "/root/company/StoreMonitor/node_modules/egg/config/plugin.js",
+      "path": "/root/company/StoreMonitor/node_modules/egg-multipart",
       "version": "1.5.1"
     },
     "security": {
@@ -323,8 +324,8 @@
         "session"
       ],
       "env": [],
-      "from": "/home/xj/project/company/StoreMonitor/node_modules/egg/config/plugin.js",
-      "path": "/home/xj/project/company/StoreMonitor/node_modules/egg-security",
+      "from": "/root/company/StoreMonitor/node_modules/egg/config/plugin.js",
+      "path": "/root/company/StoreMonitor/node_modules/egg-security",
       "version": "1.12.1"
     },
     "development": {
@@ -338,8 +339,8 @@
       "env": [
         "local"
       ],
-      "from": "/home/xj/project/company/StoreMonitor/node_modules/egg/config/plugin.js",
-      "path": "/home/xj/project/company/StoreMonitor/node_modules/egg-development",
+      "from": "/root/company/StoreMonitor/node_modules/egg/config/plugin.js",
+      "path": "/root/company/StoreMonitor/node_modules/egg-development",
       "version": "1.3.1"
     },
     "schedule": {
@@ -349,8 +350,8 @@
       "dependencies": [],
       "optionalDependencies": [],
       "env": [],
-      "from": "/home/xj/project/company/StoreMonitor/node_modules/egg/config/plugin.js",
-      "path": "/home/xj/project/company/StoreMonitor/node_modules/egg-schedule",
+      "from": "/root/company/StoreMonitor/node_modules/egg/config/plugin.js",
+      "path": "/root/company/StoreMonitor/node_modules/egg-schedule",
       "version": "2.6.0"
     },
     "logrotator": {
@@ -362,8 +363,8 @@
       ],
       "optionalDependencies": [],
       "env": [],
-      "from": "/home/xj/project/company/StoreMonitor/node_modules/egg/config/plugin.js",
-      "path": "/home/xj/project/company/StoreMonitor/node_modules/egg-logrotator",
+      "from": "/root/company/StoreMonitor/node_modules/egg/config/plugin.js",
+      "path": "/root/company/StoreMonitor/node_modules/egg-logrotator",
       "version": "2.2.3"
     },
     "static": {
@@ -373,9 +374,9 @@
       "dependencies": [],
       "optionalDependencies": [],
       "env": [],
-      "from": "/home/xj/project/company/StoreMonitor/node_modules/egg/config/plugin.js",
-      "path": "/home/xj/project/company/StoreMonitor/node_modules/egg-static",
-      "version": "1.4.1"
+      "from": "/root/company/StoreMonitor/node_modules/egg/config/plugin.js",
+      "path": "/root/company/StoreMonitor/node_modules/egg-static",
+      "version": "2.0.0"
     },
     "jsonp": {
       "enable": true,
@@ -386,8 +387,8 @@
         "security"
       ],
       "env": [],
-      "from": "/home/xj/project/company/StoreMonitor/node_modules/egg/config/plugin.js",
-      "path": "/home/xj/project/company/StoreMonitor/node_modules/egg-jsonp",
+      "from": "/root/company/StoreMonitor/node_modules/egg/config/plugin.js",
+      "path": "/root/company/StoreMonitor/node_modules/egg-jsonp",
       "version": "1.2.1"
     },
     "view": {
@@ -397,8 +398,8 @@
       "dependencies": [],
       "optionalDependencies": [],
       "env": [],
-      "from": "/home/xj/project/company/StoreMonitor/node_modules/egg/config/plugin.js",
-      "path": "/home/xj/project/company/StoreMonitor/node_modules/egg-view",
+      "from": "/root/company/StoreMonitor/node_modules/egg/config/plugin.js",
+      "path": "/root/company/StoreMonitor/node_modules/egg-view",
       "version": "1.1.2"
     }
   }
