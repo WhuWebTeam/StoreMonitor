@@ -3,7 +3,7 @@ module.exports = app => {
         schedule: {
             cron: '* * */1 * * *',
             type: 'all',
-            immediate: true,
+            immediate: false,
             disable: app.config.env === 'local'
         },
 

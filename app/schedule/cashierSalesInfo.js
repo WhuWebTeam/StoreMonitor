@@ -3,7 +3,7 @@ module.exports = app => {
         schedule: {
             interval: '10m',
             type: 'all',
-            immediate: true,
+            immediate: false,
             disable: app.config.env === 'server'
         },
 

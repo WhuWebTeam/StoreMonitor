@@ -107,6 +107,11 @@ module.exports = app => {
                 } else if (bill.eventFlag.toLowerCase() !== 'Normal') {
                     await this.service.logger.logDefault('running', `bill(${eventList}) exists`);
                 }
+
+                // // post confirm data to DVA system
+                // ctx.curl('http://www.dvs.system.url', {
+
+                // });
             }
 
             this.ctx.body = this.service.util.generateResponse(200, 'add video record successed');
