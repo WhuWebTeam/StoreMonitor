@@ -1,0 +1,330 @@
+app/controller/users
+
+    //app.get('/api/v1/users', 'users.getUsers'); // get users' info
+
+
+
+    // app.put('/api/v1/users/:userId', 'user.changeAuthority'); // change user's level, high authority user can modify low level user's level
+    // :userId oprateman's id
+    // {
+    //      id,
+    //      authorityId
+    // }
+
+
+    // app.put('/api/v1/user/password/:userId', 'user.changePassword'); // change some user's password
+    // :userId oprateman's id
+    // {
+    //     id,
+    //     password
+    // }
+
+
+    // app.post('/api/v1/users/query', 'users.getUser'); // get some info of some users specified by id, userName, password, authorityId, phone, email
+    // attributes belonging to the following object
+    // {
+    //     id,
+    //     userName,
+    //     password,
+    //     authorityId,
+    //     phone,
+    //     email
+    // }
+
+
+    // app.post('/api/v1/user/signIn', 'user.signIn'); // user login
+    // {
+    //     id,
+    //     password
+    // }
+
+
+    // app.post('/api/v1/user/:userId', 'user.addUser'); // add some user
+    // :userId oprateman's id
+    // attributes belonging to the following object, id must exists
+    // {
+    //     id,
+    //     userName,
+    //     password,
+    //     phone,
+    //     email
+    // }
+
+
+    // app.delete('/api/v1/user/:userId', 'user.deleteUser'); // delete some user
+    // :userId oprateman's id
+    // {
+    //     id
+    // }
+
+
+
+app/controller/userswm
+
+    app.get('/api/v1/userswm/users', 'userswm.getUsers');  // get wu mei users' info
+
+
+    // get info of some wu mei users specified by wmUserId, wmUserLvl, authorityId, name, phone or email
+    // app.post('/api/v1/userswm/users/query', 'userswm.getUser');
+    // {
+    //     wmUserId,
+    // 	   wmUserLvl,
+    // 	   authorityId,
+    // 	   name,
+    // 	   phone,
+    // 	   email
+    // }
+
+
+
+app/controller/video
+
+    app.post('/api/v1/video', 'video.getDVAData'); // a new video record from DVA system
+    格式： DVA 通信协议
+
+
+
+app/controller/shops
+
+    app.get('/api/v1/shops', 'shops.getShops'); // get shops' info
+
+
+    // app.put('/api/v1/shops/:shopId', 'shops.modifyShop'); // modify info of some shop specified by shop id 
+    // :shopId shop's serial number
+    // {
+    //     areaId,
+    //     name,
+    //     details
+    // }
+
+
+    // app.put('/api/v1/shops/areaId/:shopId', 'shops.changeShopArea'); // change shops position
+    // :shopId shop's serail number
+    // {
+    //     areaId
+    // }
+
+
+    // app.post('/api/v1/shops/query', 'shops.getShop'); // get info of shops specified by id, areaId, name, detail
+    // attributes belongs to the following object
+    // {
+    //     id,
+    //     areaId,
+    //     name,
+    //     details
+    // }
+
+
+    // app.post('/api/v1/shops', 'shops.addShop'); // add a new shops
+    // attributes belongs to the following object, id must exists
+    // {
+    //     shopId,
+    //     name,
+    //     details
+    // }
+
+
+
+app/controller/products
+
+    app.get('/api/v1/products', 'products.getProducts'); // get info of all products
+
+
+    // app.post('/api/v1/products', 'products.getProduct'); // get some products info specified by id or name
+    // attributes belongs to the following object
+    // {
+    //     id,
+    //     name
+    // }
+
+
+    // app.post('/api/v1/products', 'products.addProduct'); // add a new products
+    // attributes belongs to the following object, id must exists
+    // {
+    //     id,
+    //     name
+    // }
+
+
+
+app/controller/eventsList
+
+    app.get('/api/v1/eventsList', 'eventsList.getEventsList'); // get all eventsList's info
+
+
+    // app.put('/api/v1/eventsList/result/:ts', 'eventLists.setResult'); // confirm the scan result
+    // ts must exist
+    // {
+    //     editResult
+    // }
+
+
+    // app.post('/api/v1/eventsList/query', 'eventsList.getEventList'); // get info of some eventList specied by id, transId, ts, createTime, updateTime, editResult, videoUrl, pic1Url, pic2Url, pic3Url, pic4Url
+    // attributes belongs to the following object
+    // {
+    //     id,
+    //     transId,
+    //     ts,
+    //     createTime,
+    //     updateTime,
+    //     videoUrl,
+    //     pic1Url,
+    //     pic2Url,
+    //     pic3Url,
+    //     pic4Url
+    // }
+
+
+
+app/controller/customers
+
+    app.get('/api/v1/customers', 'customers.getCustomers'); // get info of all customers
+
+
+    // app.post('/api/v1/customers', 'customers.getCustomer'); // get some cashier info customers by id or name
+    // attributes belongs to the following object
+    // {
+    //     id,
+    //     name
+    // }
+
+
+    // app.post('/api/v1/customers', 'customers.addCustomer'); // add a new customers
+    // attributes belongs to the following object, id must exists
+    // {
+    //     id,
+    //     name
+    // }
+
+
+
+app/controller/counters
+
+    app.get('/api/v1/counters', 'counters.getCounters'); // get counters' info
+
+
+    app.get('/api/v1/counters/assigned', 'counters.getCountersAssigned'); // get info of counters assigned
+        
+        
+    app.get('/api/v1/counters/notAssaigned', 'counters.getCountersNotAssigned'); // get info of counters not assigned
+
+
+    // app.put('/api/v1/counters/:counterId', 'counters.modifyCounter'); // modify info of some counter specified by id
+    // :counterId counter's serial number
+    // {
+    //     shopId,
+    //     type,
+    //     details
+    // }
+
+
+    // app.post('/api/v1/counters/query', 'counter.getCounter'); // query info of countrs specified by id, shopId, type, details
+    // attributes belongs to the following object
+    // {
+    //     id,
+    //     shopId,
+    //     type,
+    //     details
+    // }
+
+
+    // app.post('/api/v1/counters', 'counters.addCounter'); // add a new counter
+    // attributes belongs to the following object, id must exists
+    // {
+    //     id,
+    //     shopId,
+    //     type,
+    //     details
+    // }
+
+
+
+app/controller/cashiers
+
+    app.get('/api/v1/cashiers', 'cashiers.getCashiers'); // get info of all cashiers
+
+
+    // app.post('/api/v1/cashier', 'cashiers.getCashier'); // get some cashier info specified by id or name
+    // attributes belongs to the following object
+    // {
+    //     id,
+    //     name
+    // }
+
+
+    // app.post('/api/v1/cashier', 'cashiers.addCashier'); // add a new cashier
+    // attributes belongs to the following object, id must exists
+    // {
+    //     id,
+    //     name
+    // }
+
+
+
+app/controller/areas
+
+    app.get('/api/v1/areas', 'areas.getAreas'); // get all areas' info
+
+
+    // app.put('/api/v1/areas/:areaId', 'areas.modifyAreaById'); // modify info of some area specified by area id
+    // subset of area, means name and details can exists or not
+    // :areaId serial number of area
+    // {
+    //     name,
+    //     details
+    // }
+
+
+    // app.post('/api/v1/areas/query', 'areas.getArea'); // get info of area specified by id, name or details
+    // attributes belongs to the following object
+    // {
+    //     id,
+    //     name,
+    //     details
+    // }
+
+
+    // app.post('/api/v1/areas', 'areas.addArea'); // add a new area info
+    // attributes belongs to the following object, id must exists
+    // :areaName name of area
+    // {
+    //     id,
+    //     name,
+    //     details
+    // }
+
+
+
+app/controller/counterUser
+
+    app.get('/api/v1/counterUsers', 'counterUser.getCounterUsers'); // get info of counterUsers
+
+
+    // get assigned info condition query
+    // app.post('/api/v1/counterUser', 'counterUser.getCounterUser');
+    // one or more attributes of the following object
+    // {
+    //     id,
+    //     counterId,
+    //     userId,
+    //     type   
+    // }
+
+
+    // assign some counter specified by counterId to some user specified by userId
+    // app.post('/api/v1/counterUser/:userId/:counterId', 'counterUser.assignCounter');
+    // counterId and userId must exists
+    // {
+    //     counterId,
+    //     userId,
+    //     type   
+    // }
+
+
+    // retrieve some counter specified by counterId from user specified by userId
+    // app.delete('/api/v1/counterUser/:userId/:counterId', 'counterUser.retrieveCounter');
+
+
+
+
+注: 前一行为接口, 下面为请求格式

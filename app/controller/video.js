@@ -1,73 +1,122 @@
 module.exports = app => {
-    class Event extends app.Controller {
+    class Video extends app.Controller {
+
+        // index test
         async index() {
             this.ctx.body = {
-                code: 400,
-                data: 'Test Successful'
-            }
+                code: 200,
+                data: {
+                    info: 'test successed'
+                }
+            };
         }
 
 
-        async addVideoRecord() {
-            const posList = this.ctx.request.body;
+        // get data from DVA system
+        async getDVAData() {
+            const _this = this;
+            const DVA = _this.ctx.request.body;
 
-            const Styles = posList.Styles;
+            /* parse DVA data and store them to database */
+            // format counter
+            let counter = {};
+            counter.id = DVA.RegID || '0002';
+            counter.type = DVA.RegType || 'pos';
+            counter.shopId = DVA.ShopID || 'SP12345';
+            if (!await this.service.counters.insert(counter)) {
+                await this.service.logger.logDefault('running', `counter(${counter.id}) exists`);
+            } else {
+                await this.service.logger.logDefault('running', `insert counter(${counter.id}) to counters successed`);
+            }
 
-            const Events = posList.Events;
+            // format shop
+            let shop = {};
+            shop.id = DVA.ShopID || 'SP12345';
+            if (!await this.service.shops.insert(shop)) {
+                await this.service.logger.logDefault('running', `shop(${shop.id} exists`);
+            } else {
+                await this.service.logger.logDefault('running', `insert shop(${shop.id}) to shops successed`);
+            }
 
-            // format lists' record in database.lists
-            let list = {};
-            Object.entries(posList).map(entry => {
-                if (entry[0] === 'Styles' || entry[0] === 'Events') {
-                    return;
+            // format cashier
+            let cashier = {};
+            cashier.id = DVA.CashierID || 'WM20170103';
+            if (!await this.service.cashiers.insert(cashier)) {
+                await this.service.logger.logDefault('running', `cashier(${cashier.id}) exists`);
+            } else {
+                await this.service.logger.logDefault('running', `insert cashier(${cashier.id}) to cashiers successed`);
+            }
+
+            // format customer
+            let customer = {};
+            customer.id = DVA.CustomerID || 'WM20170103';
+            if (!await this.service.customers.insert(customer)) {
+                await this.service.logger.logDefault('running', `customer(${customer.id}) exists`);
+            } else {
+                await this.service.logger.logDefault('running', `insert customer(${customer.id}) to customers successed`);
+            }
+            
+            for (const [index, billEle] of DVA.Bills.entries()) {
+                
+                // format product
+                let product = {};
+                product.id = billEle.Sku || 'NO090934535123';
+                product.name = billEle.Text || '';
+                if (!await this.service.products.insert(product)) {
+                    await this.service.logger.logDefault('running', `product(${product.id}) exists`);
+                } else {
+                    await this.service.logger.logDefault('running', `insert product(${product.id}) to products successed`);
                 }
-                list[entry[0]] = entry[1];
-            });
-            list.createAt = Date.parse(new Date());
-            list.updateAt = Date.parse(new Date());
-            list.result = '';
 
-            // try {
-                await this.service.dbHelp.insert('lists', list);
 
-                for (const style in Styles) {
+                // format bill
+                let bill = {};
+                bill.price = billEle.Price || 0;
+                bill.quantity = billEle.quantity || 0;
+                bill.amount = bill.price * bill.quantity;
+                bill.ts = billEle.Ts || 0;
+                bill.scriptVer = DVA.ScriptVer || '';
+                bill.eventFlag = billEle.Type || '';
+                bill.startTime = billEle.Start || 0;
+                bill.endTime = billEle.End || 0;
+                bill.cashierId = DVA.CashierID || 'WM20170103';
+                bill.customerId = DVA.CustomerID || 'WM20170103';
+                bill.transId = DVA.TransID || '6992';
+                bill.shopId = DVA.ShopID || 'SP12345';
+                bill.counterId = DVA.RegID || '0002';
+                bill.productId = billEle.Sku || 'NO090934535123';
+                if (!await this.service.bills.insert(bill)) {
+                    await this.service.logger.logDefault('running', `bill(${bill}) exists`);
+                } else {
+                    await this.service.logger.logDefault('running', `insert bill(${bill}) to bills successed`);
+                }
+                
 
-                    // format style structure in database.styles
-                    Styles[style].createAt = Date.parse(new Date());
-                    Styles[style].updateAt = Date.parse(new Date());
-                    Styles[style].transId = posList.TransID;
-
-                    await this.service.dbHelp.insert('styles', Styles[style]);
+                // format eventList
+                let eventList = {};
+                eventList.transId = DVA.TransID || '6992';
+                eventList.ts = billEle.Ts || 0;
+                eventList.videoUrl = billEle.VideoUrl || '';
+                eventList.pic1Url = billEle.PictureUrl0 || '';
+                eventList.pic2Url = billEle.PictureUrl1 || '';
+                eventList.pic3Url = billEle.PictureUrl2 || '';
+                eventList.pic4Url = billEle.PictureUrl3 || '';
+                eventList.editResult = '';
+                if (bill.eventFlag.toLowerCase() !== 'Normal' &&  await this.service.eventsList.insert(eventList)) {
+                    await this.service.logger.logDefault('running', `insert bill(${eventList}) to bills successed`);
+                } else if (bill.eventFlag.toLowerCase() !== 'Normal') {
+                    await this.service.logger.logDefault('running', `bill(${eventList}) exists`);
                 }
 
-                for (const event in Events) {
-                    const tempEvent = {};
+                // // post confirm data to DVA system
+                // ctx.curl('http://www.dvs.system.url', {
 
-                    // format event structure in database.events
-                    Object.entries(Events[event]).map(entry => {
-                        if (entry[0] ==='Start') {
-                            tempEvent.eStart = entry[1];
-                        } else if (entry[0] === 'End') {
-                            tempEvent.eEnd = entry[1];
-                        } else {
-                            tempEvent[entry[0]] = entry[1];
-                        }
-                    });
-                    tempEvent.transId = posList.TransID;
-                    tempEvent.createAt = Date.parse(new Date());
-                    tempEvent.updateAt = Date.parse(new Date());
+                // });
+            }
 
-
-                    await this.service.dbHelp.insert('events', tempEvent);
-                }
-
-                this.ctx.body = this.service.util.generateResponse(200, 'add video record successfully');
-            // }
-            // catch(e) {
-            //     this.ctx.body = this.service.util.generateResponse(400, 'add video record failed');
-            // }
+            this.ctx.body = this.service.util.generateResponse(200, 'add video record successed');
         }
     }
 
-    return Event;
+    return Video;
 }

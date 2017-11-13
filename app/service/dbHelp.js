@@ -49,6 +49,7 @@ module.exports = app => {
          * @return {Promise<>} do not return value 
          */
         async update(tableName, obj, wheres) {
+            console.log(obj);
             const _this = this;
             // generate query str and values
             const values = [];
@@ -70,12 +71,15 @@ module.exports = app => {
             str = str + ' where ';
             entries = Object.entries(wheres).filter(entry => _this._judge(entry));
             for (let j = 0; j < entries.length; j++) {
-                str = str + entries[j][0] + ' = $' + (j + i + 1) + ', ';
+                str = str + entries[j][0] + ' = $' + (j + i + 1) + ' and ';
                 values.push(entries[j][1]);
             }
-            str = str.substr(0, str.length - 2);
+            str = str.substr(0, str.length - 5);
+            // console.log(str);
+            // console.log(values);
             await this.app.db.query(str, values);
         }
+
 
         /**
          * used to deal insert opration of database
@@ -104,8 +108,8 @@ module.exports = app => {
             temp = temp.substr(0, temp.length - 2) + ')';
             str = str + ' values ' + temp;
 
-            console.log(str);
-            console.log(values);
+            // console.log(str);
+            // console.log(values);
             await this.app.db.query(str, values);
         }
 
@@ -132,7 +136,6 @@ module.exports = app => {
             str = str.substr(0, str.length - 2);
             str = str + ' from ' + tableName;
         
-
             // when query without where condition(wheres is a {})
             if (JSON.stringify(wheres) === '{}') {
                 const result = await this.app.db.query(str, values);
@@ -143,13 +146,22 @@ module.exports = app => {
             str = str + ' where ';
             // change object to array
             const entries = Object.entries(wheres).filter(entry => _this._judge(entry));
+            if (entries.length === 0) {
+                str = str.substr(0, str.length - 7);
+                const result = await this.app.db.query(str, values);
+                // console.log(str);
+                // console.log(values);
+                return result;
+            }
+
             for (let i = 0; i < entries.length; i++) {
                 str = str + entries[i][0] + ' = $' + (i + 1) + ' and ';
                 values.push(entries[i][1]);
             }
             str = str.substr(0, str.length - 5);
-            //console.log(str);
 
+            // console.log(str);
+            // console.log(values);
             const result = await this.app.db.query(str, values);
             return result;
         }
