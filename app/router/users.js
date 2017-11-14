@@ -17,7 +17,7 @@ module.exports = app => {
     app.put('/api/v1/users', 'users.modifyUser'); // modify user's info
     app.post('/api/v1/users/query', 'users.getUser'); // get some info of some users specified by id, userName, password, authorityId, phone, email
     app.post('/api/v1/users/signIn', 'users.signIn'); // user login
-    app.post('/api/v1/users/:userId', 'users.addUser'); // add some user
+    app.post('/api/v1/users', 'users.addUser'); // add some user
     app.delete('/api/v1/users/:userId', 'users.deleteUser'); // delete some user
 }
 
@@ -61,7 +61,7 @@ module.exports = app => {
 
 
 
-// app.post('/api/v1/user/:userId', 'user.addUser'); // add some user
+// app.post('/api/v1/user', 'user.addUser'); // add some user
 // :userId oprateman's id
 // attributes belonging to the following object, id must exists
 // {
