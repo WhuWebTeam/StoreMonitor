@@ -8,7 +8,6 @@ module.exports = app => {
         },
 
         async task(ctx) {
-            console.log('xxxx');
             await ctx.service.logger.logDefault('running', 'migrate new data from bills to cashierSalesInfo');
             await ctx.service.cashierSalesInfo.migrate();
         }
