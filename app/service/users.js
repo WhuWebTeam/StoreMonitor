@@ -59,7 +59,7 @@ module.exports = app => {
             }
 
             await this.service.dbHelp.insert('users', user);
-            return;
+            return true;
         }
 
 

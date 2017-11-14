@@ -8,23 +8,32 @@ module.exports = app => {
         },
 
         async task(ctx) {
-            let result = await ctx.curl('https://registry.npm.taobao.org/egg/latest', {
+            let result = await ctx.curl('http://localhost:7002/api/v1/users/signIn', {
+                method: 'post',
+                contentType: 'json',
+                data: {
+                    id: '10003',
+                    password: '123'
+                },
                 dataType: 'json',
                 timeout: 3000
             });
 
-            result = result && result.data && result.data.maintainers;
-            result.map(obj => {
-                // console.log(obj);
-            });
+            result = result && result.data;
+            console.log(result);
+
+            // let result = await ctx.curl('http://localhost:7002/database', {
+            //     method: 'get',
+            //     data: {
+            //         id: '10003',
+            //         password: '123'
+            //     },
+            //     dataType: 'json',
+            //     timeout: 3000
+            // });
+
+            // result = result && result.data;
+            // console.log(result);
         }
     }
 }
-
-
-// app.get('/',function(req,res){
-// 	res.writeHead(200,{'Content-Type':'text/html'});
-// 	res.write('<head><meta charset = "utf-8"/><title></title></head>')
-// 	var file = fs.createReadStream('index.html');
-// 	file.pipe(res);
-// })

@@ -1,12 +1,14 @@
 const { app, mock, assert } = require('egg-mock/bootstrap');
 
 describe('test/app/controller/index.test.js', () => {
-    describe('GET /', () => {
+    describe('get /', () => {
         
-        it('should status 200 and get a responsde body', () => {
+        it('should status 302 and redirect to home page', () => {
             return app.httpRequest()
             .get('/')
-            .expect(200);
+            .expect(302)
         });
+
+
     });
 });
