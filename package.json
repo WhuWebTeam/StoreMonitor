@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "egg-bin test",
+    "cov": "egg-bin cov",
     "dev": "egg-bin dev --port 7002"
   },
   "author": "",
