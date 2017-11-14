@@ -9,7 +9,8 @@
 /** router */
 module.exports = app => {
 
-    app.get('/', 'index.index');
+    // home page
+    app.get('/', 'index.home');
     app.get('/database', 'index.pgTest');
     app.get('/log', 'index.logTest');
 

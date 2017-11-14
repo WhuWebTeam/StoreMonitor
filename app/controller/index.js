@@ -1,7 +1,7 @@
 module.exports = app => {
     class Index extends app.Controller {
-        async index() {
-            this.ctx.redirect('http://localhost:7002/public/index.html');
+        async home() {
+            this.ctx.redirect('/public/home.html');
         }
 
         async pgTest() {
