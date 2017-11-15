@@ -14,8 +14,9 @@ module.exports = appInfo => {
             pg: {
                 user: 'company',
                 database: 'company',
-                host: '127.0.0.1',
+                host: '121.201.13.217',
                 password: '123',
+                port: '25432',
                 poolSize: 5,
             }
         },
