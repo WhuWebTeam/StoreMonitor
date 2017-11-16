@@ -1,10 +1,10 @@
 module.exports = app => {
     return {
         schedule: {
-            interval: '10m',
+            interval: '10s',
             type: 'all',
-            immediate: false,
-            disable: app.config.env === 'server'
+            immediate: true,
+            disable: app.config.env === 'local'
         },
 
         async task(ctx) {
