@@ -11,10 +11,12 @@ module.exports = app => {
             };
         }
 
+
         // get customers' info
         async getCustomers() {
             this.ctx.body = await this.service.customers.query({});
         }
+
 
         // get some customers info  specified by id or name
         async getCustomer() {
@@ -22,6 +24,7 @@ module.exports = app => {
 
             this.ctx.body = await this.service.customers.query(customer);
         }
+
 
         // add a new customer info
         async addCustomer() {

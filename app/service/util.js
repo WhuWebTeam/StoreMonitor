@@ -35,7 +35,7 @@ module.exports = app => {
             } else {
                 return {
                     code,
-                    info: {message}
+                    data: { info: message }
                 };
             }
         }

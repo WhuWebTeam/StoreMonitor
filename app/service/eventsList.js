@@ -5,7 +5,7 @@ module.exports = app => {
         getTable() {
             const table = {
                 transId: '',
-                ts: 0,
+                ts: '',
                 createTime: '',
                 updateTime: '',
                 editResult: '',
@@ -56,7 +56,7 @@ module.exports = app => {
 
         // query info of eventsList with condition query or not
         async query(eventList) {
-            
+
             eventList = this.service.util.setTableValue(this.getTable(), eventList);
             
             // eventList doesn't exist
@@ -74,7 +74,7 @@ module.exports = app => {
             }
 
             // query info of eventList by attributes without id
-            const evnetsList = await this.service.dbHelp.query('eventsList', ['*'], eventList);
+            const eventsList = await this.service.dbHelp.query('eventsList', ['*'], eventList);
             return {
                 code: 200,
                 data: eventsList
@@ -84,7 +84,7 @@ module.exports = app => {
 
         // set EventList's result
         async setResult(ts, editResult) {
-            
+
             // eventList doesn't exist
             if (!await this.exists(ts)) {
                 return false;

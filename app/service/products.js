@@ -4,7 +4,7 @@ module.exports = app => {
         // default value of table products
         getTable() {
             const table = {
-                id: '0000000000',
+                id: '',
                 name: ''
             };
             return table;

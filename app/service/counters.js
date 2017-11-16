@@ -4,8 +4,8 @@ module.exports = app => {
         // get default value of table counters
         getTable() {
             const table = {
-                id: '0000000000',
-                shopId: '0000000000',
+                id: '',
+                shopId: '',
                 type: '',
                 details: ''
             };

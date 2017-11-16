@@ -4,7 +4,7 @@ module.exports = app => {
         // get default value of table cashiers
         getTable() {
             const table = {
-                id: '00000000',
+                id: '',
                 name: ''
             };
             return table;
