@@ -37,6 +37,8 @@ module.exports = app => {
 		// insert a bill record to bills
 		async insert(bill) {
 
+			bill = this.service.util.setTableValue(this.table, bill);
+
 			// bill exists
 			if (await this.exists(bill.ts)) {
 				return false;

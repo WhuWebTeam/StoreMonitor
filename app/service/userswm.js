@@ -28,6 +28,10 @@ module.exports = app => {
         
         // insert wu mei user record to userswm
         async insert(userwm) {
+
+            userwm = this.service.util.setTableValue(this.table, userwm);
+
+            // user exists
             if (await this.exists(userwm.wmUserId)) {
                 return false;
             }
@@ -41,6 +45,8 @@ module.exports = app => {
         // query info of some wu mei users specified by wmUserId, wmUserLvl, authorityId, name, phone or email
         async query(userwm) {
 
+            userwm = this.service.util.setTableValue(this.table, userwm);
+            
             // user doesn't exist
             if (userwm.wmUserId && !await this.exists(userwm.wmUserId)) {
                 return this.service.util.generateResponse(400, `user of wu mei market doesn't exist`);

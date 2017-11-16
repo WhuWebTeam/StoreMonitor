@@ -40,6 +40,8 @@ module.exports = app => {
         // insert customerSaleInfo queried from bills to CustomerSalesInfo
         async insert(customerSaleInfo) {
 
+            customerSaleInfo = this.service.util.setTableValue(this.table, customerSaleInfo);
+
             // customerSalesInfo exists
             if (await this.exists(customerSaleInfo.ts)) {
                 return this.service.util.generateResponse(400, `customerSaleInfo exists`);
@@ -59,9 +61,12 @@ module.exports = app => {
             return ts && ts[0] && ts[0].max || 0;
         }
 
+
         // query customerSaleInfo specified by id, customerId, transId, price, quantity, amount
         async query(customerSaleInfo) {
 
+            customerSaleInfo = this.service.util.setTableValue(this.table, customerSaleInfo);
+            
             // customerSaleInfo doesn't exist
             if (customerSaleInfo.id && !await this.existsId(customerSaleInfo.id)) {
                 return this.service.util.generateResponse(400, `customerSaleInfo doesn't exist`);

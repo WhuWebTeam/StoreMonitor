@@ -64,6 +64,7 @@ module.exports = app => {
                     return;
                 }
             });
+            return tableObj;
         }
     }
 

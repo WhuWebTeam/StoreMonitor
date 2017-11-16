@@ -26,6 +26,8 @@ module.exports = app => {
         // insert shop record to shops
         async insert(shop) {
 
+            shop = this.service.util.setTableValue(this.table, shop);
+
             // shop record exists
             if (await this.exists(shop.id)) {
                 return false;
@@ -39,6 +41,8 @@ module.exports = app => {
         // query shop info with condition query or not
         async query(shop) {
 
+            shop = this.service.util.setTableValue(this.table, shop);
+            
             // shop doesn't exist
             if (shop.id && !await this.exists(shop.id)) {
                 return this.service.util.generateResponse(400, `shop doesn't exist`);
@@ -64,6 +68,8 @@ module.exports = app => {
 
         // update info of shop specified by id
         async update(shop) {
+            
+            shop = this.service.util.setTableValue(this.table, shop);
             
             // shop doesn't exist
             if (!await this.exists(shop.id)) {

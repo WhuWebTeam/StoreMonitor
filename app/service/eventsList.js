@@ -39,6 +39,8 @@ module.exports = app => {
         // insert a eventList record to eventsList
         async insert(eventList) {
 
+            eventList = this.service.util.setTableValue(this.table, eventList);
+
             // eventList exists
             if (await this.exists(eventList.ts)) {
                 return false;
@@ -53,6 +55,8 @@ module.exports = app => {
 
         // query info of eventsList with condition query or not
         async query(eventList) {
+            
+            eventList = this.service.util.setTableValue(this.table, eventList);
             
             // eventList doesn't exist
             if (eventList.id && await this.existsId(eventList.id)) {

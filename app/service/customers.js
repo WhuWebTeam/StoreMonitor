@@ -27,6 +27,8 @@ module.exports = app => {
         // insert customer to customers
         async insert(customer) {
 
+            customer = this.service.util.setTableValue(this.table, customer);
+
             // customer exists
             if (await this.exists(customer.id)) {
                 return false;
@@ -40,6 +42,8 @@ module.exports = app => {
 
         // query customers with condition query or not
         async query(customer) {
+            
+            customer = this.service.util.setTableValue(this.table, customer);
             
             // customer doesn't exists
             if (customer.id && !await this.exists(customer.id)) {

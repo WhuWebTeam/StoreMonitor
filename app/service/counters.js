@@ -28,6 +28,8 @@ module.exports = app => {
         // insert a counter into counters
         async insert(counter) {
 
+            counter = this.service.util.setTableValue(this.table, counter);
+
             // counter record exists
             if (await this.exists(counter.id)) {
                 return false;
@@ -41,6 +43,8 @@ module.exports = app => {
 
         // query info of counters specified by id, shopId, type or details
         async query(counter) {
+            
+            counter = this.service.util.setTableValue(this.table, counter);
             
             // counter doesn't exist
             if (counter.id && !await this.exists(counter.id)) {
@@ -68,6 +72,8 @@ module.exports = app => {
         // update info of some counter specified by id
         async update(counter) {
 
+            counter = this.service.util.setTableValue(this.table, counter);
+            
             // counter doesn't exist
             if (!await this.exists(counter.id)) {
                 return this.service.util.generateResponse(400, `counter doesn't exist`);
