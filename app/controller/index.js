@@ -7,7 +7,23 @@ module.exports = app => {
         }
 
 
-        
+        // clear all  record in database
+        async clear() {
+            const tables = [
+                'users', 'userswm', 'authorities', 'counterUser', 'counters', 'shops', 'areas', 'products', 'customers', 
+                'cashiers', 'bills', 'eventsList', 'cashierSalesInfo', 'customerSaleInfo', 'productSalesInfo'
+            ];
+            
+            tables.map(async table => {
+                const str = `delete from ${table}`;
+
+                await this.app.db.query(str);
+            });
+
+            this.ctx.body = this.service.util.generateResponse(200, 'clear database successed');
+        }
+
+
         async pgTest() {
             const str = 'select * from users';
             const user = await this.app.db.query(str, []);

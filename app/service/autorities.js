@@ -1,15 +1,14 @@
 module.exports = app => {
     class Authorities extends app.Service {
 
-        // constructor of class Authority
-        constructor() {
-
-            // default value of table authorities
-            this.table = {
+        // get default value of table authorities
+        setTable() {
+            const table = {
                 id: '0000000000',
                 name: '',
                 details: ''
             };
+            return table;
         }
 
 

@@ -1,9 +1,9 @@
 module.exports = app => {
     class EventsList extends app.Controller {
 
-        // constructor of class eventsList
-        constructor() {
-            this.table = {
+        // get default vaue of table eventsList
+        getTable() {
+            const table = {
                 transId: '',
                 ts: 0,
                 createTime: '',
@@ -15,6 +15,7 @@ module.exports = app => {
                 pic3Url: '',
                 pic4Url: ''
             };
+            return table;
         }
 
         // judge eventsList record exists or not 
@@ -39,7 +40,7 @@ module.exports = app => {
         // insert a eventList record to eventsList
         async insert(eventList) {
 
-            eventList = this.service.util.setTableValue(this.table, eventList);
+            eventList = this.service.util.setTableValue(this.getTable(), eventList);
 
             // eventList exists
             if (await this.exists(eventList.ts)) {
@@ -56,7 +57,7 @@ module.exports = app => {
         // query info of eventsList with condition query or not
         async query(eventList) {
             
-            eventList = this.service.util.setTableValue(this.table, eventList);
+            eventList = this.service.util.setTableValue(this.getTable(), eventList);
             
             // eventList doesn't exist
             if (eventList.id && await this.existsId(eventList.id)) {

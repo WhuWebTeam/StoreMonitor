@@ -11,9 +11,15 @@ module.exports = app => {
 
 
 // app.put('/api/v1/eventsList/result/:ts', 'eventLists.setResult'); // confirm the scan result
-// ts must exist
 // {
 //     editResult
+// }
+
+
+// app.put('/api/v1/eventsList/status/:ts', 'eventsList.StoreEventsList'); // set some eventList status to temp store
+// there is no parameter
+// {
+
 // }
 
 

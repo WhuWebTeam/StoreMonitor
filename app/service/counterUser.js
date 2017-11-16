@@ -1,15 +1,14 @@
 module.exports = app => {
     class CounterUser extends app.Service {
 
-        // constructor of class counterUser
-        constructor() {
-            
-            // default value of table counterUser
-            this.table = {
+        // get default value of table counterUser
+        getTable() {
+            const table = {
                 userId: '0000000000',
                 counterId: '0000000000',
                 type: ''
             };
+            return table;
         }
 
 

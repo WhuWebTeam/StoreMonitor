@@ -1,14 +1,13 @@
 module.exports = app => {
     class Cashiers extends app.Service {
-        
-        // constructor of class Cashiers
-        constructor() {
-            
-            // default value of table cashiers
-            this.table = {
+
+        // get default value of table cashiers
+        getTable() {
+            const table = {
                 id: '00000000',
                 name: ''
             };
+            return table;
         }
 
 
@@ -25,7 +24,7 @@ module.exports = app => {
         // insert record to cashiers
         async insert(cashier) {
 
-            cashier = this.service.util.setTableValue(this.table, cashier);
+            cashier = this.service.util.setTableValue(this.getTable(), cashier);
 
             // cashier exists
             if (await this.exists(cashier.id)) {
@@ -41,7 +40,7 @@ module.exports = app => {
         // query cashiers with condition query or not
         async query(cashier) {
 
-            cashier = this.service.util.setTableValue(this.table, cashier);
+            cashier = this.service.util.setTableValue(this.getTable(), cashier);
             
             // cashier doesn't exists
             if (cashier.id && !await this.exists(cashier.id)) {

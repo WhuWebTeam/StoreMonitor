@@ -1,11 +1,9 @@
 module.exports = app => {
     class WuMartUsers extends app.Service {
 
-        // constructor of class WuMartUsers
-        constructor() {
-
-            // default value of table WuMartUsers
-            this.table = {
+        // get default value of table WuMartUsers
+        getTable() {
+            const table = {
                 wmUserId: '00000000',
                 wmUserLvl: '',
                 userName: '',
@@ -13,6 +11,7 @@ module.exports = app => {
                 email: '',
                 authorityId: ''
             };
+            return table;
         }
 
 
@@ -29,7 +28,7 @@ module.exports = app => {
         // insert wu mei user record to userswm
         async insert(userwm) {
 
-            userwm = this.service.util.setTableValue(this.table, userwm);
+            userwm = this.service.util.setTableValue(this.getTable(), userwm);
 
             // user exists
             if (await this.exists(userwm.wmUserId)) {
@@ -45,7 +44,7 @@ module.exports = app => {
         // query info of some wu mei users specified by wmUserId, wmUserLvl, authorityId, name, phone or email
         async query(userwm) {
 
-            userwm = this.service.util.setTableValue(this.table, userwm);
+            userwm = this.service.util.setTableValue(this.getTable(), userwm);
             
             // user doesn't exist
             if (userwm.wmUserId && !await this.exists(userwm.wmUserId)) {

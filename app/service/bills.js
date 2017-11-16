@@ -1,11 +1,9 @@
 module.exports = app => {
 	class Bills extends app.Controller {
 
-		// constructor of class Bills
-		constructor() {
-
-			// default value of table bills
-			this.table = {
+		// default value of table bills
+		getTable() {
+		const table = {
 				transId: '',
 				ts: 0,
 				shopId: '0000000000',
@@ -20,7 +18,8 @@ module.exports = app => {
 				cashierId: '0000000000',
 				customerId: '0000000000',
 				eventFalg: ''
-			}
+			};
+			return table;
 		}
 
 
@@ -37,7 +36,7 @@ module.exports = app => {
 		// insert a bill record to bills
 		async insert(bill) {
 
-			bill = this.service.util.setTableValue(this.table, bill);
+			bill = this.service.util.setTableValue(this.getTable(), bill);
 
 			// bill exists
 			if (await this.exists(bill.ts)) {

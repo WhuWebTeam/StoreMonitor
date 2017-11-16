@@ -1,11 +1,9 @@
 module.exports = app => {
     class CustomerSalesInfo extends app.Service {
-        
-        // constructor of class customerSalesInfo
-        constructor() {
-            
-            // default value of table cashierSalesInfo
-            this.table = {
+         
+        // get default value of table cashierSalesInfo
+        getTable() {    
+            const table = {
                 customerId: '0000000000',
                 transId: '',
                 productId: '0000000000',
@@ -40,7 +38,7 @@ module.exports = app => {
         // insert customerSaleInfo queried from bills to CustomerSalesInfo
         async insert(customerSaleInfo) {
 
-            customerSaleInfo = this.service.util.setTableValue(this.table, customerSaleInfo);
+            customerSaleInfo = this.service.util.setTableValue(this.getTable(), customerSaleInfo);
 
             // customerSalesInfo exists
             if (await this.exists(customerSaleInfo.ts)) {
@@ -65,7 +63,7 @@ module.exports = app => {
         // query customerSaleInfo specified by id, customerId, transId, price, quantity, amount
         async query(customerSaleInfo) {
 
-            customerSaleInfo = this.service.util.setTableValue(this.table, customerSaleInfo);
+            customerSaleInfo = this.service.util.setTableValue(this.getTable(), customerSaleInfo);
             
             // customerSaleInfo doesn't exist
             if (customerSaleInfo.id && !await this.existsId(customerSaleInfo.id)) {

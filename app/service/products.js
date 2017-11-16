@@ -1,14 +1,13 @@
 module.exports = app => {
     class Products extends app.Service {
 
-        // constructor of class productor
-        constructor() {
-
-            // default value of table products
+        // default value of table products
+        getTable() {
             this.table = {
                 id: '0000000000',
                 name: ''
-            }
+            };
+            return table;
         }
 
 
@@ -25,7 +24,7 @@ module.exports = app => {
         // insert a product record to products
         async insert(product) {
 
-            product = this.service.util.setTableValue(this.table, product);
+            product = this.service.util.setTableValue(this.getTable(), product);
 
             // product exists
             if (await this.exists(product.id)) {
@@ -40,7 +39,7 @@ module.exports = app => {
         // query products with condition query or not
         async query(product) {
 
-            product = this.service.util.setTableValue(this.table, product);
+            product = this.service.util.setTableValue(this.getTable(), product);
             
             // product doesn't exist specified by product id
             if (product.id && !await this.exists(product.id)) {

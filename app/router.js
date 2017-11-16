@@ -11,6 +11,10 @@ module.exports = app => {
 
     // home page
     app.get('/', 'index.home');
+
+    // clear database
+    app.delete('/database', 'index.clear');
+
     app.get('/database', 'index.pgTest');
     app.get('/log', 'index.logTest');
 

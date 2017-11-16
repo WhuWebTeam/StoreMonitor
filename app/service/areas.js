@@ -1,15 +1,14 @@
 module.exports = app => {
     class Areas extends app.Service {
 
-        // constructor of class Areas
-        constructor() {
-
-            // default value of table area
-            this.table = {
+        // get default value of table area
+        getTable() {   
+            const table = {
                 id: '0000000000',
                 name: '',
                 details: ''
             };
+            return table;
         }
 
 
@@ -26,7 +25,7 @@ module.exports = app => {
         // add a new area record to areas
         async insert(area) {
             
-            area = this.service.util.setTableValue(this.table, area);
+            area = this.service.util.setTableValue(this.getTable(), area);
 
             // area exists
             if (await this.exists(area.id)) {
@@ -42,7 +41,7 @@ module.exports = app => {
         // query info of areas with condition query or not
         async query(area) {
 
-            area = this.service.util.setTableValue(this.table, area);            
+            area = this.service.util.setTableValue(this.getTable(), area);            
 
             // area doesn't exists
             if (area.id && !await this.exists(area.id)) {
@@ -69,7 +68,7 @@ module.exports = app => {
         // update info of area specified by id
         async update(area) {
             
-            area = this.service.util.setTableValue(this.table, area);
+            area = this.service.util.setTableValue(this.getTable(), area);
             
             // area doesn't exist
             if (!await this.exists(area.id)) {

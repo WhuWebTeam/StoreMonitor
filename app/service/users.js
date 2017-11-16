@@ -15,12 +15,9 @@ module.exports = app => {
      */
     class Users extends app.Service {
 
-
-        // constructor of class Users
-        constructor() {
-
-            // default value of table users
-            this.table = {
+        // get default value of table users
+        getTable() {    
+            const table = {
                 id: '00000000000',
                 userName: '',
                 password: '',
@@ -28,6 +25,7 @@ module.exports = app => {
                 email: '',
                 authorityId: ''
             };
+            return table;
         }
 
 
@@ -69,7 +67,7 @@ module.exports = app => {
         // add a user record to users
         async insert(user) {
 
-            user = this.service.util.setTableValue(this.table, user);
+            user = this.service.util.setTableValue(this.getTable(), user);
 
             // user exists
             if (await this.exists(user.id)) {
@@ -84,7 +82,7 @@ module.exports = app => {
         // query some info of some users specified by id, userName, password, authorityId, phone, email
         async query(user) {
             
-            user = this.service.util.setTableValue(this.table, user);
+            user = this.service.util.setTableValue(this.getTable(), user);
             
             // user doesn't exists
             if (user.id && !await this.exists(user.id)) {
@@ -112,7 +110,7 @@ module.exports = app => {
         // update info of user specified by user's id
         async update(user) {
 
-            user = this.service.util.setTableValue(this.table, user);
+            user = this.service.util.setTableValue(this.getTable(), user);
             
             // user doesn't exists
             if (!await this.exists(user.id)) {

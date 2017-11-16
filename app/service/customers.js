@@ -1,11 +1,9 @@
 module.exports = app => {
     class Customers extends app.Service {
- 
-        // constructor of class Customers
-        constructor() {
 
-            // default value of table customers
-            this.table = {
+        // get default value of table customers
+        getTable() {
+            const table = {
                 id: '0000000000',
                 name: '',
                 type: ''
@@ -27,7 +25,7 @@ module.exports = app => {
         // insert customer to customers
         async insert(customer) {
 
-            customer = this.service.util.setTableValue(this.table, customer);
+            customer = this.service.util.setTableValue(this.getTable(), customer);
 
             // customer exists
             if (await this.exists(customer.id)) {
@@ -43,7 +41,7 @@ module.exports = app => {
         // query customers with condition query or not
         async query(customer) {
             
-            customer = this.service.util.setTableValue(this.table, customer);
+            customer = this.service.util.setTableValue(this.getTable(), customer);
             
             // customer doesn't exists
             if (customer.id && !await this.exists(customer.id)) {
