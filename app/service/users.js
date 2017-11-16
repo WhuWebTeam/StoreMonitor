@@ -15,6 +15,20 @@ module.exports = app => {
      */
     class Users extends app.Service {
 
+        // get default value of table users
+        getTable() {    
+            const table = {
+                id: '',
+                userName: '',
+                password: '',
+                phone: '',
+                email: '',
+                authorityId: ''
+            };
+            return table;
+        }
+
+
         /**
          * judge user exists or not
          * @public
@@ -53,6 +67,8 @@ module.exports = app => {
         // add a user record to users
         async insert(user) {
 
+            user = this.service.util.setTableValue(this.getTable(), user);
+
             // user exists
             if (await this.exists(user.id)) {
                 return false;
@@ -65,6 +81,8 @@ module.exports = app => {
 
         // query some info of some users specified by id, userName, password, authorityId, phone, email
         async query(user) {
+            
+            user = this.service.util.setTableValue(this.getTable(), user);
             
             // user doesn't exists
             if (user.id && !await this.exists(user.id)) {
@@ -92,6 +110,8 @@ module.exports = app => {
         // update info of user specified by user's id
         async update(user) {
 
+            user = this.service.util.setTableValue(this.getTable(), user);
+            
             // user doesn't exists
             if (!await this.exists(user.id)) {
                 return this.service.util.generateResponse(400, `user doesn't exist`);

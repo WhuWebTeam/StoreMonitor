@@ -1,6 +1,19 @@
 module.exports = app => {
     class Counters extends app.Service {
 
+        // get default value of table counters
+        getTable() {
+            const table = {
+                id: '',
+                shopId: '',
+                type: '',
+                details: ''
+            };
+            return table;
+        }
+
+
+
         // judge counter exists or not
         async exists(id) {
             if (await this.service.dbHelp.count('counters', id, { id })) {
@@ -13,6 +26,8 @@ module.exports = app => {
         
         // insert a counter into counters
         async insert(counter) {
+
+            counter = this.service.util.setTableValue(this.getTable(), counter);
 
             // counter record exists
             if (await this.exists(counter.id)) {
@@ -27,6 +42,8 @@ module.exports = app => {
 
         // query info of counters specified by id, shopId, type or details
         async query(counter) {
+            
+            counter = this.service.util.setTableValue(this.getTable(), counter);
             
             // counter doesn't exist
             if (counter.id && !await this.exists(counter.id)) {
@@ -54,6 +71,8 @@ module.exports = app => {
         // update info of some counter specified by id
         async update(counter) {
 
+            counter = this.service.util.setTableValue(this.getTable(), counter);
+            
             // counter doesn't exist
             if (!await this.exists(counter.id)) {
                 return this.service.util.generateResponse(400, `counter doesn't exist`);

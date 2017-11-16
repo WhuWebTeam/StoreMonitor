@@ -9,7 +9,6 @@ module.exports = app => {
             };
         }
 
-
     }
 
     return CashierSalesInfo;

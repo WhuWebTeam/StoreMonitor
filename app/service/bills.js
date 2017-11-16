@@ -1,6 +1,28 @@
 module.exports = app => {
 	class Bills extends app.Controller {
 
+		// default value of table bills
+		getTable() {
+			const table = {
+				transId: '',
+				ts: '',
+				shopId: '',
+				counterId: '',
+				startTime: '',
+				endTime: '',
+				scriptVer: '',
+				productId: '',
+				price: '',
+				quantity: '',
+				amount: '',
+				cashierId: '',
+				customerId: '',
+				eventFalg: ''
+			};
+			return table;
+		}
+
+
 		// judge bill exists or not
 		async exists(ts) {
 			if (await this.service.dbHelp.count('bills', 'id', { ts })) {
@@ -13,6 +35,8 @@ module.exports = app => {
 		
 		// insert a bill record to bills
 		async insert(bill) {
+
+			bill = this.service.util.setTableValue(this.getTable(), bill);
 
 			// bill exists
 			if (await this.exists(bill.ts)) {

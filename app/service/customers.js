@@ -1,6 +1,18 @@
 module.exports = app => {
     class Customers extends app.Service {
 
+        // get default value of table customers
+        getTable() {
+            const table = {
+                id: '',
+                name: '',
+                type: ''
+            };
+            return table;
+        }
+
+
+
         // judge customer exists or not
         async exists(id) {
             if (await this.service.dbHelp.count('customers', 'id', { id })) {
@@ -13,6 +25,8 @@ module.exports = app => {
         
         // insert customer to customers
         async insert(customer) {
+
+            customer = this.service.util.setTableValue(this.getTable(), customer);
 
             // customer exists
             if (await this.exists(customer.id)) {
@@ -27,6 +41,8 @@ module.exports = app => {
 
         // query customers with condition query or not
         async query(customer) {
+            
+            customer = this.service.util.setTableValue(this.getTable(), customer);
             
             // customer doesn't exists
             if (customer.id && !await this.exists(customer.id)) {

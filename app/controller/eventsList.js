@@ -25,7 +25,7 @@ module.exports = app => {
             const ts = this.ctx.params.ts;
             const eventList = this.ctx.request.body;
 
-            // eventList 
+            // eventList doesn't exist 
             if (!await this.service.eventsList.setResult(ts, eventList.editResult)) {
                 this.ctx.body = this.service.util.generateResponse(400, `eventList doesn't exists`);
                 return;
@@ -35,6 +35,20 @@ module.exports = app => {
         }
 
         
+        // set some eventList status to temp store
+        async StoreEventsList() {
+            const ts = await this.ctx.params.ts;
+
+            // eventsList doesn't exist
+            if (!await this.service.eventsList.StoreEventsList(ts)) {
+                this.ctx.body = this.service.util.generateResponse(400, `eventList doesn't exist`);
+            }
+
+            // eventList edit successed
+            this.ctx.body = this.service.util.generateResponse(200, 'set eventList status to temp store successed!');
+        }
+
+
         // get info of eventsList with condition query or not
         async getEventList() {
             const eventList = this.ctx.request.body;
