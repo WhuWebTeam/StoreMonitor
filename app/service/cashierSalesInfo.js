@@ -1,6 +1,20 @@
 module.exports = app => {
     class CashierSalesInfo extends app.Service {
 
+        // get default value of table cashierSalesInfo
+        getTable() {    
+            const table = {
+                cashierId: '0000000000',
+                transId: '',
+                ts: 0,
+                duration: 0,
+                amount: 0,
+                rate: 0
+            };
+            return table;
+        }
+
+
         // judge cashierSalesInfo exists or not
         async exists(ts) {
             if (await this.service.dbHelp.count('cashierSalesInfo', 'id', { ts })) {
@@ -23,6 +37,9 @@ module.exports = app => {
 
         // insert cashierSalesInfo queried from bills to cashierSalesInfo
         async insert(cashierSalesInfo) {
+
+            cashierSalesInfo = this.service.util.setTableValue(this.getTable(), cashierSalesInfo);
+
             if (await this.exists(cashierSalesInfo.ts)) {
                 return false;
             }
@@ -43,6 +60,8 @@ module.exports = app => {
 
         // query cashierSalesInfo specified by id, cashierId, transId, ts, duration, amount
         async query(cashierSaleInfo) {
+            
+            cashierSalesInfo = this.service.util.setTableValue(this.getTable(), cashierSalesInfo);
             
             // cashierSaleInfo doesn't exist
             if (cashierSaleInfo.id && !await this.existsId(cashierSaleInfo.id)) {
@@ -71,8 +90,11 @@ module.exports = app => {
         async migrate() {
             const ts = await this.maxTs();
 
-            const str = `insert into cashierSalesInfo(cashierId, transId, ts, duration, amount)
-                         select b.cashierId, b.transId, b.ts, c.duration, b.amount
+            const str = `insert into cashierSalesInfo(cashierId, transId, ts, duration, amount, rate)
+                         select b.cashierId, b.transId, b.ts, c.duration, b.amount, 
+                             case when b.amount = 0 then 0
+                                 else c.duration / b.amount
+                                 end rate
                          from bills b inner join 
                              (select transId, max(ts) - min(ts) duration
                              from bills

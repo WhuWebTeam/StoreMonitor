@@ -1,6 +1,16 @@
 module.exports = app => {
     class Cashiers extends app.Service {
-        
+
+        // get default value of table cashiers
+        getTable() {
+            const table = {
+                id: '00000000',
+                name: ''
+            };
+            return table;
+        }
+
+
         // judge cashier exists or not
         async exists(id) {
             if (await this.service.dbHelp.count('cashiers', 'id', { id })) {
@@ -13,6 +23,8 @@ module.exports = app => {
         
         // insert record to cashiers
         async insert(cashier) {
+
+            cashier = this.service.util.setTableValue(this.getTable(), cashier);
 
             // cashier exists
             if (await this.exists(cashier.id)) {
@@ -28,6 +40,8 @@ module.exports = app => {
         // query cashiers with condition query or not
         async query(cashier) {
 
+            cashier = this.service.util.setTableValue(this.getTable(), cashier);
+            
             // cashier doesn't exists
             if (cashier.id && !await this.exists(cashier.id)) {
                 return this.service.util.generateResponse(400, `cashier doesn't exists`);

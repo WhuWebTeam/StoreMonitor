@@ -1,6 +1,20 @@
 module.exports = app => {
     class WuMartUsers extends app.Service {
 
+        // get default value of table WuMartUsers
+        getTable() {
+            const table = {
+                wmUserId: '00000000',
+                wmUserLvl: '',
+                userName: '',
+                phone: '',
+                email: '',
+                authorityId: ''
+            };
+            return table;
+        }
+
+
         // judge user of wu mei market exists or not
         async exists(wmUserId) {
             if (await this.service.dbHelp.count('userswm', 'wmUserId', { wmUserId })) {
@@ -13,6 +27,10 @@ module.exports = app => {
         
         // insert wu mei user record to userswm
         async insert(userwm) {
+
+            userwm = this.service.util.setTableValue(this.getTable(), userwm);
+
+            // user exists
             if (await this.exists(userwm.wmUserId)) {
                 return false;
             }
@@ -26,6 +44,8 @@ module.exports = app => {
         // query info of some wu mei users specified by wmUserId, wmUserLvl, authorityId, name, phone or email
         async query(userwm) {
 
+            userwm = this.service.util.setTableValue(this.getTable(), userwm);
+            
             // user doesn't exist
             if (userwm.wmUserId && !await this.exists(userwm.wmUserId)) {
                 return this.service.util.generateResponse(400, `user of wu mei market doesn't exist`);

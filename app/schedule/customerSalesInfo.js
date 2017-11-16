@@ -1,9 +1,9 @@
 module.exports = app => {
     return {
         schedule: {
-            interval: '10m',
+            interval: '10s',
             type: 'all',
-            immediate: false,
+            immediate: true,
             disable: app.config.env === 'server'
         },
 

@@ -201,6 +201,7 @@ CREATE TABLE public.eventsList
     id serial primary key,
     transId varchar(50),
     ts bigint,
+    status int default 0,
     editResult varchar(50),
     videoUrl varchar(200),
     pic1Url varchar(200),
@@ -225,6 +226,7 @@ CREATE TABLE public.cashierSalesInfo
     id serial primary key,
     ts bigint,
     duration bigint,
+    rate real,
     amount bigint,
     cashierId varchar(50),
     transId varchar(50)

@@ -18,10 +18,8 @@ module.exports = app => {
     class Logger extends app.Service {
 
         async logPath(path, type, message) {
-            const logInfo = `[${type} | ${new Date}]: ${message}`;
-            const line = '\n--------------------------------------------------------------\n\n';
+            const logInfo = `\n\n[${type} | ${new Date}]: ${message}`;
             await this.service.path.appendFile(path, logInfo);
-            await this.service.path.appendFile(path, line);
         }
 
         

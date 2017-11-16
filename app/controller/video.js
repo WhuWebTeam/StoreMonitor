@@ -57,7 +57,7 @@ module.exports = app => {
             }
             
             for (const [index, billEle] of DVA.Bills.entries()) {
-                
+
                 // format product
                 let product = {};
                 product.id = billEle.Sku || 'NO090934535123';
