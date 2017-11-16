@@ -3,7 +3,7 @@ module.exports = app => {
 
 		// default value of table bills
 		getTable() {
-		const table = {
+			const table = {
 				transId: '',
 				ts: 0,
 				shopId: '0000000000',
