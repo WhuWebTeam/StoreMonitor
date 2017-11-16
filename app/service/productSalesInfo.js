@@ -4,10 +4,10 @@ module.exports = app => {
         // get default value of table productSalesInfo
         getTable() {
             const table = {
-                shopId: '0000000000',
-                productId: '0000000000',
+                shopId: '',
+                productId: '',
                 transId: '',
-                ts: 0,
+                ts: '',
                 price: '',
                 quantity: '',
                 amount: '',

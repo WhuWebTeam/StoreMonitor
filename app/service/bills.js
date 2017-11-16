@@ -5,18 +5,18 @@ module.exports = app => {
 		getTable() {
 			const table = {
 				transId: '',
-				ts: 0,
-				shopId: '0000000000',
-				counterId: '0000000000',
+				ts: '',
+				shopId: '',
+				counterId: '',
 				startTime: '',
 				endTime: '',
 				scriptVer: '',
-				productId: '0000000000',
+				productId: '',
 				price: '',
 				quantity: '',
 				amount: '',
-				cashierId: '0000000000',
-				customerId: '0000000000',
+				cashierId: '',
+				customerId: '',
 				eventFalg: ''
 			};
 			return table;

@@ -4,12 +4,12 @@ module.exports = app => {
         // get default value of table cashierSalesInfo
         getTable() {    
             const table = {
-                cashierId: '0000000000',
+                cashierId: '',
                 transId: '',
-                ts: 0,
-                duration: 0,
-                amount: 0,
-                rate: 0
+                ts: '',
+                duration: '',
+                amount: '',
+                rate: ''
             };
             return table;
         }

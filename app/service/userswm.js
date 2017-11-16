@@ -4,7 +4,7 @@ module.exports = app => {
         // get default value of table WuMartUsers
         getTable() {
             const table = {
-                wmUserId: '00000000',
+                wmUserId: '',
                 wmUserLvl: '',
                 userName: '',
                 phone: '',

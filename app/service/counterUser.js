@@ -4,8 +4,8 @@ module.exports = app => {
         // get default value of table counterUser
         getTable() {
             const table = {
-                userId: '0000000000',
-                counterId: '0000000000',
+                userId: '',
+                counterId: '',
                 type: ''
             };
             return table;

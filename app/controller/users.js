@@ -52,7 +52,7 @@ module.exports = app => {
            
             
             const user = this.ctx.request.body;
-            const result = await this.service.users.update;
+            const result = await this.service.users.update(user);
 
             // user doesn't exist
             if (result.code >= 400) {
