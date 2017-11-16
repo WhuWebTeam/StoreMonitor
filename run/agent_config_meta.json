@@ -162,13 +162,16 @@
     "scripts": {
       "test": "/root/web/StoreMonitor/node_modules/egg/config/config.default.js",
       "cov": "/root/web/StoreMonitor/node_modules/egg/config/config.default.js",
-      "dev": "/root/web/StoreMonitor/node_modules/egg/config/config.default.js"
+      "dev": "/root/web/StoreMonitor/node_modules/egg/config/config.default.js",
+      "start": "/root/web/StoreMonitor/node_modules/egg/config/config.default.js",
+      "stop": "/root/web/StoreMonitor/node_modules/egg/config/config.default.js"
     },
     "author": "/root/web/StoreMonitor/node_modules/egg/config/config.default.js",
     "license": "/root/web/StoreMonitor/node_modules/egg/config/config.default.js",
     "dependencies": {
       "bluebird": "/root/web/StoreMonitor/node_modules/egg/config/config.default.js",
       "egg": "/root/web/StoreMonitor/node_modules/egg/config/config.default.js",
+      "egg-scripts": "/root/web/StoreMonitor/node_modules/egg/config/config.default.js",
       "egg-static": "/root/web/StoreMonitor/node_modules/egg/config/config.default.js",
       "pg-promise": "/root/web/StoreMonitor/node_modules/egg/config/config.default.js"
     },

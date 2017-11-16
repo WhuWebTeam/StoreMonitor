@@ -134,13 +134,16 @@
       "scripts": {
         "test": "egg-bin test",
         "cov": "egg-bin cov",
-        "dev": "egg-bin dev --port 7002"
+        "dev": "egg-bin dev --port 7002",
+        "start": "egg-scripts start --daemon --port=7002 --works=4  --env=server ",
+        "stop": "egg-scripts stop"
       },
       "author": "",
       "license": "ISC",
       "dependencies": {
         "bluebird": "^3.5.1",
         "egg": "^1.10.0",
+        "egg-scripts": "^2.1.1",
         "egg-static": "^2.0.0",
         "pg-promise": "^7.2.0"
       },
