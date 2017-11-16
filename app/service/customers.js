@@ -8,6 +8,7 @@ module.exports = app => {
                 name: '',
                 type: ''
             };
+            return table;
         }
 
 

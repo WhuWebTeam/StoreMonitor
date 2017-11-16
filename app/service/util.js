@@ -43,6 +43,11 @@ module.exports = app => {
 
         // get table attribute value to avoid parameter attack
         setTableValue(tableObj, paramObj) {
+            // parameter paramObj is not an object or cann't convert to object
+            // if (!paramObj) {
+            //     return;
+            // }
+
             Object.entries(tableObj).map(tableAttri => {
                 
                 // table object's attribute exists in parameter object and the value of parameter object exists

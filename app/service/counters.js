@@ -9,6 +9,7 @@ module.exports = app => {
                 type: '',
                 details: ''
             };
+            return table;
         }
 
 

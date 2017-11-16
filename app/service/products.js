@@ -3,7 +3,7 @@ module.exports = app => {
 
         // default value of table products
         getTable() {
-            this.table = {
+            const table = {
                 id: '0000000000',
                 name: ''
             };
