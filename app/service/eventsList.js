@@ -1,6 +1,22 @@
 module.exports = app => {
     class EventsList extends app.Controller {
 
+        // constructor of class eventsList
+        constructor() {
+            this.table = {
+                transId: '',
+                ts: 0,
+                createTime: '',
+                updateTime: '',
+                editResult: '',
+                videoUrl: '',
+                pic1Url: '',
+                pic2Url: '',
+                pic3Url: '',
+                pic4Url: ''
+            };
+        }
+
         // judge eventsList record exists or not 
         async exists(ts) {
             if (await this.service.dbHelp.count('eventsList', 'id', { ts })) {
@@ -63,6 +79,7 @@ module.exports = app => {
 
         // set EventList's result
         async setResult(ts, editResult) {
+            
             // eventList doesn't exist
             if (!await this.exists(ts)) {
                 return false;
@@ -70,6 +87,20 @@ module.exports = app => {
 
             // set eventList's editResult
             await this.service.dbHelp.update('eventsList', { editResult }, { ts });
+            return true;
+        }
+
+
+        // set some EventList status to tempStore  0: default status, 1: temp store status, 2: commit status
+        async StoreEventsList(ts) {
+            
+            // eventsList doesn't exist
+            if (!await this.exists(ts)) {
+                return false;
+            }
+
+            // set some eventList status to temp store
+            await this.service.dbHelp.update('eventsList', { status: 1 }, { ts });
             return true;
         }
     }

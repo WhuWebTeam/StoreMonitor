@@ -40,6 +40,31 @@ module.exports = app => {
             }
         }
 
+
+        // get table attribute value to avoid parameter attack
+        setTableValue(tableObj, paramObj) {
+            Object.entries(tableObj).map(tableAttri => {
+                
+                // table object's attribute exists in parameter object and the value of parameter object exists
+                if (paramObj[tableAttri[0]]) {
+                    tableObj[tableAttri[0]] = paramObj[tableAttri[0]];
+                    return;
+                }
+                
+
+                // table object's attribute exists in parameter object and the value of parameter object equal to false                
+                if (paramObj[tableAttri[0]] === false) {
+                    tableObj[tableAttri[0]] = paramObj[tableAttri[0]];
+                    return;            
+                }
+                
+                // table object's attribute exists in parameter object and the value of parameter object equal to 0
+                if (paramObj[tableAttri[0]] === 0) {
+                    tableObj[tableAttri[0]] = paramObj[tableAttri[0]];
+                    return;
+                }
+            });
+        }
     }
 
     return Util;

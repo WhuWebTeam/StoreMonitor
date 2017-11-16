@@ -1,6 +1,21 @@
 module.exports = app => {
     class WuMartUsers extends app.Service {
 
+        // constructor of class WuMartUsers
+        constructor() {
+
+            // default value of table WuMartUsers
+            this.table = {
+                wmUserId: '00000000',
+                wmUserLvl: '',
+                userName: '',
+                phone: '',
+                email: '',
+                authorityId: ''
+            };
+        }
+
+
         // judge user of wu mei market exists or not
         async exists(wmUserId) {
             if (await this.service.dbHelp.count('userswm', 'wmUserId', { wmUserId })) {

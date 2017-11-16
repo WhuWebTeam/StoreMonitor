@@ -1,5 +1,18 @@
 module.exports = app => {
     class Customers extends app.Service {
+ 
+        // constructor of class Customers
+        constructor() {
+
+            // default value of table customers
+            this.table = {
+                id: '0000000000',
+                name: '',
+                type: ''
+            };
+        }
+
+
 
         // judge customer exists or not
         async exists(id) {

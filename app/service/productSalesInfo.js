@@ -1,6 +1,22 @@
 module.exports = app => {
     class ProductSalesInfo extends app.Service {
         
+        // constructor of productSalesInfo
+        constructor() {
+            
+            // default value of table productSalesInfo
+            this.table = {
+                shopId: '0000000000',
+                productId: '0000000000',
+                transId: '',
+                ts: 0,
+                price: '',
+                quantity: '',
+                amount: '',
+            };
+        }
+
+
         // judge productSaleInfo exists or not
         async exists(ts) {
             if (await this.service.dbHelp.count('productSalesInfo', 'id', { productId, transId, ts })) {

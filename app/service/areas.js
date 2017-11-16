@@ -1,6 +1,18 @@
 module.exports = app => {
     class Areas extends app.Service {
 
+        // constructor of class Areas
+        constructor() {
+
+            // default value of table area
+            this.table = {
+                id: '0000000000',
+                name: '',
+                details: ''
+            };
+        }
+
+
         // judge area exists or not
         async exists(id) {
             if (await this.service.dbHelp.count('areas', 'id', { id })) {

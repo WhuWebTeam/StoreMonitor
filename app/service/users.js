@@ -15,6 +15,22 @@ module.exports = app => {
      */
     class Users extends app.Service {
 
+
+        // constructor of class Users
+        constructor() {
+
+            // default value of table users
+            this.table = {
+                id: '00000000000',
+                userName: '',
+                password: '',
+                phone: '',
+                email: '',
+                authorityId: ''
+            };
+        }
+
+
         /**
          * judge user exists or not
          * @public
