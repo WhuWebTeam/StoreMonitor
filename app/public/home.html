@@ -1,20 +1,40 @@
+<!DOCTYPE html>
 <html>
-    <head>
-        <meta charset = 'utf-8'>
-        <title>home page</title>
-    </head>
-    <body>
-        <h1 style = 'text-align: center; color: blue'>home page</h1>
-        <div style = 'float: left'>
-            <form name = 'user-password' action = '/api/v1/users/signIn' method = 'post'>
-                <p>
-                    username: <input id = 'userId' type = 'text' name = 'id'>
-                </p>
-                <p>
-                    password: <input id = 'userId' type = 'text' name = 'password'>
-                </p>
-                <input type = 'submit' value = 'sign in'>
-            </form>
-        </div>
-    </body>
+<head>
+	<title>使用react从服务器获取数据</title>
+	<meta charset="utf-8">
+	<script type="text/javascript" src="build/react.js"></script>
+	<script type="text/javascript" src="build/react-dom.js"></script>
+	<script type="text/javascript" src="build/browser.min.js"></script>
+	<script type="text/javascript" src="build/jquery.min.js"></script>
+</head>
+<body>
+	<div id="example"></div>
+	<script type="text/babel">
+		var Data = React.createClass({
+			getInitialState:function(){
+				return{
+					result:''
+				}
+			},
+			componentDidMount:function(){
+				$.get(this.props.url,function(res){
+					console.log(res);
+				})
+			},
+			render:function(){
+				return(
+					<p>{this.state.result}</p>
+				)
+			},
+		})
+		ReactDOM.render(
+			<Data url='http://192.168.216.131:7002/api/v1/shops' />,
+			document.getElementById('example')
+		)
+
+	</script>
+</body>
 </html>
+
+
