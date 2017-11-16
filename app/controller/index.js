@@ -11,7 +11,7 @@ module.exports = app => {
         async clear() {
             const tables = [
                 'users', 'userswm', 'authorities', 'counterUser', 'counters', 'shops', 'areas', 'products', 'customers', 
-                'cashiers', 'bills', 'eventsList', 'cashierSalesInfo', 'customerSaleInfo', 'productSalesInfo'
+                'cashiers', 'bills', 'eventsList', 'cashierSalesInfo', 'customerSalesInfo', 'productSalesInfo'
             ];
             
             tables.map(async table => {

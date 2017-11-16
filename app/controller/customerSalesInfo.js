@@ -8,8 +8,7 @@ module.exports = app => {
                 }
             };
         }
-
-        
+ 
     }
 
     return CustomerSalesInfo;

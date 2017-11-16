@@ -7,6 +7,4 @@ module.exports = app => {
 
     // StoreMonitor's baseDir
     app.basePath = __dirname;
-
-    console.log(app.config.env);
 }
