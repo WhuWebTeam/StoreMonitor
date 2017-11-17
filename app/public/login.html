@@ -26,10 +26,10 @@
 			var password = document.getElementById('password').value;
 			var data = {
 				'id':username,
-				'password':password
+				'password':password;
 			}
 			$.ajax({
-				url:'/api/v1/users/signIn',
+				url:'http://121.201.13.217:27002/api/v1/users/signIn',
 				type:'POST',
 				data:data,
 				success:function(data){

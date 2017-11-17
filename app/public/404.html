@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>页面不存在</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+	<link rel="stylesheet" type="text/css" href="bootstrap-3.3.7-dist/css/bootstrap.min.css">
+	<style type="text/css">
+		h1{
+			text-align: center;
+			margin: 20px auto 0;
+		}
+		.jump{
+			text-align: center;
+			background-color: yellow;
+			border: 1px solid blue;
+			margin: 200px auto 0 ;
+		}
+	</style>
+	<script>
+	window.onload = function(){
+	    setTimeout("history.back()", 5000);
+	    for(var i=0;i<5;i++){
+	    	((j)=>{
+	    		setTimeout(()=>{
+	    			document.getElementById('second').innerText = 5 - j;
+	    		},1000*j);
+	    	})(i);
+	    }
+	}
+	</script>
+</head>
+<body>	
+	<h1 class="jumbotron">您访问的页面不存在</h1>
+	<h2 class="jump"><span id="second">5</span>秒之后回到上一页</p>
+	<script type="text/javascript" src="bootstrap-3.3.7-dist/jquery/jquery.min.js"></script>
+	<script type="text/javascript" src="bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+</body>
+</html>
