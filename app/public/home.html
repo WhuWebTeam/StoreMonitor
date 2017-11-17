@@ -5,6 +5,9 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
 	<link rel="stylesheet" type="text/css" href="bootstrap-3.3.7-dist/css/bootstrap.min.css">
+	<script type="text/javascript" src="bootstrap-3.3.7-dist/jquery/jquery.min.js"></script>
+	<script type="text/javascript" src="bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
 	<style type="text/css">
 		#form_login{
 			width: 500px;
@@ -21,6 +24,19 @@
 		}
 	</style>
 	<script type="text/javascript">
+		var csrftoken = Cookies.get('csrfToken');
+
+		function csrfSafeMethod(method) {
+		  // these HTTP methods do not require CSRF protection
+		  return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+		}
+		$.ajaxSetup({
+		  beforeSend: function(xhr, settings) {
+		    if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+		      xhr.setRequestHeader('x-csrf-token', csrftoken);
+		    }
+		  },
+		});
 		function signIn(){
 			var username = document.getElementById('username').value;
 			var password = document.getElementById('password').value;
@@ -53,7 +69,6 @@
 	
 
 
-	<script type="text/javascript" src="bootstrap-3.3.7-dist/jquery/jquery.min.js"></script>
-	<script type="text/javascript" src="bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+	
 </body>
 </html>

@@ -1,247 +1,247 @@
 {
-  "keys": "/root/web/StoreMonitor/config/config.default.js",
+  "keys": "/root/teamgit/StoreMonitor/config/config.default.js",
   "logger": {
-    "dir": "/root/web/StoreMonitor/config/config.default.js",
-    "encoding": "/root/web/StoreMonitor/node_modules/egg/config/config.default.js",
-    "env": "/root/web/StoreMonitor/node_modules/egg/config/config.default.js",
-    "level": "/root/web/StoreMonitor/node_modules/egg/config/config.default.js",
-    "consoleLevel": "/root/web/StoreMonitor/node_modules/egg/config/config.default.js",
-    "disableConsoleAfterReady": "/root/web/StoreMonitor/node_modules/egg/config/config.default.js",
-    "outputJSON": "/root/web/StoreMonitor/node_modules/egg/config/config.default.js",
-    "buffer": "/root/web/StoreMonitor/node_modules/egg/config/config.default.js",
-    "appLogName": "/root/web/StoreMonitor/node_modules/egg/config/config.default.js",
-    "coreLogName": "/root/web/StoreMonitor/node_modules/egg/config/config.default.js",
-    "agentLogName": "/root/web/StoreMonitor/node_modules/egg/config/config.default.js",
-    "errorLogName": "/root/web/StoreMonitor/node_modules/egg/config/config.default.js",
+    "dir": "/root/teamgit/StoreMonitor/config/config.default.js",
+    "encoding": "/root/teamgit/StoreMonitor/node_modules/egg/config/config.default.js",
+    "env": "/root/teamgit/StoreMonitor/node_modules/egg/config/config.default.js",
+    "level": "/root/teamgit/StoreMonitor/node_modules/egg/config/config.default.js",
+    "consoleLevel": "/root/teamgit/StoreMonitor/node_modules/egg/config/config.default.js",
+    "disableConsoleAfterReady": "/root/teamgit/StoreMonitor/node_modules/egg/config/config.default.js",
+    "outputJSON": "/root/teamgit/StoreMonitor/node_modules/egg/config/config.default.js",
+    "buffer": "/root/teamgit/StoreMonitor/node_modules/egg/config/config.default.js",
+    "appLogName": "/root/teamgit/StoreMonitor/node_modules/egg/config/config.default.js",
+    "coreLogName": "/root/teamgit/StoreMonitor/node_modules/egg/config/config.default.js",
+    "agentLogName": "/root/teamgit/StoreMonitor/node_modules/egg/config/config.default.js",
+    "errorLogName": "/root/teamgit/StoreMonitor/node_modules/egg/config/config.default.js",
     "coreLogger": {
-      "consoleLevel": "/root/web/StoreMonitor/node_modules/egg/config/config.local.js"
+      "consoleLevel": "/root/teamgit/StoreMonitor/node_modules/egg/config/config.local.js"
     },
-    "allowDebugAtProd": "/root/web/StoreMonitor/node_modules/egg/config/config.default.js"
+    "allowDebugAtProd": "/root/teamgit/StoreMonitor/node_modules/egg/config/config.default.js"
   },
   "path": {
-    "infoDir": "/root/web/StoreMonitor/config/config.default.js",
-    "logDir": "/root/web/StoreMonitor/config/config.default.js"
+    "infoDir": "/root/teamgit/StoreMonitor/config/config.default.js",
+    "logDir": "/root/teamgit/StoreMonitor/config/config.default.js"
   },
   "database": {
     "pg": {
-      "user": "/root/web/StoreMonitor/config/config.default.js",
-      "database": "/root/web/StoreMonitor/config/config.default.js",
-      "host": "/root/web/StoreMonitor/config/config.default.js",
-      "password": "/root/web/StoreMonitor/config/config.default.js",
-      "port": "/root/web/StoreMonitor/config/config.default.js",
-      "poolSize": "/root/web/StoreMonitor/config/config.default.js"
+      "user": "/root/teamgit/StoreMonitor/config/config.default.js",
+      "database": "/root/teamgit/StoreMonitor/config/config.default.js",
+      "host": "/root/teamgit/StoreMonitor/config/config.default.js",
+      "password": "/root/teamgit/StoreMonitor/config/config.default.js",
+      "port": "/root/teamgit/StoreMonitor/config/config.default.js",
+      "poolSize": "/root/teamgit/StoreMonitor/config/config.default.js"
     }
   },
   "security": {
     "csrf": {
-      "ignoreJSON": "/root/web/StoreMonitor/config/config.default.js",
-      "enable": "/root/web/StoreMonitor/node_modules/egg-security/config/config.default.js",
-      "useSession": "/root/web/StoreMonitor/node_modules/egg-security/config/config.default.js",
-      "cookieName": "/root/web/StoreMonitor/node_modules/egg-security/config/config.default.js",
-      "sessionName": "/root/web/StoreMonitor/node_modules/egg-security/config/config.default.js",
-      "headerName": "/root/web/StoreMonitor/node_modules/egg-security/config/config.default.js",
-      "bodyName": "/root/web/StoreMonitor/node_modules/egg-security/config/config.default.js",
-      "queryName": "/root/web/StoreMonitor/node_modules/egg-security/config/config.default.js"
+      "ignoreJSON": "/root/teamgit/StoreMonitor/config/config.default.js",
+      "enable": "/root/teamgit/StoreMonitor/node_modules/egg-security/config/config.default.js",
+      "useSession": "/root/teamgit/StoreMonitor/node_modules/egg-security/config/config.default.js",
+      "cookieName": "/root/teamgit/StoreMonitor/node_modules/egg-security/config/config.default.js",
+      "sessionName": "/root/teamgit/StoreMonitor/node_modules/egg-security/config/config.default.js",
+      "headerName": "/root/teamgit/StoreMonitor/node_modules/egg-security/config/config.default.js",
+      "bodyName": "/root/teamgit/StoreMonitor/node_modules/egg-security/config/config.default.js",
+      "queryName": "/root/teamgit/StoreMonitor/node_modules/egg-security/config/config.default.js"
     },
-    "domainWhiteList": "/root/web/StoreMonitor/node_modules/egg-security/config/config.default.js",
-    "protocolWhiteList": "/root/web/StoreMonitor/node_modules/egg-security/config/config.default.js",
-    "defaultMiddleware": "/root/web/StoreMonitor/node_modules/egg-security/config/config.default.js",
+    "domainWhiteList": "/root/teamgit/StoreMonitor/node_modules/egg-security/config/config.default.js",
+    "protocolWhiteList": "/root/teamgit/StoreMonitor/node_modules/egg-security/config/config.default.js",
+    "defaultMiddleware": "/root/teamgit/StoreMonitor/node_modules/egg-security/config/config.default.js",
     "xframe": {
-      "enable": "/root/web/StoreMonitor/node_modules/egg-security/config/config.default.js",
-      "value": "/root/web/StoreMonitor/node_modules/egg-security/config/config.default.js"
+      "enable": "/root/teamgit/StoreMonitor/node_modules/egg-security/config/config.default.js",
+      "value": "/root/teamgit/StoreMonitor/node_modules/egg-security/config/config.default.js"
     },
     "hsts": {
-      "enable": "/root/web/StoreMonitor/node_modules/egg-security/config/config.local.js",
-      "maxAge": "/root/web/StoreMonitor/node_modules/egg-security/config/config.default.js",
-      "includeSubdomains": "/root/web/StoreMonitor/node_modules/egg-security/config/config.default.js"
+      "enable": "/root/teamgit/StoreMonitor/node_modules/egg-security/config/config.local.js",
+      "maxAge": "/root/teamgit/StoreMonitor/node_modules/egg-security/config/config.default.js",
+      "includeSubdomains": "/root/teamgit/StoreMonitor/node_modules/egg-security/config/config.default.js"
     },
     "dta": {
-      "enable": "/root/web/StoreMonitor/node_modules/egg-security/config/config.default.js"
+      "enable": "/root/teamgit/StoreMonitor/node_modules/egg-security/config/config.default.js"
     },
     "methodnoallow": {
-      "enable": "/root/web/StoreMonitor/node_modules/egg-security/config/config.default.js"
+      "enable": "/root/teamgit/StoreMonitor/node_modules/egg-security/config/config.default.js"
     },
     "noopen": {
-      "enable": "/root/web/StoreMonitor/node_modules/egg-security/config/config.default.js"
+      "enable": "/root/teamgit/StoreMonitor/node_modules/egg-security/config/config.default.js"
     },
     "nosniff": {
-      "enable": "/root/web/StoreMonitor/node_modules/egg-security/config/config.default.js"
+      "enable": "/root/teamgit/StoreMonitor/node_modules/egg-security/config/config.default.js"
     },
     "xssProtection": {
-      "enable": "/root/web/StoreMonitor/node_modules/egg-security/config/config.default.js",
-      "value": "/root/web/StoreMonitor/node_modules/egg-security/config/config.default.js"
+      "enable": "/root/teamgit/StoreMonitor/node_modules/egg-security/config/config.default.js",
+      "value": "/root/teamgit/StoreMonitor/node_modules/egg-security/config/config.default.js"
     },
     "csp": {
-      "enable": "/root/web/StoreMonitor/node_modules/egg-security/config/config.default.js",
-      "policy": "/root/web/StoreMonitor/node_modules/egg-security/config/config.default.js"
+      "enable": "/root/teamgit/StoreMonitor/node_modules/egg-security/config/config.default.js",
+      "policy": "/root/teamgit/StoreMonitor/node_modules/egg-security/config/config.default.js"
     }
   },
   "onerror": {
-    "errorPageUrl": "/root/web/StoreMonitor/node_modules/egg-onerror/config/config.default.js",
-    "appErrorFilter": "/root/web/StoreMonitor/node_modules/egg-onerror/config/config.default.js"
+    "errorPageUrl": "/root/teamgit/StoreMonitor/node_modules/egg-onerror/config/config.default.js",
+    "appErrorFilter": "/root/teamgit/StoreMonitor/node_modules/egg-onerror/config/config.default.js"
   },
   "session": {
-    "maxAge": "/root/web/StoreMonitor/node_modules/egg-session/config/config.default.js",
-    "key": "/root/web/StoreMonitor/node_modules/egg-session/config/config.default.js",
-    "httpOnly": "/root/web/StoreMonitor/node_modules/egg-session/config/config.default.js",
-    "encrypt": "/root/web/StoreMonitor/node_modules/egg-session/config/config.default.js"
+    "maxAge": "/root/teamgit/StoreMonitor/node_modules/egg-session/config/config.default.js",
+    "key": "/root/teamgit/StoreMonitor/node_modules/egg-session/config/config.default.js",
+    "httpOnly": "/root/teamgit/StoreMonitor/node_modules/egg-session/config/config.default.js",
+    "encrypt": "/root/teamgit/StoreMonitor/node_modules/egg-session/config/config.default.js"
   },
   "i18n": {
-    "defaultLocale": "/root/web/StoreMonitor/node_modules/egg-i18n/config/config.default.js",
-    "dirs": "/root/web/StoreMonitor/node_modules/egg-i18n/config/config.default.js",
-    "queryField": "/root/web/StoreMonitor/node_modules/egg-i18n/config/config.default.js",
-    "cookieField": "/root/web/StoreMonitor/node_modules/egg-i18n/config/config.default.js",
-    "cookieMaxAge": "/root/web/StoreMonitor/node_modules/egg-i18n/config/config.default.js"
+    "defaultLocale": "/root/teamgit/StoreMonitor/node_modules/egg-i18n/config/config.default.js",
+    "dirs": "/root/teamgit/StoreMonitor/node_modules/egg-i18n/config/config.default.js",
+    "queryField": "/root/teamgit/StoreMonitor/node_modules/egg-i18n/config/config.default.js",
+    "cookieField": "/root/teamgit/StoreMonitor/node_modules/egg-i18n/config/config.default.js",
+    "cookieMaxAge": "/root/teamgit/StoreMonitor/node_modules/egg-i18n/config/config.default.js"
   },
   "watcher": {
-    "type": "/root/web/StoreMonitor/node_modules/egg-watcher/config/config.local.js",
+    "type": "/root/teamgit/StoreMonitor/node_modules/egg-watcher/config/config.local.js",
     "eventSources": {
-      "default": "/root/web/StoreMonitor/node_modules/egg-watcher/config/config.default.js",
-      "development": "/root/web/StoreMonitor/node_modules/egg-watcher/config/config.default.js"
+      "default": "/root/teamgit/StoreMonitor/node_modules/egg-watcher/config/config.default.js",
+      "development": "/root/teamgit/StoreMonitor/node_modules/egg-watcher/config/config.default.js"
     }
   },
   "multipart": {
-    "autoFields": "/root/web/StoreMonitor/node_modules/egg-multipart/config/config.default.js",
-    "defaultCharset": "/root/web/StoreMonitor/node_modules/egg-multipart/config/config.default.js",
-    "fieldNameSize": "/root/web/StoreMonitor/node_modules/egg-multipart/config/config.default.js",
-    "fieldSize": "/root/web/StoreMonitor/node_modules/egg-multipart/config/config.default.js",
-    "fields": "/root/web/StoreMonitor/node_modules/egg-multipart/config/config.default.js",
-    "fileSize": "/root/web/StoreMonitor/node_modules/egg-multipart/config/config.default.js",
-    "files": "/root/web/StoreMonitor/node_modules/egg-multipart/config/config.default.js",
-    "fileExtensions": "/root/web/StoreMonitor/node_modules/egg-multipart/config/config.default.js",
-    "whitelist": "/root/web/StoreMonitor/node_modules/egg-multipart/config/config.default.js"
+    "autoFields": "/root/teamgit/StoreMonitor/node_modules/egg-multipart/config/config.default.js",
+    "defaultCharset": "/root/teamgit/StoreMonitor/node_modules/egg-multipart/config/config.default.js",
+    "fieldNameSize": "/root/teamgit/StoreMonitor/node_modules/egg-multipart/config/config.default.js",
+    "fieldSize": "/root/teamgit/StoreMonitor/node_modules/egg-multipart/config/config.default.js",
+    "fields": "/root/teamgit/StoreMonitor/node_modules/egg-multipart/config/config.default.js",
+    "fileSize": "/root/teamgit/StoreMonitor/node_modules/egg-multipart/config/config.default.js",
+    "files": "/root/teamgit/StoreMonitor/node_modules/egg-multipart/config/config.default.js",
+    "fileExtensions": "/root/teamgit/StoreMonitor/node_modules/egg-multipart/config/config.default.js",
+    "whitelist": "/root/teamgit/StoreMonitor/node_modules/egg-multipart/config/config.default.js"
   },
   "helper": {
-    "shtml": "/root/web/StoreMonitor/node_modules/egg-security/config/config.default.js"
+    "shtml": "/root/teamgit/StoreMonitor/node_modules/egg-security/config/config.default.js"
   },
   "development": {
-    "watchDirs": "/root/web/StoreMonitor/node_modules/egg-development/config/config.default.js",
-    "ignoreDirs": "/root/web/StoreMonitor/node_modules/egg-development/config/config.default.js",
-    "fastReady": "/root/web/StoreMonitor/node_modules/egg-development/config/config.default.js",
-    "reloadOnDebug": "/root/web/StoreMonitor/node_modules/egg-development/config/config.default.js"
+    "watchDirs": "/root/teamgit/StoreMonitor/node_modules/egg-development/config/config.default.js",
+    "ignoreDirs": "/root/teamgit/StoreMonitor/node_modules/egg-development/config/config.default.js",
+    "fastReady": "/root/teamgit/StoreMonitor/node_modules/egg-development/config/config.default.js",
+    "reloadOnDebug": "/root/teamgit/StoreMonitor/node_modules/egg-development/config/config.default.js"
   },
   "logrotator": {
-    "filesRotateByHour": "/root/web/StoreMonitor/node_modules/egg-logrotator/config/config.default.js",
-    "filesRotateBySize": "/root/web/StoreMonitor/node_modules/egg-logrotator/config/config.default.js",
-    "maxFileSize": "/root/web/StoreMonitor/node_modules/egg-logrotator/config/config.default.js",
-    "maxFiles": "/root/web/StoreMonitor/node_modules/egg-logrotator/config/config.default.js",
-    "rotateDuration": "/root/web/StoreMonitor/node_modules/egg-logrotator/config/config.default.js",
-    "maxDays": "/root/web/StoreMonitor/node_modules/egg-logrotator/config/config.default.js"
+    "filesRotateByHour": "/root/teamgit/StoreMonitor/node_modules/egg-logrotator/config/config.default.js",
+    "filesRotateBySize": "/root/teamgit/StoreMonitor/node_modules/egg-logrotator/config/config.default.js",
+    "maxFileSize": "/root/teamgit/StoreMonitor/node_modules/egg-logrotator/config/config.default.js",
+    "maxFiles": "/root/teamgit/StoreMonitor/node_modules/egg-logrotator/config/config.default.js",
+    "rotateDuration": "/root/teamgit/StoreMonitor/node_modules/egg-logrotator/config/config.default.js",
+    "maxDays": "/root/teamgit/StoreMonitor/node_modules/egg-logrotator/config/config.default.js"
   },
   "static": {
-    "prefix": "/root/web/StoreMonitor/node_modules/egg-static/config/config.default.js",
-    "dir": "/root/web/StoreMonitor/node_modules/egg-static/config/config.default.js",
-    "dynamic": "/root/web/StoreMonitor/node_modules/egg-static/config/config.default.js",
-    "preload": "/root/web/StoreMonitor/node_modules/egg-static/config/config.default.js",
-    "buffer": "/root/web/StoreMonitor/node_modules/egg-static/config/config.default.js",
-    "maxFiles": "/root/web/StoreMonitor/node_modules/egg-static/config/config.default.js"
+    "prefix": "/root/teamgit/StoreMonitor/node_modules/egg-static/config/config.default.js",
+    "dir": "/root/teamgit/StoreMonitor/node_modules/egg-static/config/config.default.js",
+    "dynamic": "/root/teamgit/StoreMonitor/node_modules/egg-static/config/config.default.js",
+    "preload": "/root/teamgit/StoreMonitor/node_modules/egg-static/config/config.default.js",
+    "buffer": "/root/teamgit/StoreMonitor/node_modules/egg-static/config/config.default.js",
+    "maxFiles": "/root/teamgit/StoreMonitor/node_modules/egg-static/config/config.default.js"
   },
   "jsonp": {
-    "limit": "/root/web/StoreMonitor/node_modules/egg-jsonp/config/config.default.js",
-    "callback": "/root/web/StoreMonitor/node_modules/egg-jsonp/config/config.default.js",
-    "csrf": "/root/web/StoreMonitor/node_modules/egg-jsonp/config/config.default.js"
+    "limit": "/root/teamgit/StoreMonitor/node_modules/egg-jsonp/config/config.default.js",
+    "callback": "/root/teamgit/StoreMonitor/node_modules/egg-jsonp/config/config.default.js",
+    "csrf": "/root/teamgit/StoreMonitor/node_modules/egg-jsonp/config/config.default.js"
   },
   "view": {
-    "root": "/root/web/StoreMonitor/node_modules/egg-view/config/config.default.js",
-    "cache": "/root/web/StoreMonitor/node_modules/egg-view/config/config.local.js",
-    "defaultExtension": "/root/web/StoreMonitor/node_modules/egg-view/config/config.default.js",
-    "defaultViewEngine": "/root/web/StoreMonitor/node_modules/egg-view/config/config.default.js",
-    "mapping": "/root/web/StoreMonitor/node_modules/egg-view/config/config.default.js"
+    "root": "/root/teamgit/StoreMonitor/node_modules/egg-view/config/config.default.js",
+    "cache": "/root/teamgit/StoreMonitor/node_modules/egg-view/config/config.local.js",
+    "defaultExtension": "/root/teamgit/StoreMonitor/node_modules/egg-view/config/config.default.js",
+    "defaultViewEngine": "/root/teamgit/StoreMonitor/node_modules/egg-view/config/config.default.js",
+    "mapping": "/root/teamgit/StoreMonitor/node_modules/egg-view/config/config.default.js"
   },
-  "env": "/root/web/StoreMonitor/node_modules/egg/config/config.default.js",
-  "name": "/root/web/StoreMonitor/node_modules/egg/config/config.default.js",
-  "proxy": "/root/web/StoreMonitor/node_modules/egg/config/config.default.js",
-  "protocolHeaders": "/root/web/StoreMonitor/node_modules/egg/config/config.default.js",
-  "ipHeaders": "/root/web/StoreMonitor/node_modules/egg/config/config.default.js",
-  "hostHeaders": "/root/web/StoreMonitor/node_modules/egg/config/config.default.js",
+  "env": "/root/teamgit/StoreMonitor/node_modules/egg/config/config.default.js",
+  "name": "/root/teamgit/StoreMonitor/node_modules/egg/config/config.default.js",
+  "proxy": "/root/teamgit/StoreMonitor/node_modules/egg/config/config.default.js",
+  "protocolHeaders": "/root/teamgit/StoreMonitor/node_modules/egg/config/config.default.js",
+  "ipHeaders": "/root/teamgit/StoreMonitor/node_modules/egg/config/config.default.js",
+  "hostHeaders": "/root/teamgit/StoreMonitor/node_modules/egg/config/config.default.js",
   "pkg": {
-    "name": "/root/web/StoreMonitor/node_modules/egg/config/config.default.js",
-    "version": "/root/web/StoreMonitor/node_modules/egg/config/config.default.js",
-    "description": "/root/web/StoreMonitor/node_modules/egg/config/config.default.js",
-    "main": "/root/web/StoreMonitor/node_modules/egg/config/config.default.js",
+    "name": "/root/teamgit/StoreMonitor/node_modules/egg/config/config.default.js",
+    "version": "/root/teamgit/StoreMonitor/node_modules/egg/config/config.default.js",
+    "description": "/root/teamgit/StoreMonitor/node_modules/egg/config/config.default.js",
+    "main": "/root/teamgit/StoreMonitor/node_modules/egg/config/config.default.js",
     "scripts": {
-      "test": "/root/web/StoreMonitor/node_modules/egg/config/config.default.js",
-      "cov": "/root/web/StoreMonitor/node_modules/egg/config/config.default.js",
-      "dev": "/root/web/StoreMonitor/node_modules/egg/config/config.default.js",
-      "start": "/root/web/StoreMonitor/node_modules/egg/config/config.default.js",
-      "stop": "/root/web/StoreMonitor/node_modules/egg/config/config.default.js"
+      "test": "/root/teamgit/StoreMonitor/node_modules/egg/config/config.default.js",
+      "cov": "/root/teamgit/StoreMonitor/node_modules/egg/config/config.default.js",
+      "dev": "/root/teamgit/StoreMonitor/node_modules/egg/config/config.default.js",
+      "start": "/root/teamgit/StoreMonitor/node_modules/egg/config/config.default.js",
+      "stop": "/root/teamgit/StoreMonitor/node_modules/egg/config/config.default.js"
     },
-    "author": "/root/web/StoreMonitor/node_modules/egg/config/config.default.js",
-    "license": "/root/web/StoreMonitor/node_modules/egg/config/config.default.js",
+    "author": "/root/teamgit/StoreMonitor/node_modules/egg/config/config.default.js",
+    "license": "/root/teamgit/StoreMonitor/node_modules/egg/config/config.default.js",
     "dependencies": {
-      "bluebird": "/root/web/StoreMonitor/node_modules/egg/config/config.default.js",
-      "egg": "/root/web/StoreMonitor/node_modules/egg/config/config.default.js",
-      "egg-scripts": "/root/web/StoreMonitor/node_modules/egg/config/config.default.js",
-      "egg-static": "/root/web/StoreMonitor/node_modules/egg/config/config.default.js",
-      "pg-promise": "/root/web/StoreMonitor/node_modules/egg/config/config.default.js"
+      "bluebird": "/root/teamgit/StoreMonitor/node_modules/egg/config/config.default.js",
+      "egg": "/root/teamgit/StoreMonitor/node_modules/egg/config/config.default.js",
+      "egg-scripts": "/root/teamgit/StoreMonitor/node_modules/egg/config/config.default.js",
+      "egg-static": "/root/teamgit/StoreMonitor/node_modules/egg/config/config.default.js",
+      "pg-promise": "/root/teamgit/StoreMonitor/node_modules/egg/config/config.default.js"
     },
     "devDependencies": {
-      "egg-bin": "/root/web/StoreMonitor/node_modules/egg/config/config.default.js",
-      "egg-mock": "/root/web/StoreMonitor/node_modules/egg/config/config.default.js",
-      "should": "/root/web/StoreMonitor/node_modules/egg/config/config.default.js"
+      "egg-bin": "/root/teamgit/StoreMonitor/node_modules/egg/config/config.default.js",
+      "egg-mock": "/root/teamgit/StoreMonitor/node_modules/egg/config/config.default.js",
+      "should": "/root/teamgit/StoreMonitor/node_modules/egg/config/config.default.js"
     }
   },
-  "baseDir": "/root/web/StoreMonitor/node_modules/egg/config/config.default.js",
-  "HOME": "/root/web/StoreMonitor/node_modules/egg/config/config.default.js",
-  "rundir": "/root/web/StoreMonitor/node_modules/egg/config/config.default.js",
+  "baseDir": "/root/teamgit/StoreMonitor/node_modules/egg/config/config.default.js",
+  "HOME": "/root/teamgit/StoreMonitor/node_modules/egg/config/config.default.js",
+  "rundir": "/root/teamgit/StoreMonitor/node_modules/egg/config/config.default.js",
   "dump": {
-    "ignore": "/root/web/StoreMonitor/node_modules/egg/config/config.default.js"
+    "ignore": "/root/teamgit/StoreMonitor/node_modules/egg/config/config.default.js"
   },
   "confusedConfigurations": {
-    "bodyparser": "/root/web/StoreMonitor/node_modules/egg/config/config.default.js",
-    "notFound": "/root/web/StoreMonitor/node_modules/egg/config/config.default.js",
-    "sitefile": "/root/web/StoreMonitor/node_modules/egg/config/config.default.js",
-    "middlewares": "/root/web/StoreMonitor/node_modules/egg/config/config.default.js",
-    "httpClient": "/root/web/StoreMonitor/node_modules/egg/config/config.default.js"
+    "bodyparser": "/root/teamgit/StoreMonitor/node_modules/egg/config/config.default.js",
+    "notFound": "/root/teamgit/StoreMonitor/node_modules/egg/config/config.default.js",
+    "sitefile": "/root/teamgit/StoreMonitor/node_modules/egg/config/config.default.js",
+    "middlewares": "/root/teamgit/StoreMonitor/node_modules/egg/config/config.default.js",
+    "httpClient": "/root/teamgit/StoreMonitor/node_modules/egg/config/config.default.js"
   },
   "notfound": {
-    "pageUrl": "/root/web/StoreMonitor/node_modules/egg/config/config.default.js"
+    "pageUrl": "/root/teamgit/StoreMonitor/node_modules/egg/config/config.default.js"
   },
   "siteFile": {
-    "/favicon.ico": "/root/web/StoreMonitor/node_modules/egg/config/config.default.js"
+    "/favicon.ico": "/root/teamgit/StoreMonitor/node_modules/egg/config/config.default.js"
   },
   "bodyParser": {
-    "enable": "/root/web/StoreMonitor/node_modules/egg/config/config.default.js",
-    "encoding": "/root/web/StoreMonitor/node_modules/egg/config/config.default.js",
-    "formLimit": "/root/web/StoreMonitor/node_modules/egg/config/config.default.js",
-    "jsonLimit": "/root/web/StoreMonitor/node_modules/egg/config/config.default.js",
-    "strict": "/root/web/StoreMonitor/node_modules/egg/config/config.default.js",
+    "enable": "/root/teamgit/StoreMonitor/node_modules/egg/config/config.default.js",
+    "encoding": "/root/teamgit/StoreMonitor/node_modules/egg/config/config.default.js",
+    "formLimit": "/root/teamgit/StoreMonitor/node_modules/egg/config/config.default.js",
+    "jsonLimit": "/root/teamgit/StoreMonitor/node_modules/egg/config/config.default.js",
+    "strict": "/root/teamgit/StoreMonitor/node_modules/egg/config/config.default.js",
     "queryString": {
-      "arrayLimit": "/root/web/StoreMonitor/node_modules/egg/config/config.default.js",
-      "depth": "/root/web/StoreMonitor/node_modules/egg/config/config.default.js",
-      "parameterLimit": "/root/web/StoreMonitor/node_modules/egg/config/config.default.js"
+      "arrayLimit": "/root/teamgit/StoreMonitor/node_modules/egg/config/config.default.js",
+      "depth": "/root/teamgit/StoreMonitor/node_modules/egg/config/config.default.js",
+      "parameterLimit": "/root/teamgit/StoreMonitor/node_modules/egg/config/config.default.js"
     }
   },
   "httpclient": {
-    "enableDNSCache": "/root/web/StoreMonitor/node_modules/egg/config/config.default.js",
-    "dnsCacheMaxLength": "/root/web/StoreMonitor/node_modules/egg/config/config.default.js",
-    "dnsCacheMaxAge": "/root/web/StoreMonitor/node_modules/egg/config/config.default.js",
+    "enableDNSCache": "/root/teamgit/StoreMonitor/node_modules/egg/config/config.default.js",
+    "dnsCacheMaxLength": "/root/teamgit/StoreMonitor/node_modules/egg/config/config.default.js",
+    "dnsCacheMaxAge": "/root/teamgit/StoreMonitor/node_modules/egg/config/config.default.js",
     "request": {
-      "timeout": "/root/web/StoreMonitor/node_modules/egg/config/config.default.js"
+      "timeout": "/root/teamgit/StoreMonitor/node_modules/egg/config/config.default.js"
     },
     "httpAgent": {
-      "keepAlive": "/root/web/StoreMonitor/node_modules/egg/config/config.default.js",
-      "freeSocketKeepAliveTimeout": "/root/web/StoreMonitor/node_modules/egg/config/config.default.js",
-      "maxSockets": "/root/web/StoreMonitor/node_modules/egg/config/config.default.js",
-      "maxFreeSockets": "/root/web/StoreMonitor/node_modules/egg/config/config.default.js"
+      "keepAlive": "/root/teamgit/StoreMonitor/node_modules/egg/config/config.default.js",
+      "freeSocketKeepAliveTimeout": "/root/teamgit/StoreMonitor/node_modules/egg/config/config.default.js",
+      "maxSockets": "/root/teamgit/StoreMonitor/node_modules/egg/config/config.default.js",
+      "maxFreeSockets": "/root/teamgit/StoreMonitor/node_modules/egg/config/config.default.js"
     },
     "httpsAgent": {
-      "keepAlive": "/root/web/StoreMonitor/node_modules/egg/config/config.default.js",
-      "freeSocketKeepAliveTimeout": "/root/web/StoreMonitor/node_modules/egg/config/config.default.js",
-      "maxSockets": "/root/web/StoreMonitor/node_modules/egg/config/config.default.js",
-      "maxFreeSockets": "/root/web/StoreMonitor/node_modules/egg/config/config.default.js"
+      "keepAlive": "/root/teamgit/StoreMonitor/node_modules/egg/config/config.default.js",
+      "freeSocketKeepAliveTimeout": "/root/teamgit/StoreMonitor/node_modules/egg/config/config.default.js",
+      "maxSockets": "/root/teamgit/StoreMonitor/node_modules/egg/config/config.default.js",
+      "maxFreeSockets": "/root/teamgit/StoreMonitor/node_modules/egg/config/config.default.js"
     }
   },
-  "coreMiddleware": "/root/web/StoreMonitor/node_modules/egg/config/config.default.js",
-  "workerStartTimeout": "/root/web/StoreMonitor/node_modules/egg/config/config.default.js",
+  "coreMiddleware": "/root/teamgit/StoreMonitor/node_modules/egg/config/config.default.js",
+  "workerStartTimeout": "/root/teamgit/StoreMonitor/node_modules/egg/config/config.default.js",
   "cluster": {
     "listen": {
-      "path": "/root/web/StoreMonitor/node_modules/egg/config/config.default.js",
-      "port": "/root/web/StoreMonitor/node_modules/egg/config/config.default.js",
-      "hostname": "/root/web/StoreMonitor/node_modules/egg/config/config.default.js"
+      "path": "/root/teamgit/StoreMonitor/node_modules/egg/config/config.default.js",
+      "port": "/root/teamgit/StoreMonitor/node_modules/egg/config/config.default.js",
+      "hostname": "/root/teamgit/StoreMonitor/node_modules/egg/config/config.default.js"
     }
   },
   "clusterClient": {
-    "responseTimeout": "/root/web/StoreMonitor/node_modules/egg/config/config.default.js"
+    "responseTimeout": "/root/teamgit/StoreMonitor/node_modules/egg/config/config.default.js"
   }
 }
