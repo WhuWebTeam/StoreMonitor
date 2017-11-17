@@ -68,21 +68,23 @@
 			var csrf_token = getCookie('csrfToken');
 			//var csrf_token=document.cookie.split(";")[0].split("=")[1];
 
-			url = "/api/v1/users/signIn?_csrf="+csrf_token;
+			var url = "/api/v1/users/signIn?_csrf="+csrf_token;
 
 			document.getElementById('form_login').setAttribute('action',url);
-			$("#form_login").submit();
+			
+			return true;  //开控制台会暂停在这一步，点击开发者工具的继续按钮，即可。
+
 		}
 	</script>
 </head>
 <body>	
 	<div id="login">
-		<form id="form_login" method="post" action="">
+		<form id="form_login" method="post" action="" onsubmit="signIn()">
 		  <fieldset>
 		    <legend>LPS用户登录</legend>
-		    <input type="text" name="username" id="username" class="form-control" placeholder="用户名" /><br/>
-		    <input type="password" name="password" id="password" class="form-control" placeholder="密码"><br/>
-		    <input type="button" id="submit" value="登录" onclick="signIn()">
+		    <input type="text" name="id"  class="form-control" placeholder="用户名" /><br/>
+		    <input type="password" name="password" class="form-control" placeholder="密码"><br/>
+		    <input type="submit" id="submit" value="登录">
 		  </fieldset>
 		</form>
 	</div>
