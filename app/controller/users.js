@@ -84,13 +84,11 @@ module.exports = app => {
             // user exists
             if (await this.service.users.exists(user.id)) {
                 const password = await this.service.users.passwordRight(user.id, user.password);
-                this.ctx.body = {
-                    code: 200,
-                    data: {
-                        password
-                    }
-                };
-                return;
+                if (!password) {
+                    this.ctx.body = this.service.util.generateResponse(400, 'password error');
+                    return;
+                }
+                this.ctx.redirect('/public/users.html');
             }
         
             this.ctx.body = this.service.util.generateResponse(400, `user doesn't exists`);

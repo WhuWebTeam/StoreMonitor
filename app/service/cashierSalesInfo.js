@@ -17,6 +17,13 @@ module.exports = app => {
 
         // judge cashierSalesInfo exists or not
         async exists(ts) {
+
+            //parameter doesn't exist
+            if (!this.service.util.parameterExists(id)) {
+                return false;
+            }
+
+            // parameter exists
             if (await this.service.dbHelp.count('cashierSalesInfo', 'id', { ts })) {
                 return true;
             } else {

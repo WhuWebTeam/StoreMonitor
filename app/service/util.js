@@ -71,6 +71,15 @@ module.exports = app => {
             });
             return tableObj;
         }
+
+        // validate parameter is whitespace or not
+        parameterExists(param) {
+            if (param === "" || param === null || param == undefined) {
+                return false;
+            } else {
+                return true;
+            }
+        }
     }
 
     return Util;

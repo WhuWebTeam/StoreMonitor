@@ -54,15 +54,35 @@
 			})
 		}
 	</script> -->
+	<script type="text/javascript">
+
+		function getCookie(name)
+		{
+			var arr,reg=new RegExp("(^| )"+name+"=([^;]*)(;|$)");
+			if(arr=document.cookie.match(reg))
+			return unescape(arr[2]);
+			else
+			return null;
+		}
+		function signIn(){
+			var csrf_token = getCookie('csrfToken');
+			//var csrf_token=document.cookie.split(";")[0].split("=")[1];
+
+			url = "/api/v1/users/signIn?_csrf="+csrf_token;
+
+			document.getElementById('form_login').setAttribute('action',url);
+			$("#form_login").submit();
+		}
+	</script>
 </head>
 <body>	
 	<div id="login">
-		<form id="form_login" method="post" action="/api/v1/users/signIn?_csrf=rNKm7H5ZEC3Hr6OzlU9DEP3D">
+		<form id="form_login" method="post" action="">
 		  <fieldset>
 		    <legend>LPS用户登录</legend>
 		    <input type="text" name="username" id="username" class="form-control" placeholder="用户名" /><br/>
 		    <input type="password" name="password" id="password" class="form-control" placeholder="密码"><br/>
-		    <input type="submit" id="submit" value="登录">
+		    <input type="button" id="submit" value="登录" onclick="signIn()">
 		  </fieldset>
 		</form>
 	</div>
