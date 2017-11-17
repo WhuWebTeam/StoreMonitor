@@ -31,7 +31,7 @@ module.exports = app => {
 
 
 
-// app.put('/api/v1/user/password/:userId', 'user.changePassword'); // change some user's password
+// app.put('/api/v1/users/password/:userId', 'user.changePassword'); // change some user's password
 // :userId oprateman's id
 // {
 //     id,
@@ -53,7 +53,7 @@ module.exports = app => {
 
 
 
-// app.post('/api/v1/user/signIn', 'user.signIn'); // user login
+// app.post('/api/v1/users/signIn', 'user.signIn'); // user login
 // {
 //     id,
 //     password
@@ -61,7 +61,7 @@ module.exports = app => {
 
 
 
-// app.post('/api/v1/user', 'user.addUser'); // add some user
+// app.post('/api/v1/users', 'user.addUser'); // add some user
 // :userId oprateman's id
 // attributes belonging to the following object, id must exists
 // {
@@ -74,7 +74,7 @@ module.exports = app => {
 
 
 
-// app.delete('/api/v1/user/:userId', 'user.deleteUser'); // delete some user
+// app.delete('/api/v1/users/:userId', 'user.deleteUser'); // delete some user
 // :userId oprateman's id
 // {
 //     id
