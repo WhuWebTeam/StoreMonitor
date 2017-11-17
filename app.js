@@ -1,4 +1,5 @@
 const pgp = require('pg-promise')();
+const Index = require('./index')();
 
 module.exports = app => {
 
@@ -7,4 +8,8 @@ module.exports = app => {
 
     // StoreMonitor's baseDir
     app.basePath = __dirname;
+
+    // database init (add admin user) when start database
+    const index = new Index();
+    index.databaseInit(app);
 }
