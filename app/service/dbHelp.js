@@ -166,6 +166,7 @@ module.exports = app => {
             const result = await this.app.db.query(str, values);
             return result;
         }
+        
 
         /**
          * used to count some attribute
@@ -184,6 +185,7 @@ module.exports = app => {
             count = count && count[0] && count[0].count || 0;
             return +count;
         }
+
 
         /**
          * used to deal with delete opration of database

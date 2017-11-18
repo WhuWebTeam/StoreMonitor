@@ -107,7 +107,7 @@ module.exports = app => {
                         return resolve();
                     });
                 }).catch(err => {
-                    throw err;
+                    // throw err;
                 });
             }
 
@@ -121,7 +121,7 @@ module.exports = app => {
                     return resolve();
                 });
             }).catch(err => {
-                throw err;
+                // throw err;
             });
         }
 
@@ -154,7 +154,7 @@ module.exports = app => {
                     return reject(err);
                 }
             }).then(fd => fd).catch(err => {
-                throw err;
+                // throw err;
             });
         }
 
@@ -178,7 +178,7 @@ module.exports = app => {
                     reject (err);
                 }
             }).then(() => {}).catch(err => {
-                throw err;
+                // throw err;
             });
         }
         

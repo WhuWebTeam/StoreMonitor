@@ -39,6 +39,13 @@ module.exports = app => {
          * false when user specified by userNumber doesn't exist
          */
         async exists(id) {
+            
+            // parameter is not exists
+            if (!this.service.util.parameterExists(id)) {
+                return false;
+            }
+
+            // parameter exists
             if (await this.service.dbHelp.count('users', 'id', { id })) {
                 return true;
             } else {
@@ -56,6 +63,13 @@ module.exports = app => {
          * false when password of user specified by userNumber is false 
          */
         async passwordRight(id, password) {
+
+            // parameter doesn't exists
+            if (!this.service.util.parameterExists(id) || !this.service.util.parameterExists(password)) {
+                return false;
+            }
+
+            // parameter doesn't exists
             if (await this.service.dbHelp.count('users', 'id', { id, password })) {
                 return true;
             } else {

@@ -18,8 +18,16 @@ module.exports = app => {
             return table;
         }
 
+
         // judge eventsList record exists or not 
         async exists(ts) {
+
+            // parameter doesn't exist
+            if (!this.service.util.parameterExists(id)) {
+                return false;
+            }
+
+            // parameter exists
             if (await this.service.dbHelp.count('eventsList', 'id', { ts })) {
                 return true;
             } else {
@@ -36,6 +44,7 @@ module.exports = app => {
                 return false;
             }
         }
+
 
         // insert a eventList record to eventsList
         async insert(eventList) {
