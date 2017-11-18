@@ -7,7 +7,7 @@
     "test": "egg-bin test",
     "cov": "egg-bin cov",
     "dev": "egg-bin dev",
-    "start": "egg-scripts start --daemon --works=4  --env=server ",
+    "start": "egg-scripts start --daemon --port=7002 --works=4  --env=server ",
     "stop": "egg-scripts stop"
   },
   "author": "",
