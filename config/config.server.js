@@ -1,7 +1,7 @@
 
 
 /**
- * The local configuration of StoreMonitor system
+ * The server configuration of StoreMonitor system
  * @class Config
  * @since 1.0.0
  */
@@ -21,7 +21,7 @@ module.exports = app => {
         cluster: {
             listen: {
                 path: '',
-                port: 7001,
+                port: 7002,
                 hostname: '',
             },
         }
@@ -46,11 +46,9 @@ module.exports = app => {
             user: 'company',
             password: '123',
             database: 'company',
-            host: '121.201.13.217',
-            port: '25432',
+            host: '127.0.0.1',
+            port: '5432',
             poolSize: 5,
         }
     };
-
-    return Config;
 }
