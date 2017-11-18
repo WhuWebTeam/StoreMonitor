@@ -19,7 +19,11 @@ module.exports = app => {
 
         async logPath(path, type, message) {
             const logInfo = `\n\n[${type} | ${new Date}]: ${message}`;
-            await this.service.path.appendFile(path, logInfo);
+            try {
+                await this.service.path.appendFile(path, logInfo);
+            } catch (err) {
+                err = '';
+            }
         }
 
         

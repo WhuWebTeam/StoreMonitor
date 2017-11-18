@@ -17,6 +17,7 @@ module.exports = app => {
          * @property {String} listen.path - set a unix path when server listen
          * @property {Number} listen.port - set a port when server listen
          * @property {String} listen.hostname - set a hostname binding server when server listen
+         * @since 1.0.0
          */
         cluster: {
             listen: {
