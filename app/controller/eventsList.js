@@ -20,6 +20,25 @@ module.exports = app => {
         }
 
 
+        // get count of eventsList total, unconfirmed, confirmed
+        async getCount() {
+            const total = await this.service.eventsList.count({});
+    
+            const unConfirmed = await this.service.eventsList.count({ status: 2 });
+    
+            const confirmed = total - unConfirmed;
+        
+            this.ctx.body = {
+                code: 200,
+                data: {
+                    total,
+                    unConfirmed,
+                    confirmed
+                }
+            };
+        }
+
+
         // set editResult
         async setResult() {
             const ts = this.ctx.params.ts;

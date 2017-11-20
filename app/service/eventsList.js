@@ -10,6 +10,7 @@ module.exports = app => {
                 updateTime: '',
                 editResult: '',
                 videoUrl: '',
+                status: '',
                 pic1Url: '',
                 pic2Url: '',
                 pic3Url: '',
@@ -91,6 +92,17 @@ module.exports = app => {
         }
 
 
+        // count eventsList satisfied condition
+        async count(eventList) {
+            eventList = this.service.util.setTableValue(this.getTable(), eventList);
+
+            console.log(eventList);
+            const count = await this.query(eventList);
+            console.log(count);
+            return count && count.data && count.data.length || 0;
+        }
+
+        
         // set EventList's result
         async setResult(ts, editResult) {
 
@@ -101,6 +113,9 @@ module.exports = app => {
 
             // set eventList's editResult
             await this.service.dbHelp.update('eventsList', { editResult }, { ts });
+
+            // set status to commit
+            await this.service.dbHelp.update('eventsList', { status: 2 }, { ts });
             return true;
         }
 

@@ -3,10 +3,10 @@ module.exports = app => {
     app.get('/api/v1/evensList/index', 'eventsList.index');
 
     app.get('/api/v1/eventsList', 'eventsList.getEventsList'); // get all eventsList's info
+    app.get('/api/v1/eventsList/count', 'eventsList.getCount'); // get count of eventsList total, unconfirmed, confirmed
     app.put('/api/v1/eventsList/result/:ts', 'eventsList.setResult'); // confirm the scan result
     app.put('/api/v1/eventsList/status/:ts', 'eventsList.StoreEventsList'); // set some eventList status to temp store
     app.post('/api/v1/eventsList/query', 'eventsList.getEventList'); // get info of some eventList specied by id, transId, ts, createTime, updateTime, editResult, videoUrl, pic1Url, pic2Url, pic3Url, pic4Url
-
 }
 
 
