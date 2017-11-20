@@ -140,6 +140,8 @@ module.exports = app => {
             // when query without where condition(wheres is a {})
             if (JSON.stringify(wheres) === '{}') {
                 const result = await this.app.db.query(str, values);
+                console.log(str);
+                console.log(values);
                 return result;
             }
 

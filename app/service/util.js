@@ -1,7 +1,7 @@
-/** 
+/**
  * enclosure some common opration to util
  * @module util
- * 
+ *
  * @file StoreMonitor
  * @version 0.0.1
  */
@@ -20,7 +20,7 @@ module.exports = app => {
          *     * request error info
          *     * request successed info
          * but doesn't include a data request
-         * @param {int} code - status code 
+         * @param {int} code - status code
          * @param {string} message - request information
          * @return {Object}
          * object with code >= 400 and error message when request failed
@@ -49,20 +49,20 @@ module.exports = app => {
             // }
 
             Object.entries(tableObj).map(tableAttri => {
-                
+
                 // table object's attribute exists in parameter object and the value of parameter object exists
                 if (paramObj[tableAttri[0]]) {
                     tableObj[tableAttri[0]] = paramObj[tableAttri[0]];
                     return;
                 }
-                
 
-                // table object's attribute exists in parameter object and the value of parameter object equal to false                
+
+                // table object's attribute exists in parameter object and the value of parameter object equal to false
                 if (paramObj[tableAttri[0]] === false) {
                     tableObj[tableAttri[0]] = paramObj[tableAttri[0]];
-                    return;            
+                    return;
                 }
-                
+
                 // table object's attribute exists in parameter object and the value of parameter object equal to 0
                 if (paramObj[tableAttri[0]] === 0) {
                     tableObj[tableAttri[0]] = paramObj[tableAttri[0]];
@@ -72,13 +72,42 @@ module.exports = app => {
             return tableObj;
         }
 
+
+		setQueryAttributes(tableObj, paramAttri) {
+
+			// the attributes queried is just include '*'
+			if (paramAttri.length === 1 && paramAttri[0] === '*') {
+				return paramAttri;
+			}
+
+
+			// the attribute queried include more than one attribute
+			const attributes = [];
+			const tableAttri = Object.keys(tableObj);
+			paramAttri.map(ele => {
+				if (tableAttri.includes(ele)) {
+					attributes.push(ele);
+				}
+			});
+            
+            if (attributes.length !== 0) {
+                return attributes;
+            }
+
+            return ['*'];
+		}
+
         // validate parameter is whitespace or not
         parameterExists(param) {
-            if (param === "" || param === null || param == undefined) {
+			
+			// parameter doesn't exist
+			if (param === "" || param === null || param == undefined) {
                 return false;
-            } else {
-                return true;
             }
+			
+			// parameter exists
+			return true;
+            
         }
     }
 
