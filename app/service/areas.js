@@ -59,7 +59,7 @@ module.exports = app => {
 
         /**
          * Query info of areas with condition query or not
-         * @param {Obejct} area - condition of table areas'query 
+         * @param {Obejct} area - condition of table areas'query
          * @param {Array[String]} attributes - array of attributes wanted to be queried
          * @return {Promise<Object>}
          * {} when query set doesn't exist
@@ -101,7 +101,7 @@ module.exports = app => {
          * @return {Promise<Number>}
          * 0 when count is 0 or query error
          * number not 0 when query successed and has value without 0
-         * @since 1.0.0 
+         * @since 1.0.0
          */
         async count(area, attributes = ['*']) {
 
@@ -126,10 +126,10 @@ module.exports = app => {
          * @since 1.0.0
          */
         async insert(area) {
-            
+
             // format area record's attributes
             area = this.service.util.setTableValue(this.table, area);
-            
+
             // area exists
             if (await this.exists(area.id)) {
                 return false;
@@ -174,7 +174,7 @@ module.exports = app => {
             }
         }
 
-        
+
         /**
          * Delete some area record satisfied some condition
          * @param {Object} - query condition of table areas
@@ -184,7 +184,7 @@ module.exports = app => {
          * @since 1.0.0
          */
         async delete(area) {
-            
+
             // formate the area's attribute
             area = this.service.util.setTableValue(this.table, area);
             wheres = this.service.util.setQueryAttributes(this.table, wheres);
