@@ -12,13 +12,13 @@ module.exports = app => {
          * Constructor of class Users
          * @param {Object} app - egg application
          * @constructor
-         * @since 1.0.0 
+         * @since 1.0.0
          */
         constructor(app) {
-            
+
             // constructor of app.Service
             super(app);
-            
+
             // default value of table users
             this.table = {
                 id: undefined,
@@ -37,10 +37,10 @@ module.exports = app => {
          * @return {Promise<Boolean>}
          * true when user exists
          * false when user doesn't exist
-         * @since 1.0.0 
+         * @since 1.0.0
          */
         async exists(id) {
-            
+
             // parameter is not exists
             if (!this.service.util.parameterExists(id)) {
                 return false;
@@ -51,7 +51,7 @@ module.exports = app => {
                 if (await this.service.dbHelp.count('users', 'id', { id })) {
                     return true;
                 }
-                
+
                 // user doesn't exist
                 return false;
             } catch (err) {
@@ -92,7 +92,7 @@ module.exports = app => {
 
         /**
          * Query some info of some users specified by id, userName, password, authorityId, phone, email
-         * @param {Object} user - query condition of table users 
+         * @param {Object} user - query condition of table users
          * @param {Array[String]} attributes - attributes wanted to query
          * @return {Promise<Object>}
          * {} when query set doesn't exist
@@ -129,7 +129,7 @@ module.exports = app => {
 
         /**
          * Get the count of users' record with some condition
-         * @param {Object} user - query condition of table users 
+         * @param {Object} user - query condition of table users
          * @param {Array[String]} attributes - attributes wanted to query
          * @return {Promise<Number>}
          * 0 when count is 0 or query error
@@ -149,17 +149,17 @@ module.exports = app => {
             }
         }
 
+
         /**
          * Add a user record to users
          * @param {Object} user - user record waited to be inserted to users
          * @return {Promise<Boolean>}
-         * false  
+         * false
          */
         async insert(user) {
-            
+
             // format user record's attributes
             user = this.service.util.setTableValue(this.table, user);
-            
 
             // user.id doesn't exist
             if (!user.id) {
@@ -170,7 +170,7 @@ module.exports = app => {
             if (await this.exists(user.id)) {
                 return false;
             }
-            
+
             try {
                 // add a new user record to users
                 await this.service.dbHelp.insert('users', user);
@@ -181,10 +181,9 @@ module.exports = app => {
         }
 
 
-
         /**
          * Update info of user specified by query condition
-         * @param {Object} user - user record 
+         * @param {Object} user - user record
          * @param {Object} wheres - query condition
          * true when update successed
          * false when update failed
@@ -192,10 +191,10 @@ module.exports = app => {
          */
         async update(user, wheres = { id: user.id }) {
 
-            // format user's attributes and query attributes 
+            // format user's attributes and query attributes
             user = this.service.util.setTableValue(this.table, user);
             wheres = this.service.util.setQueryAttributes(this.table, wheres);
-            
+
             // user doesn't exists
             if (user.id && !await this.exists(user.id)) {
                 return false;
@@ -220,10 +219,9 @@ module.exports = app => {
          * @since 1.0.0
          */
         async delete(area) {
-            
+
             // format the area's attributes
             area = this.service.util.setTableValue(this.table, area);
-
 
             // user doesn't exist
             if (area.id && !await this.exists(area.id)) {
