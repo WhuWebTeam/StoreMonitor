@@ -1,21 +1,26 @@
 
 
-
+/**
+ * Service calss of table Users
+ * @class Users
+ * @since 1.0.0
+ */
 module.exports = app => {
-    /**
-     * used to complete module users's function
-     * @class
-     * @extends app.Service
-     */
     class Users extends app.Service {
 
+        /**
+         * Constructor of class Users
+         * @param {Object} app - egg application
+         * @constructor
+         * @since 1.0.0 
+         */
         constructor(app) {
             
             // constructor of app.Service
             super(app);
             
             // default value of table users
-            const table = {
+            this.table = {
                 id: undefined,
                 userName: undefined,
                 password: undefined,
@@ -27,13 +32,12 @@ module.exports = app => {
 
 
         /**
-         * judge user exists or not
-         * @public
-         * @function exists
-         * @param {string} id - account of user
-         * @return {Promise<boolean>}
-         * true when user specified by userNumber exists
-         * false when user specified by userNumber doesn't exist
+         * Judge user exists or not
+         * @param {String} id - user's register number
+         * @return {Promise<Boolean>}
+         * true when user exists
+         * false when user doesn't exist
+         * @since 1.0.0 
          */
         async exists(id) {
             
@@ -57,12 +61,13 @@ module.exports = app => {
 
 
         /**
-         * judge some user's password right or not when user exists
-         * @param {string} id - account of user 
-         * @param {srting} password - user's password
-         * @return {Promise<boolean>}
-         * true when password of user specified by userNumber is right
-         * false when password of user specified by userNumber is false 
+         * Judge some user's password right or not when user exists
+         * @param {String} id - user's register number
+         * @param {String} password - user's password
+         * @return {Promise<Boolean>}
+         * true when user's password right
+         * false when user's password doesn't right
+         * @since 1.0.0
          */
         async passwordRight(id, password) {
 
@@ -85,14 +90,22 @@ module.exports = app => {
         }
 
 
-        // query some info of some users specified by id, userName, password, authorityId, phone, email
+        /**
+         * Query some info of some users specified by id, userName, password, authorityId, phone, email
+         * @param {Object} user - query condition of table users 
+         * @param {Array[String]} attributes - attributes wanted to query
+         * @return {Promise<Object>}
+         * {} when query set doesn't exist
+         * Object when query condition includes id
+         * Array[Object] when query condition without id
+         * @since 1.0.0
+         */
         async query(user, attributes = ['*']) {
-            
+
             // format user's attributes and query attributes
             user = this.service.util.setTableValue(this.table, user);
             attributes = this.service.util.setQueryAttributes(this.table, attributes);
-            
-            console.log(attributes);
+
             // user doesn't exists
             if (user.id && !await this.exists(user.id)) {
                 return {};
@@ -114,7 +127,15 @@ module.exports = app => {
         }
 
 
-        // Get the count of users' record with some condition
+        /**
+         * Get the count of users' record with some condition
+         * @param {Object} user - query condition of table users 
+         * @param {Array[String]} attributes - attributes wanted to query
+         * @return {Promise<Number>}
+         * 0 when count is 0 or query error
+         * number not 0 when query successed and not 0
+         * @since 1.0.0
+         */
         async count(user, attributes = ['*']) {
 
             // format user's attributes and query attributes
@@ -128,12 +149,23 @@ module.exports = app => {
             }
         }
 
-        // add a user record to users
+        /**
+         * Add a user record to users
+         * @param {Object} user - user record waited to be inserted to users
+         * @return {Promise<Boolean>}
+         * false  
+         */
         async insert(user) {
             
             // format user record's attributes
             user = this.service.util.setTableValue(this.table, user);
             
+
+            // user.id doesn't exist
+            if (!user.id) {
+                return false;
+            }
+
             // user exists
             if (await this.exists(user.id)) {
                 return false;
@@ -150,7 +182,14 @@ module.exports = app => {
 
 
 
-        // update info of user specified by user's id
+        /**
+         * Update info of user specified by query condition
+         * @param {Object} user - user record 
+         * @param {Object} wheres - query condition
+         * true when update successed
+         * false when update failed
+         * @since 1.0.0
+         */
         async update(user, wheres = { id: user.id }) {
 
             // format user's attributes and query attributes 
@@ -158,7 +197,7 @@ module.exports = app => {
             wheres = this.service.util.setQueryAttributes(this.table, wheres);
             
             // user doesn't exists
-            if (!await this.exists(user.id)) {
+            if (user.id && !await this.exists(user.id)) {
                 return false;
             }
 
@@ -172,7 +211,14 @@ module.exports = app => {
         }
 
 
-        // delete some user specified by user's id
+        /**
+         * Delete some user specified by some condition
+         * @param {Object} area - query condition of table users
+         * @return {Promise<Boolean>}
+         * true when insert record successed
+         * false when insert record failed
+         * @since 1.0.0
+         */
         async delete(area) {
             
             // format the area's attributes

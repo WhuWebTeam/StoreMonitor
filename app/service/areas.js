@@ -1,7 +1,7 @@
 
 
 /**
- * Service class of table areas
+ * Service class of table Areas
  * @class Area
  * @since 1.0.0
  */
@@ -151,7 +151,7 @@ module.exports = app => {
 
 
         /**
-         * Update info of area specified by id
+         * Update info of area specified by query condition
          * @param {Object} area - area record
          * @param {Object} wheres - query condition
          * @return {Promise<Boolean>}
