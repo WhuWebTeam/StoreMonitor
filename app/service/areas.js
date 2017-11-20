@@ -48,12 +48,12 @@ module.exports = app => {
                 if (await this.service.dbHelp.count('areas', 'id', { id })) {
                     return true;
                 }
+
+                // area doesn't exist
+                return false;
             } catch (err) {
                 return false;
             }
-
-            // area doesn't exist
-            return false;
         }
 
 
@@ -95,7 +95,7 @@ module.exports = app => {
 
 
         /**
-         * Get the count of some condition
+         * Get the count of areas' record with some condition
          * @param {Object} area - query condition of table areas
          * @param {Array[String]} attributes - attributes wanted to queried
          * @return {Promise<Number>}
@@ -105,7 +105,7 @@ module.exports = app => {
          */
         async count(area, attributes = ['*']) {
 
-            // format area's attributes and query attribute
+            // format area's attributes and query attributes
             area = this.service.util.setTableValue(this.table, area);
             attributes = this.service.util.setQueryAttributes(this.table, attributes);
 
@@ -130,6 +130,11 @@ module.exports = app => {
             // format area record's attributes
             area = this.service.util.setTableValue(this.table, area);
 
+            // area.id doesn't exist
+            if (!area.id) {
+                return false;
+            }
+            
             // area exists
             if (await this.exists(area.id)) {
                 return false;
@@ -161,7 +166,7 @@ module.exports = app => {
             wheres = this.service.util.setTableValue(this.table, wheres);
 
             // area doesn't exist
-            if (!await this.exists(area.id)) {
+            if (area.id && !await this.exists(area.id)) {
                 return false;
             }
 
@@ -177,7 +182,7 @@ module.exports = app => {
 
         /**
          * Delete some area record satisfied some condition
-         * @param {Object} - query condition of table areas
+         * @param {Object} area - query condition of table areas
          * @return {Promise<Boolean>}
          * true when update areas successed
          * false when update areas failed
@@ -187,7 +192,11 @@ module.exports = app => {
 
             // formate the area's attribute
             area = this.service.util.setTableValue(this.table, area);
-            wheres = this.service.util.setQueryAttributes(this.table, wheres);
+
+            // area doesn't exist
+            if (area.id && !await this.exists(area.id)) {
+                return false;
+            }
 
             try {
                 await this.service.dbHelp.delete('areas', area);
