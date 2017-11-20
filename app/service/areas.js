@@ -1,7 +1,7 @@
 
 
 /**
- * Service class of table Areas
+ * Service class of table areas
  * @class Area
  * @since 1.0.0
  */
@@ -97,7 +97,7 @@ module.exports = app => {
         /**
          * Get the count of areas' record with some condition
          * @param {Object} area - query condition of table areas
-         * @param {Array[String]} attributes - attributes wanted to queried
+         * @param {Array[String]} attributes - attributes wanted to count but just use first attribute
          * @return {Promise<Number>}
          * 0 when count is 0 or query error
          * number not 0 when query successed and has value without 0

@@ -1,7 +1,7 @@
 
 
 /**
- * Service calss of table Users
+ * Service class of table users
  * @class Users
  * @since 1.0.0
  */
@@ -130,7 +130,7 @@ module.exports = app => {
         /**
          * Get the count of users' record with some condition
          * @param {Object} user - query condition of table users
-         * @param {Array[String]} attributes - attributes wanted to query
+         * @param {Array[String]} attributes - attributes wanted to count but just use first attribute
          * @return {Promise<Number>}
          * 0 when count is 0 or query error
          * number not 0 when query successed and not 0
@@ -139,7 +139,7 @@ module.exports = app => {
         async count(user, attributes = ['*']) {
 
             // format user's attributes and query attributes
-            area = this.service.util.setTableValue(this.table, area);
+            area = this.service.util.setTableValue(this.table, user);
             attributes = this.service.util.setQueryAttributes(this.table, attributes);
 
             try {
@@ -154,7 +154,9 @@ module.exports = app => {
          * Add a user record to users
          * @param {Object} user - user record waited to be inserted to users
          * @return {Promise<Boolean>}
-         * false
+         * true when insert user record successed
+         * false when insert user record failed
+         * @since 1.0.0
          */
         async insert(user) {
 
@@ -193,7 +195,7 @@ module.exports = app => {
 
             // format user's attributes and query attributes
             user = this.service.util.setTableValue(this.table, user);
-            wheres = this.service.util.setQueryAttributes(this.table, wheres);
+            wheres = this.service.util.setTableValue(this.table, wheres);
 
             // user doesn't exists
             if (user.id && !await this.exists(user.id)) {
@@ -212,24 +214,24 @@ module.exports = app => {
 
         /**
          * Delete some user specified by some condition
-         * @param {Object} area - query condition of table users
+         * @param {Object} user - query condition of table users
          * @return {Promise<Boolean>}
-         * true when insert record successed
-         * false when insert record failed
+         * true when delete record successed
+         * false when delete record failed
          * @since 1.0.0
          */
-        async delete(area) {
+        async delete(user) {
 
             // format the area's attributes
-            area = this.service.util.setTableValue(this.table, area);
+            user = this.service.util.setTableValue(this.table, user);
 
             // user doesn't exist
-            if (area.id && !await this.exists(area.id)) {
+            if (user.id && !await this.exists(user.id)) {
                 return false;
             }
 
             try {
-                await this.service.dbHelp.delete('users', area);
+                await this.service.dbHelp.delete('users', user);
                 return true;
             } catch (err) {
                 return false;
