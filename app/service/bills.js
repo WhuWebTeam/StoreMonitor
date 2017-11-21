@@ -1,7 +1,19 @@
+
+
+/**
+ * Service class of table bills
+ * @class Bills
+ * @since 1.0.0
+ */
 module.exports = app => {
     class Bills extends app.Controller {
 
-        // default value of table bills
+        /**
+         * Constructor of class Bills
+         * @param {Object} app - egg application
+         * @constructor
+         * @since 1.0.0
+         */
         constructor(app) {
 
             // constructor of app.Service
@@ -28,7 +40,14 @@ module.exports = app => {
         }
 
 
-        // Judge bill exists or not through ts
+        /**
+         * Judge bill exists or not through ts
+         * @param {Number} ts - bill's occurentTime
+         * @return {Promise<Boolean>}
+         * true when bill exists
+         * falsewhen bill doesn't exists
+         * @since 1.0.0
+         */
         async exists(ts) {
 
             // parameter doesn't exist
@@ -51,7 +70,14 @@ module.exports = app => {
         }
 
 
-        // Judge bill exists or not through id
+        /**
+         * Judge bill exists or not through id
+         * @param {Number} id - table bills element serial number
+         * @return {Promise<Boolean>}
+         * true when bill exists
+         * false when bill doesn't exist
+         * @since 1.0.0
+         */
         async existsId(id) {
 
             // parameter doesn't exist
@@ -73,7 +99,16 @@ module.exports = app => {
             }
         }
 
-        // Query info of bills with some condition
+        /**
+         * Query info of bills with some condition
+         * @param {Object} bill - condition when query bills
+         * @param {Array[String]} attributes - attributes wanted to query
+         * @return {Object}
+         * {} when query result set is null
+         * Object when query condition just includes bill.id or bill.ts
+         * Array[Object] when query condition without bill.id or bill.ts
+         * @since 1.0.0
+         */
         async query(bill, attributes = ['*']) {
 
             // format bill's attributes and query attributes
@@ -113,7 +148,15 @@ module.exports = app => {
         }
 
 
-        // Count bill records with some condition
+        /**
+         * Count bill records with some condition
+         * @param {Object} bill - condition when count bills record
+         * @param {Array[String]} attributes - attributes wanted to query
+         * @return {Promise<Boolean>}
+         * 0 when count error or result is 0
+         * number not 0 when count successed and not 0
+         * @since 1.0.0
+         */
         async count(bill, attributes = ['*']) {
 
             // format bill's attributes and query attributes
@@ -127,7 +170,15 @@ module.exports = app => {
             }
         }
 
-        // Insert a bill record to bills
+
+        /**
+         * Insert a bill record to bills
+         * @param {Object} bill - bill record waited to insert into bills
+         * @return {Promise<Boolean>}
+         * true when insert bill record to bills successed
+         * false when insert bill record into bills failed
+         * @since 1.0.0
+         */
         async insert(bill) {
 
             // format bill's attributes
@@ -153,12 +204,21 @@ module.exports = app => {
             }
         }
 
-        // Update table bills with some condition
+
+        /**
+         * Update table bills with some condition
+         * @param {Object} bill - bill record waited to update
+         * @param {Object} wheres - condition when update bills
+         * @return {Promise<Boolean>}
+         * true when update bills successed
+         * false when update bill failed
+         * @since 1.0.0
+         */
         async update(bill, wheres = { ts: bill.ts }) {
 
             // format bill's attributes and wheres' attributes
             bill = this.service.util.setTableValue(this.table, bill);
-            wheres = this.service.util.setQueryAttributes(this.table, wheres);
+            wheres = this.service.util.setTableValue(this.table, wheres);
 
             // bill doesn't exist
             if (bill.ts && !await this.exists(bill.ts)) {
@@ -175,7 +235,14 @@ module.exports = app => {
 
 
 
-        // Delete table bills with some condition
+        /**
+         * Delete table bills with some condition
+         * @param {Object} bill - condition when delete bills satisfied some condition
+         * @return {Promise<Boolean>}
+         * true when update bills successed
+         * false when update bills failed
+         * @since 1.0.0
+         */
         async delete(bill) {
 
             // format bill's attributes
