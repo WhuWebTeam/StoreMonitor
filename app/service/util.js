@@ -73,40 +73,40 @@ module.exports = app => {
         }
 
 
-		setQueryAttributes(tableObj, paramAttri) {
+        setQueryAttributes(tableObj, paramAttri) {
 
-			// the attributes queried is just include '*'
-			if (paramAttri.length === 1 && paramAttri[0] === '*') {
-				return paramAttri;
-			}
+            // the attributes queried is just include '*'
+            if (paramAttri.length === 1 && paramAttri[0] === '*') {
+                return paramAttri;
+            }
 
 
-			// the attribute queried include more than one attribute
-			const attributes = [];
-			const tableAttri = Object.keys(tableObj);
-			paramAttri.map(ele => {
-				if (tableAttri.includes(ele)) {
-					attributes.push(ele);
-				}
-			});
+            // the attribute queried include more than one attribute
+            const attributes = [];
+            const tableAttri = Object.keys(tableObj);
+            paramAttri.map(ele => {
+                if (tableAttri.includes(ele)) {
+                    attributes.push(ele);
+                }
+            });
             
             if (attributes.length !== 0) {
                 return attributes;
             }
 
             return ['*'];
-		}
+        }
 
         // validate parameter is whitespace or not
         parameterExists(param) {
-			
-			// parameter doesn't exist
-			if (param === "" || param === null || param == undefined) {
+            
+            // parameter doesn't exist
+            if (param === '' || param === null || param == undefined) {
                 return false;
             }
-			
-			// parameter exists
-			return true;
+            
+            // parameter exists
+            return true;
             
         }
     }

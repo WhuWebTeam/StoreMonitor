@@ -2,12 +2,16 @@ module.exports = app => {
     class Products extends app.Service {
 
         // default value of table products
-        getTable() {
-            const table = {
-                id: '',
-                name: ''
+        constructor(app) {
+            
+            // app.Service constructor
+            super(app);
+            
+            // defalut value of table products
+            this.table = {
+                id: undefined,
+                name: undefined
             };
-            return table;
         }
 
 
