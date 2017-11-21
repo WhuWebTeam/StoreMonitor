@@ -205,7 +205,6 @@ module.exports = app => {
                 return false;
             }
         }
-
     }
 
     return Cashiers;
