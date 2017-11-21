@@ -28,6 +28,7 @@ module.exports = app => {
             };
         }
 
+
         /**
          * Judge shop exists or not throught shop.id
          * @param {String} id - shop's register code
@@ -148,7 +149,6 @@ module.exports = app => {
                 return false;
             }
         }
-
 
 
         /**
