@@ -162,7 +162,7 @@ module.exports = app => {
          * false when update record failed
          * @since 1.0.0
          */
-        async update(userwm, wheres = { id = user.id }) {
+        async update(userwm, wheres = { id: user.id }) {
 
             // format userwm's attributes and query attributes
             userwm = this.util.setTableValue(this.table, userwm);

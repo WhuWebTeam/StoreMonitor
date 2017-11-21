@@ -99,7 +99,7 @@ module.exports = app => {
         /**
          * Count the shops records' number satisfied some query condition
          * @param {Object} shop - query condition of table shops
-         * @param {Array[String]} attributes - attributes wanted to query
+         * @param {Array[String]} attributes - attributes wanted to count but just use first attribute
          * @return {Promise<Number>}
          * 0 when query error or result is 0
          * number when query successed and not 0
@@ -160,7 +160,7 @@ module.exports = app => {
          * false when update shop record failed
          * @since 1.0.0
          */
-        async update(shop, wheres = { id = shop.id }) {
+        async update(shop, wheres = { id: shop.id }) {
 
             // format shop's attributes and wheres' attribute
             shop = this.service.util.setTableValue(this.table, shop);

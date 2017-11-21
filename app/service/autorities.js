@@ -85,6 +85,7 @@ module.exports = app => {
                     return authority && authority[0];
                 }
 
+                // query info of authorities specified by attributes without id
                 const authorities = await this.service.dbHelp.query('authorities', attributes, authority);
                 return authorities;
             } catch (err) {
@@ -96,7 +97,7 @@ module.exports = app => {
         /**
          * Count authority record satisfied some condition
          * @param {Object} authority - query condition when count authority records
-         * @param {Array[String]} attributes - attributes wanted to count
+         * @param {Array[String]} attributes - attributes wanted to count but just use first attribute
          * @return {Promise<Number>}
          * 0 when count error or result 0
          * number when count successed and not 0

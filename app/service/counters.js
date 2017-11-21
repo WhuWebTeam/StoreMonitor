@@ -98,7 +98,7 @@ module.exports = app => {
         /**
          * Count the counter records' number satisfied come condition
          * @param {Obejct} counter - query condition when count counter records 
-         * @param {Array[String]} attributes - attributes wanted t count
+         * @param {Array[String]} attributes - attributes wanted t count but just use first attribute
          * @return {Promise<Number>}
          * 0 when count error or result 0
          * number when count successed and not 0
