@@ -130,7 +130,7 @@ module.exports = app => {
             product = this.service.util.setTableValue(this.table, product);
 
             // product id doesn't exist
-            if (product.id) {
+            if (!product.id) {
                 return false;
             }
 

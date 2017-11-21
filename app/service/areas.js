@@ -190,7 +190,7 @@ module.exports = app => {
          */
         async delete(area) {
 
-            // formate the area's attribute
+            // format the area's attribute
             area = this.service.util.setTableValue(this.table, area);
 
             // area doesn't exist
