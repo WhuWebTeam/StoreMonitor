@@ -13,12 +13,53 @@ module.exports = app => {
         }
 
 
-
-        // get info of all eventList
-        async getEventsList() {
-            this.ctx.body = await this.service.eventsList.query({});
+        // get count of eventsList total, unconfirmed, confirmed
+        async getCount() {
+            const working = await this.service.eventsList.count({ status: 0 }, ['id']);
+    
+            const store = await this.service.eventsList.count({ status: 1 }, ['id']);
+    
+            const commit = await this.service.eventsList.count({ status: 2 }, ['id']);
+        
+            this.ctx.body = {
+                code: 200,
+                data: {
+                    working,
+                    store,
+                    commit
+                }
+            };
         }
 
+
+        // get list of eventsList record
+        async getEventList() {
+            
+            const status = +this.ctx.params.status || 0;
+            const editResult = '';
+            
+            const eventsList = await this.service.eventsList.getEventList(status, editResult);
+            this.ctx.body = {
+                code: 200,
+                data: eventsList
+            };
+        }
+
+        // get statistics graph of eventsList record
+        async getEventsListGraph() {
+            const day = this.ctx.params.day || 'day';
+
+            const eventsList = await this.service.eventsList.getEventsListGraph(day);
+            this.ctx.body = {
+                code: 200,
+                data: eventsList
+            };
+        }
+
+        // redirect to editPage
+        async getEditPage() {
+            redirect('/public/')
+        }
 
         // set editResult
         async setResult() {
@@ -46,14 +87,6 @@ module.exports = app => {
 
             // eventList edit successed
             this.ctx.body = this.service.util.generateResponse(200, 'set eventList status to temp store successed!');
-        }
-
-
-        // get info of eventsList with condition query or not
-        async getEventList() {
-            const eventList = this.ctx.request.body;
-
-            this.ctx.body= await this.service.eventsList.query(eventList);
         }
 
         

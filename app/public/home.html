@@ -1,96 +1,81 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>登录</title>
+	<title>LPS银线防损系统</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
 	<link rel="stylesheet" type="text/css" href="bootstrap-3.3.7-dist/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="css/mobile.css">
+</head>
+<body>
+	<p id="title">
+		防损复核
+	</p>
+	<div id="event">
+		<p id="left" class="edown">
+			<span></span>
+			未处理
+		</p>
+		<p id="right">
+			<span></span>
+			完成
+		</p>
+		<p id="middle">
+			<span></span>
+			暂存
+		</p>
+		
+	</div>
+	<div id="graph">
+		 <span class="title">防损事件</span>
+		 <span class="sel">
+		 	<button class="day   btn btn-success btn-sm down">按天</button>
+		 	<button class="week  btn btn-success btn-sm">按周</button>
+		 	<button class="month btn btn-success btn-sm">按月</button>
+		 </span>
+		 <div id="content"></div>
+	</div>
+	<div id="list">
+		<!-- <div className="view">
+			<p className="top">
+				<span className='a'>时间</span><span className='b'>序列号</span><span className='c'>标记</span>
+			</p>
+			<p className="bottom">
+				<span className='a'>人名</span><span className='b'>款台</span><span className='c'>审查结果</span>
+			</p>
+		</div> -->
+	</div>
+
+
 	<script type="text/javascript" src="bootstrap-3.3.7-dist/jquery/jquery.min.js"></script>
 	<script type="text/javascript" src="bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
-	<style type="text/css">
-		#form_login{
-			width: 500px;
-			height: 200px;
-			margin: 100px auto;
-			background-color: grey;
-		}
-		legend{
-			text-align: center;
-		}
-		#submit{
-			display: block;
-			margin: 0 auto;
-		}
-	</style>
-	<!-- <script type="text/javascript">
-		var csrftoken = Cookies.get('csrfToken');
-		//console.log(csrftoken);
-		function csrfSafeMethod(method) {
-		  // these HTTP methods do not require CSRF protection
-		  return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
-		}
-		$.ajaxSetup({
-		  beforeSend: function(xhr, settings) {
-		    if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
-		      xhr.setRequestHeader('x-csrf-token', csrftoken);
-		    }
-		  },
-		});
-		function signIn(){
-			var username = document.getElementById('username').value;
-			var password = document.getElementById('password').value;
-			var data = {
-				'id':username,
-				'password':password
+	<script type="text/javascript" src="build/react.js"></script>
+	<script type="text/javascript" src="build/react-dom.js"></script>
+	<script type="text/javascript" src="build/browser.min.js"></script>
+	<script src="js/echarts.js"></script>
+	<script type="text/javascript" src="js/mobile.js"></script>
+	<!-- <script type="text/babel">
+		var Item = React.createClass({
+			render:function(){
+				return (   
+				<div className="view">
+					<p className="top">
+						<span className='a'>时间</span><span className='b'>序列号</span><span className='c'>标记</span>
+					</p>
+					<p className="bottom">
+						<span className='a'>人名</span><span className='b'>结果</span><span className='c'>状态</span>
+					</p>
+				</div>
+				)
 			}
-			$.ajax({
-				url:'/api/v1/users/signIn',
-				type:'POST',
-				data:data,
-				success:function(data){
-					console.log(data);
-				}
-			})
-		}
+		})
+
+		ReactDOM.render(
+			<Item/>,
+			document.getElementById('list')
+
+		)
 	</script> -->
-	<script type="text/javascript">
-
-		function getCookie(name)
-		{
-			var arr,reg=new RegExp("(^| )"+name+"=([^;]*)(;|$)");
-			if(arr=document.cookie.match(reg))
-			return unescape(arr[2]);
-			else
-			return null;
-		}
-		function signIn(){
-			var csrf_token = getCookie('csrfToken');
-			//var csrf_token=document.cookie.split(";")[0].split("=")[1];
-
-			var url = "/api/v1/users/signIn?_csrf="+csrf_token;
-
-			document.getElementById('form_login').setAttribute('action',url);
-			
-			return true;  //开控制台会暂停在这一步，点击开发者工具的继续按钮，即可。
-
-		}
-	</script>
-</head>
-<body>	
-	<div id="login">
-		<form id="form_login" method="post" action="" onsubmit="signIn()">
-		  <fieldset>
-		    <legend>LPS用户登录</legend>
-		    <input type="text" name="id"  class="form-control" placeholder="用户名" /><br/>
-		    <input type="password" name="password" class="form-control" placeholder="密码"><br/>
-		    <input type="submit" id="submit" value="登录">
-		  </fieldset>
-		</form>
-	</div>
-	
-
-
-	
 </body>
 </html>

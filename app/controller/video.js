@@ -14,11 +14,11 @@ module.exports = app => {
 
         // get data from DVA system
         async getDVAData() {
-            const _this = this;
-            const DVA = _this.ctx.request.body;
+            const DVA = this.ctx.request.body;
 
             /* parse DVA data and store them to database */
             // format counter
+
             let counter = {};
             counter.id = DVA.RegID || '0002';
             counter.type = DVA.RegType || 'pos';
@@ -68,7 +68,7 @@ module.exports = app => {
                     await this.service.logger.logDefault('running', `insert product(${product.id}) to products successed`);
                 }
 
-
+                
                 // format bill
                 let bill = {};
                 bill.price = billEle.Price || 0;
@@ -96,12 +96,14 @@ module.exports = app => {
                 let eventList = {};
                 eventList.transId = DVA.TransID || '6992';
                 eventList.ts = billEle.Ts || 0;
+                eventList.createAt = Date.parse(new Date());
                 eventList.videoUrl = billEle.VideoUrl || '';
                 eventList.pic1Url = billEle.PictureUrl0 || '';
                 eventList.pic2Url = billEle.PictureUrl1 || '';
                 eventList.pic3Url = billEle.PictureUrl2 || '';
                 eventList.pic4Url = billEle.PictureUrl3 || '';
                 eventList.editResult = '';
+                eventList.comment = '';
                 if (bill.eventFlag.toLowerCase() !== 'Normal' &&  await this.service.eventsList.insert(eventList)) {
                     await this.service.logger.logDefault('running', `insert bill(${eventList}) to bills successed`);
                 } else if (bill.eventFlag.toLowerCase() !== 'Normal') {
