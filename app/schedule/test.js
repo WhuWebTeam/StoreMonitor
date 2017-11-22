@@ -19,9 +19,6 @@ module.exports = app => {
                 timeout: 3000
             });
 
-            result = result && result.data;
-            console.log(result);
-
             // let result = await ctx.curl('http://localhost:7002/database', {
             //     method: 'get',
             //     data: {
@@ -31,9 +28,6 @@ module.exports = app => {
             //     dataType: 'json',
             //     timeout: 3000
             // });
-
-            // result = result && result.data;
-            // console.log(result);
         }
     }
 }

@@ -122,8 +122,6 @@ module.exports = app => {
                 return {};
             }
 
-            // console.log(cashierSaleInfo);
-            // console.log(attributes);
             try {
                 // query info of cashierSaleInfo specified by id
                 if (cashierSaleInfo.id) {
