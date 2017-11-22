@@ -16,15 +16,19 @@ module.exports = app => {
 
         // get info of all eventList
         async getEventsList() {
-            this.ctx.body = await this.service.eventsList.query({});
+            const eventsList = await this.service.eventsList.query({});
+            this.ctx.body = {
+                code: 200,
+                data: eventsList,
+            };
         }
 
 
         // get count of eventsList total, unconfirmed, confirmed
         async getCount() {
-            const total = await this.service.eventsList.count({});
+            const total = await this.service.eventsList.count({}, ['id']);
     
-            const unConfirmed = await this.service.eventsList.count({ status: 2 });
+            const unConfirmed = await this.service.eventsList.count({ status: 2 }, ['id']);
     
             const confirmed = total - unConfirmed;
         
@@ -38,6 +42,12 @@ module.exports = app => {
             };
         }
 
+        // get record of eventsList record
+        async getLists() {
+            const status = this.ctx.params.status;
+
+            // cost sql = `` 
+        }
 
         // set editResult
         async setResult() {
@@ -72,7 +82,12 @@ module.exports = app => {
         async getEventList() {
             const eventList = this.ctx.request.body;
 
-            this.ctx.body= await this.service.eventsList.query(eventList);
+            const eventsList= await this.service.eventsList.query(eventList);
+
+            this.ctx.body = {
+                code: 200,
+                data: eventsList,
+            };
         }
 
         
