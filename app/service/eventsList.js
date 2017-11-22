@@ -6,7 +6,7 @@
  * @since 1.0.0
  */
 module.exports = app => {
-    class EventsList extends app.Controller {
+    class EventsList extends app.Service {
 
         /**
          * Constructor of class eventsList
@@ -24,8 +24,6 @@ module.exports = app => {
                 id: undefined,
                 transId: undefined,
                 ts: undefined,
-                createTime: undefined,
-                updateTime: undefined,
                 editResult: undefined,
                 videoUrl: undefined,
                 status: undefined,
@@ -112,12 +110,12 @@ module.exports = app => {
             attributes = this.service.util.setQueryAttributes(this.table, attributes);
             
             // eventList doesn't exist through eventLsit.id
-            if (eventList.id && await this.existsId(eventList.id)) {
+            if (eventList.id && !await this.existsId(eventList.id)) {
                 return {};
             }
 
             // eventList doesn't exist through eventList.ts
-            if (eventList.ts && await this.exists(eventList.ts)) {
+            if (eventList.ts && !await this.exists(eventList.ts)) {
                 return {};
             }
 

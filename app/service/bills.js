@@ -35,7 +35,7 @@ module.exports = app => {
                 amount: undefined,
                 cashierId: undefined,
                 customerId: undefined,
-                eventFalg: undefined
+                eventFlag: undefined
             };
         }
 
@@ -183,7 +183,6 @@ module.exports = app => {
 
             // format bill's attributes
             bill = this.service.util.setTableValue(this.table, bill);
-
 
             // bill.ts doesn't exists
             if (!bill.ts) {

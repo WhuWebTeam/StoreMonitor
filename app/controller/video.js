@@ -14,11 +14,11 @@ module.exports = app => {
 
         // get data from DVA system
         async getDVAData() {
-            const _this = this;
-            const DVA = _this.ctx.request.body;
+            const DVA = this.ctx.request.body;
 
             /* parse DVA data and store them to database */
             // format counter
+
             let counter = {};
             counter.id = DVA.RegID || '0002';
             counter.type = DVA.RegType || 'pos';
@@ -68,7 +68,7 @@ module.exports = app => {
                     await this.service.logger.logDefault('running', `insert product(${product.id}) to products successed`);
                 }
 
-
+                
                 // format bill
                 let bill = {};
                 bill.price = billEle.Price || 0;
