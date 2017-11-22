@@ -213,18 +213,3 @@ module.exports = app => {
 
     return ProductSalesInfo;
 }
-
-
-
-
-// productSaleInfo's structure
-// {
-//     id,
-//     shopId,
-//     productId,
-//     transId,
-//     ts,
-//     price,
-//     quantity,
-//     amount
-// }

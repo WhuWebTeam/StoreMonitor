@@ -1,7 +1,19 @@
+
+
+/**
+ * Service constructor of table cashierSalesInfo
+ * @class CashierSalesInfo
+ * @since 1.0.0
+ */
 module.exports = app => {
 	class CashierSalesInfo extends app.Service {
 
-		// get default value of table cashierSalesInfo
+		/**
+		 * Constructor of class CashierSalesInfo
+		 * @param {Ojbect} app - egg application
+		 * @constructor
+		 * @since 1.0.0 
+		 */
 		constructor(app) {
 
 			// constructor of app.Service
@@ -20,7 +32,14 @@ module.exports = app => {
 		}
 
 
-		// Judge cashierSalesInfo exists or not through ts
+		/**
+		 * Judge cashierSalesInfo exists or not through ts
+		 * @param {number} ts - eventlist's occurrent time
+		 * @return {Promise<Boolean>}
+		 * true cashierSalesInfo exists
+		 * false cashierSalesInfo doesn't exist
+		 * @since 1.0.0
+		 */
 		async exists(ts) {
 
 			// parameter doesn't exist
@@ -41,7 +60,11 @@ module.exports = app => {
 			}
 		}
 
-		// Judge cashierSaleInfo exists or not through id
+		
+		/**
+		 * Judge cashierSaleInfo exists or not through id
+		 * @param {number} id - cashierSalesInfo's seiral number
+		 */
 		async existsId(id) {
 
 			// parameter doesn't exist
@@ -184,7 +207,7 @@ module.exports = app => {
 			}
 		}
 
-		
+
 		// query max ts time
 		async maxTs() {
 			const str = 'select max(ts) from cashierSalesInfo';

@@ -26,18 +26,18 @@ module.exports = app => {
 
         // get count of eventsList total, unconfirmed, confirmed
         async getCount() {
-            const total = await this.service.eventsList.count({}, ['id']);
+            const working = await this.service.eventsList.count({ status: 0 }, ['id']);
     
-            const unConfirmed = await this.service.eventsList.count({ status: 2 }, ['id']);
+            const store = await this.service.eventsList.count({ status: 1 }, ['id']);
     
-            const confirmed = total - unConfirmed;
+            const commit = await this.service.eventsList.count({ status: 2 }, ['id']);
         
             this.ctx.body = {
                 code: 200,
                 data: {
-                    total,
-                    unConfirmed,
-                    confirmed
+                    working,
+                    store,
+                    commit
                 }
             };
         }
