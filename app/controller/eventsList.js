@@ -32,7 +32,7 @@ module.exports = app => {
         }
 
 
-        // get list of eventList
+        // get list of eventsList record
         async getEventList() {
             
             const status = +this.ctx.params.status || 0;
@@ -45,7 +45,17 @@ module.exports = app => {
             };
         }
 
+        // get statistics graph of eventsList record
+        async getEventsListGraph() {
+            const day = +this.ctx.params.day || 1;
 
+            const 
+        }
+
+        // redirect to editPage
+        async getEditPage() {
+            redirect('/public/')
+        }
 
         // get record of eventsList record
         async getLists() {

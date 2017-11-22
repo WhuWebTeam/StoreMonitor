@@ -283,7 +283,6 @@ module.exports = app => {
             
             if (!editResult) {
                 try {
-                    console.log('xxxx');
                     const eventsList = await this.app.db.query(str, [status]);
                     return eventsList;
                 } catch(err) {
