@@ -13,7 +13,7 @@
 		{
 			"Start": 5,
 			"End": 15,
-			"Ts": 22,
+			"Ts": 1511327150000,
 			"VideoUrl": "http://115.156.188.230/clips.vorwaerts-gmbh.de/big_buck_bunny.mp4",
 			"PictureUrl0": "http://115.156.188.230/clips.vorwaerts-gmbh.de/big_buck_bunny.0jpg",
 			"PictureUrl1": "http://115.156.188.230/clips.vorwaerts-gmbh.de/big_buck_bunny1.jpg",
@@ -29,7 +29,7 @@
 		{
 			"Start": 10,
 			"End": 500,
-			"Ts": 23,
+			"Ts": 1511327206000,
 			"VideoUrl": "http://115.156.188.230/clips.vorwaerts-gmbh.de/big_buck_bunny.mp4",
 			"PictureUrl0": "http://115.156.188.230/clips.vorwaerts-gmbh.de/big_buck_bunny.0jpg",
 			"PictureUrl1": "http://115.156.188.230/clips.vorwaerts-gmbh.de/big_buck_bunny1.jpg",
@@ -45,7 +45,7 @@
 		{
 			"Start": 10,
 			"End": 600,
-			"Ts": 24,
+			"Ts": 1511327221000,
 			"VideoUrl": "http://115.156.188.230/clips.vorwaerts-gmbh.de/big_buck_bunny.mp4",
 			"PictureUrl0": "http://115.156.188.230/clips.vorwaerts-gmbh.de/big_buck_bunny.0jpg",
 			"PictureUrl1": "http://115.156.188.230/clips.vorwaerts-gmbh.de/big_buck_bunny1.jpg",
