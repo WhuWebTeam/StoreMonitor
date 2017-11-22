@@ -28,6 +28,8 @@ module.exports = app => {
 
         /**
          * Judge product exists or not
+         * @public
+         * @function exists
          * @param {String} id - product's register code
          * @return {Promise<Boolean>}
          * true when products exists
@@ -58,6 +60,8 @@ module.exports = app => {
 
         /**
          * Query products with condition query or not
+         * @public
+         * @function query
          * @param {Object} product - query condition when query table products
          * @param {Array[String]} attributes - attributes wanted to query
          * @return {Promise<Object>}
@@ -95,6 +99,8 @@ module.exports = app => {
 
         /**
          * Count the number of products records with  some query condition
+         * @public
+         * @function count
          * @param {Object} product - query condition when count products record
          * @param {Array[String]} attributes - attributes wanted to count but just use first attribute
          * @return {Promise<Number>}
@@ -118,6 +124,8 @@ module.exports = app => {
 
         /**
          * Insert a product record to products
+         * @public
+         * @function insert
          * @param {Object} product - product record waited to insert into products
          * @return {Promise<Boolean>}
          * true when insert product record successed
@@ -151,6 +159,8 @@ module.exports = app => {
 
         /**
          * Update products record with some query condition
+         * @public
+         * @function update
          * @param {Object} product - product record waited to update
          * @param {Object} wheres - query condition
          * @return {Promise<Boolean>}
@@ -181,6 +191,8 @@ module.exports = app => {
 
         /**
          * Delete some product records satisfied some query condition
+         * @public
+         * @function delete
          * @param {Object} product - query condition when delete producs record
          * @return {Promise<Boolean>}
          * true when delete product records successed

@@ -1,7 +1,19 @@
+
+
+/**
+ * Service constructor of table cashierSalesInfo
+ * @class CashierSalesInfo
+ * @since 1.0.0
+ */
 module.exports = app => {
     class ProductSalesInfo extends app.Service {
 
-        // get default value of table productSalesInfo
+        /**
+         * constructor of class ProductSalesInfo
+         * @param {Object} app - egg appliction
+         * @constructor
+         * @since 1.0.0
+         */
         constructor(app) {
 
             // constructor of app.Service
@@ -21,7 +33,16 @@ module.exports = app => {
         }
 
 
-        // judge productSaleInfo exists or not through ts
+        /**
+         * Judge productSaleInfo exists or not through ts
+         * @public
+         * @function exists
+         * @param {Number} ts - eventLitst's occurent time
+         * @return {Promise<Boolean>}
+         * true when productSaleInfo exists
+         * false when productSaleInfo doesn't exist
+         * @since 1.0.0
+         */
         async exists(ts) {
 
             // parameter doesn't exist
@@ -42,7 +63,16 @@ module.exports = app => {
             }
         }
 
-        // judge productSaleInfo exists or not through id
+        /**
+         * Judge productSaleInfo exists or not through id
+         * @public
+         * @function existsId
+         * @param {Number} id - productSaleInfo's serial number
+         * @return {Promise<Boolean>}
+         * true when eventList exists
+         * false when eventList doesn't exist
+         * @since 1.0.0
+         */
         async existsId(id) {
 
             // parameter doesn't exist
@@ -64,13 +94,24 @@ module.exports = app => {
         }
 
 
-        // query info of productSalesInfo satisfied some condition
+        /**
+         * Query info of productSalesInfo satisfied some condition
+         * @public
+         * @function query
+         * @param {Object} productSaleInfo - condition when query productSalesInfo
+         * @param {Array[String]} attributes - attributes wanted to query
+         * @return {Promise<Object>}
+         * {} when query result set doesn't exists
+         * Object when query condition includes id or ts
+         * Array[Object] when query condition without id and ts
+         * @since 1.0.0
+         */
         async query(productSaleInfo, attributes = ['*']) {
 
             // format productSaleInfo and query's attrbutes
             productSaleInfo = this.service.util.setTableValue(this.table, productSaleInfo);
             attributes = this.service.util.setQueryAttributes(this.table, attributes);
-            
+
             // productSaleInfo doesn't exist through id
             if (productSaleInfo.id && !await this.existsId(productSaleInfo.id)) {
                 return {};
@@ -82,7 +123,7 @@ module.exports = app => {
             }
 
             try {
-                // query info of productSaleInfo specified by productSaleInfo's id 
+                // query info of productSaleInfo specified by productSaleInfo's id
                 if (productSaleInfo.id) {
                     productSaleInfo = await this.service.dbHelp.query('productSalesInfo', attributes, { id: productSaleInfo.id });
                     return productSaleInfo && productSaleInfo[0];
@@ -102,7 +143,18 @@ module.exports = app => {
             }
         }
 
-        // Count productSaleInfo record satisfied some condition
+
+        /**
+         * Count productSaleInfo record satisfied some condition
+         * @public
+         * @function count
+         * @param {Object} productSaleInfo - condition when count productSalesInfo record
+         * @param {Array[String]} attributes - attributes wanted to count but just use the first attribute
+         * @return {Promise<Number>}
+         * 0 when count error or result is 0
+         * number when count successed
+         * @since 1.0.0
+         */
         async count(productSaleInfo, attributes = ['*']) {
 
             // format productSaleInfo and query's attributes
@@ -117,12 +169,20 @@ module.exports = app => {
         }
 
 
-        // insert productSalesInfo queried from bills to productSalesInfo
+        /**
+         * Insert productSalesInfo queried from bills to productSalesInfo
+         * @public
+         * @function insert
+         * @param {Object} productSaleInfo - productSaleInfo record
+         * @{Promise<Boolean>}
+         * true when insert productSaleInfo record successed
+         * false when insert productSaleInfo record failed
+         * @since 1.0.0
+         */
         async insert(productSaleInfo) {
 
             // fromat productSaleInfo record's attributes
             productSaleInfo = this.service.util.setTableValue(this.table, productSaleInfo);
-            
 
             // productSaleInfo's ts doesn't exist
             if (!productSaleInfo.ts) {
@@ -144,7 +204,17 @@ module.exports = app => {
         }
 
 
-        // Update productSaleInfo record satisfied some condition
+        /**
+         * Update productSaleInfo record satisfied some condition
+         * @public
+         * @function update
+         * @param {Object} productSaleInfo - product record wanted to update
+         * @param {Object} wheres - condition when update productSalesInfo
+         * @return {Promise<Boolean>}
+         * true when update productSalesInfo record successed
+         * false when update productSalesInfo record failed
+         * @since 1.0.0
+         */
         async update(productSaleInfo, wheres) {
 
             // format productSaleInfo and query's attributes
@@ -165,7 +235,16 @@ module.exports = app => {
         }
 
 
-        // Delete productSaleInfo record satisfied some condition
+        /**
+         * Delete productSaleInfo record satisfied some condition
+         * @public
+         * @function delete
+         * @param {Object} productSaleInfo - productSaleInfo record when update producSaleInfo
+         * @return {Promise<Boolean>}
+         * true when update productSaleInfo successed
+         * false when update productSaleInfo failed
+         * @since 1.0.0
+         */
         async delete(productSaleInfo) {
 
             // formate productSaleInfo's attributes
@@ -185,16 +264,27 @@ module.exports = app => {
         }
 
 
-
-        // query max ts time
+        /**
+         * Query max ts time
+         * @public
+         * @function maxTs
+         * @return {Promise<Number>}
+         * get the log's max time
+         * @since 1.0.0
+         */
         async maxTs() {
-            const str = 'select max(ts) from productSalesInfo';
-            let ts = await this.app.db.query(str);
-            return ts && ts[0] && ts[0].max || 0;
+            let ts = await this.query({}, ['max(ts)']);
+            ts = ts[0] && ts[0].max || Date.parse(new Date());
+            return ts;
         }
 
-        
-        // migrate new data from bills to productSalesInfo
+
+        /**
+         * Migrate new data from bills to productSalesInfo
+         * @public
+         * @function migrate
+         * @since 1.0.0
+         */
         async migrate() {
             const ts = await this.maxTs();
 

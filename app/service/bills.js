@@ -42,6 +42,8 @@ module.exports = app => {
 
         /**
          * Judge bill exists or not through ts
+         * @public
+         * @function exists
          * @param {Number} ts - bill's occurentTime
          * @return {Promise<Boolean>}
          * true when bill exists
@@ -72,6 +74,8 @@ module.exports = app => {
 
         /**
          * Judge bill exists or not through id
+         * @public
+         * @function existsId
          * @param {Number} id - table bills element serial number
          * @return {Promise<Boolean>}
          * true when bill exists
@@ -101,6 +105,8 @@ module.exports = app => {
 
         /**
          * Query info of bills with some condition
+         * @public
+         * @function query
          * @param {Object} bill - condition when query bills
          * @param {Array[String]} attributes - attributes wanted to query
          * @return {Object}
@@ -150,6 +156,8 @@ module.exports = app => {
 
         /**
          * Count bill records with some condition
+         * @public
+         * @function count
          * @param {Object} bill - condition when count bills record
          * @param {Array[String]} attributes - attributes wanted to query
          * @return {Promise<Boolean>}
@@ -173,6 +181,8 @@ module.exports = app => {
 
         /**
          * Insert a bill record to bills
+         * @public
+         * @function insert
          * @param {Object} bill - bill record waited to insert into bills
          * @return {Promise<Boolean>}
          * true when insert bill record to bills successed
@@ -206,6 +216,8 @@ module.exports = app => {
 
         /**
          * Update table bills with some condition
+         * @public
+         * @function update
          * @param {Object} bill - bill record waited to update
          * @param {Object} wheres - condition when update bills
          * @return {Promise<Boolean>}
@@ -236,6 +248,8 @@ module.exports = app => {
 
         /**
          * Delete table bills with some condition
+         * @public
+         * @function delete
          * @param {Object} bill - condition when delete bills satisfied some condition
          * @return {Promise<Boolean>}
          * true when update bills successed

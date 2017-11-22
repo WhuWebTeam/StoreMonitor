@@ -12,7 +12,7 @@ module.exports = app => {
          * Constructor of class eventsList
          * @param {Object} app - egg application
          * @constructor
-         * @since 1.0.0 
+         * @since 1.0.0
          */
         constructor(app) {
 
@@ -36,12 +36,14 @@ module.exports = app => {
 
 
         /**
-         * Judge eventsList record exists or not 
-         * @param {Number} ts - eventsList's occurent time 
+         * Judge eventsList record exists or not
+         * @public
+         * @function exists
+         * @param {Number} ts - eventsList's occurent time
          * @return {Promise<Boolean>}
          * truen when eventList exists
          * false when eventList doesn't exist
-         * @since 1.0.0 
+         * @since 1.0.0
          */
         async exists(ts) {
 
@@ -55,7 +57,7 @@ module.exports = app => {
                 if (await this.service.dbHelp.count('eventsList', 'ts', { ts })) {
                     return true;
                 }
-                
+
                 // eventsList doesn't exists
                 return false;
             } catch (err) {
@@ -63,14 +65,16 @@ module.exports = app => {
             }
         }
 
-        
+
         /**
          * Judge eventsList record exists or not through eventList's id
+         * @public
+         * @function existsId
          * @param {Number} id - eventsList's serial number
          * @return {Promise<Boolean>}
          * true when eventList exists
          * false when eventList doesn't exist
-         * @since 1.0.0 
+         * @since 1.0.0
          */
         async existsId(id) {
 
@@ -96,7 +100,9 @@ module.exports = app => {
 
         /**
          * Query info of eventsList with condition query or not
-         * @param {Object} eventList - condition when query eventsList 
+         * @public
+         * @function query
+         * @param {Object} eventList - condition when query eventsList
          * @param {Array[String]} attributes - attributes wanted to query
          * @return {Promise<Object>}
          * {} when no query result set
@@ -108,7 +114,7 @@ module.exports = app => {
             // format eventList's attribute and query's attributes
             eventList = this.service.util.setTableValue(this.table, eventList);
             attributes = this.service.util.setQueryAttributes(this.table, attributes);
-            
+
             // eventList doesn't exist through eventLsit.id
             if (eventList.id && !await this.existsId(eventList.id)) {
                 return {};
@@ -143,7 +149,9 @@ module.exports = app => {
 
         /**
          * Count eventsList satisfied condition
-         * @param {Object} eventList - condition when count eventsList records 
+         * @public
+         * @function count
+         * @param {Object} eventList - condition when count eventsList records
          * @param {Array[String]} attributes - attributes wanted to count but just use the first attribute
          * @return {Promise<Number>}
          * 0 when count failed or result is 0
@@ -163,14 +171,16 @@ module.exports = app => {
             }
         }
 
-        
+
         /**
          * Insert a eventList record to eventsList
+         * @public
+         * @function insert
          * @param {Object} eventList - eventList record waited to insert into oeventsList
          * @return {Promise<Boolean>}
          * true when insert eventList record successed
          * false when insert eventList record failed
-         * @since 1.0.0 
+         * @since 1.0.0
          */
         async insert(eventList) {
 
@@ -198,7 +208,9 @@ module.exports = app => {
 
         /**
          * Update eventsList ssatisfied some condition
-         * @param {Object} eventList - eventList record waited to update 
+         * @public
+         * @function update
+         * @param {Object} eventList - eventList record waited to update
          * @param {Object} wheres - condition when update table eventsList
          * @return {Promise<Boolean>}
          * true when update eventsList successed
@@ -227,6 +239,8 @@ module.exports = app => {
 
         /**
          * Delete EventsList satisfied some condition
+         * @public
+         * @function delete
          * @param {Object} eventList - condition when delete eventsList
          * @return {Promise<Boolean>}
          * true when delete eventsList record successed
@@ -271,7 +285,7 @@ module.exports = app => {
 
         // set some EventList status to tempStore  0: default status, 1: temp store status, 2: commit status
         async StoreEventsList(ts) {
-            
+
             // eventsList doesn't exist
             if (!await this.exists(ts)) {
                 return false;

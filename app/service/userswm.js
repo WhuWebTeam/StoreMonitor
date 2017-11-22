@@ -12,7 +12,7 @@ module.exports = app => {
          * Constructor of class Userswm
          * @param {Object} app - egg application
          * @constructor
-         * @since 1.0.0 
+         * @since 1.0.0
          */
         constructor(app) {
 
@@ -33,6 +33,8 @@ module.exports = app => {
 
         /**
          * Judge user of wu mei market exists or not
+         * @public
+         * @function exists
          * @param {String} wmUserId - userwm's register code
          * @return {Promise<Boolean>}
          * true when userwm exists
@@ -62,13 +64,15 @@ module.exports = app => {
 
         /**
          * Query info of some wu mei users specified by wmUserId, wmUserLvl, authorityId, name, phone or email
-         * @param {Object} userwm - query condition of table userswm 
+         * @public
+         * @function query
+         * @param {Object} userwm - query condition of table userswm
          * @param {Array[String]} attributes - attributes wanted to query
          * @return {Promise<Object>}
          * {} when query set doesn't exist
          * Object when query condition includes wmUserId
          * Array[Object] when query condition without attributes wmUserId
-         * @since 1.0.0 
+         * @since 1.0.0
          */
         async query(userwm, attributes = ['*']) {
 
@@ -99,6 +103,8 @@ module.exports = app => {
 
         /**
          * Get count of userwms' record with some condition
+         * @public
+         * @function count
          * @param {Object} userwm -  query condition of table userswm
          * @param {*} attributes -attributes wanted to count but just use first attribute
          * @return {Promise<Number>}
@@ -122,14 +128,16 @@ module.exports = app => {
 
         /**
          * Insert wu mei user record to userswm
+         * @public
+         * @function insert
          * @param {Object} userwm - userwm record waited to insert into userswm
          * @return {Promsie<Boolean>}
          * true when insert userwm record successed
          * false when insert userwm record failed
-         * @since 1.0.0 
+         * @since 1.0.0
          */
         async insert(userwm) {
-                    
+
             // format userwm record's attributes
             userwm = this.service.util.setTableValue(this.table, userwm);
 
@@ -137,12 +145,12 @@ module.exports = app => {
             if (!userwm.wmUserId) {
                 return false;
             }
-                    
+
             // user exists
             if (await this.exists(userwm.wmUserId)) {
                 return false;
             }
-                    
+
             try {
                 // add a user record to userswm
                 await this.service.dbHelp.insert('userswm', userwm);
@@ -155,7 +163,9 @@ module.exports = app => {
 
         /**
          * Update info of userwm specified by query condition
-         * @param {Object} userwm - userwm record 
+         * @public
+         * @function update
+         * @param {Object} userwm - userwm record
          * @param {Object} wheres - query condition
          * @return {Promise<Boolean>}
          * true when update record successed
@@ -182,9 +192,11 @@ module.exports = app => {
             }
         }
 
-        
+
         /**
          * Delete some userwm specified by some condition
+         * @public
+         * @function delete
          * @param {Object} userwm - query condition
          * @return {Promise<Boolean>}
          *  true when delete record successed

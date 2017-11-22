@@ -30,6 +30,8 @@ module.exports = app => {
 
         /**
          * Judge customer exists or not
+         * @public
+         * @function exists
          * @param {String} id - customer's register code
          * @return {Promise<Boolean>}
          * true when customer exists
@@ -60,6 +62,8 @@ module.exports = app => {
 
         /**
          * Query customers with condition query or not
+         * @public
+         * @function query
          * @param {Object} customer - condition when query customer records
          * @param {Array[String]} attributes - attributes wanted to be query
          * @return {Promise<Object>}
@@ -97,6 +101,8 @@ module.exports = app => {
 
         /**
          * Count the customer records number with some condition
+         * @public
+         * @function count
          * @param {Object} customer - condition when count customer records
          * @param {Array[String]} attributes - attributes wanted to count but just use first attribute
          * @return {Promise<Number>}
@@ -120,6 +126,8 @@ module.exports = app => {
 
         /**
          * Insert customer to customers
+         * @public
+         * @function insert
          * @param {Object} customer - customer record
          * @return {Promise<Boolean>}
          * true when insert customer record successed
@@ -153,6 +161,8 @@ module.exports = app => {
 
         /**
          * Update customer record with some query condition
+         * @public
+         * @function update
          * @param {Object} customer - customer record waited to update
          * @param {Object} wheres - condition when update customer record
          * @return {Promise<Boolean>}
@@ -183,6 +193,8 @@ module.exports = app => {
 
         /**
          * Delete customer record from table customers
+         * @public
+         * @function delete
          * @param {Object} customer - condition when delete customer
          * @return {Promise<Boolean>}
          * true when delete cusotmer record successed

@@ -12,7 +12,7 @@ module.exports = app => {
          * Constructor of class Counters
          * @param {Object} app - egg application
          * @constructor
-         * @since 1.0.0 
+         * @since 1.0.0
          */
         constructor(app) {
 
@@ -31,11 +31,13 @@ module.exports = app => {
 
         /**
          * Judge counter exists or not
+         * @public
+         * @function exists
          * @param {String} id - counter's register code
          * @return {Promise<Boolean>}
          * true when counter exists
          * false when conuter doesn't exist
-         * @since 1.0.0 
+         * @since 1.0.0
          */
         async exists(id) {
 
@@ -60,6 +62,8 @@ module.exports = app => {
 
         /**
          * Query info of counters specified by id, shopId, type or details
+         * @public
+         * @function query
          * @param {Object} counter - query condition of query table counters
          * @param {Array[String]} attributes - attributes wanted to query
          * @return {Promise<Object>}
@@ -97,7 +101,9 @@ module.exports = app => {
 
         /**
          * Count the counter records' number satisfied come condition
-         * @param {Obejct} counter - query condition when count counter records 
+         * @public
+         * @function count
+         * @param {Obejct} counter - query condition when count counter records
          * @param {Array[String]} attributes - attributes wanted t count but just use first attribute
          * @return {Promise<Number>}
          * 0 when count error or result 0
@@ -119,6 +125,8 @@ module.exports = app => {
 
         /**
          * Insert a counter into counters
+         * @public
+         * @function insert
          * @param {Object} counter - counter record
          * @return {Promsie<Boolean>}
          * true when insert counter record successed
@@ -153,12 +161,14 @@ module.exports = app => {
 
         /**
          * Update info of some counter satsfied some condition
-         * @param {Object} counter - counter record  
+         * @public
+         * @function update
+         * @param {Object} counter - counter record
          * @param {Array[String]} wheres  - attributes wanted when update counter
          * @return {Promsie<Boolean>}
          * true when update counter record successed
          * false when update counter record failed
-         * 
+         *
          */
         async update(counter, wheres = { id: counter.id }) {
 
@@ -188,6 +198,8 @@ module.exports = app => {
 
         /**
          * Delete some counter records satisfied some cndition
+         * @public
+         * @function delete
          * @param {Object} counter - query condition when delete counter records
          * @return {Promise<Boolean>}
          * true when delete counter records successed
