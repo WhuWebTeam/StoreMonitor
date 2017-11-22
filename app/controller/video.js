@@ -96,12 +96,14 @@ module.exports = app => {
                 let eventList = {};
                 eventList.transId = DVA.TransID || '6992';
                 eventList.ts = billEle.Ts || 0;
+                eventList.createAt = Date.parse(new Date());
                 eventList.videoUrl = billEle.VideoUrl || '';
                 eventList.pic1Url = billEle.PictureUrl0 || '';
                 eventList.pic2Url = billEle.PictureUrl1 || '';
                 eventList.pic3Url = billEle.PictureUrl2 || '';
                 eventList.pic4Url = billEle.PictureUrl3 || '';
                 eventList.editResult = '';
+                eventList.comment = '';
                 if (bill.eventFlag.toLowerCase() !== 'Normal' &&  await this.service.eventsList.insert(eventList)) {
                     await this.service.logger.logDefault('running', `insert bill(${eventList}) to bills successed`);
                 } else if (bill.eventFlag.toLowerCase() !== 'Normal') {

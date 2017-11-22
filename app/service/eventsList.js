@@ -24,7 +24,9 @@ module.exports = app => {
                 id: undefined,
                 transId: undefined,
                 ts: undefined,
+                createAt: undefined,
                 editResult: undefined,
+                comment: undefined,
                 videoUrl: undefined,
                 status: undefined,
                 pic1Url: undefined,
@@ -263,6 +265,40 @@ module.exports = app => {
             } catch (err) {
                 return false;
             }
+        }
+
+
+        // Get list of eventsList record
+        async getEventList(status, editResult) {
+
+            let str = `select e.createAt, e.transId, e.editResult, b.counterId, c.name, c.id cashierId
+                         from eventsList e
+                         inner join
+                             (select ts, productId, cashierId, counterId
+                             from bills) b on b.ts = e.ts
+                             inner join
+                             (select id, name
+                             from cashiers) c on b.cashierId = c.id
+                         where e.status = $1`;
+            
+            if (!editResult) {
+                try {
+                    console.log('xxxx');
+                    const eventsList = await this.app.db.query(str, [status]);
+                    return eventsList;
+                } catch(err) {
+                    return [];
+                }
+            }
+
+            str += 'and e.editResult = $2';
+            try {
+                const eventsList = await this.app.db.query(str, [status, editResult]);
+                return eventsList;
+            } catch(err) {
+                return [];
+            }
+            
         }
 
 

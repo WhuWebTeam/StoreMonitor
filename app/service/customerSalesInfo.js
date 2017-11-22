@@ -261,6 +261,21 @@ module.exports = app => {
 
 
         /**
+         * Query max ts time
+         * @public
+         * @function maxTs
+         * @return {Promise<Number>}
+         * get the log's max time
+         * @since 1.0.0
+         */
+        async maxTs() {
+            let ts = await this.query({}, ['max(ts)']);
+            ts = ts[0] && ts[0].max || Date.parse(new Date());
+            return ts;
+        }
+
+
+        /**
          * Migrate new data from bills to customerSalesInfo
          * @public
          * @function migrate
@@ -279,21 +294,6 @@ module.exports = app => {
             } catch (err) {
                 await this.service.logger.logDefault('error', 'migrate new data from bills to customerSalesInfo failed')
             }
-        }
-
-
-        /**
-         * Query max ts time
-         * @public
-         * @function maxTs
-         * @return {Promise<Number>}
-         * get the log's max time
-         * @since 1.0.0
-         */
-        async maxTs() {
-            let ts = await this.query({}, ['max(ts)']);
-            ts = ts[0] && ts[0].max || Date.parse(new Date());
-            return ts;
         }
     }
 

@@ -13,17 +13,6 @@ module.exports = app => {
         }
 
 
-
-        // get info of all eventList
-        async getEventsList() {
-            const eventsList = await this.service.eventsList.query({});
-            this.ctx.body = {
-                code: 200,
-                data: eventsList,
-            };
-        }
-
-
         // get count of eventsList total, unconfirmed, confirmed
         async getCount() {
             const working = await this.service.eventsList.count({ status: 0 }, ['id']);
@@ -42,11 +31,27 @@ module.exports = app => {
             };
         }
 
+
+        // get list of eventList
+        async getEventList() {
+            
+            const status = +this.ctx.params.status || 0;
+            const editResult = '';
+            
+            const eventsList = await this.service.eventsList.getEventList(status, editResult);
+            this.ctx.body = {
+                code: 200,
+                data: eventsList
+            };
+        }
+
+
+
         // get record of eventsList record
         async getLists() {
             const status = this.ctx.params.status;
 
-            // cost sql = `` 
+            // cost 
         }
 
         // set editResult
@@ -75,19 +80,6 @@ module.exports = app => {
 
             // eventList edit successed
             this.ctx.body = this.service.util.generateResponse(200, 'set eventList status to temp store successed!');
-        }
-
-
-        // get info of eventsList with condition query or not
-        async getEventList() {
-            const eventList = this.ctx.request.body;
-
-            const eventsList= await this.service.eventsList.query(eventList);
-
-            this.ctx.body = {
-                code: 200,
-                data: eventsList,
-            };
         }
 
         
