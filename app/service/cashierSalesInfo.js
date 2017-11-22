@@ -64,6 +64,10 @@ module.exports = app => {
 		/**
 		 * Judge cashierSaleInfo exists or not through id
 		 * @param {number} id - cashierSalesInfo's seiral number
+		 * @return {Promise<Boolean>}
+		 * true when cashierSaleInfo exist
+		 * false when cashierSaleInfo doesn't exist
+		 * @since 1.0.0
 		 */
 		async existsId(id) {
 
@@ -86,7 +90,16 @@ module.exports = app => {
 		}
 
 
-		// Query cashierSalesInfo with condition query or not
+		/**
+		 *  Query cashierSalesInfo with condition query or not
+		 * @param {Object} cashierSaleInfo - condition when query cashierSalesInfo 
+		 * @param {Array[String]} attributes - attributes wanted to query
+		 * @return {Promise<Boolean>}
+		 * {} when query result set doesn't exist
+		 * Object when query condition just includes id or ts
+		 * Array[Object] when query condition without id and ts
+		 * @since 1.0.0
+		 */
 		async query(cashierSaleInfo, attributes = ['*']) {
 
 			// setcashierSalesInfo's attributes and query attributes
@@ -103,6 +116,8 @@ module.exports = app => {
 				return {};
 			}
 
+			// console.log(cashierSaleInfo);
+			// console.log(attributes);
 			try {
 				// query info of cashierSaleInfo specified by id
 				if (cashierSaleInfo.id) {
@@ -117,14 +132,23 @@ module.exports = app => {
 				}
 
 				// query info of cashierSaleInfo specified by attributes without cashierSaleInfo's id
-				const cashierSalesInfo = await this.service.query('cashierSalesInfo', attributes, cashierSalesInfo);
+				const cashierSalesInfo = await this.service.dbHelp.query('cashierSalesInfo', attributes, cashierSaleInfo);
 				return cashierSalesInfo;
 			} catch (err) {
 				return {};
 			}
 		}
 
-		// Count the CashierSaleInfo record with some condition
+		
+		/**
+		 * Count the CashierSaleInfo record with some condition
+		 * @param {Object} cashierSaleInfo -  condition when count cashierSalesInfo record
+		 * @param {Array[String]} attributes - attributes wanted to count but just use first attribute
+		 * @return {Promise[Number]}
+		 * 0 when count error or result is 0
+		 * number not 0 when count successed and not 0
+		 * @since 1.0.0
+		 */
 		async count(cashierSaleInfo, attributes = ['*']) {
 
 			// format cashierSaleInfo's attributes and query attributes
@@ -140,11 +164,18 @@ module.exports = app => {
 
 
 
-		// Insert cashierSalesInfo queried from bills to cashierSalesInfo
-		async insert(cashierSalesInfo) {
+		/**
+		 * Insert cashierSalesInfo queried from bills to cashierSalesInfo
+		 * @param {Object} cashierSaleInfo - cashierSaleInfo record waited to insert into cashierSalesInfo
+		 * @return {Promise<Boolean>}
+		 * true when insert record successed
+		 * false when insert record failed
+		 * @since 1.0.0
+		 */
+		async insert(cashierSaleInfo) {
 
 			// format cashierSaleInfo's attributes
-			cashierSalesInfo = this.service.util.setTableValue(this.table, cashierSalesInfo);
+			cashierSaleInfo = this.service.util.setTableValue(this.table, cashierSaleInfo);
 
 
 			// cashierSaleInfo's ts doesn't exist
@@ -153,7 +184,7 @@ module.exports = app => {
 			}
 			
 			// cashierSaleInfo doesn't exist
-			if (await this.exists(cashierSalesInfo.ts)) {
+			if (await this.exists(cashierSaleInfo.ts)) {
 				return false;
 			}
 
@@ -166,7 +197,15 @@ module.exports = app => {
 		}
 
 
-		// update cashierSalesInfo with some condition
+		/**
+		 * Update cashierSalesInfo with some condition
+		 * @param {Object} cashierSaleInfo - cashierSaleInfo record waited to update
+		 * @param {Object} wheres -condition when update cashierSaleInfo record
+		 * @return {Promise<Boolean>}
+		 * true when update cashierSaleInfo successed
+		 * false when update cashierSaleInfo failed
+		 * @since 1.0.0
+		 */
 		async update(cashierSaleInfo, wheres = { ts: cashierSaleInfo.ts }) {
 
 			// format cashierSaleInfo's attributes and wheres' attributes
@@ -187,7 +226,14 @@ module.exports = app => {
 		}
 
 
-		// Delete cashierSaleInfo with some condition
+		/**
+		 * Delete cashierSaleInfo with some condition
+		 * @param {Object} cashierSaleInfo - condition when delete cashierSaleInfo
+		 * @return {Promise<Boolean>}
+		 * true when delete cashierSaleInfo successed
+		 * false when delete cashierSaleInfo failed
+		 * @since 1.0.0 
+		 */
 		async delete(cashierSaleInfo) {
 
 			// format cashierSaleInfo's attributes
@@ -208,16 +254,21 @@ module.exports = app => {
 		}
 
 
-		// query max ts time
+		/**
+		 * Query max ts time
+		 * @since 1.0.0
+		 */
 		async maxTs() {
-			const str = 'select max(ts) from cashierSalesInfo';
-			let ts = await this.app.db.query(str);
-
-			return ts && ts[0] && ts[0].max || 0;
+			let ts = await this.query({}, ['max(ts)']);
+			ts = ts[0] && ts[0].max || Date.parse(new Date());
+			return ts;
 		}
 
 
-		// migrate new data from bills to cashierSalesInfo
+		/**
+		 * Migrate new data from bills to cashierSalesInfo
+		 * @since 1.0.0
+		 */
 		async migrate() {
 			const ts = await this.maxTs();
 

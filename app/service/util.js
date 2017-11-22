@@ -75,11 +75,21 @@ module.exports = app => {
 
         setQueryAttributes(tableObj, paramAttri) {
 
+            console.log(paramAttri);
             // the attributes queried is just include '*'
             if (paramAttri.length === 1 && paramAttri[0] === '*') {
                 return paramAttri;
             }
 
+            // the attributes queried is just include 'max()'
+            if (paramAttri.length === 1 && paramAttri[0].includes('max')) {
+                return paramAttri;
+            }
+
+            // the attributes queried is just include 'min()'
+            if (paramAttri.length === 1 && paramAttri[0].includes('min')) {
+                return paramAttri;
+            }
 
             // the attribute queried include more than one attribute
             const attributes = [];
