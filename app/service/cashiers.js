@@ -29,6 +29,8 @@ module.exports = app => {
 
         /**
          * Judge cashier exists or not
+         * @public
+         * @function exists
          * @param {String} id - Cashier's register code
          * @return {Promise<Boolean>}
          * true when cashier exists
@@ -59,6 +61,8 @@ module.exports = app => {
 
         /**
          * Query cashiers with condition query or not
+         * @public
+         * @function query
          * @param {Object} cashier - condition of query table cashiers
          * @param {Array[String]} attributes - attributes wanted to query
          * @return {Promise<Object>}
@@ -96,6 +100,8 @@ module.exports = app => {
 
         /**
          * Count the cashier records' number satisfied some query condition
+         * @public
+         * @function count
          * @param {Object} cashier - condition when count cashier records
          * @param {Array[String]} attributes - attributes used to count but just use first attribute
          * @return {Promsie<Nubmer>}
@@ -119,6 +125,8 @@ module.exports = app => {
 
         /**
          * Insert record to cashiers
+         * @public
+         * @function insert
          * @param {Object} cashier - cashier record waited to insert into cashiers
          * @return {Promise<Boolean>}
          * true when insert cashier record successed
@@ -152,6 +160,8 @@ module.exports = app => {
 
         /**
          * Update cashier records with some query condition
+         * @public
+         * @function update
          * @param {Object} cashier - cashier record waited to update
          * @param {Object} wheres - condition when update cashiers
          * @return {Promise<Boolean>}
@@ -182,6 +192,8 @@ module.exports = app => {
 
         /**
          * Delete cashier record satisfied some query condition
+         * @public
+         * @function delete
          * @param {Object} cashier - condition when delete cashier records
          * @return {Promise<Boolean>}
          * true when delete cashier records successed

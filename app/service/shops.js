@@ -31,6 +31,8 @@ module.exports = app => {
 
         /**
          * Judge shop exists or not throught shop.id
+         * @public
+         * @function exists
          * @param {String} id - shop's register code
          * @return {Promise<Boolean>}
          * true when shop exists
@@ -61,6 +63,8 @@ module.exports = app => {
 
         /**
          * Query shop info with condition query or not
+         * @public
+         * @function query
          * @param {Object} shop - query condition of table shop
          * @param {Array[String]} attributes - attributes wanted to query
          * @return {Promise<Object>}
@@ -98,6 +102,8 @@ module.exports = app => {
 
         /**
          * Count the shops records' number satisfied some query condition
+         * @public
+         * @function count
          * @param {Object} shop - query condition of table shops
          * @param {Array[String]} attributes - attributes wanted to count but just use first attribute
          * @return {Promise<Number>}
@@ -121,6 +127,8 @@ module.exports = app => {
 
         /**
          * Insert shop record to shops
+         * @public
+         * @function insert
          * @param {Object} shop - shop record waited to insert into shops
          * @return {Promise<Boolean>}
          * true when insert shop record successed
@@ -153,6 +161,8 @@ module.exports = app => {
 
         /**
          * Update info of shop specified by id
+         * @public
+         * @function update
          * @param {Object} shop - shop record
          * @param {Object} wheres - query condition when update shop records
          * @return {Promise<Boolean>}
@@ -188,6 +198,8 @@ module.exports = app => {
 
         /**
          * Delete some shops records satisfied some condition
+         * @public
+         * @function delete
          * @param {Object} shop - query condition when delete shop records
          * @return {Promise<Boolean>}
          * true when delete shop records successed

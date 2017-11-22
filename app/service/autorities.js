@@ -30,6 +30,8 @@ module.exports = app => {
 
         /**
          * Judge authority exists or not
+         * @public
+         * @function exists
          * @param {String} id - authority's register code
          * @return {Promise<Boolean>}
          * true when authority record exists
@@ -59,6 +61,8 @@ module.exports = app => {
 
         /**
          * Query info of authorities with condition query or not
+         * @public
+         * @function query
          * @param {Object} authority - query condition when query table authorities
          * @param {Array[String]} attributes - attributes wanted to query
          * @return {Promise<Object>}
@@ -96,6 +100,8 @@ module.exports = app => {
 
         /**
          * Count authority record satisfied some condition
+         * @public
+         * @function count
          * @param {Object} authority - query condition when count authority records
          * @param {Array[String]} attributes - attributes wanted to count but just use first attribute
          * @return {Promise<Number>}
@@ -119,6 +125,8 @@ module.exports = app => {
 
         /**
          * Insert a authority record into authorities
+         * @public
+         * @function insert
          * @param {Object} authority - authority record waited to insert into tabe authorities
          * @return  {Promise<Boolean>}
          * true when insert authority record successed
@@ -152,6 +160,8 @@ module.exports = app => {
 
         /**
          * Update info of some authorities satisfied some condition
+         * @public
+         * @function update
          * @param {Object} authority - authority record
          * @param {Object} wheres - query condition when update authorities
          * @return {Promise<Boolean>}
@@ -182,6 +192,8 @@ module.exports = app => {
 
         /**
          * Delete some authority records' satisfied some condition
+         * @public
+         * @function delete
          * @param {Object} authority - query condition when delete some authorities record
          * @return {Promise<Boolean>}
          * true when delete authorities records successed

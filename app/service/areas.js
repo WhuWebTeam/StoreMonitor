@@ -30,6 +30,8 @@ module.exports = app => {
 
         /**
          * Judge area exists or not
+         * @public
+         * @function exists
          * @param {String} id - area's register number
          * @return {Promise<Boolean>}
          * true when area specified by id exists
@@ -59,6 +61,8 @@ module.exports = app => {
 
         /**
          * Query info of areas with condition query or not
+         * @public
+         * @function query
          * @param {Obejct} area - condition of table areas'query
          * @param {Array[String]} attributes - array of attributes wanted to be queried
          * @return {Promise<Object>}
@@ -96,6 +100,8 @@ module.exports = app => {
 
         /**
          * Get the count of areas' record with some condition
+         * @public
+         * @function count
          * @param {Object} area - query condition of table areas
          * @param {Array[String]} attributes - attributes wanted to count but just use first attribute
          * @return {Promise<Number>}
@@ -119,6 +125,8 @@ module.exports = app => {
 
         /**
          * Add a new area record to areas
+         * @public
+         * @function insert
          * @param {Object} area - area record waited to be inserted to database
          * @return {Promise<Boolean>}
          * true when insert area record successed
@@ -134,7 +142,7 @@ module.exports = app => {
             if (!area.id) {
                 return false;
             }
-            
+
             // area exists
             if (await this.exists(area.id)) {
                 return false;
@@ -152,6 +160,8 @@ module.exports = app => {
 
         /**
          * Update info of area specified by query condition
+         * @public
+         * @function update
          * @param {Object} area - area record
          * @param {Object} wheres - query condition
          * @return {Promise<Boolean>}
@@ -182,6 +192,8 @@ module.exports = app => {
 
         /**
          * Delete some area record satisfied some condition
+         * @public
+         * @function delete
          * @param {Object} area - query condition of table areas
          * @return {Promise<Boolean>}
          * true when update areas successed

@@ -41,21 +41,6 @@ module.exports = app => {
 
             }
 
-            // switch (type) {
-            //     case type.includes('err'):
-            //         console.log(true);
-            //         logPath = path.join(path, './error/log_error.txt');
-            //         break;
-            //     case type.includes('req'):
-            //         logPath = path.join(path, './request/log_req.txt');
-            //         break;
-            //     case type.includes('run'):
-            //         logPath = path.join(path, './running/log_running.txt');
-            //         break;
-            //     default:
-            //         break;
-            // }
-
             await this.logPath(logPath, type, message);
         }
     }

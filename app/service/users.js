@@ -33,6 +33,8 @@ module.exports = app => {
 
         /**
          * Judge user exists or not
+         * @public
+         * @function exists
          * @param {String} id - user's register number
          * @return {Promise<Boolean>}
          * true when user exists
@@ -62,6 +64,8 @@ module.exports = app => {
 
         /**
          * Judge some user's password right or not when user exists
+         * @public
+         * @function passwordRight
          * @param {String} id - user's register number
          * @param {String} password - user's password
          * @return {Promise<Boolean>}
@@ -92,6 +96,8 @@ module.exports = app => {
 
         /**
          * Query some info of some users specified by id, userName, password, authorityId, phone, email
+         * @public
+         * @function query
          * @param {Object} user - query condition of table users
          * @param {Array[String]} attributes - attributes wanted to query
          * @return {Promise<Object>}
@@ -129,6 +135,8 @@ module.exports = app => {
 
         /**
          * Get the count of users' record with some condition
+         * @public
+         * @function count
          * @param {Object} user - query condition of table users
          * @param {Array[String]} attributes - attributes wanted to count but just use first attribute
          * @return {Promise<Number>}
@@ -152,6 +160,8 @@ module.exports = app => {
 
         /**
          * Add a user record to users
+         * @public
+         * @function insert
          * @param {Object} user - user record waited to be inserted to users
          * @return {Promise<Boolean>}
          * true when insert user record successed
@@ -185,6 +195,8 @@ module.exports = app => {
 
         /**
          * Update info of user specified by query condition
+         * @public
+         * @function update
          * @param {Object} user - user record
          * @param {Object} wheres - query condition
          * true when update successed
@@ -214,6 +226,8 @@ module.exports = app => {
 
         /**
          * Delete some user specified by some condition
+         * @public
+         * @function delete
          * @param {Object} user - query condition of table users
          * @return {Promise<Boolean>}
          * true when delete record successed
