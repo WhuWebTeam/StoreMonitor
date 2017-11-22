@@ -49,7 +49,11 @@ module.exports = app => {
         async getEventsListGraph() {
             const day = +this.ctx.params.day || 1;
 
-            const 
+            const eventsList = await this.service.eventsList.getEventsListGraph(day);
+            this.ctx.body = {
+                code: 200,
+                data: eventsList
+            };
         }
 
         // redirect to editPage

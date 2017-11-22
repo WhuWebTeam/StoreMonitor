@@ -297,7 +297,18 @@ module.exports = app => {
             } catch(err) {
                 return [];
             }
-            
+        }
+
+        // get statistics graph of eventsList record
+        async getEventsListGraph(day) {
+            const str = ``;
+
+            try {
+                const eventsList = this.app.db.query(str, []);
+                return eventsList;
+            } catch(err) {
+                return [];
+            }
         }
 
 
