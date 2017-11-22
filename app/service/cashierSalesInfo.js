@@ -139,7 +139,7 @@ module.exports = app => {
 			}
 		}
 
-		
+
 		/**
 		 * Count the CashierSaleInfo record with some condition
 		 * @param {Object} cashierSaleInfo -  condition when count cashierSalesInfo record
@@ -163,7 +163,6 @@ module.exports = app => {
 		}
 
 
-
 		/**
 		 * Insert cashierSalesInfo queried from bills to cashierSalesInfo
 		 * @param {Object} cashierSaleInfo - cashierSaleInfo record waited to insert into cashierSalesInfo
@@ -176,7 +175,6 @@ module.exports = app => {
 
 			// format cashierSaleInfo's attributes
 			cashierSaleInfo = this.service.util.setTableValue(this.table, cashierSaleInfo);
-
 
 			// cashierSaleInfo's ts doesn't exist
 			if (!cashierSaleInfo.ts) {
@@ -238,7 +236,6 @@ module.exports = app => {
 
 			// format cashierSaleInfo's attributes
 			cashierSaleInfo = this.service.util.setTableValue(this.table, cashierSaleInfo);
-
 			
 			// cashierSaleInfo doesn't exist
 			if (cashierSaleInfo.ts && !await this.exists(cashierSaleInfo.ts)) {
