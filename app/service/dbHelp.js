@@ -42,7 +42,7 @@ module.exports = app => {
          * used to deal update opration of database
          * @public
          * @function update
-         * @param {string} tableName - name of table which will be oprated
+         * @param {String} tableName - name of table which will be oprated
          * @param {object} obj - attributes will be update in database and 
          * must consistant with database's attributes name, attributes doesn't explicit
          * @param {object} wheres - condition of where 
@@ -140,6 +140,8 @@ module.exports = app => {
             // when query without where condition(wheres is a {})
             if (JSON.stringify(wheres) === '{}') {
                 const result = await this.app.db.query(str, values);
+                console.log(str);
+                console.log(values);
                 return result;
             }
 

@@ -1,60 +1,280 @@
+
+
+/**
+ * Service class of table bills
+ * @class Bills
+ * @since 1.0.0
+ */
 module.exports = app => {
-	class Bills extends app.Controller {
+    class Bills extends app.Controller {
 
-		// default value of table bills
-		getTable() {
-			const table = {
-				transId: '',
-				ts: '',
-				shopId: '',
-				counterId: '',
-				startTime: '',
-				endTime: '',
-				scriptVer: '',
-				productId: '',
-				price: '',
-				quantity: '',
-				amount: '',
-				cashierId: '',
-				customerId: '',
-				eventFalg: ''
-			};
-			return table;
-		}
+        /**
+         * Constructor of class Bills
+         * @param {Object} app - egg application
+         * @constructor
+         * @since 1.0.0
+         */
+        constructor(app) {
+
+            // constructor of app.Service
+            super(app);
+
+            // default value of table bills
+            this.table = {
+                id: undefined,
+                transId: undefined,
+                ts: undefined,
+                shopId: undefined,
+                counterId: undefined,
+                startTime: undefined,
+                endTime: undefined,
+                scriptVer: undefined,
+                productId: undefined,
+                price: undefined,
+                quantity: undefined,
+                amount: undefined,
+                cashierId: undefined,
+                customerId: undefined,
+                eventFlag: undefined
+            };
+        }
 
 
-		// judge bill exists or not
-		async exists(ts) {
+        /**
+         * Judge bill exists or not through ts
+         * @public
+         * @function exists
+         * @param {Number} ts - bill's occurentTime
+         * @return {Promise<Boolean>}
+         * true when bill exists
+         * falsewhen bill doesn't exists
+         * @since 1.0.0
+         */
+        async exists(ts) {
 
-			// parameter doesn't exist
-			if (!this.service.util.parameterExists(id)) {
-				return false;
-			}
+            // parameter doesn't exist
+            if (!this.service.util.parameterExists(ts)) {
+                return false;
+            }
 
-			// parameter exists
-			if (await this.service.dbHelp.count('bills', 'id', { ts })) {
-				return true;
-			} else {
-				return false;
-			}
-		}
+            // parameter exists
+            try {
+                // bills exists
+                if (await this.service.dbHelp.count('bills', 'ts', { ts })) {
+                    return true;
+                }
 
-		
-		// insert a bill record to bills
-		async insert(bill) {
+                // bills doesn't exist
+                return false;
+            } catch (err) {
+                return false;
+            }
+        }
 
-			bill = this.service.util.setTableValue(this.getTable(), bill);
 
-			// bill exists
-			if (await this.exists(bill.ts)) {
-				return false;
-			}
+        /**
+         * Judge bill exists or not through id
+         * @public
+         * @function existsId
+         * @param {Number} id - table bills element serial number
+         * @return {Promise<Boolean>}
+         * true when bill exists
+         * false when bill doesn't exist
+         * @since 1.0.0
+         */
+        async existsId(id) {
 
-			// insert bill to bills
-			await this.service.dbHelp.insert('bills', bill);
-			return true;
-		}
-	}
+            // parameter doesn't exist
+            if (!this.service.util.parameterExists(id)) {
+                return false;
+            }
 
-	return Bills;
+            // parameter exists
+            try {
+                // bills exists
+                if (await this.service.dbHelp.count('bills', 'id', { id })) {
+                    return true;
+                }
+
+                // bills doesn't exist
+                return false;
+            } catch (err) {
+                return false;
+            }
+        }
+
+        /**
+         * Query info of bills with some condition
+         * @public
+         * @function query
+         * @param {Object} bill - condition when query bills
+         * @param {Array[String]} attributes - attributes wanted to query
+         * @return {Object}
+         * {} when query result set is null
+         * Object when query condition just includes bill.id or bill.ts
+         * Array[Object] when query condition without bill.id or bill.ts
+         * @since 1.0.0
+         */
+        async query(bill, attributes = ['*']) {
+
+            // format bill's attributes and query attributes
+            bill = this.service.util.setTableValue(this.table, bill);
+            attributes = this.service.util.setQueryAttributes(this.table, bill);
+
+            // bill doesn't exist through id
+            if (bill.id && !await this.existsId(bill.id)) {
+                return {};
+            }
+
+            // bill doesn't exists through ts
+            if (bill.ts && !await this.exists(bill.ts)) {
+                return {};
+            }
+
+            try {
+
+                // get info through id if id exists
+                if (bill.id) {
+                    bill = await this.service.dbHelp.query('bills', attributes, { id: bill.id });
+                    return bill && bill[0];
+                }
+
+                //get info through ts if ts exists
+                if (bill.ts) {
+                    bill = await this.service.dbHelp.query('bills', attributes, { ts: bill.ts });
+                    return bill && bill[0];
+                }
+
+                // get info with condition without ts and id
+                const bills = await this.service.dbHelp.query('bills', attributes, bill);
+                return bill;
+            } catch (err) {
+                return {};
+            }
+        }
+
+
+        /**
+         * Count bill records with some condition
+         * @public
+         * @function count
+         * @param {Object} bill - condition when count bills record
+         * @param {Array[String]} attributes - attributes wanted to query
+         * @return {Promise<Boolean>}
+         * 0 when count error or result is 0
+         * number not 0 when count successed and not 0
+         * @since 1.0.0
+         */
+        async count(bill, attributes = ['*']) {
+
+            // format bill's attributes and query attributes
+            bill = this.service.util.setTableValue(this.table, bill);
+            attributes = this.service.util.setQueryAttributes(this.table, bill);
+
+            try {
+                return await this.service.dbHelp.count('bills', attributes[0], bill);
+            } catch (err) {
+                return 0;
+            }
+        }
+
+
+        /**
+         * Insert a bill record to bills
+         * @public
+         * @function insert
+         * @param {Object} bill - bill record waited to insert into bills
+         * @return {Promise<Boolean>}
+         * true when insert bill record to bills successed
+         * false when insert bill record into bills failed
+         * @since 1.0.0
+         */
+        async insert(bill) {
+
+            // format bill's attributes
+            bill = this.service.util.setTableValue(this.table, bill);
+
+            // bill.ts doesn't exists
+            if (!bill.ts) {
+                return false;
+            }
+
+            // bill exists
+            if (await this.exists(bill.ts)) {
+                return false;
+            }
+
+            try {
+                // insert bill to bills
+                await this.service.dbHelp.insert('bills', bill);
+                return true;
+            } catch (err) {
+                return false;
+            }
+        }
+
+
+        /**
+         * Update table bills with some condition
+         * @public
+         * @function update
+         * @param {Object} bill - bill record waited to update
+         * @param {Object} wheres - condition when update bills
+         * @return {Promise<Boolean>}
+         * true when update bills successed
+         * false when update bill failed
+         * @since 1.0.0
+         */
+        async update(bill, wheres = { ts: bill.ts }) {
+
+            // format bill's attributes and wheres' attributes
+            bill = this.service.util.setTableValue(this.table, bill);
+            wheres = this.service.util.setTableValue(this.table, wheres);
+
+            // bill doesn't exist
+            if (bill.ts && !await this.exists(bill.ts)) {
+                return false;
+            }
+
+            try {
+                await this.service.dbHelp.update('bills', bill, wheres);
+                return true;
+            } catch (err) {
+                return false;
+            }
+        }
+
+
+
+        /**
+         * Delete table bills with some condition
+         * @public
+         * @function delete
+         * @param {Object} bill - condition when delete bills satisfied some condition
+         * @return {Promise<Boolean>}
+         * true when update bills successed
+         * false when update bills failed
+         * @since 1.0.0
+         */
+        async delete(bill) {
+
+            // format bill's attributes
+            bill = this.service.util.setTableValue(this.table, bill);
+
+            // bill doesn't exists
+            if (bill.ts && !await this.exists(bill.ts)) {
+                return false;
+            }
+
+            // bill exists
+            try {
+                await this.service.dbHelp.delete('bills', bill);
+                return true;
+            } catch (err) {
+                return false;
+            }
+        }
+    }
+
+    return Bills;
 }

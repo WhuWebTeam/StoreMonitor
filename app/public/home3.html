@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>登录</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+	<link rel="stylesheet" type="text/css" href="bootstrap-3.3.7-dist/css/bootstrap.min.css">
+	<script type="text/javascript" src="bootstrap-3.3.7-dist/jquery/jquery.min.js"></script>
+	<script type="text/javascript" src="bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+	<style type="text/css">
+		#form_login{
+			width: 500px;
+			height: 200px;
+			margin: 100px auto;
+			background-color: grey;
+		}
+		legend{
+			text-align: center;
+		}
+		#submit{
+			display: block;
+			margin: 0 auto;
+		}
+	</style>
+	<!-- <script type="text/javascript">
+		var csrftoken = Cookies.get('csrfToken');
+		//console.log(csrftoken);
+		function csrfSafeMethod(method) {
+		  // these HTTP methods do not require CSRF protection
+		  return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+		}
+		$.ajaxSetup({
+		  beforeSend: function(xhr, settings) {
+		    if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+		      xhr.setRequestHeader('x-csrf-token', csrftoken);
+		    }
+		  },
+		});
+		function signIn(){
+			var username = document.getElementById('username').value;
+			var password = document.getElementById('password').value;
+			var data = {
+				'id':username,
+				'password':password
+			}
+			$.ajax({
+				url:'/api/v1/users/signIn',
+				type:'POST',
+				data:data,
+				success:function(data){
+					document.body.innerHTML = data;
+				}
+			})
+		}
+	</script> -->
+	<script type="text/javascript">
+
+		function getCookie(name)
+		{
+			var arr,reg=new RegExp("(^| )"+name+"=([^;]*)(;|$)");
+			if(arr=document.cookie.match(reg))
+			return unescape(arr[2]);
+			else
+			return null;
+		}
+		function signIn(){
+			var csrf_token = getCookie('csrfToken');
+			//var csrf_token=document.cookie.split(";")[0].split("=")[1];
+
+			var url = "/api/v1/users/signIn?_csrf="+csrf_token;
+
+			document.getElementById('form_login').setAttribute('action',url);
+			
+			return true;  //开控制台会暂停在这一步，点击开发者工具的继续按钮，即可。
+
+		}
+	</script>
+</head>
+<body>	
+	<div id="login">
+		<form id="form_login" method="post" action="" onsubmit="signIn()">
+		  <fieldset>
+		    <legend>LPS用户登录</legend>
+		    <input type="text" name="id"  class="form-control" placeholder="用户名" /><br/>
+		    <input type="password" name="password" class="form-control" placeholder="密码"><br/>
+		    <input type="submit" id="submit" value="登录">
+		  </fieldset>
+		</form>
+	</div>
+	
+<!-- 	<div id="login">
+		<form id="form_login">
+		  <fieldset>
+		    <legend>LPS用户登录</legend>
+		    <input type="text" name="id"  id="username" class="form-control" placeholder="用户名" /><br/>
+		    <input type="password" name="password" id="password" class="form-control" placeholder="密码"><br/>
+		    <input type="button" id="submit" value="登录" onclick="signIn()">
+		  </fieldset>
+		</form>
+	</div> -->
+
+	
+</body>
+</html>

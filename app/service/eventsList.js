@@ -1,26 +1,84 @@
-module.exports = app => {
-    class EventsList extends app.Controller {
 
-        // get default vaue of table eventsList
-        getTable() {
-            const table = {
-                transId: '',
-                ts: '',
-                createTime: '',
-                updateTime: '',
-                editResult: '',
-                videoUrl: '',
-                pic1Url: '',
-                pic2Url: '',
-                pic3Url: '',
-                pic4Url: ''
+
+/**
+ * Service constructor of table eventsList
+ * @class EventsList
+ * @since 1.0.0
+ */
+module.exports = app => {
+    class EventsList extends app.Service {
+
+        /**
+         * Constructor of class eventsList
+         * @param {Object} app - egg application
+         * @constructor
+         * @since 1.0.0
+         */
+        constructor(app) {
+
+            // constructor of app.Service
+            super(app);
+
+            // default value of table eventsList
+            this.table = {
+                id: undefined,
+                transId: undefined,
+                ts: undefined,
+                createAt: undefined,
+                editResult: undefined,
+                comment: undefined,
+                videoUrl: undefined,
+                status: undefined,
+                pic1Url: undefined,
+                pic2Url: undefined,
+                pic3Url: undefined,
+                pic4Url: undefined
             };
-            return table;
         }
 
 
-        // judge eventsList record exists or not 
+        /**
+         * Judge eventsList record exists or not
+         * @public
+         * @function exists
+         * @param {Number} ts - eventsList's occurent time
+         * @return {Promise<Boolean>}
+         * truen when eventList exists
+         * false when eventList doesn't exist
+         * @since 1.0.0
+         */
         async exists(ts) {
+
+            // parameter doesn't exist
+            if (!this.service.util.parameterExists(ts)) {
+                return false;
+            }
+
+            try {
+                // eventsList exists
+                if (await this.service.dbHelp.count('eventsList', 'ts', { ts })) {
+                    return true;
+                }
+
+                // eventsList doesn't exists
+                return false;
+            } catch (err) {
+                return false;
+            }
+        }
+
+
+        /**
+         * Judge eventsList record exists or not through eventList's id
+         * @public
+         * @function existsId
+         * @param {Number} id - eventsList's serial number
+         * @return {Promise<Boolean>}
+         * true when eventList exists
+         * false when eventList doesn't exist
+         * @since 1.0.0
+         */
+        async existsId(id) {
 
             // parameter doesn't exist
             if (!this.service.util.parameterExists(id)) {
@@ -28,66 +86,242 @@ module.exports = app => {
             }
 
             // parameter exists
-            if (await this.service.dbHelp.count('eventsList', 'id', { ts })) {
-                return true;
-            } else {
+            try {
+                // eventList exists
+                if (await this.service.dbHelp.count('eventsList', 'id', { id })) {
+                    return true;
+                }
+
+                // eventList doesn't exist
+                return false;
+            } catch (err) {
                 return false;
             }
         }
 
-        
-        // judge eventsList record exists or not through eventList's id
-        async existsId(id) {
-            if (await this.service.dbHelp.count('eventsList', 'id', { id })) {
-                return true;
-            } else {
-                return false;
+
+        /**
+         * Query info of eventsList with condition query or not
+         * @public
+         * @function query
+         * @param {Object} eventList - condition when query eventsList
+         * @param {Array[String]} attributes - attributes wanted to query
+         * @return {Promise<Object>}
+         * {} when no query result set
+         * Object when query condition just includes id or ts
+         * Array[Object] when query condition without id and ts
+         */
+        async query(eventList, attributes = ['*']) {
+
+            // format eventList's attribute and query's attributes
+            eventList = this.service.util.setTableValue(this.table, eventList);
+            attributes = this.service.util.setQueryAttributes(this.table, attributes);
+
+            // eventList doesn't exist through eventLsit.id
+            if (eventList.id && !await this.existsId(eventList.id)) {
+                return {};
+            }
+
+            // eventList doesn't exist through eventList.ts
+            if (eventList.ts && !await this.exists(eventList.ts)) {
+                return {};
+            }
+
+            try {
+                // query info of eventList through eventList's id
+                if (eventList.id) {
+                    eventList = await this.service.dbHelp.query('eventsList', attributes, { id: eventList.id });
+                    return eventList && eventList[0];
+                }
+
+                // query info of eventList through eventList's ts
+                if (eventList.ts) {
+                    eventList = await this.service.dbHelp.query('eventsList', attributes, { ts: eventList.ts });
+                    return eventList && eventList[0];
+                }
+
+                // query info of eventList by attributes without id
+                const eventsList = await this.service.dbHelp.query('eventsList', attributes, eventList);
+                return eventsList;
+            } catch (err) {
+                return {};
             }
         }
 
 
-        // insert a eventList record to eventsList
+        /**
+         * Count eventsList satisfied condition
+         * @public
+         * @function count
+         * @param {Object} eventList - condition when count eventsList records
+         * @param {Array[String]} attributes - attributes wanted to count but just use the first attribute
+         * @return {Promise<Number>}
+         * 0 when count failed or result is 0
+         * number when count successed and not 0
+         * @since 1.0.0
+         */
+        async count(eventList, attributes = ['*']) {
+
+            // format eventList's attributes and query attributes
+            eventList = this.service.util.setTableValue(this.table, eventList);
+            attributes = this.service.util.setQueryAttributes(this.table, attributes);
+
+            try {
+                return await this.service.dbHelp.count('eventsList', attributes[0], eventList);
+            } catch (err) {
+                return 0;
+            }
+        }
+
+
+        /**
+         * Insert a eventList record to eventsList
+         * @public
+         * @function insert
+         * @param {Object} eventList - eventList record waited to insert into oeventsList
+         * @return {Promise<Boolean>}
+         * true when insert eventList record successed
+         * false when insert eventList record failed
+         * @since 1.0.0
+         */
         async insert(eventList) {
 
-            eventList = this.service.util.setTableValue(this.getTable(), eventList);
+            // format eventList's attributes
+            eventList = this.service.util.setTableValue(this.table, eventList);
+
+            // eventList.ts doesn't exist
+            if (!eventList.ts) {
+                return false;
+            }
 
             // eventList exists
             if (await this.exists(eventList.ts)) {
                 return false;
             }
 
-            // insert a eventList to eventsList
-            await this.service.dbHelp.insert('eventsList', eventList);
-            return true;
+            try {
+                // insert a eventList to eventsList
+                await this.service.dbHelp.insert('eventsList', eventList);
+                return true;
+            } catch (err) {
+                return false;
+            }
+        }
+
+        /**
+         * Update eventsList ssatisfied some condition
+         * @public
+         * @function update
+         * @param {Object} eventList - eventList record waited to update
+         * @param {Object} wheres - condition when update table eventsList
+         * @return {Promise<Boolean>}
+         * true when update eventsList successed
+         * false when update eventsList failed
+         * @since 1.0.0
+         */
+        async update(eventList, wheres = { ts: eventList.ts }) {
+
+            // format eventList's attributes and query attributes
+            eventList = this.service.util.setTableValue(this.table, eventList);
+            wheres = this.service.util.setTableValue(this.table, wheres);
+
+            // eventList doesn't exists
+            if (eventList.ts && !await this.exists(eventList.ts)) {
+                return false;
+            }
+
+            // update eventsList satisfied some condition
+            try {
+                await this.service.dbHelp.update('eventsList', eventsList, wheres);
+                return true;
+            } catch (err) {
+                return false;
+            }
+        }
+
+        /**
+         * Delete EventsList satisfied some condition
+         * @public
+         * @function delete
+         * @param {Object} eventList - condition when delete eventsList
+         * @return {Promise<Boolean>}
+         * true when delete eventsList record successed
+         * false when delete eventsList record failed
+         * @since 1.0.0
+         */
+        async delete(eventList) {
+
+            // format eventList's attributes
+            eventList = this.service.util.setTableValue(this.table, eventList);
+
+            // eventList doesn't exist
+            if (eventList.ts && !await this.exists(eventList.ts)) {
+                return false;
+            }
+
+            try {
+                await this.service.dbHelp.delete('eventsList', eventList);
+                return true;
+            } catch (err) {
+                return false;
+            }
         }
 
 
+        // Get list of eventsList record
+        async getEventList(status, editResult) {
 
-        // query info of eventsList with condition query or not
-        async query(eventList) {
-
-            eventList = this.service.util.setTableValue(this.getTable(), eventList);
+            let str = `select e.createAt, e.transId, e.editResult, b.counterId, c.name, c.id cashierId
+                         from eventsList e
+                         inner join
+                             (select ts, productId, cashierId, counterId
+                             from bills) b on b.ts = e.ts
+                             inner join
+                             (select id, name
+                             from cashiers) c on b.cashierId = c.id
+                         where e.status = $1`;
             
-            // eventList doesn't exist
-            if (eventList.id && await this.existsId(eventList.id)) {
-                return this.service.util.generateResponse(400, 'eventList doesn.t exist');
+            if (!editResult) {
+                try {
+                    const eventsList = await this.app.db.query(str, [status]);
+                    return eventsList;
+                } catch(err) {
+                    return [];
+                }
             }
 
-            // query info of eventList through eventList's id
-            if (eventList.id) {
-                eventList = await this.service.dbHelp.query('eventsList', ['*'], { id: eventList.id });
-                return {
-                    code: 200,
-                    data: eventList && eventList[0]
-                };
+            str += 'and e.editResult = $2';
+            try {
+                const eventsList = await this.app.db.query(str, [status, editResult]);
+                return eventsList;
+            } catch(err) {
+                return [];
+            }
+        }
+
+        // get statistics graph of eventsList record
+        async getEventsListGraph(day) {
+            let str = `select to_char(to_timestamp(ts/1000), 'YYYY-MM-DD') as day, count(id) from eventsList group by day order by day`;
+            let values = [];
+
+            switch(day.toLowerCase()) {
+                case 'day':
+                    values.push('YYYY');
+                    break;
+                case 'month':
+                    values.push('YYYY-MM');
+                    break;
+                default:
+                    str = '';
+                    break;
             }
 
-            // query info of eventList by attributes without id
-            const eventsList = await this.service.dbHelp.query('eventsList', ['*'], eventList);
-            return {
-                code: 200,
-                data: eventsList
-            };
+            try {
+                const eventsList = this.app.db.query(str, values);
+                return eventsList;
+            } catch(err) {
+                return [];
+            }
         }
 
 
@@ -101,13 +335,16 @@ module.exports = app => {
 
             // set eventList's editResult
             await this.service.dbHelp.update('eventsList', { editResult }, { ts });
+
+            // set status to commit
+            await this.service.dbHelp.update('eventsList', { status: 2 }, { ts });
             return true;
         }
 
 
         // set some EventList status to tempStore  0: default status, 1: temp store status, 2: commit status
         async StoreEventsList(ts) {
-            
+
             // eventsList doesn't exist
             if (!await this.exists(ts)) {
                 return false;
