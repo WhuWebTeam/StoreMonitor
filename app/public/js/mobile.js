@@ -23,6 +23,18 @@ window.onload = function(){
 	/*handle class*/
 
 
+	/* handle time */
+	function handleTime(num){
+		num = parseInt(num);
+		var now = new Date(num),
+               y = now.getFullYear(),
+               m = now.getMonth() + 1,
+               d = now.getDate();
+		return y + "-" + (m < 10 ? "0" + m : m) + "-" + (d < 10 ? "0" + d : d) + " " + now.toTimeString().substr(0, 8);
+
+	}
+	/* handle time */
+
 	/*handle csrf*/
 	var csrftoken = Cookies.get('csrfToken');
 	function csrfSafeMethod(method) {
@@ -56,13 +68,59 @@ window.onload = function(){
 
 	// function getGraph(type){
 	// 	$.ajax({
-	// 		url:''+'?type='type,
-	// 		type:'get',
+	// 		url:'/api/v1/eventsList/query',
+	// 		type:'post',
+	// 		data:{
+	// 			status:type
+	// 		}
 	// 		success:function(results){
-				
+	// 			console.log(results);
 	// 		}
 	// 	})
 	// }
+
+	function getList(type){
+		var glyphiconType;
+		switch(type){
+			case 0: glyphiconType = 'glyphicon-pencil'; break;
+			case 1: glyphiconType = 'glyphicon-search'; break;
+			case 2: glyphiconType = 'glyphicon-ok'; break;
+		}
+
+		$.ajax({
+			url:'/api/v1/eventsList/query',
+			type:'post',
+			data:{
+				status:type
+			},
+			success:function(results){
+				if(results.length == 0){
+					var mes =document.createElement('p');
+					//addClass(mes,'no');
+					mes.setAttribute('class','no');
+					mes.innerHTML = '没有待处理的事件';
+					document.getElementById('list').appendChild(mes);
+				}
+				for(let i=0;i<results.length;i++){
+					var div = document.createElement('div');
+					div.setAttribute('class','view');
+					time = handleTime(results[i].ts);
+					
+					div.innerHTML =`
+							<p class="top">
+								<span class='a'>${time}</span><span class='b'>${results[i].transid}</span><span class="glyphicon ${glyphiconType} c" aria-hidden="true"></span>
+							</p>
+							<p class="bottom">
+								<span class='a'>人名</span><span class='b'>款台</span><span class='c'>审查结果:${results[i].editresult}</span>
+							</p>
+					`;
+					document.getElementById('list').appendChild(div);
+					
+				}
+			}
+		})
+
+	}
 
 
 	/*draw graph*/ 
@@ -145,8 +203,8 @@ window.onload = function(){
 
 
 
-    /* add press event */
-    var btn = document.getElementsByTagName('button');
+    /* add press event of day week and month */
+    var btn = document.getElementById('graph').getElementsByTagName('button');
    	Array.prototype.map.call(btn,function(item,index){
     	item.onclick = function(){
     		/*handle style*/
@@ -159,12 +217,34 @@ window.onload = function(){
 
     		/*date_type of graph*/
     		var type = item.className.split(/\s+/)[0]; 
-    		getGraph(type);
+    		//getGraph(type);
+
+
     	}
     });
-   	/* add press event */
+   	/* add press event of day week and month */
 
 
+   	/* add press event of event */
+   	var btn = document.getElementById('event').getElementsByTagName('p');
+   	var pairs = {
+   		0 : 0 ,
+   		1 : 2 ,
+   		2 : 1
+   	}
+   	Array.prototype.map.call(btn,function(item,index){
+   		item.onclick = function(){
+   			var alr_down = document.getElementsByClassName('edown')[0];
+   			if(alr_down !== this){
+   				removeClass(alr_down,'edown');
+   				addClass(item,'edown');
+
+   				document.getElementById('list').innerHTML='';
+   				getList(pairs[index]);
+
+   			}
+   		}
+   	})
    	
 
 
@@ -172,6 +252,7 @@ window.onload = function(){
 
 
 
-   	getNum(); 	
+   	getNum();
+   	getList(0); 	
 
 }
