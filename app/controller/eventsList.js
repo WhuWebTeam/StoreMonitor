@@ -47,7 +47,7 @@ module.exports = app => {
 
         // get statistics graph of eventsList record
         async getEventsListGraph() {
-            const day = +this.ctx.params.day || 1;
+            const day = this.ctx.params.day || 'day';
 
             const eventsList = await this.service.eventsList.getEventsListGraph(day);
             this.ctx.body = {
@@ -59,13 +59,6 @@ module.exports = app => {
         // redirect to editPage
         async getEditPage() {
             redirect('/public/')
-        }
-
-        // get record of eventsList record
-        async getLists() {
-            const status = this.ctx.params.status;
-
-            // cost 
         }
 
         // set editResult

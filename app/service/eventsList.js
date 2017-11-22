@@ -301,10 +301,23 @@ module.exports = app => {
 
         // get statistics graph of eventsList record
         async getEventsListGraph(day) {
-            const str = ``;
+            let str = `select to_char(to_timestamp(ts/1000), 'YYYY-MM-DD') as day, count(id) from eventsList group by day order by day`;
+            let values = [];
+
+            switch(day.toLowerCase()) {
+                case 'day':
+                    values.push('YYYY');
+                    break;
+                case 'month':
+                    values.push('YYYY-MM');
+                    break;
+                default:
+                    str = '';
+                    break;
+            }
 
             try {
-                const eventsList = this.app.db.query(str, []);
+                const eventsList = this.app.db.query(str, values);
                 return eventsList;
             } catch(err) {
                 return [];
