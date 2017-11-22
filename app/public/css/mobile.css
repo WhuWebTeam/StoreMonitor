@@ -92,7 +92,7 @@
 		line-height: 30px;
 		margin: 0;
 		padding: 0px;
-		font-size: 20px;
+		font-size: 16px;
 		background-color: #d0c6c6;
 	}
 	.top  span:first-child{
@@ -117,12 +117,12 @@
 	}
 	.bottom  span:nth-child(2){
 		display: inline-block;
-		width: 20%;
+		width: 26%;
 		text-align: center;
 	}
 	.bottom  span:nth-child(3){
 		display: inline-block;
-		width: 46%;
+		width: 40%;
 		text-align: center;
 	}
 }

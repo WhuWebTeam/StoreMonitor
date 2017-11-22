@@ -88,11 +88,8 @@ window.onload = function(){
 		}
 
 		$.ajax({
-			url:'/api/v1/eventsList/query',
-			type:'post',
-			data:{
-				status:type
-			},
+			url:'/api/v1/eventsList/'+type+'/0',
+			type:'get',
 			success:function(results){
 				var results = results.data;
 				if(results.length == 0){
@@ -105,14 +102,16 @@ window.onload = function(){
 				for(let i=0;i<results.length;i++){
 					var div = document.createElement('div');
 					div.setAttribute('class','view');
-					time = handleTime(results[i].ts);
-					
+					var time = handleTime(results[i].createat);
+					var name = results[i].name?results[i].name:results[i].cashierid?results[i].cashierid:'pos机';
+
+
 					div.innerHTML =`
 							<p class="top">
 								<span class='a'>${time}</span><span class='b'>${results[i].transid}</span><span class="glyphicon ${glyphiconType} c" aria-hidden="true"></span>
 							</p>
 							<p class="bottom">
-								<span class='a'>人名</span><span class='b'>款台</span><span class='c'>审查结果:${results[i].editresult}</span>
+								<span class='a'>${name}</span><span class='b'>款台: ${results[i].counterid}</span><span class='c'>审查结果:${results[i].editresult}</span>
 							</p>
 					`;
 					document.getElementById('list').appendChild(div);
@@ -266,8 +265,8 @@ window.onload = function(){
    	getNum();
    	getList(0); 	
 
-   	$("body").on("touchstart", function(e) {
-   		console.log('slide');
-   	});
+   	// $("body").on("touchstart", function(e) {
+   	// 	console.log('slide');
+   	// });滑动事件
 
 }
