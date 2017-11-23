@@ -11,7 +11,7 @@ function getUrl(){
    var arr = str.split('&');
    status = arr[1].split('=')[1] ;
    syskey = arr[0].split('=')[1] ;
-   console.log(syskey);
+
   }
 
 function getStatus(status)
@@ -38,7 +38,7 @@ if (status == 1){
 
 function getNum(){
     $.ajax({
-      url:"/api/v1/eventsList/"+syskey,
+      url:"/api/v1/eventsList/editInfo/"+syskey,
       type:'GET',
       success:function(results){
         console.log(results.data);
@@ -48,12 +48,12 @@ function getNum(){
         var Src = document.getElementById('Url');
         Src.src = results.data.videourl;    
 
-        document.getElementById('Name').value = results.data.cashername;  
-        document.getElementById('Id').value = results.data.casherid;  
+        document.getElementById('Name').value = results.data.cashiername;  
+        document.getElementById('Id').value = results.data.cashierid;  
         
-        document.getElementById('Note').value = results.data.Note;
+        //document.getElementById('Note').value = results.data.Note;
         document.getElementById('Prod_Name').value =results.data.productname;
-        document.getElementById('Price').value = results.data.price;  
+        document.getElementById('Price').value = results.data.price.price;  
         } 
     })
   }
