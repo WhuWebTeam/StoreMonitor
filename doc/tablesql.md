@@ -226,6 +226,10 @@ ALTER TABLE public.eventsList
   OWNER TO company;
 
 
+### editResultList
+
+
+
 
 # statistics tables
 
