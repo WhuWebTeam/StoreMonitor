@@ -201,13 +201,11 @@ module.exports = app => {
 
             // eventList.sysKey doesn't exist
             if (!eventList.sysKey) {
-                console.log(3);
                 return false;
             }
 
             // eventList exists
             if (await this.exists(eventList.sysKey)) {
-                console.log(2);
                 return false;
             }
 
@@ -283,12 +281,12 @@ module.exports = app => {
 
         // get statistics graph of eventsList record
         async getEventsListGraph(day) {
-            let str = `select to_char(to_timestamp(ts/1000), 'YYYY-MM-DD') as day, count(id) from eventsList group by day order by day`;
+            let str = `select to_char(to_timestamp(ts/1000), $1) as t, count(id) from eventsList group by t order by t desc`;
             let values = [];
 
             switch(day.toLowerCase()) {
                 case 'day':
-                    values.push('YYYY');
+                    values.push('YYYY-MM-DD');
                     break;
                 case 'month':
                     values.push('YYYY-MM');
