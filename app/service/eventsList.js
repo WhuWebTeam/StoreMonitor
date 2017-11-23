@@ -193,11 +193,11 @@ module.exports = app => {
          * false when insert eventList record failed
          * @since 1.0.0
          */
-        async insert(eventList) {          
+        async insert(eventList) {
 
             // format eventList's attributes
             eventList = this.service.util.setTableValue(this.table, eventList);
-            
+
 
             // eventList.sysKey doesn't exist
             if (!eventList.sysKey) {
@@ -218,7 +218,7 @@ module.exports = app => {
             }
         }
 
-        
+
         /**
          * Update eventsList ssatisfied some condition
          * @public

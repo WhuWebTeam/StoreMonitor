@@ -178,11 +178,6 @@ module.exports = app => {
                 return false;
             }
 
-            // eventTAT exists
-            // if (await this.exists(eventTAT.sysKey)) {
-            //     return false;
-            // }
-
             try {
                 // add a new eventTAT record to eventTAT
                 await this.service.dbHelp.insert('eventTAT', eventTAT);
