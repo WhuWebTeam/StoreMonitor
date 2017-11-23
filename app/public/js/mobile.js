@@ -187,7 +187,7 @@ window.onload = function(){
 			            ],
 			            series : [
 			                {
-			                    name:'最高气温',
+			                    name:'防损事件次数',
 			                    type:'line',
 			                    //data:[11, 11, 15, 18, 12, 9],
 			                    data:[],
