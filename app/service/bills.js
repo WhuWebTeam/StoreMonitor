@@ -118,7 +118,7 @@ module.exports = app => {
 
             // format bill's attributes and query attributes
             bill = this.service.util.setTableValue(this.table, bill);
-            attributes = this.service.util.setQueryAttributes(this.table, bill);
+            attributes = this.service.util.setQueryAttributes(this.table, attributes);
 
             // bill doesn't exist through id
             if (bill.id && !await this.existsId(bill.id)) {
