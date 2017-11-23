@@ -109,6 +109,13 @@ window.onload = function(){
 
 					// w_TO_s(div,type,syskey);
 					div.onclick = function(){
+						$.ajax({
+							url:'/api/v1/eventTAT/openTime/'+syskey,
+							type:'POST',
+							success:function(){
+								console.log(this.url);
+							}
+						})
 						window.location = `home3.html?id=${syskey}&status=${type}`;
 					}
 				}
