@@ -113,7 +113,7 @@ window.onload = function(){
 							url:'/api/v1/eventTAT/openTime/'+syskey,
 							type:'POST',
 							success:function(){
-
+								console.log(this.url);
 							}
 						})
 						window.location = `home3.html?id=${syskey}&status=${type}`;
