@@ -116,7 +116,7 @@ window.onload = function(){
 								console.log(this.url);
 							}
 						})
-						window.location = `home3.html?id=${syskey}&status=${type}`;
+						window.location = `details.html?id=${syskey}&status=${type}`;
 					}
 				}
 				
