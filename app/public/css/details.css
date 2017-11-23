@@ -1,0 +1,53 @@
+<style>
+		.container {
+   			padding-right: 15px;
+   			padding-left: 15px;
+   			margin-right: auto;
+  			margin-left: auto;
+				}
+		.box{
+			position: relative;
+		}
+		.name,.money{
+			height: 40px;
+			line-height: 40px;
+		}
+		.name span,.money span{
+			width: 80px;
+			display: inline-block;
+			color: #6E7880;
+			text-align: right;
+		}
+		.money i{
+			position: absolute;
+			font-style: normal;
+		    left: 90px;
+		    top: 42px;
+		    color: #6E7880;
+		}
+		input{
+			border:1px solid #EDF0F5;
+		    height: 30px;
+			width: 50%;
+			border-radius: 4px;
+			outline: none;
+			padding-left: 20px;
+		}
+		.name input{
+			padding-left: 10px;
+		}
+		input:focus{
+			border: 1px solid #1FB5FF;
+		}
+		.richScan{
+			position: absolute;
+			right: 3%;
+		    top: 8px;
+		    width: 80%;
+		    height: 80px;
+		    border: 2px solid #EDF0F5;
+		    text-align: center;
+		    line-height: 80px;
+		    border-radius: 4px;
+		}
+</style>
