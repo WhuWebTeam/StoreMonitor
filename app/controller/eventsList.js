@@ -72,6 +72,27 @@ module.exports = app => {
         }
 
 
+        // get some event's edit info
+        async getEditInfo() {
+
+            const sysKey = this.ctx.params.sysKey;
+
+            const eventList = await this.service.eventsList.query({ sysKey }, ['*']);
+            const price = await this.service.bills.query( { sysKey }, ['price']);
+            eventList.price = price;
+
+            this.ctx.body = {
+                code: 200,
+                data: eventList,
+            };
+        }
+
+
+        // modify some eventList's info
+        async modifyEventList() {
+
+        }
+
         // set editResult
         async setResult() {
             const ts = this.ctx.params.ts;
