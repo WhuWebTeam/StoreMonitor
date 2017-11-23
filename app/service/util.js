@@ -74,6 +74,7 @@ module.exports = app => {
 
 
         setQueryAttributes(tableObj, paramAttri) {
+            // console.log(paramAttri);
 
             // the attributes queried is just include '*'
             if (paramAttri.length === 1 && paramAttri[0] === '*') {
