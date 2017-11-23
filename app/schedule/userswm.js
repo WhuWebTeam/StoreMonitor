@@ -14,7 +14,6 @@ module.exports = app => {
                 dataType: 'json',
                 timeout: 60000,
             });
-            // console.log(wmusers.data);
 
             // write users' info of Wu Mei supermarket to local database(company.userswm)
             // wmusers.map(wmuser => {
