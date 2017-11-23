@@ -1,6 +1,7 @@
 module.exports = app => {
     class EventTAT extends app.Controller {
 
+        // index test
         async index() {
             this.ctx.body = {
                 code: 200,
@@ -11,6 +12,7 @@ module.exports = app => {
         }
 
 
+        // log open event's time(type:0)
         async eventOpenTime() {
             const sysKey = this.ctx.params.sysKey;
             const eventTAT = {};
@@ -26,6 +28,7 @@ module.exports = app => {
         }
 
 
+        // log store event's time(type:1)
         async eventStoreTime() {
             const sysKey = this.ctx.params.sysKey;
             const eventTAT = {};
@@ -42,6 +45,7 @@ module.exports = app => {
         }
 
 
+        // log commit event's time(type:2)
         async eventCommitTime() {
             const sysKey = this.ctx.params.sysKey;
             const eventTAT = {};
@@ -55,6 +59,21 @@ module.exports = app => {
             }
 
             this.ctx.body = this.service.util.generateResponse(201, 'log event commit time successed');
+        }
+
+
+        // log many commit events' time(type:2)
+        async eventCommitTimes() {
+            const _this = this;
+            const commits = this.ctx.request.body;
+
+            for (const eventList of commits) {
+                const eventTAT = {};
+                eventTAT.sysKey = eventList.sysKey;
+                eventTAT.type = 3;
+                eventTAT.actionTime = Date.parse(new Date());
+                await this.service.eventTAT.log(eventTAT);
+            }
         }
 
     }
