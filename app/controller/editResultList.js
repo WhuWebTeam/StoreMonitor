@@ -23,9 +23,9 @@ module.exports = app => {
 
         async addEditResult() {
             const editResult = this.ctx.request.body;
-
             if (!await this.service.editResultList.insert(editResult)) {
                 this.ctx.body = this.service.util.generateResponse(404, 'add editResult failed');
+                return;
             }
 
             this.ctx.body = this.service.util.generateResponse(201, 'add eiditResult successed');

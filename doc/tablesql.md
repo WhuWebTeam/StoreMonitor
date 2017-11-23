@@ -280,7 +280,7 @@ ALTER TABLE public.eventsList
 
 CREATE TABLE public.editResultList
 (
-  id varchar(50),
+  id varchar(50) primary key,
   name varchar(50),
   details varchar(200)
 )
@@ -288,6 +288,26 @@ WITH (
   OIDS = FALSE
 );
 ALTER TABLE public.editResultList
+  OWNER TO company;
+
+```
+
+
+### eventTAT
+
+```postgre
+
+CREATE TABLE public.eventTAT
+(
+  id serial primary key,
+  sysKey varchar(50),
+  type int,
+  actionTime bigint
+)
+WITH (
+  OIDS = FALSE
+);
+ALTER TABLE public.eventTAT
   OWNER TO company;
 
 ```
