@@ -53,7 +53,7 @@ function getNum(){
         
         //document.getElementById('Note').value = results.data.Note;
         document.getElementById('Prod_Name').value =results.data.productname;
-        document.getElementById('Price').value = results.data.price.price;  
+        document.getElementById('Price').value = results.data.price;  
         } 
     })
   }
