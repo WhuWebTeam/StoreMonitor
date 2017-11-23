@@ -1,6 +1,3 @@
-$(window).load(function() {
-
-// get syskey &status
 var status = 0 ;
 var syskey = 0 ;
 
@@ -14,12 +11,18 @@ function getUrl(){
 
   }
 
-function getStatus(status)
+window.onload = function() 
 {
-if (status == 1){
-	document.getElementById("btn").disabled=true;
-      }
-}
+
+// get syskey &status
+        
+
+        function getStatus(status)
+        {
+        if (status == 2){
+        	document.getElementById("btn").disabled=true;
+              }
+        }
 
 /*handle csrf*/
 	var csrftoken = Cookies.get('csrfToken');
@@ -36,41 +39,90 @@ if (status == 1){
 	});
 	/*handle csrf*/
 
-function getNum(){
-    $.ajax({
-      url:"/api/v1/eventsList/editInfo/"+syskey,
-      type:'GET',
-      success:function(results){
-        console.log(results.data);
-        document.getElementById('date').innerHTML = Date(results.data.createat);
-        document.getElementById('status').innerHTML = results.data.status;  
+      function getNum(){
+          var pairs = {
+            '0' :'未处置',
+            '1' :'待提交',
+            '2' :'完成'
+          }
+          $.ajax({
+            url:"/api/v1/eventsList/editInfo/"+syskey,
+            type:'GET',
+            success:function(results){
+              document.getElementById('date').innerHTML = Date(results.data.createat).slice(0,24);
+              document.getElementById('status').innerHTML = pairs[results.data.status];  
 
-        var Src = document.getElementById('Url');
-        Src.src = results.data.videourl;    
+              var Src = document.getElementById('Url');
+              Src.src = results.data.videourl;    
 
-        document.getElementById('Name').value = results.data.cashiername;  
-        document.getElementById('Id').value = results.data.cashierid;  
+              document.getElementById('Name').value = results.data.cashiername?results.data.cashiername:results.data.cashierid?results.data.cashierid:'pos机';  
+              document.getElementById('Id').value = results.data.transid;  
+              
+              //document.getElementById('Note').value = results.data.Note;
+              document.getElementById('Prod_Name').value =results.data.productname?results.data.productname:results.data.productid;
+              document.getElementById('Price').value = results.data.price;  
+              } 
+          })
+        }
+
         
-        //document.getElementById('Note').value = results.data.Note;
-        document.getElementById('Prod_Name').value =results.data.productname;
-        document.getElementById('Price').value = results.data.price;  
-        } 
-    })
+        // get resultlist
+        function getResult(){
+            $.ajax({
+              url:"/api/v1/editResultList",
+              type:'GET',
+              success:function(results){
+                document.getElementById('state1').value = results.data[0].name;
+                document.getElementById('state2').value = results.data[1].name;
+                document.getElementById('state3').value = results.data[2].name;
+                document.getElementById('state4').value = results.data[3].name;
+             } 
+            })
+          }
+
+        getUrl();
+        getStatus(status);
+        getNum();
+        getResult();
+
+
+
+
   }
 
 
+  function submit(){
+        var editResult = document.getElementById('state1').value;
+        var comments = document.getElementById('Note').value ;
+        var productName = document.getElementById('Prod_Name').value ;
+        var price = document.getElementById('Price').value ;
+        $.ajax({
+          url:"/api/v1/eventsList/count/" + syskey,
+          type:'POST',
+          data:{
+            'editResult' : editResult,
+            'comments'  : comments,
+            'productName' :productName,
+            'price' : price
+          },
+          success:function(data){
+            window.location =  `home.html`;
+          }
+        })
+    }
 
-getUrl();
-getStatus();
-getNum();
-})
+  /*
+  // app.put('/api/v1/eventsList/:sysKey', 'eventsList.eventEdit'); // modify some eventList's info
+  // attributes of the following object
+  // {
+  //     editResult,
+  //     comments,
+  //     productName,
+  //     price
+  // }
 
-function submit(){
-  /*  $.ajax({
-      url:"/api/v1/eventsList/count/",
-      type:'GET',
-      data:
-      }
-    })
+
   */
-}
+
+
+  
