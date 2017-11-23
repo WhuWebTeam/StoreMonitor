@@ -66,18 +66,7 @@ window.onload = function(){
 	/* get num of events */
 
 
-	// function getGraph(type){
-	// 	$.ajax({
-	// 		url:'/api/v1/eventsList/query',
-	// 		type:'post',
-	// 		data:{
-	// 			status:type
-	// 		}
-	// 		success:function(results){
-	// 			console.log(results);
-	// 		}
-	// 	})
-	// }
+	
 
 	function getList(type){
 		var glyphiconType;
@@ -88,7 +77,7 @@ window.onload = function(){
 		}
 
 		$.ajax({
-			url:'/api/v1/eventsList/'+type+'/0',
+			url:'/api/v1/eventsList/list/'+type,
 			type:'get',
 			success:function(results){
 				var results = results.data;
@@ -103,7 +92,7 @@ window.onload = function(){
 					var div = document.createElement('div');
 					div.setAttribute('class','view');
 					var time = handleTime(results[i].createat);
-					var name = results[i].name?results[i].name:results[i].cashierid?results[i].cashierid:'pos机';
+					var name = results[i].cashiername?results[i].cashiername:results[i].cashierid?results[i].cashierid:results[i].countertype;
 
 
 					div.innerHTML =`
@@ -115,91 +104,126 @@ window.onload = function(){
 							</p>
 					`;
 					document.getElementById('list').appendChild(div);
-					
+					var syskey = results[i].syskey;
+
+
+					// w_TO_s(div,type,syskey);
+					div.onclick = function(){
+						window.location = `home3.html?id=${syskey}&status=${type}`;
+					}
 				}
-				w_TO_s(type);
+				
 			}
 		})
 
 	}
 
 
+
+
+	function getGraph(type){
+		//console.log(type);
+		$.ajax({
+			url:'/api/v1/eventsList/graph/'+type,
+			type:'get',
+			success:function(results){
+				draw(results.data);
+			}
+		})
+	}
 	/*draw graph*/ 
-	var myChart = echarts.init(document.getElementById('content'));
-	option = {
-	            title : {
-	                text: '防损事件统计表',
-	                subtext: '次数'
-	            },
-	            tooltip : {
-	                trigger: 'axis'
-	            },
-	            // legend: {
-	            //     data:['最高气温','最低气温']
-	            // },
-	            toolbox: {
-	                show : true,
-	                feature : {
-	                    mark : {show: true},
-	                    dataView : {show: true, readOnly: false},
-	                    magicType : {show: true, type: ['line', 'bar']},
-	                    restore : {show: true},
-	                    //saveAsImage : {show: true}
-	                }
-	            },
-	            calculable : true,
-	            xAxis : [
-	                {
-	                    type : 'category',
-	                    boundaryGap : false,
-	                    data : ['周一','周二','周三','周四','周五','周六']
-	                }
-	            ],
-	            yAxis : [
-	                {
-	                    type : 'value',
-	                    axisLabel : {
-	                        formatter: '{value} '
-	                    }
-	                }
-	            ],
-	            series : [
-	                {
-	                    name:'最高气温',
-	                    type:'line',
-	                    data:[11, 11, 15, 18, 12, 9],
-	                    markPoint : {
-	                        data : [
-	                            {type : 'max', name: '最大值'},
-	                            {type : 'min', name: '最小值'}
-	                        ]
-	                    },
-	                    markLine : {
-	                        data : [
-	                            {type : 'average', name: '平均值'}
-	                        ]
-	                    }
-	                },
-	                // {
-		               //     name:'最低气温',
-		               //     type:'line',
-		               //     data:[1, -2, 2, 5, 3, 2, 0],
-		               //     markPoint : {
-		               //         data : [
-		               //             {name : '周最低', value : -2, xAxis: 1, yAxis: -1.5}
-		               //         ]
-		               //     },
-		               //     markLine : {
-		               //         data : [
-		               //             {type : 'average', name : '平均值'}
-		               //         ]
-		               //     }
-	               	// }
-	                 
-	            ]
-	        };
-    // 使用刚指定的配置项和数据显示图表。
-    myChart.setOption(option);
+
+	var myChart;
+	function draw(graphData){
+			if (myChart != null && myChart != "" && myChart != undefined) {
+			        myChart.dispose();
+			}
+			myChart = echarts.init(document.getElementById('content'));
+
+			option = {
+			            title : {
+			                text: '防损事件统计表',
+			                subtext: '次数'
+			            },
+			            tooltip : {
+			                trigger: 'axis'
+			            },
+			            // legend: {
+			            //     data:['最高气温','最低气温']
+			            // },
+			            toolbox: {
+			                show : true,
+			                feature : {
+			                    mark : {show: true},
+			                    dataView : {show: true, readOnly: false},
+			                    magicType : {show: true, type: ['line', 'bar']},
+			                    restore : {show: true},
+			                    //saveAsImage : {show: true}
+			                }
+			            },
+			            calculable : true,
+			            xAxis : [
+			                {
+			                    type : 'category',
+			                    boundaryGap : false,
+			                    data : []
+			                    //data : ['周一','周二','周三','周四','周五','周六']
+			                }
+			            ],
+			            yAxis : [
+			                {
+			                    type : 'value',
+			                    axisLabel : {
+			                        formatter: '{value} '
+			                    }
+			                }
+			            ],
+			            series : [
+			                {
+			                    name:'最高气温',
+			                    type:'line',
+			                    //data:[11, 11, 15, 18, 12, 9],
+			                    data:[],
+			                    markPoint : {
+			                        data : [
+			                            {type : 'max', name: '最大值'},
+			                            {type : 'min', name: '最小值'}
+			                        ]
+			                    },
+			                    markLine : {
+			                        data : [
+			                            {type : 'average', name: '平均值'}
+			                        ]
+			                    }
+			                },
+			                // {
+				               //     name:'最低气温',
+				               //     type:'line',
+				               //     data:[1, -2, 2, 5, 3, 2, 0],
+				               //     markPoint : {
+				               //         data : [
+				               //             {name : '周最低', value : -2, xAxis: 1, yAxis: -1.5}
+				               //         ]
+				               //     },
+				               //     markLine : {
+				               //         data : [
+				               //             {type : 'average', name : '平均值'}
+				               //         ]
+				               //     }
+			               	// }
+			                 
+			            ]
+			        };
+		    // 使用刚指定的配置项和数据显示图表。
+		    option.xAxis[0].data =graphData.map(function(x){
+		    	return x.t;
+		    })
+		    option.series[0].data =graphData.map(function(x){
+		    	return x.count;
+		    })
+		    myChart.setOption(option);
+	}
+	
     /*draw graph*/
 
 
@@ -218,7 +242,7 @@ window.onload = function(){
 
     		/*date_type of graph*/
     		var type = item.className.split(/\s+/)[0]; 
-    		//getGraph(type);
+    		getGraph(type);
 
 
     	}
@@ -249,21 +273,14 @@ window.onload = function(){
    	/* add press event of event */
 
 
-   	/* from working to store */
-   	function w_TO_s(){
-   		var workings = document.getElementsByClassName('view');
-   		Array.prototype.map.call(workings,function(Item,index){
-   			Item.onclick = function(){
-   				this.parentNode.removeChild(this);
-   			}
-   		})
-   	}
+   	
    	
 
 
 
    	getNum();
-   	getList(0); 	
+   	getList(0); 
+   	getGraph('day');	
 
    	// $("body").on("touchstart", function(e) {
    	// 	console.log('slide');
