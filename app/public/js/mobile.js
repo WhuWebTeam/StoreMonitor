@@ -66,18 +66,19 @@ window.onload = function(){
 	/* get num of events */
 
 
-	// function getGraph(type){
-	// 	$.ajax({
-	// 		url:'/api/v1/eventsList/query',
-	// 		type:'post',
-	// 		data:{
-	// 			status:type
-	// 		}
-	// 		success:function(results){
-	// 			console.log(results);
-	// 		}
-	// 	})
-	// }
+	function getGraph(type){
+		console.log(type);
+		// $.ajax({
+		// 	url:'/api/v1/eventsList/query',
+		// 	type:'post',
+		// 	data:{
+		// 		status:type
+		// 	}
+		// 	success:function(results){
+		// 		console.log(results);
+		// 	}
+		// })
+	}
 
 	function getList(type){
 		var glyphiconType;
@@ -88,7 +89,7 @@ window.onload = function(){
 		}
 
 		$.ajax({
-			url:'/api/v1/eventsList/'+type+'/0',
+			url:'/api/v1/eventsList/'+type,
 			type:'get',
 			success:function(results){
 				var results = results.data;
@@ -103,7 +104,7 @@ window.onload = function(){
 					var div = document.createElement('div');
 					div.setAttribute('class','view');
 					var time = handleTime(results[i].createat);
-					var name = results[i].name?results[i].name:results[i].cashierid?results[i].cashierid:'pos机';
+					var name = results[i].cashiername?results[i].cashiername:results[i].cashierid?results[i].cashierid:results[i].countertype;
 
 
 					div.innerHTML =`
@@ -115,9 +116,15 @@ window.onload = function(){
 							</p>
 					`;
 					document.getElementById('list').appendChild(div);
-					
+					var syskey = results[i].syskey;
+
+
+					// w_TO_s(div,type,syskey);
+					div.onclick = function(){
+						window.location = `home3.html?id=${syskey}&status=${type}`;
+					}
 				}
-				w_TO_s(type);
+				
 			}
 		})
 
@@ -218,7 +225,7 @@ window.onload = function(){
 
     		/*date_type of graph*/
     		var type = item.className.split(/\s+/)[0]; 
-    		//getGraph(type);
+    		getGraph(type);
 
 
     	}
@@ -249,21 +256,14 @@ window.onload = function(){
    	/* add press event of event */
 
 
-   	/* from working to store */
-   	function w_TO_s(){
-   		var workings = document.getElementsByClassName('view');
-   		Array.prototype.map.call(workings,function(Item,index){
-   			Item.onclick = function(){
-   				this.parentNode.removeChild(this);
-   			}
-   		})
-   	}
+   	
    	
 
 
 
    	getNum();
-   	getList(0); 	
+   	getList(0); 
+   	getGraph('day');	
 
    	// $("body").on("touchstart", function(e) {
    	// 	console.log('slide');
