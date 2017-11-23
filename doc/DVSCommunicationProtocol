@@ -24,7 +24,9 @@
 			"CenterX": 320,
 			"CenterY": 20,
 			"Type": "Normal",
-			"Hide": false
+			"Hide": false,
+			"Price": 10,
+			"Amount":2
 		},
 		{
 			"Start": 10,
@@ -40,7 +42,9 @@
 			"CenterX": 320,
 			"CenterY": 20,
 			"Type": "CartLeft",
-			"Hide": true
+			"Hide": true,
+			"Price": 1,
+			"Amount":4
 		},
 		{
 			"Start": 10,
@@ -56,7 +60,9 @@
 			"CenterX": 320,
 			"CenterY": 20,
 			"Type": "Noscan",
-			"Hide": false
+			"Hide": false,
+			"Price": 1,
+			"Amount":4
 		}
 	]
 }

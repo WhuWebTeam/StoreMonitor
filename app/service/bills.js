@@ -22,12 +22,11 @@ module.exports = app => {
             // default value of table bills
             this.table = {
                 id: undefined,
+                sysKey: undefined,
                 transId: undefined,
                 ts: undefined,
                 shopId: undefined,
                 counterId: undefined,
-                startTime: undefined,
-                endTime: undefined,
                 scriptVer: undefined,
                 productId: undefined,
                 price: undefined,
@@ -41,26 +40,26 @@ module.exports = app => {
 
 
         /**
-         * Judge bill exists or not through ts
+         * Judge bill exists or not through sysKey
          * @public
          * @function exists
-         * @param {Number} ts - bill's occurentTime
+         * @param {Number} sysKey - bill's occurentTime
          * @return {Promise<Boolean>}
          * true when bill exists
          * falsewhen bill doesn't exists
          * @since 1.0.0
          */
-        async exists(ts) {
+        async exists(sysKey) {
 
             // parameter doesn't exist
-            if (!this.service.util.parameterExists(ts)) {
+            if (!this.service.util.parameterExists(sysKey)) {
                 return false;
             }
 
             // parameter exists
             try {
                 // bills exists
-                if (await this.service.dbHelp.count('bills', 'ts', { ts })) {
+                if (await this.service.dbHelp.count('bills', 'sysKey', { sysKey })) {
                     return true;
                 }
 
@@ -111,8 +110,8 @@ module.exports = app => {
          * @param {Array[String]} attributes - attributes wanted to query
          * @return {Object}
          * {} when query result set is null
-         * Object when query condition just includes bill.id or bill.ts
-         * Array[Object] when query condition without bill.id or bill.ts
+         * Object when query condition just includes bill.id or bill.sysKey
+         * Array[Object] when query condition without bill.id or bill.sysKey
          * @since 1.0.0
          */
         async query(bill, attributes = ['*']) {
@@ -126,8 +125,8 @@ module.exports = app => {
                 return {};
             }
 
-            // bill doesn't exists through ts
-            if (bill.ts && !await this.exists(bill.ts)) {
+            // bill doesn't exists through sysKey
+            if (bill.sysKey && !await this.exists(bill.sysKey)) {
                 return {};
             }
 
@@ -139,13 +138,13 @@ module.exports = app => {
                     return bill && bill[0];
                 }
 
-                //get info through ts if ts exists
-                if (bill.ts) {
-                    bill = await this.service.dbHelp.query('bills', attributes, { ts: bill.ts });
+                //get info through sysKey if sysKey exists
+                if (bill.sysKey) {
+                    bill = await this.service.dbHelp.query('bills', attributes, { sysKey: bill.sysKey });
                     return bill && bill[0];
                 }
 
-                // get info with condition without ts and id
+                // get info with condition without sysKey and id
                 const bills = await this.service.dbHelp.query('bills', attributes, bill);
                 return bill;
             } catch (err) {
@@ -194,13 +193,13 @@ module.exports = app => {
             // format bill's attributes
             bill = this.service.util.setTableValue(this.table, bill);
 
-            // bill.ts doesn't exists
-            if (!bill.ts) {
+            // bill.sysKey doesn't exists
+            if (!bill.sysKey) {
                 return false;
             }
 
             // bill exists
-            if (await this.exists(bill.ts)) {
+            if (await this.exists(bill.sysKey)) {
                 return false;
             }
 
@@ -225,14 +224,14 @@ module.exports = app => {
          * false when update bill failed
          * @since 1.0.0
          */
-        async update(bill, wheres = { ts: bill.ts }) {
+        async update(bill, wheres = { sysKey: bill.sysKey }) {
 
             // format bill's attributes and wheres' attributes
             bill = this.service.util.setTableValue(this.table, bill);
             wheres = this.service.util.setTableValue(this.table, wheres);
 
             // bill doesn't exist
-            if (bill.ts && !await this.exists(bill.ts)) {
+            if (bill.sysKey && !await this.exists(bill.sysKey)) {
                 return false;
             }
 
@@ -262,7 +261,7 @@ module.exports = app => {
             bill = this.service.util.setTableValue(this.table, bill);
 
             // bill doesn't exists
-            if (bill.ts && !await this.exists(bill.ts)) {
+            if (bill.sysKey && !await this.exists(bill.sysKey)) {
                 return false;
             }
 

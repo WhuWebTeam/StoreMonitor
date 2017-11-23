@@ -33,17 +33,32 @@ module.exports = app => {
 
 
         // get list of eventsList record
-        async getEventList() {
+        async getEventListByStatus() {
             
             const status = +this.ctx.params.status || 0;
-            const editResult = '';
             
-            const eventsList = await this.service.eventsList.getEventList(status, editResult);
+            const eventsList = await this.service.eventsList.query({ status }, ['sysKey', 'cashierId', 'cashierName', 'counterId', 'counterType', 'transId', 'createAt', 'editResult']);
             this.ctx.body = {
                 code: 200,
                 data: eventsList
             };
         }
+
+
+
+        // get list of eventsList record by status and editResult
+        async getEventList() {
+            
+            const status = +this.ctx.params.status || 0;
+            const editResult = this.ctx.params.result || '';
+            
+            const eventsList = await this.service.eventsList.query({ status, editResult }, ['sysKey', 'cashierId', 'cashierName', 'counterId', 'counterType', 'transId', 'createAt', 'editResult']);
+            this.ctx.body = {
+                code: 200,
+                data: eventsList
+            };
+        }
+
 
         // get statistics graph of eventsList record
         async getEventsListGraph() {
@@ -56,10 +71,6 @@ module.exports = app => {
             };
         }
 
-        // redirect to editPage
-        async getEditPage() {
-            redirect('/public/')
-        }
 
         // set editResult
         async setResult() {

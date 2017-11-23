@@ -22,13 +22,22 @@ module.exports = app => {
             // default value of table eventsList
             this.table = {
                 id: undefined,
+                sysKey: undefined,
                 transId: undefined,
                 ts: undefined,
                 createAt: undefined,
                 editResult: undefined,
-                comment: undefined,
-                videoUrl: undefined,
                 status: undefined,
+                comments: undefined,
+                videoStartTime: undefined,
+                videoEndTime: undefined,
+                videoUrl: undefined,
+                productId: undefined,
+                productName: undefined,
+                counterId: undefined,
+                counterType: undefined,
+                cashierId: undefined,
+                cashierName: undefined,
                 pic1Url: undefined,
                 pic2Url: undefined,
                 pic3Url: undefined,
@@ -41,22 +50,22 @@ module.exports = app => {
          * Judge eventsList record exists or not
          * @public
          * @function exists
-         * @param {Number} ts - eventsList's occurent time
+         * @param {Number} sysKey - eventsList's occurent time
          * @return {Promise<Boolean>}
          * truen when eventList exists
          * false when eventList doesn't exist
          * @since 1.0.0
          */
-        async exists(ts) {
+        async exists(sysKey) {
 
             // parameter doesn't exist
-            if (!this.service.util.parameterExists(ts)) {
+            if (!this.service.util.parameterExists(sysKey)) {
                 return false;
             }
 
             try {
                 // eventsList exists
-                if (await this.service.dbHelp.count('eventsList', 'ts', { ts })) {
+                if (await this.service.dbHelp.count('eventsList', 'sysKey', { sysKey })) {
                     return true;
                 }
 
@@ -108,8 +117,8 @@ module.exports = app => {
          * @param {Array[String]} attributes - attributes wanted to query
          * @return {Promise<Object>}
          * {} when no query result set
-         * Object when query condition just includes id or ts
-         * Array[Object] when query condition without id and ts
+         * Object when query condition just includes id or sysKey
+         * Array[Object] when query condition without id and sysKey
          */
         async query(eventList, attributes = ['*']) {
 
@@ -122,8 +131,8 @@ module.exports = app => {
                 return {};
             }
 
-            // eventList doesn't exist through eventList.ts
-            if (eventList.ts && !await this.exists(eventList.ts)) {
+            // eventList doesn't exist through eventList.sysKey
+            if (eventList.sysKey && !await this.exists(eventList.sysKey)) {
                 return {};
             }
 
@@ -134,9 +143,9 @@ module.exports = app => {
                     return eventList && eventList[0];
                 }
 
-                // query info of eventList through eventList's ts
-                if (eventList.ts) {
-                    eventList = await this.service.dbHelp.query('eventsList', attributes, { ts: eventList.ts });
+                // query info of eventList through eventList's sysKey
+                if (eventList.sysKey) {
+                    eventList = await this.service.dbHelp.query('eventsList', attributes, { sysKey: eventList.sysKey });
                     return eventList && eventList[0];
                 }
 
@@ -184,18 +193,21 @@ module.exports = app => {
          * false when insert eventList record failed
          * @since 1.0.0
          */
-        async insert(eventList) {
+        async insert(eventList) {          
 
             // format eventList's attributes
             eventList = this.service.util.setTableValue(this.table, eventList);
+            
 
-            // eventList.ts doesn't exist
-            if (!eventList.ts) {
+            // eventList.sysKey doesn't exist
+            if (!eventList.sysKey) {
+                console.log(3);
                 return false;
             }
 
             // eventList exists
-            if (await this.exists(eventList.ts)) {
+            if (await this.exists(eventList.sysKey)) {
+                console.log(2);
                 return false;
             }
 
@@ -208,6 +220,7 @@ module.exports = app => {
             }
         }
 
+        
         /**
          * Update eventsList ssatisfied some condition
          * @public
@@ -219,14 +232,14 @@ module.exports = app => {
          * false when update eventsList failed
          * @since 1.0.0
          */
-        async update(eventList, wheres = { ts: eventList.ts }) {
+        async update(eventList, wheres = { sysKey: eventList.sysKey }) {
 
             // format eventList's attributes and query attributes
             eventList = this.service.util.setTableValue(this.table, eventList);
             wheres = this.service.util.setTableValue(this.table, wheres);
 
             // eventList doesn't exists
-            if (eventList.ts && !await this.exists(eventList.ts)) {
+            if (eventList.sysKey && !await this.exists(eventList.sysKey)) {
                 return false;
             }
 
@@ -255,7 +268,7 @@ module.exports = app => {
             eventList = this.service.util.setTableValue(this.table, eventList);
 
             // eventList doesn't exist
-            if (eventList.ts && !await this.exists(eventList.ts)) {
+            if (eventList.sysKey && !await this.exists(eventList.sysKey)) {
                 return false;
             }
 
@@ -267,37 +280,6 @@ module.exports = app => {
             }
         }
 
-
-        // Get list of eventsList record
-        async getEventList(status, editResult) {
-
-            let str = `select e.createAt, e.transId, e.editResult, b.counterId, c.name, c.id cashierId
-                         from eventsList e
-                         inner join
-                             (select ts, productId, cashierId, counterId
-                             from bills) b on b.ts = e.ts
-                             inner join
-                             (select id, name
-                             from cashiers) c on b.cashierId = c.id
-                         where e.status = $1`;
-            
-            if (!editResult) {
-                try {
-                    const eventsList = await this.app.db.query(str, [status]);
-                    return eventsList;
-                } catch(err) {
-                    return [];
-                }
-            }
-
-            str += 'and e.editResult = $2';
-            try {
-                const eventsList = await this.app.db.query(str, [status, editResult]);
-                return eventsList;
-            } catch(err) {
-                return [];
-            }
-        }
 
         // get statistics graph of eventsList record
         async getEventsListGraph(day) {
@@ -326,32 +308,32 @@ module.exports = app => {
 
 
         // set EventList's result
-        async setResult(ts, editResult) {
+        async setResult(sysKey, editResult) {
 
             // eventList doesn't exist
-            if (!await this.exists(ts)) {
+            if (!await this.exists(sysKey)) {
                 return false;
             }
 
             // set eventList's editResult
-            await this.service.dbHelp.update('eventsList', { editResult }, { ts });
+            await this.service.dbHelp.update('eventsList', { editResult }, { sysKey });
 
             // set status to commit
-            await this.service.dbHelp.update('eventsList', { status: 2 }, { ts });
+            await this.service.dbHelp.update('eventsList', { status: 2 }, { sysKey });
             return true;
         }
 
 
         // set some EventList status to tempStore  0: default status, 1: temp store status, 2: commit status
-        async StoreEventsList(ts) {
+        async StoreEventsList(sysKey) {
 
             // eventsList doesn't exist
-            if (!await this.exists(ts)) {
+            if (!await this.exists(sysKey)) {
                 return false;
             }
 
             // set some eventList status to temp store
-            await this.service.dbHelp.update('eventsList', { status: 1 }, { ts });
+            await this.service.dbHelp.update('eventsList', { status: 1 }, { sysKey });
             return true;
         }
     }
