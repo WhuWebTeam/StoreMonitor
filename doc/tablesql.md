@@ -122,15 +122,14 @@ ALTER TABLE public.areas
 
 CREATE TABLE public.bills
 (
-    id serial primary key,
+    id serial,
+    syskey varchar(50) primary key,
     price int,
     quantity int,
     amount int,
     ts bigint,
     scriptVer varchar(50),
     eventFlag varchar(50),
-    startTime bigint,
-    endTime bigint,
     cashierId varchar(50),
     customerId varchar(50),
     transId varchar(50),
@@ -198,18 +197,27 @@ ALTER TABLE public.products
 
 CREATE TABLE public.eventsList
 (
-    id serial primary key,
+    id serial,
+    sysKey varchar(50) primary key,
     transId varchar(50),
     ts bigint,
     createAt bigint,
-    status int default 0,
     editResult varchar(50),
+    status int default 0,
     comments varchar(500),
+    videoStartTime bigint,
+    videoEndTime bigint,
     videoUrl varchar(200),
     pic1Url varchar(200),
     pic2Url varchar(200),
     pic3Url varchar(200),
-    pic4Url varchar(200)
+    pic4Url varchar(200),
+    productId varchar(50),
+    productName varchar(50),
+    counterId varchar(50),
+    counterType varchar(50),
+    cashierId varchar(50),
+    cashierName varchar(50)
 ) 
 WITH (
   OIDS = FALSE
@@ -225,7 +233,7 @@ ALTER TABLE public.eventsList
 
 CREATE TABLE public.cashierSalesInfo
 (
-    id serial primary key,
+    id serial,
     ts bigint,
     duration bigint,
     rate real,
@@ -246,7 +254,7 @@ ALTER TABLE public.cashierSalesInfo
 
 CREATE TABLE public.customerSalesInfo
 (
-    id serial primary key,
+    id serial,
     ts bigint,
     price bigint,
     quantity bigint,
@@ -267,7 +275,7 @@ ALTER TABLE public.customerSalesInfo
 
 CREATE TABLE public.productSalesInfo
 (
-    id serial primary key,
+    id serial,
     ts bigint,
     price bigint,
     quantity bigint,
