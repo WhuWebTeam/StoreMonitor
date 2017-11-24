@@ -1,3 +1,8 @@
+
+
+/**
+ * 
+ */
 module.exports = app => {
 
     app.get('/api/v1/eventTAT/index', 'eventTAT.index'); // index test

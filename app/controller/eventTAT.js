@@ -1,8 +1,21 @@
+
+
+/**
+ * Controller class of table eventTAT
+ * @class EventTAT
+ * @since 1.0.0
+ */
 module.exports = app => {
     class EventTAT extends app.Controller {
 
-        // index test
+        /**
+         * Index test
+         * @public
+         * @function eventTAT#index
+         * @since 1.0.0
+         */
         async index() {
+
             this.ctx.body = {
                 code: 200,
                 data: {
@@ -12,14 +25,18 @@ module.exports = app => {
         }
 
 
-        // log open event's time(type:0)
+        /**
+         * Log open event's time(type:0)
+         * @public
+         * @function eventTAT#eventOpenTime
+         * @since 1.0.0
+         */
         async eventOpenTime() {
+
+            // eventTAT'S sysKey
             const sysKey = this.ctx.params.sysKey;
-            const eventTAT = {};
-            eventTAT.sysKey = sysKey;
-            eventTAT.type = 0;
-            eventTAT.actionTime = Date.parse(new Date());
-            if (!await this.service.eventTAT.insert(eventTAT)) {
+
+            if (!await this.service.eventTAT.eventLog(sysKey, 0)) {
                 this.ctx.body = this.service.util.generateResponse(403, 'log event open time failed');
                 return;
             }
@@ -28,15 +45,18 @@ module.exports = app => {
         }
 
 
-        // log store event's time(type:1)
+        /**
+         * Log store event's time(type:1)
+         * @public
+         * @function eventTAT#eventStoreTime
+         * @since 1.0.0
+         */
         async eventStoreTime() {
-            const sysKey = this.ctx.params.sysKey;
-            const eventTAT = {};
-            eventTAT.sysKey = sysKey;
-            eventTAT.type = 1;
-            eventTAT.actionTime = Date.parse(new Date());
 
-            if (!await this.service.eventTAT.log(eventTAT)) {
+            // eventTAT's sysKey
+            const sysKey = this.ctx.params.sysKey;
+
+            if (!await this.service.eventTAT.eventLog(sysKey, 1)) {
                 this.ctx.body = this.service.util.generateResponse(403, 'log event store time failed');
                 return;
             }
@@ -45,15 +65,18 @@ module.exports = app => {
         }
 
 
-        // log commit event's time(type:2)
+        /**
+         * Log commit event's time(type:2)
+         * @public
+         * @function eventTAT#eventCommitTime
+         * @since 1.0.0
+         */
         async eventCommitTime() {
-            const sysKey = this.ctx.params.sysKey;
-            const eventTAT = {};
-            eventTAT.sysKey = sysKey;
-            eventTAT.type = 2;
-            eventTAT.actionTime = Date.parse(new Date());
 
-            if (!await this.service.eventTAT.log(eventTAT)) {
+            // eventTAT's sysKey
+            const sysKey = this.ctx.params.sysKey;
+
+            if (!await this.service.eventTAT.eventLog(sysKey, 2)) {
                 this.ctx.body = this.service.util.generateResponse(403, 'log event commit time failed');
                 return;
             }
@@ -62,20 +85,33 @@ module.exports = app => {
         }
 
 
-        // log many commit events' time(type:2)
+        /**
+         * Log many commit events' time(type:2)
+         * @public
+         * @function
+         * @since 1.0.0
+         */
         async eventCommitTimes() {
-            const _this = this;
+
+            // array includes eventTAT's sysKey
             const commits = this.ctx.request.body;
+            let commit = 1;
 
-            for (const eventList of commits) {
-                const eventTAT = {};
-                eventTAT.sysKey = eventList.sysKey;
-                eventTAT.type = 3;
-                eventTAT.actionTime = Date.parse(new Date());
-                await this.service.eventTAT.log(eventTAT);
+            for (const eventTAT of commits) {
+                if(!await this.service.eventTAT.eventLog(eventTAT.sysKey, 2)) {
+                    commit = 0;
+                };
             }
-        }
 
+            // exists event commit log failed
+            if (!commit) {
+                this.ctx.body = this.util.generateResponse(403, 'log event commit time failed');
+                return;
+            }
+
+            // all event commit log successed
+            this.ctx.body = this.util.generateResponse(201, 'log event commit time successed');
+        }
     }
 
     return EventTAT;
