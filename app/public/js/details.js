@@ -15,29 +15,32 @@ window.onload = function()
 {
 
 // get syskey &status
-        
-
         function getStatus(status)
         {
         if (status == 2){
-        	document.getElementById("btn").disabled=true;
+          document.getElementById("Name").disabled=true;
+          document.getElementById("Id").disabled=true;
+          document.getElementById("Prod_Name").disabled=true;
+          document.getElementById("Price").disabled=true;
+          document.getElementById("Note").disabled=true;
+          document.getElementById('btn').innerHTML = "返回";
               }
         }
 
 /*handle csrf*/
-	var csrftoken = Cookies.get('csrfToken');
-	function csrfSafeMethod(method) {
-	  // these HTTP methods do not require CSRF protection
-	  return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
-	}
-	$.ajaxSetup({
-	  beforeSend: function(xhr, settings) {
-	    if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
-	      xhr.setRequestHeader('x-csrf-token', csrftoken);
-	    }
-	  },
-	});
-	/*handle csrf*/
+  var csrftoken = Cookies.get('csrfToken');
+  function csrfSafeMethod(method) {
+    // these HTTP methods do not require CSRF protection
+    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+  }
+  $.ajaxSetup({
+    beforeSend: function(xhr, settings) {
+      if (!csrfSafeMethod(settings.type)   && !this.crossDomain) {
+        xhr.setRequestHeader('x-csrf-token', csrftoken);
+      }
+    },
+  });
+  /*handle csrf*/
 
       function getNum(){
           var pairs = {
@@ -52,8 +55,8 @@ window.onload = function()
               document.getElementById('date').innerHTML = Date(results.data.createat).slice(0,24);
               document.getElementById('status').innerHTML = pairs[results.data.status];  
 
-              var Src = document.getElementById('Url');
-              Src.src = results.data.videourl;    
+              document.getElementById('Url').src =results.data.videourl;
+              document.getElementById('example_video_1').poster =results.data.pic1url;
 
               document.getElementById('Name').value = results.data.cashiername?results.data.cashiername:results.data.cashierid?results.data.cashierid:'pos机';  
               document.getElementById('Id').value = results.data.transid;  
@@ -84,12 +87,7 @@ window.onload = function()
         getStatus(status);
         getNum();
         getResult();
-
-
-
-
-  }
-
+  } 
 
   function submit(){
         var editResult = document.getElementById('state1').innerHTML;
@@ -106,8 +104,13 @@ window.onload = function()
             'price' : price
           },
           success:function(data){
-            window.location =  `home.html`;
-          }
+      
+      
+      window.location = `home.html`;
+          
+
+      }
+
         })
     }
 
@@ -120,9 +123,4 @@ window.onload = function()
   //     productName,
   //     price
   // }
-
-
   */
-
-
-  
