@@ -1,8 +1,8 @@
 
 
 /**
- * URL releated to oprate table editResultList
- * @module editResult
+ * Router class of table EditResult list
+ * @module editResultList
  * @since 1.0.0
  */
 module.exports = app => {
