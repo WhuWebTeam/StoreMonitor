@@ -72,10 +72,10 @@ window.onload = function()
               url:"/api/v1/editResultList",
               type:'GET',
               success:function(results){
-                document.getElementById('state1').value = results.data[0].name;
-                document.getElementById('state2').value = results.data[1].name;
-                document.getElementById('state3').value = results.data[2].name;
-                document.getElementById('state4').value = results.data[3].name;
+                document.getElementById('state1').innerHTML = results.data[0].name;
+                document.getElementById('state2').innerHTML = results.data[1].name;
+                document.getElementById('state3').innerHTML = results.data[2].name;
+                document.getElementById('state4').innerHTML = results.data[3].name;
              } 
             })
           }
