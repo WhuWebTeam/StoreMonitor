@@ -1,9 +1,9 @@
 
 
 /**
- * Router class eventTAT 
- * @public
- * @function eventTAT
+ * Router class eventTAT
+ * URL releated to oprate table eventTAT
+ * @module eventTAT
  * @since 1.0.0
  */
 module.exports = app => {
