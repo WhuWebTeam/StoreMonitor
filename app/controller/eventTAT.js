@@ -32,7 +32,7 @@ module.exports = app => {
          * @since 1.0.0
          */
         async eventOpenTime() {
-
+            
             // eventTAT'S sysKey
             const sysKey = this.ctx.params.sysKey;
 

@@ -1,17 +1,23 @@
 var status = 0 ;
 var syskey = 0 ;
 
-function getUrl(){   
+function getUrl(){
    var str = window.location.href;
    var num = str.indexOf("?");
    str = str.substr(num + 1);
    var arr = str.split('&');
    status = arr[1].split('=')[1] ;
    syskey = arr[0].split('=')[1] ;
-
   }
 
-window.onload = function() 
+
+function dateFormat(timestamp) {
+  timestamp = +timestamp;
+  const time = new Date(timestamp);
+  return time.getFullYear() + '/' + time.getMonth() + '/' + time.getDate() + ' ' + time.getHours() + ':' + time.getMinutes() + ':' + time.getSeconds();
+}
+
+window.onload = function()
 {
 
 // get syskey &status
@@ -52,23 +58,23 @@ window.onload = function()
             url:"/api/v1/eventsList/editInfo/"+syskey,
             type:'GET',
             success:function(results){
-              document.getElementById('date').innerHTML = Date(results.data.createat).slice(0,24);
-              document.getElementById('status').innerHTML = pairs[results.data.status];  
+              document.getElementById('date').innerHTML = dateFormat(results.data.createat);
+              document.getElementById('status').innerHTML = pairs[results.data.status];
 
               document.getElementById('Url').src =results.data.videourl;
               document.getElementById('example_video_1').poster =results.data.pic1url;
 
-              document.getElementById('Name').value = results.data.cashiername?results.data.cashiername:results.data.cashierid?results.data.cashierid:'pos机';  
-              document.getElementById('Id').value = results.data.transid;  
-              
-              //document.getElementById('Note').value = results.data.Note;
-              document.getElementById('Prod_Name').value =results.data.productname?results.data.productname:results.data.productid;
-              document.getElementById('Price').value = results.data.price;  
-              } 
+              document.getElementById('Name').value = results.data.cashiername?results.data.cashiername:results.data.cashierid?results.data.cashierid:'pos机';
+              document.getElementById('Id').value = results.data.transid;
+
+              document.getElementById('Note').value = results.data.comments;
+              document.getElementById('Prod_Name').value =results.data.productname;
+              document.getElementById('Price').value = results.data.price;
+              }
           })
         }
 
-        
+
         // get resultlist
         function getResult(){
             $.ajax({
@@ -79,7 +85,7 @@ window.onload = function()
                 document.getElementById('state2').innerHTML = results.data[1].name;
                 document.getElementById('state3').innerHTML = results.data[2].name;
                 document.getElementById('state4').innerHTML = results.data[3].name;
-             } 
+             }
             })
           }
 
@@ -87,7 +93,7 @@ window.onload = function()
         getStatus(status);
         getNum();
         getResult();
-  } 
+  }
 
   function submit(){
         var editResult = document.getElementById('state1').innerHTML;
@@ -96,7 +102,7 @@ window.onload = function()
         var price = document.getElementById('Price').value ;
         $.ajax({
           url:"/api/v1/eventsList/" + syskey,
-          type:'POST',
+          type:'put',
           data:{
             'editResult' : editResult,
             'comments'  : comments,
@@ -104,23 +110,8 @@ window.onload = function()
             'price' : price
           },
           success:function(data){
-      
-      
-          window.location = `home.html`;
-              
-          //window.history.back();
+
+          window.history.back();
           }
-
-        })
+        });
     }
-
-  /*
-  // app.put('/api/v1/eventsList/:sysKey', 'eventsList.eventEdit'); // modify some eventList's info
-  // attributes of the following object
-  // {
-  //     editResult,
-  //     comments,
-  //     productName,
-  //     price
-  // }
-  */

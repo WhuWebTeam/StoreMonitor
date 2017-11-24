@@ -115,8 +115,7 @@ module.exports = app => {
 
             // get eventsList and price
             const eventList = await this.service.eventsList.query({ sysKey }, ['transId', 'createAt', 'editResult', 'status',
-                'comments', 'videoStartTime', 'videoEndTime', 'videoUrl', 'pic1Url', 'pic2Url', 'pic3Url', 'pic4Url',
-                'productId', 'productName','cashierId', 'cashierName']);
+            'comments', 'productName','cashierId', 'cashierName']);
             const price = await this.service.bills.query( { sysKey }, ['price']);
             eventList.price = price && price.price;
 
