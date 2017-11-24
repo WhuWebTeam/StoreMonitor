@@ -106,7 +106,7 @@ window.onload = function()
           success:function(data){
       
       
-          window.location = `home.html`;
+          //window.location = `home.html`;
               
           //window.history.back();
           }

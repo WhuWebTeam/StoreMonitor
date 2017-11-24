@@ -112,20 +112,26 @@ window.onload = function(){
 
 
 					document.getElementById('list').appendChild(div);
+
 					var syskey = results[i].syskey;
+					console.log(syskey);
+
+					
+					div.onclick = function(sys){
+						return function(){
+							$.ajax({
+								url:'/api/v1/eventTAT/openTime/'+sys,
+								type:'POST',
+								success:function(){
+									console.log(this.url);
+								}
+							})
+							window.location = `details.html?id=${sys}&status=${type}`;
+						}
+					}(syskey);
 
 
-					// w_TO_s(div,type,syskey);
-					div.onclick = function(){
-						$.ajax({
-							url:'/api/v1/eventTAT/openTime/'+syskey,
-							type:'POST',
-							success:function(){
-								console.log(this.url);
-							}
-						})
-						window.location = `details.html?id=${syskey}&status=${type}`;
-					}
+					
 				}
 				
 			}
