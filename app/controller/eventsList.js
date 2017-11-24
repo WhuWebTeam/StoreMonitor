@@ -1,7 +1,6 @@
 module.exports = app => {
     class EventsList extends app.Controller {
 
-
         // index test
         async index() {
             this.ctx.body = {
@@ -15,10 +14,9 @@ module.exports = app => {
 
         // get count of eventsList total, unconfirmed, confirmed
         async getCount() {
+
             const working = await this.service.eventsList.count({ status: 0 }, ['id']);
-
             const store = await this.service.eventsList.count({ status: 1 }, ['id']);
-
             const commit = await this.service.eventsList.count({ status: 2 }, ['id']);
 
             this.ctx.body = {
@@ -43,7 +41,6 @@ module.exports = app => {
                 data: eventsList
             };
         }
-
 
 
         // get list of eventsList record by status and editResult
@@ -96,6 +93,7 @@ module.exports = app => {
             // sysKey and editInfo
             const sysKey = this.ctx.params.sysKey;
             const editInfo = this.ctx.request.body;
+            let flag = 0;
 
             // format eventList update info
             const eventList = {};
@@ -103,62 +101,117 @@ module.exports = app => {
             eventList.comments = editInfo.comments;
             eventList.productName = editInfo.productName;
             eventList.status = 1;
-            console.log(eventList);
-            await this.service.eventsList.update(eventList, { sysKey });
+            if (!await this.service.eventsList.update(eventList, { sysKey })) {
+                flag = 1;
+            }
 
             // format bill update info
             const bill = {};
             bill.sysKey = sysKey;
             bill.price = editInfo.price;
-            console.log(bill);
-            await this.service.bills.update(bill, { sysKey });
+            if (!await this.service.bills.update(bill, { sysKey })) {
+                flag = 2;
+            }
 
             // format product update info
             const product = {};
             const productId = await this.service.bills.query({ sysKey }, ['productId']);
             product.name = editInfo.productName;
-            console.log(product);
-            await this.service.util.products.update( product ,{ productId: productId });
+            if(!await this.service.products.update( product ,{ id: productId.productid })) {
+                flag = 3;
+            }
+
+            switch(flag) {
+                case 1: 
+                    this.ctx.body = this.service.util.generateResponse(403, 'eventsList info update failed');
+                    return;
+                case 2:
+                    this.ctx.body = this.service.util.generateResponse(403, 'bills info update failed');
+                    return;
+                case 3:
+                    this.ctx.body = this.service.util.generateResponse(403, 'products info update failed');
+                    return;
+                default:
+                    this.ctx.body = this.service.util.generateResponse(201, 'edit  eventList info successed'); 
+            };
         }
 
 
-        // set editResult
-        async setResult() {
-            const ts = this.ctx.params.ts;
-            const eventList = this.ctx.request.body;
-
-            // eventList doesn't exist
-            if (!await this.service.eventsList.setResult(ts, eventList.editResult)) {
-                this.ctx.body = this.service.util.generateResponse(400, `eventList doesn't exists`);
+        // commit some eventList, set its status to 2
+        async commitEventList() {
+            
+            // eventList's sysKey
+            const sysKey = this.ctx.params.sysKey;
+            
+            if (!await this.service.eventsList.update({ status: 2}, { sysKey })) {
+                this.ctx.body = this.service.util.generateResponse(403, 'commit eventList failed');
                 return;
             }
 
-            this.ctx.body = this.service.util.generateResponse(200, 'set eventList successed');
+            this.ctx.body = this.service.util.generateResponse(201, 'commit eventList successed');
         }
 
 
-        // set some eventList status to temp store
-        async StoreEventsList() {
-            const ts = await this.ctx.params.ts;
+        // store some eventList, set its status to 1
+        async storeEventList() {
 
-            // eventsList doesn't exist
-            if (!await this.service.eventsList.StoreEventsList(ts)) {
-                this.ctx.body = this.service.util.generateResponse(400, `eventList doesn't exist`);
+            // eventList's sysKey
+            const sysKey = this.ctx.params.sysKey;
+
+            if (!await this.service.eventsList.update( {status: 1 }, { sysKey })) {
+                this.ctx.body = this.service.util.generateResponse(403, 'store eventList failed');
+                return;
             }
 
-            // eventList edit successed
-            this.ctx.body = this.service.util.generateResponse(200, 'set eventList status to temp store successed!');
+            this.ctx.body = this.service.util.generateResponse(201, 'store eventsList successed');
         }
 
 
-        // set some eventList status to temp store
-        async StoreEventsList() {
-            const _this = this;
-            const commits = this.ctx.request.body;
+        // commit some eventsList, set their status to 2
+        async commitEventsList() {
 
-            for(const eventList of commits) {
-                await _this.service.eventsList.update({ status: 2 }, { sysKey: eventList.sysKey });
-            };
+            // array includes eventsList's sysKey
+            const eventsList = this.ctx.request.body;
+
+            // commit successed flag
+            let commit = 1;
+
+            for (const eventList of eventsList) {
+                if (!await this.service.eventsList.update({ status: 2 }, { sysKey: eventList.sysKey })) {
+                    commit = 0;
+                }
+            }
+
+            if (!commit) {
+                this.ctx.body = this.service.util.generateResponse(403, 'commit some eventList failed');
+                return;
+            }
+
+            this.ctx.body = this.service.util.generateResponse(201, 'commit eventsList successed');
+        }
+
+
+        // store some eventsList, set their status to 1
+        async StoreEventsList() {
+
+            // array includes eventsList's sysKey
+            const eventsList = this.ctx.request.body;
+
+            // store successed flag
+            let store = 1;
+
+            for (const eventList of eventsList) {
+                if (!await this.service.eventsList.update({ status: 1 }, { sysKey: eventList.sysKey })) {
+                    store = 0;
+                }
+            }
+
+            if (!store) {
+                this.ctx.body = this.service.util.generateResponse(403, 'store some eventList failed');
+                return;
+            }
+
+            this.ctx.body = this.service.util.generateResponse(201, 'store eventsList successed');
         }
     }
 

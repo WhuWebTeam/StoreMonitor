@@ -1,4 +1,3 @@
-const Promise = require('bluebird');
 
 
 /**
@@ -7,11 +6,6 @@ const Promise = require('bluebird');
  * @since 1.0.0
  */
 module.exports = app => {
-    /**
-     * used to complete module dbHelp function
-     * @class
-     * @extends app.Service
-     */
     class DbHelp extends app.Service {
 
         /**
@@ -45,11 +39,12 @@ module.exports = app => {
          * @return {Promise<>} do not return value 
          */
         async update(tableName, obj, wheres) {
-            console.log(obj);
             const _this = this;
+
             // generate query str and values
             const values = [];
             let str = 'update ' + tableName + ' set ';
+
             // change object to array
             let entries = Object.entries(obj).filter(entry => _this._judge(entry));
             let i = 0;
@@ -60,6 +55,8 @@ module.exports = app => {
             str = str.substr(0, str.length - 2);
 
             if(JSON.stringify(wheres) === '{}') {
+                console.log(str);
+                console.log(values);
                 await this.app.db.query(str, values);
                 return;
             }
@@ -71,8 +68,8 @@ module.exports = app => {
                 values.push(entries[j][1]);
             }
             str = str.substr(0, str.length - 5);
-            // console.log(str);
-            // console.log(values);
+            console.log(str);
+            console.log(values);
             await this.app.db.query(str, values);
         }
 
@@ -93,6 +90,7 @@ module.exports = app => {
             const values = [];
             let str = 'insert into ' + tableName + '(';
             let temp = '(';
+            
             // change object to array
             const entries = Object.entries(obj).filter(entry => _this._judge(entry));
             for (let i = 0; i < entries.length; i++) {
@@ -136,20 +134,21 @@ module.exports = app => {
             // when query without where condition(wheres is a {})
             if (JSON.stringify(wheres) === '{}') {
                 const result = await this.app.db.query(str, values);
-                console.log(str);
-                console.log(values);
+                // console.log(str);
+                // console.log(values);
                 return result;
             }
 
             // where query with where condition (wheres is not a {})
             str = str + ' where ';
+
             // change object to array
             const entries = Object.entries(wheres).filter(entry => _this._judge(entry));
             if (entries.length === 0) {
                 str = str.substr(0, str.length - 7);
                 const result = await this.app.db.query(str, values);
-                console.log(str);
-                console.log(values);
+                // console.log(str);
+                // console.log(values);
                 return result;
             }
 
@@ -159,8 +158,8 @@ module.exports = app => {
             }
             str = str.substr(0, str.length - 5);
 
-            console.log(str);
-            console.log(values);
+            // console.log(str);
+            // console.log(values);
             const result = await this.app.db.query(str, values);
             return result;
         }

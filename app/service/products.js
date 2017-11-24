@@ -181,7 +181,7 @@ module.exports = app => {
 
             // authority exists
             try {
-                await this.service.dnHelp.update('products', product, wheres);
+                await this.service.dbHelp.update('products', product, wheres);
                 return true;
             } catch (err) {
                 return false;

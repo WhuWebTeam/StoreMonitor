@@ -243,7 +243,7 @@ module.exports = app => {
 
             // update eventsList satisfied some condition
             try {
-                await this.service.dbHelp.update('eventsList', eventsList, wheres);
+                await this.service.dbHelp.update('eventsList', eventList, wheres);
                 return true;
             } catch (err) {
                 return false;
@@ -303,37 +303,6 @@ module.exports = app => {
             } catch(err) {
                 return [];
             }
-        }
-
-
-        // set EventList's result
-        async setResult(sysKey, editResult) {
-
-            // eventList doesn't exist
-            if (!await this.exists(sysKey)) {
-                return false;
-            }
-
-            // set eventList's editResult
-            await this.service.dbHelp.update('eventsList', { editResult }, { sysKey });
-
-            // set status to commit
-            await this.service.dbHelp.update('eventsList', { status: 2 }, { sysKey });
-            return true;
-        }
-
-
-        // set some EventList status to tempStore  0: default status, 1: temp store status, 2: commit status
-        async StoreEventsList(sysKey) {
-
-            // eventsList doesn't exist
-            if (!await this.exists(sysKey)) {
-                return false;
-            }
-
-            // set some eventList status to temp store
-            await this.service.dbHelp.update('eventsList', { status: 1 }, { sysKey });
-            return true;
         }
     }
 
