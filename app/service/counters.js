@@ -123,6 +123,7 @@ module.exports = app => {
             }
         }
 
+
         /**
          * Insert a counter into counters
          * @public
@@ -156,7 +157,6 @@ module.exports = app => {
                 return false;
             }
         }
-
 
 
         /**

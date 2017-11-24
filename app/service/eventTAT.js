@@ -158,34 +158,6 @@ module.exports = app => {
             }
         }
 
-        /**
-         * Add a new eventTAT record to eventTAT but not check primary key
-         * @public
-         * @function insert
-         * @param {Object} eventTAT - eventTAT record waited to be inserted to database
-         * @return {Promise<Boolean>}
-         * true when insert eventTAT record successed
-         * false when insert eventTAT record failed
-         * @since 1.0.0
-         */
-        async log(eventTAT) {
-
-            // format eventTAT record's attributes
-            eventTAT = this.service.util.setTableValue(this.table, eventTAT);
-
-            // eventTAT.sysKey doesn't exist
-            if (!eventTAT.sysKey) {
-                return false;
-            }
-
-            try {
-                // add a new eventTAT record to eventTAT
-                await this.service.dbHelp.insert('eventTAT', eventTAT);
-                return true;
-            } catch (err) {
-                return false;
-            }
-        }
 
         /**
          * Update info of eventTAT specified by query condition
@@ -245,6 +217,70 @@ module.exports = app => {
             } catch (err) {
                 return false;
             }
+        }
+
+
+        /**
+         * Add a new eventTAT record to eventTAT but not check primary key
+         * @public
+         * @function insert
+         * @param {Object} eventTAT - eventTAT record waited to be inserted to database
+         * @return {Promise<Boolean>}
+         * true when insert eventTAT record successed
+         * false when insert eventTAT record failed
+         * @since 1.0.0
+         */
+        async log(eventTAT) {
+
+            // format eventTAT record's attributes
+            eventTAT = this.service.util.setTableValue(this.table, eventTAT);
+
+            // eventTAT.sysKey doesn't exist
+            if (!eventTAT.sysKey) {
+                return false;
+            }
+
+            try {
+                // add a new eventTAT record to eventTAT
+                await this.service.dbHelp.insert('eventTAT', eventTAT);
+                return true;
+            } catch (err) {
+                return false;
+            }
+        }
+
+
+        /**
+         * log event action time with mutiply type
+         * @public
+         * @method eventTAT#eventLog
+         * @param {String} sysKey - eventTAT record's unique id but not table's primary key
+         * @param {Number} type - the event log's type
+         * @return {Promise<Boolean>}
+         * true when log successed
+         * false when log failed
+         * @since 1.0.0
+         */
+        async eventLog(sysKey, type) {
+
+            // format event log to 0, 1, 2
+            // 0: eventOpen log
+            // 1: eventStoreLog
+            // 2: eventCommitLog
+            if (type !== 0 && type !== 1 && type !== 2) {
+                type = 1;
+            }
+            
+            const eventTAT = {};
+            eventTAT.sysKey = sysKey;
+            eventTAT.type = type;
+            eventTAT.actionTime = Date.parse(new Date());
+
+            if (eventTAT.type === 0) {
+                return await this.insert(eventTAT);
+            }
+
+            return await this.log(eventTAT);
         }
     }
 
