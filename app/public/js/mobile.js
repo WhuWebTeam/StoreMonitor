@@ -145,6 +145,13 @@ window.onload = function(){
 										getList(1);
 									}
 								})
+								$.ajax({
+									url:'/api/v1/eventTAT/commitTime/'+sys,
+									type:'POST',
+									success:function(){
+										console.log(this.url);
+									}
+								})
 							};
 						})(syskey);
 					}

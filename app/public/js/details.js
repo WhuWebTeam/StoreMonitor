@@ -112,7 +112,13 @@ window.onload = function()
             'price' : price
           },
           success:function(data){
-
+            $.ajax({
+              url:'/api/v1/eventTAT/storeTime/'+syskey,
+              type:'POST',
+              success:function(){
+                console.log(this.url);
+              }
+            })
             window.location='home.html';
             }
         });
