@@ -250,6 +250,7 @@ module.exports = app => {
             }
         }
 
+        
         /**
          * Delete EventsList satisfied some condition
          * @public

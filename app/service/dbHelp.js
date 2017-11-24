@@ -1,15 +1,11 @@
-/**
- * enclosure of database opration based on module pg-promise
- * realize some easy sql including insert, update, delete, query, count and some VersionControllerSystem business opration function
- * @module dbHelp
- * 
- * @file StoreMonitor
- * @version 0.0.1
- */
-
 const Promise = require('bluebird');
 
-/** dbHelp */
+
+/**
+ * Class of database's simple opration
+ * @class DbHelp
+ * @since 1.0.0
+ */
 module.exports = app => {
     /**
      * used to complete module dbHelp function

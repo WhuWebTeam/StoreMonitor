@@ -101,6 +101,7 @@ module.exports = app => {
                 return false;
             }
         }
+        
 
         /**
          * Query info of bills with some condition
