@@ -100,7 +100,7 @@ window.onload = function(){
 								<span class='a'>${time}</span><span class='b'>${results[i].transid}</span><span class="glyphicon ${glyphiconType} c" aria-hidden="true"></span>
 							</p>
 							<p class="bottom">
-								<span class='a'>${name}</span><span class='b'>款台: ${results[i].counterid}</span><span class='c'>审查结果:${results[i].editresult}</span>
+								<span class='a'>${name}</span><span class='b'>款台: ${results[i].counterid}</span><span class='c'>审查结果:${results[i].editresult?results[i].editresult:''}</span>
 							</p>
 					`;
 					document.getElementById('list').appendChild(div);
@@ -187,7 +187,7 @@ window.onload = function(){
 			            ],
 			            series : [
 			                {
-			                    name:'最高气温',
+			                    name:'防损事件次数',
 			                    type:'line',
 			                    //data:[11, 11, 15, 18, 12, 9],
 			                    data:[],
