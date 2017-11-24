@@ -1,5 +1,7 @@
 window.onload = function(){
 	/*handle class*/
+	
+
 	function hasClass(elem, cls) {
 	  cls = cls || '';
 	  if (cls.replace(/\s/g, '').length == 0) return false; //当cls没有参数时，返回false
@@ -21,6 +23,9 @@ window.onload = function(){
 	  }
 	}
 	/*handle class*/
+
+
+	
 
 
 	/* handle time */
@@ -65,10 +70,11 @@ window.onload = function(){
 	}
 	/* get num of events */
 
-
+	
 	
 
 	function getList(type){
+		document.getElementById('list').innerHTML='';
 		var glyphiconType;
 		switch(type){
 			case 0: glyphiconType = 'glyphicon-pencil'; break;
@@ -89,6 +95,7 @@ window.onload = function(){
 					document.getElementById('list').appendChild(mes);
 				}
 				for(let i=0;i<results.length;i++){
+					var syskey = results[i].syskey;
 					var div = document.createElement('div');
 					div.setAttribute('class','view');
 					var time = handleTime(results[i].createat);
@@ -98,7 +105,7 @@ window.onload = function(){
 						div.innerHTML =`
 								<p class="top"><span class='a'>${time}</span><span class='b'>${results[i].transid}</span><span class="glyphicon ${glyphiconType} c" aria-hidden="true"></span></p>
 								
-								<p class="bottom"><span class='a'>${name}</span><span class='b'>款台: ${results[i].counterid}</span><span class='c'>结果:${results[i].editresult?results[i].editresult:' 暂无'}</span><button id="submit" class = "btn btn-sm btn-primary">提交</button</p>
+								<p class="bottom"><span class='a'>${name}</span><span class='b'>款台: ${results[i].counterid}</span><span class='c'>结果:${results[i].editresult?results[i].editresult:' 暂无'}</span><button class = "btn btn-sm btn-primary">提交</button</p>
 						`;
 					}else{
 						div.innerHTML =`
@@ -108,15 +115,7 @@ window.onload = function(){
 						`;
 					}
 					
-
-
-
 					document.getElementById('list').appendChild(div);
-
-					var syskey = results[i].syskey;
-					console.log(syskey);
-
-					
 					div.onclick = function(sys){
 						return function(){
 							$.ajax({
@@ -128,12 +127,36 @@ window.onload = function(){
 							})
 							window.location = `details.html?id=${sys}&status=${type}`;
 						}
-					}(syskey);
+					}(syskey);	
 
 
+					/*submit*/ 
+					if(type == 1){
+						var btn = div.getElementsByTagName('button')[0];
+						
+						btn.onclick = ((sys)=>{
+							return function(event){
+								window.event? window.event.cancelBubble = true : event.stopPropagation();
+								$.ajax({
+									url:'/api/v1/eventsList/status/commit/'+ sys,
+									type:'put',
+									success:function(results){
+										getNum();
+										getList(1);
+									}
+								})
+								$.ajax({
+									url:'/api/v1/eventTAT/commitTime/'+sys,
+									type:'POST',
+									success:function(){
+										console.log(this.url);
+									}
+								})
+							};
+						})(syskey);
+					}
 					
 				}
-				
 			}
 		})
 
@@ -285,7 +308,7 @@ window.onload = function(){
    				removeClass(alr_down,'edown');
    				addClass(item,'edown');
 
-   				document.getElementById('list').innerHTML='';
+   				
    				getList(pairs[index]);
 
    			}
@@ -294,7 +317,9 @@ window.onload = function(){
    	/* add press event of event */
 
 
-   	
+
+
+
    	
 
 
@@ -302,7 +327,6 @@ window.onload = function(){
    	getNum();
    	getList(0); 
    	getGraph('day');	
-
    	// $("body").on("touchstart", function(e) {
    	// 	console.log('slide');
    	// });滑动事件

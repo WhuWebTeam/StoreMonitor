@@ -74,7 +74,6 @@ window.onload = function()
           })
         }
 
-
         // get resultlist
         function getResult(){
             $.ajax({
@@ -96,7 +95,10 @@ window.onload = function()
   }
 
   function submit(){
-        var editResult = document.getElementById('state1').innerHTML;
+
+      var ss = $("#mySelect option:selected").text(); 
+ 
+        var editResult = ss ;
         var comments = document.getElementById('Note').value ;
         var productName = document.getElementById('Prod_Name').value ;
         var price = document.getElementById('Price').value ;
@@ -110,8 +112,14 @@ window.onload = function()
             'price' : price
           },
           success:function(data){
-
-          window.history.back();
-          }
+            $.ajax({
+              url:'/api/v1/eventTAT/storeTime/'+syskey,
+              type:'POST',
+              success:function(){
+                console.log(this.url);
+              }
+            })
+            window.location='home.html';
+            }
         });
     }
