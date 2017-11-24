@@ -129,6 +129,14 @@ window.onload = function(){
 						}
 					}(syskey);	
 
+					function preventBubble(event){  
+					  var e=arguments.callee.caller.arguments[0]||event; //若省略此句，下面的e改为event，IE运行可以，但是其他浏览器就不兼容  
+					  if (e && e.stopPropagation) {  
+					    e.stopPropagation();  
+					  } else if (window.event) {  
+					    window.event.cancelBubble = true;  
+					  }  
+					}
 
 					/*submit*/ 
 					if(type == 1){
@@ -136,7 +144,8 @@ window.onload = function(){
 						
 						btn.onclick = ((sys)=>{
 							return function(event){
-								window.event? window.event.cancelBubble = true : event.stopPropagation();
+								// window.event? window.event.cancelBubble = true : event.stopPropagation();
+								preventBubble(event);
 								$.ajax({
 									url:'/api/v1/eventsList/status/commit/'+ sys,
 									type:'put',
