@@ -1,7 +1,19 @@
+
+
+/**
+ * Controller class of table eventsList
+ * @module eventsList
+ * @since 1.0.0
+ */
 module.exports = app => {
     class EventsList extends app.Controller {
 
-        // index test
+        /**
+         * Index test
+         * @public
+         * @method EventsList#index
+         * @since 1.0.0
+         */
         async index() {
             this.ctx.body = {
                 code: 200,
@@ -12,7 +24,12 @@ module.exports = app => {
         }
 
 
-        // get count of eventsList total, unconfirmed, confirmed
+        /**
+         * Get count of eventsList total, unconfirmed, confirmed
+         * @public
+         * @method EventsList#getCount
+         * @since 1.0.0
+         */
         async getCount() {
 
             const working = await this.service.eventsList.count({ status: 0 }, ['id']);
@@ -30,12 +47,18 @@ module.exports = app => {
         }
 
 
-        // get list of eventsList record
+        /**
+         * Get list of eventsList record
+         * @public
+         * @method EventsList#getEventListByStatus
+         * @since 1.0.0
+         */
         async getEventListByStatus() {
 
             const status = +this.ctx.params.status || 0;
 
-            const eventsList = await this.service.eventsList.query({ status }, ['sysKey', 'cashierId', 'cashierName', 'counterId', 'counterType', 'transId', 'createAt', 'editResult']);
+            const eventsList = await this.service.eventsList.query({ status }, ['sysKey', 'cashierId', 'cashierName',
+                'counterId', 'counterType', 'transId', 'createAt', 'editResult']);
             this.ctx.body = {
                 code: 200,
                 data: eventsList
@@ -43,13 +66,19 @@ module.exports = app => {
         }
 
 
-        // get list of eventsList record by status and editResult
+        /**
+         * Get list of eventsList record by status and editResult
+         * @public
+         * @method EventsList#getEventList
+         * @since 1.0.0
+         */
         async getEventList() {
 
             const status = +this.ctx.params.status || 0;
             const editResult = this.ctx.params.result || '';
 
-            const eventsList = await this.service.eventsList.query({ status, editResult }, ['sysKey', 'cashierId', 'cashierName', 'counterId', 'counterType', 'transId', 'createAt', 'editResult']);
+            const eventsList = await this.service.eventsList.query({ status, editResult }, ['sysKey', 'cashierId', 'cashierName',
+                'counterId', 'counterType', 'transId', 'createAt', 'editResult']);
             this.ctx.body = {
                 code: 200,
                 data: eventsList
@@ -57,7 +86,12 @@ module.exports = app => {
         }
 
 
-        // get statistics graph of eventsList record
+        /**
+         * Get statistics graph of eventsList record
+         * @public
+         * @method EventsList#getEventsListGraph
+         * @since 1.0.0
+         */
         async getEventsListGraph() {
             const day = this.ctx.params.day || 'day';
 
@@ -69,11 +103,17 @@ module.exports = app => {
         }
 
 
-        // get some event's edit info
+        /**
+         * Get some event's edit info
+         * @public
+         * @method EventsList#getEditInfo
+         * @since 1.0.0
+         */
         async getEditInfo() {
 
             const sysKey = this.ctx.params.sysKey;
 
+            // get eventsList and price
             const eventList = await this.service.eventsList.query({ sysKey }, ['transId', 'createAt', 'editResult', 'status',
                 'comments', 'videoStartTime', 'videoEndTime', 'videoUrl', 'pic1Url', 'pic2Url', 'pic3Url', 'pic4Url',
                 'productId', 'productName','cashierId', 'cashierName']);
@@ -87,7 +127,12 @@ module.exports = app => {
         }
 
 
-        // modify some eventList's info
+        /**
+         * Modify some eventList's info
+         * @public
+         * @method EventsList#eventEdit
+         * @since 1.0.0
+         */
         async eventEdit() {
 
             // sysKey and editInfo
@@ -122,7 +167,7 @@ module.exports = app => {
             }
 
             switch(flag) {
-                case 1: 
+                case 1:
                     this.ctx.body = this.service.util.generateResponse(403, 'eventsList info update failed');
                     return;
                 case 2:
@@ -132,17 +177,22 @@ module.exports = app => {
                     this.ctx.body = this.service.util.generateResponse(403, 'products info update failed');
                     return;
                 default:
-                    this.ctx.body = this.service.util.generateResponse(201, 'edit  eventList info successed'); 
+                    this.ctx.body = this.service.util.generateResponse(201, 'edit  eventList info successed');
             };
         }
 
 
-        // commit some eventList, set its status to 2
+        /**
+         * Commit some eventList, set its status to 2
+         * @public
+         * @method EventsList#commitEventList
+         * @since 1.0.0
+         */
         async commitEventList() {
-            
+
             // eventList's sysKey
             const sysKey = this.ctx.params.sysKey;
-            
+
             if (!await this.service.eventsList.update({ status: 2}, { sysKey })) {
                 this.ctx.body = this.service.util.generateResponse(403, 'commit eventList failed');
                 return;
@@ -152,7 +202,12 @@ module.exports = app => {
         }
 
 
-        // store some eventList, set its status to 1
+        /**
+         * Store some eventList, set its status to 1
+         * @public
+         * @method EventsList#storeEventList
+         * @since 1.0.0
+         */
         async storeEventList() {
 
             // eventList's sysKey
@@ -167,7 +222,12 @@ module.exports = app => {
         }
 
 
-        // commit some eventsList, set their status to 2
+        /**
+         * Commit some eventsList, set their status to 2
+         * @public
+         * @method EventsList#commitEventsList
+         * @since 1.0.0
+         */
         async commitEventsList() {
 
             // array includes eventsList's sysKey
@@ -191,7 +251,12 @@ module.exports = app => {
         }
 
 
-        // store some eventsList, set their status to 1
+        /**
+         * Store some eventsList, set their status to 1
+         * @public
+         * @method EventsList#StoreEventsList
+         * @since 1.0.0
+         */
         async StoreEventsList() {
 
             // array includes eventsList's sysKey

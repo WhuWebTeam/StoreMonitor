@@ -1,4 +1,13 @@
+
+
+/**
+ * Router class eventsList
+ * URL releated to oprate table eventsList
+ * @module eventsList
+ * @since 1.0.0
+ */
 module.exports = app => {
+
     // app.controller.eventsList test
     app.get('/api/v1/evensList/index', 'eventsList.index');
 
