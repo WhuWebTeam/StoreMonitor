@@ -2,7 +2,7 @@
 
 /**
  * Controller class of table eventTAT
- * @class EventTAT
+ * @module eventTAT
  * @since 1.0.0
  */
 module.exports = app => {
@@ -32,7 +32,7 @@ module.exports = app => {
          * @since 1.0.0
          */
         async eventOpenTime() {
-
+            
             // eventTAT'S sysKey
             const sysKey = this.ctx.params.sysKey;
 
@@ -87,7 +87,7 @@ module.exports = app => {
 
         /**
          * Log many commit events' time(type:2)
-         * @public
+         * @public eventTAT#eventCommitTimes
          * @function
          * @since 1.0.0
          */
