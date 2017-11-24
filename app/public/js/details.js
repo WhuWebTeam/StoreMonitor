@@ -95,7 +95,7 @@ window.onload = function()
         var productName = document.getElementById('Prod_Name').value ;
         var price = document.getElementById('Price').value ;
         $.ajax({
-          url:"/api/v1/eventsList/count/" + syskey,
+          url:"/api/v1/eventsList/" + syskey,
           type:'POST',
           data:{
             'editResult' : editResult,
@@ -106,10 +106,10 @@ window.onload = function()
           success:function(data){
       
       
-      window.location = `home.html`;
-          
-
-      }
+          window.location = `home.html`;
+              
+          //window.history.back();
+          }
 
         })
     }

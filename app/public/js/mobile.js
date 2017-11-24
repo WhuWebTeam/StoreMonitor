@@ -98,13 +98,13 @@ window.onload = function(){
 						div.innerHTML =`
 								<p class="top"><span class='a'>${time}</span><span class='b'>${results[i].transid}</span><span class="glyphicon ${glyphiconType} c" aria-hidden="true"></span></p>
 								
-								<p class="bottom"><span class='a'>${name}</span><span class='b'>款台: ${results[i].counterid}</span><span class='c'>审查结果:${results[i].editresult?results[i].editresult:''}</span><button id="submit" class = "btn btn-sm btn-primary">提交</button</p>
+								<p class="bottom"><span class='a'>${name}</span><span class='b'>款台: ${results[i].counterid}</span><span class='c'>结果:${results[i].editresult?results[i].editresult:' 暂无'}</span><button id="submit" class = "btn btn-sm btn-primary">提交</button</p>
 						`;
 					}else{
 						div.innerHTML =`
 								<p class="top"><span class='a'>${time}</span><span class='b'>${results[i].transid}</span><span class="glyphicon ${glyphiconType} c" aria-hidden="true"></span></p>
 
-								<p class="bottom"><span class='a'>${name}</span><span class='b'>款台: ${results[i].counterid}</span><span class='c'>审查结果:${results[i].editresult?results[i].editresult:''}</span></p>
+								<p class="bottom"><span class='a'>${name}</span><span class='b'>款台: ${results[i].counterid}</span><span class='c'>结果:${results[i].editresult?results[i].editresult:' 暂无'}</span></p>
 						`;
 					}
 					
