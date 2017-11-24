@@ -1,7 +1,10 @@
 
 
 /**
- * 
+ * Router class eventTAT 
+ * @public
+ * @function eventTAT
+ * @since 1.0.0
  */
 module.exports = app => {
 
@@ -12,6 +15,8 @@ module.exports = app => {
     app.post('/api/v1/eventTAT/commitTime/:sysKey', 'eventTAT.eventCommitTime'); // log commit event's time(type:2)
     app.post('/api/v1/eventTAT/oneKeyCommit', 'eventTAT.eventCommitTimes'); // log many commit events' time(type:2)
 }
+
+
 
 // app.post('/api/v1/eventTAT/openTime/:sysKey', 'eventTAT.eventOpenTime'); // log open event's time(type:0)
 // no attributes need
