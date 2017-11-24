@@ -1,7 +1,6 @@
 
 
 /**
- * Router class eventsList
  * URL releated to oprate table eventsList
  * @module eventsList
  * @since 1.0.0

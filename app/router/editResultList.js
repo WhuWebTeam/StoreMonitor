@@ -1,3 +1,10 @@
+
+
+/**
+ * URL releated to oprate table editResultList
+ * @module editResult
+ * @since 1.0.0
+ */
 module.exports = app => {
 	app.get('/api/v1/editResultList/index', 'editResultList.index');
 
