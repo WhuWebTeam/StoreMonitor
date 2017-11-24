@@ -84,15 +84,10 @@ window.onload = function()
         getStatus(status);
         getNum();
         getResult();
-
-
-
-
-  }
-
+  } 
 
   function submit(){
-        var editResult = document.getElementById('state1').value;
+        var editResult = document.getElementById('state1').innerHTML;
         var comments = document.getElementById('Note').value ;
         var productName = document.getElementById('Prod_Name').value ;
         var price = document.getElementById('Price').value ;
