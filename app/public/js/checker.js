@@ -6,7 +6,11 @@ window.onload = function(){
 		listType = parseInt(url.split('=')[1]);
 	}
 
-
+	var btn = document.getElementById('counter');
+	btn.onclick = function(){
+		window.location = 'checkout.html'
+	}
+	
 	/* get num of events */
 	function getNum(){
 		$.ajax({
@@ -49,6 +53,7 @@ window.onload = function(){
 			type:'get',
 			success:function(results){
 				var results = results.data;
+				var sysArr=[];
 				if(results.length == 0){
 					var mes =document.createElement('p');
 					//addClass(mes,'no');
@@ -56,8 +61,22 @@ window.onload = function(){
 					mes.innerHTML = '没有待处理的事件';
 					document.getElementById('list').appendChild(mes);
 				}
+				
+
+				if(type==1&&results.length){
+					var btn = document.createElement('button');
+					btn.setAttribute('class','btn btn-info');
+					btn.setAttribute('id','submitAll');
+					btn.innerHTML = '提交所有';
+					document.getElementById('list').appendChild(btn);		
+				}
+
 				for(let i=0;i<results.length;i++){
+
 					var syskey = results[i].syskey;
+					sysArr.push({
+						"sysKey":syskey
+					});
 					var div = document.createElement('div');
 					div.setAttribute('class','view');
 					var time = handleTime(results[i].createat);
@@ -120,6 +139,31 @@ window.onload = function(){
 					}
 					
 				}
+
+				if(type==1&&results.length){
+					document.getElementById('submitAll').onclick = function(sysArr){
+						return function(){
+							$.ajax({
+								url:'/api/v1/eventsList/status/commit',
+								type:'put',
+								data:sysArr,
+								success:function(results){
+									getNum();
+									getList(1);
+								}
+							})
+							$.ajax({
+								url:'/api/v1/eventTAT/oneKeyCommit',
+								type:'POST',
+								data:sysArr,
+								success:function(){
+									//console.log(this.url);
+								}
+							})
+						}
+					}(sysArr);
+				}
+				
 			}
 		})
 
