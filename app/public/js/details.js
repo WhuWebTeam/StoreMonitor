@@ -103,7 +103,7 @@ window.onload = function()
         var productName = document.getElementById('Prod_Name').value ;
         var price = document.getElementById('Price').value ;
         if(status == 2){
-          window.location='home.html?listType=2';
+          window.location='checker.html?listType=2';
         }else{
           $.ajax({
             url:"/api/v1/eventsList/" + syskey,
@@ -122,7 +122,7 @@ window.onload = function()
                   console.log(this.url);
                 }
               })
-              window.location='home.html?listType=1';
+              window.location='checker.html?listType=1';
               }
           });
         }
