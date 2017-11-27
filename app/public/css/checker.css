@@ -9,6 +9,11 @@
 		text-align: center;
 		margin-top: 20px;
 	}
+	#counter{
+		position: absolute;
+		top: 5px;
+		right: 10px;
+	}
 	#title{
 		background-color: #578;
 		text-align: center;
