@@ -29,6 +29,8 @@ window.onload = function()
           document.getElementById("Prod_Name").disabled=true;
           document.getElementById("Price").disabled=true;
           document.getElementById("Note").disabled=true;
+          document.getElementById("mySelect").disabled=true;
+
           document.getElementById('btn').innerHTML = "返回";
               }
         }
@@ -48,7 +50,7 @@ window.onload = function()
   });
   /*handle csrf*/
 
-      function getNum(){
+     function getNum(check_result){
           var pairs = {
             '0' :'未处置',
             '1' :'待提交',
@@ -58,6 +60,10 @@ window.onload = function()
             url:"/api/v1/eventsList/editInfo/"+syskey,
             type:'GET',
             success:function(results){
+              
+              check_result = results.data.editresult;
+              console.log(check_result);
+
               document.getElementById('date').innerHTML = dateFormat(results.data.createat);
               document.getElementById('status').innerHTML = pairs[results.data.status];
 
@@ -70,28 +76,58 @@ window.onload = function()
               document.getElementById('Note').value = results.data.comments;
               document.getElementById('Prod_Name').value =results.data.productname;
               document.getElementById('Price').value = results.data.price;
+
+              getResult(check_result);
+              console.log(check_result);
+
+            
               }
           })
         }
 
         // get resultlist
-        function getResult(){
+        
+      function getResult(check_result){
+          
             $.ajax({
               url:"/api/v1/editResultList",
               type:'GET',
               success:function(results){
-                document.getElementById('state1').innerHTML = results.data[0].name;
+
+            if (results.data[0].name == check_result) {
+                document.getElementById('state1').innerHTML = check_result;
                 document.getElementById('state2').innerHTML = results.data[1].name;
                 document.getElementById('state3').innerHTML = results.data[2].name;
                 document.getElementById('state4').innerHTML = results.data[3].name;
-             }
+              }
+
+            else if (results.data[1].name == check_result){
+                document.getElementById('state1').innerHTML = check_result;
+                document.getElementById('state2').innerHTML = results.data[0].name;
+                document.getElementById('state3').innerHTML = results.data[2].name;
+                document.getElementById('state4').innerHTML = results.data[3].name;
+                  }
+
+            else if (results.data[2].name == check_result ){ 
+                document.getElementById('state1').innerHTML = check_result;
+                document.getElementById('state2').innerHTML = results.data[0].name;
+                document.getElementById('state3').innerHTML = results.data[1].name;
+                document.getElementById('state4').innerHTML = results.data[3].name;
+                  }
+
+            else if (results.data[3].name == check_result) {
+                document.getElementById('state1').innerHTML = check_result;
+                document.getElementById('state2').innerHTML = results.data[0].name;
+                document.getElementById('state3').innerHTML = results.data[2].name;
+                document.getElementById('state4').innerHTML = results.data[3].name;
+                  }
+              }
             })
           }
-
+      
         getUrl();
         getStatus(status);
         getNum();
-        getResult();
   }
 
   function submit(){
