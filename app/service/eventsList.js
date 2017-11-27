@@ -293,7 +293,9 @@ module.exports = app => {
                     values.push('YYYY-MM');
                     break;
                 default:
-                    str = '';
+                    str = `select count(transId), to_char(to_timestamp(ts/1000), 'YYYYMM') y, to_char(to_timestamp(ts/1000), 'W') w from eventsList
+                    group by y, w
+                    order by y, w`;
                     break;
             }
 
