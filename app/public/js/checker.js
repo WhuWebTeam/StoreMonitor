@@ -10,7 +10,7 @@ window.onload = function(){
 	btn.onclick = function(){
 		window.location = 'checkout.html'
 	}
-	
+
 	/* get num of events */
 	function getNum(){
 		$.ajax({
@@ -142,11 +142,12 @@ window.onload = function(){
 
 				if(type==1&&results.length){
 					document.getElementById('submitAll').onclick = function(sysArr){
+						
 						return function(){
 							$.ajax({
 								url:'/api/v1/eventsList/status/commit',
 								type:'put',
-								data:sysArr,
+								data:{sysArr},
 								success:function(results){
 									getNum();
 									getList(1);
@@ -155,7 +156,7 @@ window.onload = function(){
 							$.ajax({
 								url:'/api/v1/eventTAT/oneKeyCommit',
 								type:'POST',
-								data:sysArr,
+								data:{sysArr},
 								success:function(){
 									//console.log(this.url);
 								}
