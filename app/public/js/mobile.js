@@ -1,7 +1,12 @@
 window.onload = function(){
-	/*handle class*/
 	
+	var url = window.location.href.split('?')[1],
+			listType;
+	if(url){
+		listType = parseInt(url.split('=')[1]);
+	}
 
+	/*handle class*/
 	function hasClass(elem, cls) {
 	  cls = cls || '';
 	  if (cls.replace(/\s/g, '').length == 0) return false; //当cls没有参数时，返回false
@@ -63,8 +68,8 @@ window.onload = function(){
 			//data:
 			success:function(results){
 				document.getElementById('event').children[0].children[0].innerHTML = results.data.working;  
-				document.getElementById('event').children[2].children[0].innerHTML = results.data.store;  
-				document.getElementById('event').children[1].children[0].innerHTML = results.data.commit;  	
+				document.getElementById('event').children[1].children[0].innerHTML = results.data.store;  
+				document.getElementById('event').children[2].children[0].innerHTML = results.data.commit;  	
 			}
 		})
 	}
@@ -74,6 +79,14 @@ window.onload = function(){
 	
 
 	function getList(type){
+		var alr_down = document.getElementsByClassName('edown')[0];
+		var elem = document.getElementById('event').getElementsByTagName('p')[type];
+   		if(alr_down !== elem){
+			removeClass(alr_down,'edown');
+			addClass(elem,'edown');
+		}
+		
+
 		document.getElementById('list').innerHTML='';
 		var glyphiconType;
 		switch(type){
@@ -305,37 +318,25 @@ window.onload = function(){
 
    	/* add press event of event */
    	var btn = document.getElementById('event').getElementsByTagName('p');
-   	var pairs = {
-   		0 : 0 ,
-   		1 : 2 ,
-   		2 : 1
-   	}
    	Array.prototype.map.call(btn,function(item,index){
    		item.onclick = function(){
-   			var alr_down = document.getElementsByClassName('edown')[0];
-   			if(alr_down !== this){
-   				removeClass(alr_down,'edown');
-   				addClass(item,'edown');
+   			getList(index);
+   			// var alr_down = document.getElementsByClassName('edown')[0];
+   			// if(alr_down !== this){
+   			// 	removeClass(alr_down,'edown');
+   			// 	addClass(item,'edown');
+   			// 	getList(index);
 
-   				
-   				getList(pairs[index]);
-
-   			}
+   			// }
    		}
    	})
    	/* add press event of event */
 
-
-
-
-
-   	
-
-
-
    	getNum();
-   	getList(0); 
+   	getList(listType||0); 
    	getGraph('day');	
+
+
    	// $("body").on("touchstart", function(e) {
    	// 	console.log('slide');
    	// });滑动事件
