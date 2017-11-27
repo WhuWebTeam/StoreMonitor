@@ -1,3 +1,10 @@
+
+
+/**
+ * Router class of table EditResult list
+ * @module editResultList
+ * @since 1.0.0
+ */
 module.exports = app => {
 	app.get('/api/v1/editResultList/index', 'editResultList.index');
 
