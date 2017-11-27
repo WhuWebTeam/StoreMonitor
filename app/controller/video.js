@@ -15,6 +15,7 @@ module.exports = app => {
         // get data from DVA system
         async getDVAData() {
             const DVA = this.ctx.request.body;
+            console.log(DVA);
 
             /* parse DVA data and store them to database */
             // format counter
@@ -71,6 +72,7 @@ module.exports = app => {
 
                 // format bill
                 let bill = {};
+                bill.sysKey = DVA.ShopID + DVA.TransID + billEle.Ts || '00000000000000000000000';
                 bill.price = billEle.Price || 0;
                 bill.amount = billEle.Amount || 0;
                 bill.quantity = bill.price * bill.amount;
@@ -93,7 +95,7 @@ module.exports = app => {
 
                 // format eventList
                 let eventList = {};
-                eventList.sysKey = DVA.TransID + billEle.Ts || '00000000000000000000000';
+                eventList.sysKey = DVA.ShopID + DVA.TransID + billEle.Ts || '00000000000000000000000';
                 eventList.transId = DVA.TransID || '0000000000';
                 eventList.ts = billEle.Ts || 0;
                 eventList.createAt = Date.parse(new Date());
