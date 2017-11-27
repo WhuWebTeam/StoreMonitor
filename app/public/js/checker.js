@@ -1,60 +1,16 @@
 window.onload = function(){
-	/*handle class*/
 	
-
-	function hasClass(elem, cls) {
-	  cls = cls || '';
-	  if (cls.replace(/\s/g, '').length == 0) return false; //当cls没有参数时，返回false
-	  return new RegExp(' ' + cls + ' ').test(' ' + elem.className + ' ');
-	}
-	function addClass(elem, cls) {
-	  if (!hasClass(elem, cls)) {
-	    elem.className = elem.className == '' ? cls : elem.className + ' ' + cls;
-	  }
+	var url = window.location.href.split('?')[1],
+			listType;
+	if(url){
+		listType = parseInt(url.split('=')[1]);
 	}
 
-	function removeClass(elem, cls) {
-	  if (hasClass(elem, cls)) {
-	    var newClass = ' ' + elem.className.replace(/[\t\r\n]/g, '') + ' ';
-	    while (newClass.indexOf(' ' + cls + ' ') >= 0) {
-	      newClass = newClass.replace(' ' + cls + ' ', ' ');
-	    }
-	    elem.className = newClass.replace(/^\s+|\s+$/g, '');
-	  }
+	var btn = document.getElementById('counter');
+	btn.onclick = function(){
+		window.location = 'checkout.html'
 	}
-	/*handle class*/
-
-
 	
-
-
-	/* handle time */
-	function handleTime(num){
-		num = parseInt(num);
-		var now = new Date(num),
-               y = now.getFullYear(),
-               m = now.getMonth() + 1,
-               d = now.getDate();
-		return y + "-" + (m < 10 ? "0" + m : m) + "-" + (d < 10 ? "0" + d : d) + " " + now.toTimeString().substr(0, 8);
-
-	}
-	/* handle time */
-
-	/*handle csrf*/
-	var csrftoken = Cookies.get('csrfToken');
-	function csrfSafeMethod(method) {
-	  // these HTTP methods do not require CSRF protection
-	  return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
-	}
-	$.ajaxSetup({
-	  beforeSend: function(xhr, settings) {
-	    if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
-	      xhr.setRequestHeader('x-csrf-token', csrftoken);
-	    }
-	  },
-	});
-	/*handle csrf*/
-
 	/* get num of events */
 	function getNum(){
 		$.ajax({
@@ -63,17 +19,27 @@ window.onload = function(){
 			//data:
 			success:function(results){
 				document.getElementById('event').children[0].children[0].innerHTML = results.data.working;  
-				document.getElementById('event').children[2].children[0].innerHTML = results.data.store;  
-				document.getElementById('event').children[1].children[0].innerHTML = results.data.commit;  	
+				document.getElementById('event').children[1].children[0].innerHTML = results.data.store;  
+				document.getElementById('event').children[2].children[0].innerHTML = results.data.commit;  	
 			}
 		})
 	}
 	/* get num of events */
 
-	
-	
+
 
 	function getList(type){
+
+		var alr_down = document.getElementsByClassName('edown')[0];
+		var elem = document.getElementById('event').getElementsByTagName('p')[type];
+   		if(alr_down && alr_down!== elem){
+			removeClass(alr_down,'edown');
+			addClass(elem,'edown');
+		}else{
+			addClass(elem,'edown');
+		}
+		
+
 		document.getElementById('list').innerHTML='';
 		var glyphiconType;
 		switch(type){
@@ -87,6 +53,7 @@ window.onload = function(){
 			type:'get',
 			success:function(results){
 				var results = results.data;
+				var sysArr=[];
 				if(results.length == 0){
 					var mes =document.createElement('p');
 					//addClass(mes,'no');
@@ -94,8 +61,22 @@ window.onload = function(){
 					mes.innerHTML = '没有待处理的事件';
 					document.getElementById('list').appendChild(mes);
 				}
+				
+
+				if(type==1&&results.length){
+					var btn = document.createElement('button');
+					btn.setAttribute('class','btn btn-info');
+					btn.setAttribute('id','submitAll');
+					btn.innerHTML = '提交所有';
+					document.getElementById('list').appendChild(btn);		
+				}
+
 				for(let i=0;i<results.length;i++){
+
 					var syskey = results[i].syskey;
+					sysArr.push({
+						"sysKey":syskey
+					});
 					var div = document.createElement('div');
 					div.setAttribute('class','view');
 					var time = handleTime(results[i].createat);
@@ -122,21 +103,13 @@ window.onload = function(){
 								url:'/api/v1/eventTAT/openTime/'+sys,
 								type:'POST',
 								success:function(){
-									console.log(this.url);
+									
 								}
 							})
 							window.location = `details.html?id=${sys}&status=${type}`;
 						}
 					}(syskey);	
 
-					function preventBubble(event){  
-					  var e=arguments.callee.caller.arguments[0]||event; //若省略此句，下面的e改为event，IE运行可以，但是其他浏览器就不兼容  
-					  if (e && e.stopPropagation) {  
-					    e.stopPropagation();  
-					  } else if (window.event) {  
-					    window.event.cancelBubble = true;  
-					  }  
-					}
 
 					/*submit*/ 
 					if(type == 1){
@@ -158,7 +131,7 @@ window.onload = function(){
 									url:'/api/v1/eventTAT/commitTime/'+sys,
 									type:'POST',
 									success:function(){
-										console.log(this.url);
+										//console.log(this.url);
 									}
 								})
 							};
@@ -166,12 +139,35 @@ window.onload = function(){
 					}
 					
 				}
+
+				if(type==1&&results.length){
+					document.getElementById('submitAll').onclick = function(sysArr){
+						return function(){
+							$.ajax({
+								url:'/api/v1/eventsList/status/commit',
+								type:'put',
+								data:sysArr,
+								success:function(results){
+									getNum();
+									getList(1);
+								}
+							})
+							$.ajax({
+								url:'/api/v1/eventTAT/oneKeyCommit',
+								type:'POST',
+								data:sysArr,
+								success:function(){
+									//console.log(this.url);
+								}
+							})
+						}
+					}(sysArr);
+				}
+				
 			}
 		})
 
 	}
-
-
 
 
 	function getGraph(type){
@@ -267,7 +263,6 @@ window.onload = function(){
 			                 
 			            ]
 			        };
-		    // 使用刚指定的配置项和数据显示图表。
 		    option.xAxis[0].data =graphData.map(function(x){
 		    	return x.t;
 		    })
@@ -278,7 +273,6 @@ window.onload = function(){
 	}
 	
     /*draw graph*/
-
 
 
     /* add press event of day week and month */
@@ -303,41 +297,21 @@ window.onload = function(){
    	/* add press event of day week and month */
 
 
+
+
    	/* add press event of event */
    	var btn = document.getElementById('event').getElementsByTagName('p');
-   	var pairs = {
-   		0 : 0 ,
-   		1 : 2 ,
-   		2 : 1
-   	}
    	Array.prototype.map.call(btn,function(item,index){
    		item.onclick = function(){
-   			var alr_down = document.getElementsByClassName('edown')[0];
-   			if(alr_down !== this){
-   				removeClass(alr_down,'edown');
-   				addClass(item,'edown');
-
-   				
-   				getList(pairs[index]);
-
-   			}
+   			getList(index);
    		}
    	})
    	/* add press event of event */
 
 
 
-
-
-   	
-
-
-
    	getNum();
-   	getList(0); 
+   	getList(listType||0); 
    	getGraph('day');	
-   	// $("body").on("touchstart", function(e) {
-   	// 	console.log('slide');
-   	// });滑动事件
 
 }
