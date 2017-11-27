@@ -102,24 +102,29 @@ window.onload = function()
         var comments = document.getElementById('Note').value ;
         var productName = document.getElementById('Prod_Name').value ;
         var price = document.getElementById('Price').value ;
-        $.ajax({
-          url:"/api/v1/eventsList/" + syskey,
-          type:'put',
-          data:{
-            'editResult' : editResult,
-            'comments'  : comments,
-            'productName' :productName,
-            'price' : price
-          },
-          success:function(data){
-            $.ajax({
-              url:'/api/v1/eventTAT/storeTime/'+syskey,
-              type:'POST',
-              success:function(){
-                console.log(this.url);
+        if(status == 2){
+          window.location='home.html?listType=2';
+        }else{
+          $.ajax({
+            url:"/api/v1/eventsList/" + syskey,
+            type:'put',
+            data:{
+              'editResult' : editResult,
+              'comments'  : comments,
+              'productName' :productName,
+              'price' : price
+            },
+            success:function(data){
+              $.ajax({
+                url:'/api/v1/eventTAT/storeTime/'+syskey,
+                type:'POST',
+                success:function(){
+                  console.log(this.url);
+                }
+              })
+              window.location='home.html?listType=1';
               }
-            })
-            window.location='home.html';
-            }
-        });
+          });
+        }
+        
     }
