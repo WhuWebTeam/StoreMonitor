@@ -50,7 +50,7 @@ window.onload = function()
   });
   /*handle csrf*/
 
-     function getNum(check_result){
+     function getNum(){
           var pairs = {
             '0' :'未处置',
             '1' :'待提交',
@@ -61,8 +61,7 @@ window.onload = function()
             type:'GET',
             success:function(results){
               
-              check_result = results.data.editresult;
-              console.log(check_result);
+              var check_result = results.data.editresult;
 
               document.getElementById('date').innerHTML = dateFormat(results.data.createat);
               document.getElementById('status').innerHTML = pairs[results.data.status];
@@ -78,7 +77,6 @@ window.onload = function()
               document.getElementById('Price').value = results.data.price;
 
               getResult(check_result);
-              console.log(check_result);
 
             
               }
@@ -118,10 +116,16 @@ window.onload = function()
             else if (results.data[3].name == check_result) {
                 document.getElementById('state1').innerHTML = check_result;
                 document.getElementById('state2').innerHTML = results.data[0].name;
+                document.getElementById('state3').innerHTML = results.data[1].name;
+                document.getElementById('state4').innerHTML = results.data[2].name;
+                  }
+            else{
+                document.getElementById('state1').innerHTML = results.data[0].name;
+                document.getElementById('state2').innerHTML = results.data[1].name;
                 document.getElementById('state3').innerHTML = results.data[2].name;
                 document.getElementById('state4').innerHTML = results.data[3].name;
-                  }
               }
+            }
             })
           }
       
