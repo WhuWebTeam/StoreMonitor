@@ -97,7 +97,7 @@ module.exports = app => {
             const commits = this.ctx.request.body;
             let commit = 1;
 
-            for (const eventTAT of commits) {
+            for (const eventTAT of commits.sysArr) {
                 if(!await this.service.eventTAT.eventLog(eventTAT.sysKey, 2)) {
                     commit = 0;
                 };
