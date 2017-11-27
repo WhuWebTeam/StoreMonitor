@@ -81,8 +81,10 @@ window.onload = function(){
 	function getList(type){
 		var alr_down = document.getElementsByClassName('edown')[0];
 		var elem = document.getElementById('event').getElementsByTagName('p')[type];
-   		if(alr_down !== elem){
+   		if(alr_down && alr_down!== elem){
 			removeClass(alr_down,'edown');
+			addClass(elem,'edown');
+		}else{
 			addClass(elem,'edown');
 		}
 		
@@ -135,7 +137,7 @@ window.onload = function(){
 								url:'/api/v1/eventTAT/openTime/'+sys,
 								type:'POST',
 								success:function(){
-									console.log(this.url);
+									
 								}
 							})
 							window.location = `details.html?id=${sys}&status=${type}`;
