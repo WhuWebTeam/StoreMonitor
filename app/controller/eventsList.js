@@ -235,7 +235,7 @@ module.exports = app => {
             // commit successed flag
             let commit = 1;
 
-            for (const eventList of eventsList) {
+            for (const eventList of eventsList.sysArr) {
                 if (!await this.service.eventsList.update({ status: 2 }, { sysKey: eventList.sysKey })) {
                     commit = 0;
                 }

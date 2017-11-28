@@ -97,7 +97,7 @@ module.exports = app => {
             const commits = this.ctx.request.body;
             let commit = 1;
 
-            for (const eventTAT of commits) {
+            for (const eventTAT of commits.sysArr) {
                 if(!await this.service.eventTAT.eventLog(eventTAT.sysKey, 2)) {
                     commit = 0;
                 };
@@ -105,12 +105,12 @@ module.exports = app => {
 
             // exists event commit log failed
             if (!commit) {
-                this.ctx.body = this.util.generateResponse(403, 'log event commit time failed');
+                this.ctx.body = this.service.util.generateResponse(403, 'log event commit time failed');
                 return;
             }
 
             // all event commit log successed
-            this.ctx.body = this.util.generateResponse(201, 'log event commit time successed');
+            this.ctx.body = this.service.util.generateResponse(201, 'log event commit time successed');
         }
     }
 
