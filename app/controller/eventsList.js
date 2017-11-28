@@ -186,7 +186,7 @@ module.exports = app => {
             const sysKey = this.ctx.params.sysKey;
 
             // get eventsList and price
-            const eventList = await this.service.eventsList.query({ sysKey }, ['transId', 'createAt', 'editResult', 'status',
+            const eventList = await this.service.eventsList.query({ sysKey }, ['transId', 'createAt', 'editResult', 'status', 'videoUrl',
             'comments', 'productName','cashierId', 'cashierName']);
             const price = await this.service.bills.query( { sysKey }, ['price']);
             eventList.price = price && price.price;

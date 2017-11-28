@@ -85,6 +85,8 @@ module.exports = app => {
                 if (await this.service.counters.insert({ userId, counterId: counter.counterId, type: counterUser.type })) {
                     assigned = false;
                 }
+
+                await this.service.counters.update({ assigned: true }, { id: counterId });
             }
 
             if (!assigned) {

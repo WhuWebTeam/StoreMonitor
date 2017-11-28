@@ -6,7 +6,7 @@
  * @since 1.0.0
  */
 module.exports = app => {
-    class counterUser extends app.Service {
+    class CounterUser extends app.Service {
 
         /**
          * Constructor of class CounterUser
