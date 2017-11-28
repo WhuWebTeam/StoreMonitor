@@ -40,7 +40,7 @@ module.exports = app => {
 
         // get counters haven't been assigned
         async getCountersNotAssigned() {
-            const counters = await this.service.counters.query({ assigned: false }, ['id', 'shopId']);
+            const counters = await this.service.counters.query({ assigned: false }, ['id', 'shopId', 'type']);
             this.ctx.body = {
                 code: 200,
                 data: counters
