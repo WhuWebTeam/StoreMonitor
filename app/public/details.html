@@ -25,7 +25,7 @@
 	      data-setup="{}">
 	    	<source id="Url" src="/test/test.mp4">
 	    	<track kind="captions" src="demo.captions.vtt" srclang="en" label="English"></track><!-- Tracks need an ending tag thanks to IE9 -->
-	    	<track kind="subtitles" src="demo.captions.vtt" srclang="en" label="English"></track><!-- Tracks need an ending tag thanks to IE9 -->
+	    	<track kind="details.html?id=137661511781978384&status=1subtitles" src="demo.captions.vtt" srclang="en" label="English"></track><!-- Tracks need an ending tag thanks to IE9 -->
 			</video>
 		</div>
 	</div>
@@ -71,7 +71,7 @@
 			<label  class="col-xs-3 control-label col-xs-9">备注</label>
 			<div class="col-xs-9">
 				<input type="text" class="form-control" id="Note" 
-					   placeholder="备注" required="required"  value="">
+					   placeholder="此项必填" required="required"  value="">
 			</div>
 		</div>
 
@@ -79,7 +79,7 @@
 			<label  class="col-xs-3 control-label col-xs-9">商品名称</label>
 			<div class="col-xs-5">
 				<input type="text" class="form-control"  required="required" id="Prod_Name" 
-					   placeholder="商品名称" value="" >
+					   placeholder="此项必填" value="" >
 
 			</div>
 			
@@ -94,7 +94,7 @@
 			<label  class="col-xs-3 control-label">金额</label>
 			<div class="col-xs-5">
 				<input type="text" class="form-control " required="required" id="Price" 
-					   placeholder="金额" value="" >
+					   placeholder="填写>0的数" value="" >
 			</div>		
 		</div>
 	</form>

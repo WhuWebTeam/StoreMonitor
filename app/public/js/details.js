@@ -21,6 +21,7 @@ window.onload = function()
 {
 
 // get syskey &status
+
         function getStatus(status)
         {
         if (status == 2){
@@ -74,7 +75,6 @@ window.onload = function()
               document.getElementById('Id').value = results.data.transid;
               document.getElementById("Id").disabled=true;
 
-
               document.getElementById('Note').value = results.data.comments;
               document.getElementById('Prod_Name').value =results.data.productname;
               document.getElementById('Price').value = results.data.price;
@@ -122,29 +122,31 @@ window.onload = function()
             for(var num = 0 ;num < results.data.length; num++){
                 var temp = 'state' + num.toString();          
                 document.getElementById(temp.toString()).innerHTML= results.data[num].name;
-            }
+              }
             
           }
         })
       }
-      
+    
         getUrl();
         getStatus(status);
         getNum();
+  
   }
 
   function submit(){
 
-        var ss = $("#mySelect option:selected").text(); 
-        var editResult = ss ;
-        var comments = document.getElementById('Note').value ;
+          var ss = $("#mySelect option:selected").text(); 
+          var editResult = ss ;
 
-        var productName = document.getElementById('Prod_Name').value ;
-        var price = document.getElementById('Price').value ;
-
+          var comments = document.getElementById('Note').value ;
+          var productName = document.getElementById('Prod_Name').value ;
+          var price = document.getElementById('Price').value ;
         if(status == 2){
-          window.location='checker.html?listType=2';
-        }else{
+        window.location='checker.html?listType=2';
+         }
+        else {
+          if( comments !='' && productName !='' && (price > 0)){
           $.ajax({
             url:"/api/v1/eventsList/" + syskey,
             type:'put',
@@ -165,6 +167,15 @@ window.onload = function()
               window.location='checker.html?listType=1';
               }
           });
+        }    
+        else {        
+          if (comments ==''){
+              alert("请正确填写备注");
+          }
+          else if (productName ==''){
+              alert("请正确填写商品名称");
+            }
+          else  alert("请正确填写金额");
         }
-        
-    }
+      }
+  }
