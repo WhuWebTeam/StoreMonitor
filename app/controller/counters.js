@@ -29,13 +29,8 @@ module.exports = app => {
         // get counters have been assigned
         async getCountersAssigned() {
             
-            const sqlStr = `select *
-                            from counters c
-                            where c.id in (
-                                select cu.counterId
-                                from counterUser cu)`;
+            const counters = await this.service.counters.query({ assigned: true }, ['id', 'shopId']);
 
-            const counters = await this.app.db.query(sqlStr, []);
             this.ctx.body = {
                 code: 200,
                 data: counters
@@ -45,13 +40,7 @@ module.exports = app => {
 
         // get counters haven't been assigned
         async getCountersNotAssigned() {
-            const sqlStr = `select *
-                            from counters c
-                            where c.id not in (
-                                select cu.counterId
-                                from counterUser cu)`;
-
-            const counters = await this.app.db.query(sqlStr, []);
+            const counters = await this.service.counters.query({ assigned: false }, ['id', 'shopId']);
             this.ctx.body = {
                 code: 200,
                 data: counters

@@ -220,7 +220,7 @@ module.exports = app => {
 
 
         /**
-         * Update eventsList ssatisfied some condition
+         * Update eventsList satisfied some condition
          * @public
          * @function update
          * @param {Object} eventList - eventList record waited to update
