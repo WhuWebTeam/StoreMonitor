@@ -21,8 +21,18 @@ window.onload = function(){
 				btn.onclick = function(){
 					removeClass(this,'glyphicon-unchecked');
 					addClass(this,'glyphicon-ok');
+					
 				}
 			}
 		}
 	})
+
+
+	var submit = document.getElementById('confirm');
+	submit.onclick = function(){
+		$.ajax({
+
+		})
+		window.location = 'checker.html';
+	}
 }
