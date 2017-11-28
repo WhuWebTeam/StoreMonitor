@@ -1,8 +1,2 @@
-function dateFormat(timestamp) {
-    timestamp = +timestamp;
-    const time = new Date(timestamp);
-    return time.getFullYear() + '/' + time.getMonth() + '/' + time.getDate() + ' ' + time.getHours() + ':' + time.getMinutes() + ':' + time.getSeconds();
-}
-
-
-console.log(dateFormat(1511511639000));
+select b.count / e.count 
+from (select count(transId) from eventsList where to_timestamp(ts) > now() - interval '1 day') 

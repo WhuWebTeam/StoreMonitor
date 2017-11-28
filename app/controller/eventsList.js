@@ -48,6 +48,78 @@ module.exports = app => {
 
 
         /**
+         * Get the count of events wating to be dealed and completedthe last day
+         * @public
+         * @method EventsList#getDayCount
+         * @since 1.0.0
+         */
+        async getDayCount() {
+
+            // get count of events waiting to be dealed
+            const dealing = await this.service.eventsList.count({ status: 0 }, ['id']);
+            
+            // get count of events completed the last day
+            const str = `select count(distinct sysKey) from eventTAT where type = 2 and to_timestamp(actionTime) > now() - interval '1 d'`;
+            const completed = await this.app.db.query(str, []);
+
+            this.ctx.body = {
+                code: 200,
+                data: {
+                    dealing,
+                    completed
+                }
+            };
+        }
+
+
+        /**
+         * Get rate of events occurating time during some time
+         * @public
+         * @method EventsList#getEventRate
+         * @since 1.0.0
+         */
+        async getEventsRate() {
+
+            // get the limit time duration
+            const time = this.ctx.params.day;
+            
+            // set the duration time
+            const values = [];
+            switch(time.toLowerCase()) {
+                case 'week':
+                    values.push(7);
+                    break;
+                case 'month':
+                    values.push(30);
+                    break;
+                case '3month':
+                    values.push(90);
+                    break;
+                default:
+                    values.push(180);
+                    break;
+            }
+            
+            // get the count of bills during the limit time 
+            let str = `select count(transId) from bills where to_timestamp(ts) > now() - interval '$1 day'`;
+            let bills = this.app.db.query(str, values);
+            bills = bills[0] && bills[0].count || 0;
+
+            // get the count of events during the limit time
+            str = `select count(transId) from eventsList where to_timestamp(ts) > now() - interval '$1 day'`;
+            let events = this.app.db.query(str, values);
+            events = events[0] && events[0].count || 0;
+
+            this.ctx.body = {
+                code: 200,
+                data: {
+                    rate: events ? bills / events : 0
+                }
+            }
+        } 
+
+
+        /**
          * Get list of eventsList record
          * @public
          * @method EventsList#getEventListByStatus
@@ -114,7 +186,7 @@ module.exports = app => {
             const sysKey = this.ctx.params.sysKey;
 
             // get eventsList and price
-            const eventList = await this.service.eventsList.query({ sysKey }, ['transId', 'createAt', 'editResult', 'status',
+            const eventList = await this.service.eventsList.query({ sysKey }, ['transId', 'createAt', 'editResult', 'status', 'videoUrl',
             'comments', 'productName','cashierId', 'cashierName']);
             const price = await this.service.bills.query( { sysKey }, ['price']);
             eventList.price = price && price.price;
