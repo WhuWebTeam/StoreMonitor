@@ -66,8 +66,9 @@ window.onload = function()
               document.getElementById('date').innerHTML = dateFormat(results.data.createat);
               document.getElementById('status').innerHTML = pairs[results.data.status];
 
-              document.getElementById('Url').src =results.data.videourl;
-              document.getElementById('example_video_1').poster =results.data.pic1url;
+              console.log(results);
+              console.log(results.data.videourl);
+              document.getElementById("example_video_1").src = results.data.videourl;
 
               document.getElementById('Name').value = results.data.cashiername?results.data.cashiername:results.data.cashierid?results.data.cashierid:'pos机';
               document.getElementById("Name").disabled=true;
