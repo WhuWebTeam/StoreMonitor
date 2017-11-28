@@ -1,8 +1,10 @@
 window.onload = function(){
+
 	$.ajax({
 		url:'/api/v1/counters/notAssaigned',
 		type:'GET',
 		success:function(results){
+			var counters=[];
 			results = results.data;
 			if(results.length == 0){
 				var mes =document.createElement('p');
@@ -21,7 +23,10 @@ window.onload = function(){
 				btn.onclick = function(){
 					removeClass(this,'glyphicon-unchecked');
 					addClass(this,'glyphicon-ok');
-					
+					counters.push({
+						"id":results[i].id,
+						"type":results[i].type
+					});
 				}
 			}
 		}
@@ -31,8 +36,12 @@ window.onload = function(){
 	var submit = document.getElementById('confirm');
 	submit.onclick = function(){
 		$.ajax({
-
+			url:'/api/v1/counterUser/'+userId,
+			type:'POST',
+			data:{counters},
+			success:function(){
+				window.location = 'checker.html';
+			}
 		})
-		window.location = 'checker.html';
 	}
 }

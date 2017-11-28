@@ -84,7 +84,7 @@ window.onload = function(){
 
 					if(type == 1){
 						div.innerHTML =`
-								<p class="top"><span>${time}</span><span'>${results[i].transid}</span><span class="glyphicon ${glyphiconType}" aria-hidden="true"></span></p>
+								<p class="top"><span>${time}</span><span>${results[i].transid}</span><span class="glyphicon ${glyphiconType}" aria-hidden="true"></span></p>
 								
 								<p class="bottom"><span>${name}</span><span>款台: ${results[i].counterid}</span><span>结果:${results[i].editresult?results[i].editresult:' 暂无'}</span><button class = "btn btn-sm btn-primary">提交</button</p>
 						`;
