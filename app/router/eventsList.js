@@ -11,6 +11,8 @@ module.exports = app => {
     app.get('/api/v1/evensList/index', 'eventsList.index');
 
     app.get('/api/v1/eventsList/count', 'eventsList.getCount'); // get count of eventsList total, unconfirmed, confirmed
+    app.get('/api/v1/eventsList/dayCount', 'eventsList.getDayCount'); // get last day's count in dealing and completed (day: 'week', 'month', '3month', '6month')
+    app.get('/api/v1/eventsList/rate/:day', 'eventsList.getEventsRate'); // get the rate of events count during some time
     app.get('/api/v1/eventsList/list/:status', 'eventsList.getEventListByStatus'); // get list of eventList record by status
     app.get('/api/v1/eventsList/list/:status/:result', 'eventsList.getEventList'); // get list of eventList record by status and result used to filer
     app.get('/api/v1/eventsList/graph/:day', 'eventsList.getEventsListGraph'); // get statistics graph of eventsList (day: 'day', 'month', 'week')

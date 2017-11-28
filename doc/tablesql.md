@@ -72,7 +72,8 @@ CREATE TABLE public.counterUser
 (
     id serial primary key,
     userId varchar(50),
-    counterId varchar(50)
+    counterId varchar(50),
+    type varchar(50) default 'pos'
 )
 WITH (
   OIDS = FALSE
@@ -92,8 +93,9 @@ CREATE TABLE public.counters
 (
     id varchar(50) primary key,
     shopId varchar(50),
-    type varchar(50),
-    details varchar(500)
+    type varchar(50) default 'pos',
+    details varchar(500),
+    assigned boolean default false 
 )
 WITH (
   OIDS = FALSE

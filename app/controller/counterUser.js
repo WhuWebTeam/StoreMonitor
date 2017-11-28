@@ -71,31 +71,28 @@ module.exports = app => {
 
         }
 
-        // assign some counter specified by counter id to some user specified by userId
-        async assignCounter() {
-            const counterUser = this.ctx.request.body;
+        // assign some counter specified by counter id to some users specified by userId
+        async assignCounters() {
+            
+            // get userId and counterIds
+            const userId = this.ctx.params.userId;
+            const counters = this.ctx.request.body;
 
-            // userId doesn't exists
-            if (!await this.service.users.exists(counterUser.userId)) {
-                this.ctx.body = this.service.util.generateResponse(400, `staff doesn't exists`);
+
+            // counter assigned flag
+            let assigned = true;
+            for (const counter of counters) {
+                if (await this.service.counters.insert({ userId, counterId: counter.counterId, type: counterUser.type })) {
+                    assigned = false;
+                }
+            }
+
+            if (!assigned) {
+                this.ctx.body = this.service.util.generateResponse(403, 'assign some counters failed');
                 return;
             }
 
-            // counter doesn't exists
-            if (!await this.service.counters.exists(counterUser.counterId)) {
-                ths.ctx.body = this.service.util.generateResponse(400, `counter doesn't exists`);
-                return;
-            }
-
-            // counter has been assaigned 
-            if (!await this.service.counterUser.counterAssigned(counterId)) {
-                this.ctx.body = this.service.util.generateResponse(400, 'conuter has benn assigned');
-                return;
-            }
-
-
-            await this.service.dbHelp.insert('counterUser', counterUser);
-            this.ctx.body = this.service.generateResponse(200, `assign counter(${counterUser.counterId}) to user(${counterUser.userId}) successed`);
+            this.ctx.body = this.service.util.generateResponse(201, 'assigned counters successed');
         }
 
 
