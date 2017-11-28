@@ -30,7 +30,6 @@ window.onload = function()
           document.getElementById("Price").disabled=true;
           document.getElementById("Note").disabled=true;
           document.getElementById("mySelect").disabled=true;
-
           document.getElementById('btn').innerHTML = "返回";
               }
         }
@@ -70,15 +69,17 @@ window.onload = function()
               document.getElementById('example_video_1').poster =results.data.pic1url;
 
               document.getElementById('Name').value = results.data.cashiername?results.data.cashiername:results.data.cashierid?results.data.cashierid:'pos机';
+              document.getElementById("Name").disabled=true;
+              
               document.getElementById('Id').value = results.data.transid;
+              document.getElementById("Id").disabled=true;
+
 
               document.getElementById('Note').value = results.data.comments;
               document.getElementById('Prod_Name').value =results.data.productname;
               document.getElementById('Price').value = results.data.price;
 
               getResult(check_result);
-
-            
               }
           })
         }
@@ -92,42 +93,40 @@ window.onload = function()
               type:'GET',
               success:function(results){
 
-            if (results.data[0].name == check_result) {
-                document.getElementById('state1').innerHTML = check_result;
-                document.getElementById('state2').innerHTML = results.data[1].name;
-                document.getElementById('state3').innerHTML = results.data[2].name;
-                document.getElementById('state4').innerHTML = results.data[3].name;
-              }
+              //console.log(results);
+              //console.log(results.data.length); 需要显示的下拉列表的数目
+              //select select id ="mySelect" class="form-control">
+              //<option id ="state0"></option>
 
-            else if (results.data[1].name == check_result){
-                document.getElementById('state1').innerHTML = check_result;
-                document.getElementById('state2').innerHTML = results.data[0].name;
-                document.getElementById('state3').innerHTML = results.data[2].name;
-                document.getElementById('state4').innerHTML = results.data[3].name;
-                  }
-
-            else if (results.data[2].name == check_result ){ 
-                document.getElementById('state1').innerHTML = check_result;
-                document.getElementById('state2').innerHTML = results.data[0].name;
-                document.getElementById('state3').innerHTML = results.data[1].name;
-                document.getElementById('state4').innerHTML = results.data[3].name;
-                  }
-
-            else if (results.data[3].name == check_result) {
-                document.getElementById('state1').innerHTML = check_result;
-                document.getElementById('state2').innerHTML = results.data[0].name;
-                document.getElementById('state3').innerHTML = results.data[1].name;
-                document.getElementById('state4').innerHTML = results.data[2].name;
-                  }
-            else{
-                document.getElementById('state1').innerHTML = results.data[0].name;
-                document.getElementById('state2').innerHTML = results.data[1].name;
-                document.getElementById('state3').innerHTML = results.data[2].name;
-                document.getElementById('state4').innerHTML = results.data[3].name;
-              }
+            for (var i = 0; i < results.data.length; i++) {
+              var mes =document.createElement('option');
+              mes.setAttribute('id','state'+i.toString() );
+              mes.innerHTML = results.data[i].name;
+              document.getElementById('mySelect').appendChild(mes);
             }
-            })
+
+            for(var num = 0 ;num < results.data.length; num++){
+                var temp = 'state' + num.toString();          
+                document.getElementById(temp.toString()).innerHTML= '';
+                //results.data[num].name;
+            }
+
+            for(var num = 0 ;num < results.data.length ; num++){
+                if (results.data[num].name == check_result){
+                    var tt = results.data[0].name ;
+                    results.data[0].name = results.data[num].name; 
+                    results.data[num].name = tt ;
+                }
+            }
+            
+            for(var num = 0 ;num < results.data.length; num++){
+                var temp = 'state' + num.toString();          
+                document.getElementById(temp.toString()).innerHTML= results.data[num].name;
+            }
+            
           }
+        })
+      }
       
         getUrl();
         getStatus(status);
@@ -136,12 +135,13 @@ window.onload = function()
 
   function submit(){
 
-      var ss = $("#mySelect option:selected").text(); 
- 
+        var ss = $("#mySelect option:selected").text(); 
         var editResult = ss ;
         var comments = document.getElementById('Note').value ;
+
         var productName = document.getElementById('Prod_Name').value ;
         var price = document.getElementById('Price').value ;
+
         if(status == 2){
           window.location='checker.html?listType=2';
         }else{

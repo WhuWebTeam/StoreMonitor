@@ -1,14 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="utf-8"> <title>test</title>
+	<meta charset="utf-8"> <title>事件详情</title>
     <meta name="viewport" content="width=device-width initial-scale=1.0">
     <!-- Bootstratep -->
     <link rel="stylesheet" type="text/css" href="bootstrap-3.3.7-dist/css/bootstrap.min.css">
-    <link href="./css/details.css" rel="stylesheet" type="text/css"/> 
-
-  
-    
+    <link href="./css/details.css" rel="stylesheet" type="text/css"/>     
 </head>
 <body>
 
@@ -51,17 +48,18 @@
 		</div>
 	</form>
 
-
 	<form class="form-horizontal container " role="form">
 	<div class="form-group">
 		<label class="col-xs-3 control-label col-xs-9">审核结论</label>
 			<div class="col-xs-9">
 				<form role="form">
 				<select select id ="mySelect" class="form-control">
+				<!--
+					<option id ="state0"></option>
 					<option id ="state1"></option>
 					<option id ="state2"></option>
 					<option id ="state3"></option>
-					<option id ="state4"></option>
+				-->
 				</select>
 			</form>
 		</div>
@@ -73,7 +71,7 @@
 			<label  class="col-xs-3 control-label col-xs-9">备注</label>
 			<div class="col-xs-9">
 				<input type="text" class="form-control" id="Note" 
-					   placeholder="备注" value="">
+					   placeholder="备注" required="required"  value="">
 			</div>
 		</div>
 
@@ -105,6 +103,10 @@
 		 <button id="btn" class="btn btn-primary btn-lg" onclick="submit()">保存</button>
 	</div>
 
+<script >
+ //document.getElementById("Url").src ="file:///test/test.mp4";
+ //alert(document.getElementById("Url").src);
+</script>
 
 <script type="text/javascript" src="bootstrap-3.3.7-dist/jquery/jquery.min.js"></script>
 <script type="text/javascript" src="bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
