@@ -19,6 +19,7 @@
 		</tbody>
 	</table>
 
+<<<<<<< HEAD
 	<div class="panel panel-default container">
 	    <div class="panel-body">
 			<video id="example_video_1" class="video-js vjs-default-skin .img-responsive " controls preload="none" width="100%" height="100%"
@@ -27,6 +28,26 @@
 	    	<track kind="captions" src="demo.captions.vtt" srclang="en" label="English"></track><!-- Tracks need an ending tag thanks to IE9 -->
 	    	<track kind="details.html?id=137661511781978384&status=1subtitles" src="demo.captions.vtt" srclang="en" label="English"></track><!-- Tracks need an ending tag thanks to IE9 -->
 			</video>
+=======
+<div class="panel panel-default">
+    <div class="panel-body">
+		<video id="example_video_1" class="video-js vjs-default-skin .img-responsive " controls preload="none" width="100%" height="400px"
+		poster="" 
+      data-setup="{}">
+    	<source id="Url" src="" type='video/mp4'>
+    	<track kind="captions" src="demo.captions.vtt" srclang="en" label="English"></track><!-- Tracks need an ending tag thanks to IE9 -->
+    	<track kind="subtitles" src="demo.captions.vtt" srclang="en" label="English"></track><!-- Tracks need an ending tag thanks to IE9 -->
+		</video>
+	</div>
+</div>
+
+<form class="form-horizontal" role="form">
+	<div class="form-group">
+		<label class="col-xs-3 control-label col-xs-9">收银员</label>
+		<div class="col-xs-9">	
+			<input type="text"class="form-control " id="Name" 
+				   placeholder="收银员" value="" >
+>>>>>>> a82f0d657ad7e2eab5d0e98f32217776548423ee
 		</div>
 	</div>
 
@@ -39,6 +60,7 @@
 			</div>
 		</div>
 
+<<<<<<< HEAD
 		<div class="form-group">
 			<label class="col-xs-3 control-label col-xs-9">交易单号</label>
 			<div class="col-xs-9">
@@ -47,6 +69,23 @@
 			</div>
 		</div>
 	</form>
+=======
+<form class="form-horizontal" role="form">
+<div class="form-group">
+	<label class="col-xs-3 control-label col-xs-9">审核结论</label>
+		<div class="col-xs-9">
+			<form role="form" id = "state">
+			<select class="form-control" >
+				<option id="state1" value="">1</option>
+				<option id ="state2" value="">2</option>
+				<option id ="state3" value="">3</option>
+				<option id ="state4" value="">4</option>
+			</select>
+		</form>
+	</div>
+</div>
+</form>
+>>>>>>> a82f0d657ad7e2eab5d0e98f32217776548423ee
 
 	<form class="form-horizontal container " role="form">
 	<div class="form-group">
@@ -109,3 +148,4 @@
 <script type="text/javascript" src="js/details.js"></script>
 </body>
 </html>
+ 
