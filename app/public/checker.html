@@ -9,9 +9,20 @@
 </head>
 <body>
 	<p id="title">
+		<span id="set" class="glyphicon glyphicon-list"></span>
 		防损复核
-		<button id="counter" class="btn btn-info btn-xs">关联款台</button>
+		<!-- <button id="counter" class="btn btn-info btn-xs">关联款台</button> -->
 	</p>
+
+	<div id="counter" style="display: none">
+		<ul>
+			<li id="myCounter">我的款台</li>
+			<li id="addCounter">新增款台</li>
+			<li id="retryCounter">解除款台</li>
+			<li id="oneKeyRetry">一键解除</li>
+		</ul>
+	</div>
+
 	<div id="event">
 		<p id="left">
 			<span></span>
@@ -44,7 +55,7 @@
 	<script src="js/libs/echarts.js"></script>
 	<script type="text/javascript" src="js/func.js"></script>
 	<script type="text/javascript" src="js/checker.js"></script>
-
+	<script type="text/javascript" src="js/set.js"></script>
 
 	
 	
