@@ -3,7 +3,6 @@ module.exports = app => {
 
         // Home page
         async home() {
-            console.log(this.app.config.time);
             this.ctx.redirect('/public/checker.html');
         }
 
@@ -14,18 +13,18 @@ module.exports = app => {
             // get wu mei user's info about authority and exists or not
             const userId = this.ctx.params.userId;
             let level = await this.service.userswm.query({ wmUserId: userId }, ['wmUserLvl']);
-            level = level && +level.wmuserlvl;
+            level = level && +level.wmuserlvl || 1;
 
             // wu mei user is manager
             if (level === this.app.config.userLevel.manager) {
-                
                 const assigned = await this.service.counterUser.count({ userId }, ['id']);
-                if (!assigned) {
+                if (assigned) {
                     this.ctx.redirect(`/public/checker.html?userId=${userId}`);
                     return;
                 }
 
                 this.ctx.redirect(`/public/checkout.html?userId=${userId}`);
+                return;
             }
 
             // wu mei user is store manager
@@ -42,10 +41,10 @@ module.exports = app => {
         // Clear all  record in database
         async clear() {
             const tables = [
-                'users', 'authorities', 'counterUser', 'counters', 'shops', 'areas', 'products', 'customers', 
+                'users', 'authorities', 'counterUser', 'counters', 'shops', 'areas', 'products', 'customers',
                 'cashiers', 'bills', 'eventsList', 'cashierSalesInfo', 'customerSalesInfo', 'productSalesInfo'
             ];
-            
+
             tables.map(async table => {
                 const str = `delete from ${table}`;
 
