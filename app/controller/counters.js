@@ -28,11 +28,15 @@ module.exports = app => {
                         inner join counterUser cu on c.id = cu.counterId
                         where cu.userId =  $1`;
 
-            const counters = await this.app.db.query(str, [user]);
-            this.ctx.body = {
-                code: 200,
-                data: counters
-            };
+            try {
+                const counters = await this.app.db.query(str, [user]);
+                this.ctx.body = {
+                    code: 200,
+                    data: counters
+                };
+            } catch (err) {
+                this.ctx.body = this.service.util.generateResponse(400, 'get mycounter info failed');
+            }
         }
 
 
