@@ -24,7 +24,8 @@ module.exports = app => {
                 id: undefined,
                 shopId: undefined,
                 type: undefined,
-                details: undefined
+                details: undefined,
+                assigned: undefined
             };
         }
 
@@ -135,10 +136,10 @@ module.exports = app => {
          * @since 1.0.0
          */
         async insert(counter) {
-
+            
             // format counter record's attributes
             counter = this.service.util.setTableValue(this.table, counter);
-
+            
             // counter.id doesn't exist
             if (!counter.id) {
                 return false;
