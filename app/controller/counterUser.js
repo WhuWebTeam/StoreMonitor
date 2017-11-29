@@ -45,7 +45,6 @@ module.exports = app => {
             const counters = this.ctx.request.body;
     
             let retrive = true;
-
             for (const counter of counters.counters) {
                 if (!await this.service.counterUser.delete({ userId, counterId: counter.counterId }) 
                     || await this.service.counters.update({ assigned: false}, { id: counter.counterId})) {
@@ -55,11 +54,11 @@ module.exports = app => {
 
             // retrive some counter failed
             if (!retrive) {
-                this.service.util.generateResponse(404, 'retrive some counter failed');
+                this.ctx.body = this.service.util.generateResponse(404, 'retrive some counter failed');
                 return;
             }
 
-            this.service.util.generateResponse(204, 'retrivw counter successed');
+            this.ctx.body = this.service.util.generateResponse(204, 'retrivw counter successed');
         }
 
 
