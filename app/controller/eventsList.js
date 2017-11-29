@@ -189,9 +189,7 @@ module.exports = app => {
             const eventList = await this.service.eventsList.query({ sysKey }, ['transId', 'createAt', 'editResult', 'status', 'videoUrl',
             'comments', 'productName','cashierId', 'cashierName']);
             const price = await this.service.bills.query( { sysKey }, ['price']);
-            console.log(price);
             eventList.price = price && price.price || 0;
-            console.log(eventList);
 
             this.ctx.body = {
                 code: 200,
