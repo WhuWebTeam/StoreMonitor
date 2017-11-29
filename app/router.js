@@ -9,17 +9,10 @@
 /** router */
 module.exports = app => {
 
-    // home page
-    app.get('/', 'index.home');
-
-    // clear database
-    app.delete('/database', 'index.clear');
-
-    app.get('/database', 'index.pgTest');
-    app.get('/log', 'index.logTest');
-
+    // url test instance
     require('./router/test')(app);
 
+    require('./router/index')(app); 
     require('./router/users')(app);               //
     require('./router/userswm')(app);             //
     require('./router/areas')(app);               //

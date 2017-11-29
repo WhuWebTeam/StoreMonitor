@@ -44,7 +44,7 @@ module.exports = app => {
         async exists(wmUserId) {
 
             // parameter doesn't exist
-            if (!this.service.util.parameterExists(id)) {
+            if (!this.service.util.parameterExists(wmUserId)) {
                 return false;
             }
 
