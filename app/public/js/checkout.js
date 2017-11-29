@@ -1,10 +1,13 @@
 window.onload = function(){
+	// 192.168.216.131:7001/api/v1/wmHomePage/1
+	const userId = getSearchString('userId');
 
 	$.ajax({
 		url:'/api/v1/counters/notAssaigned',
 		type:'GET',
 		success:function(results){
 			var counters=[];
+			var isClick=[];
 			results = results.data;
 			if(results.length == 0){
 				var mes =document.createElement('p');
@@ -20,28 +23,39 @@ window.onload = function(){
 				p.innerHTML = `款台:<span id='num'>${num}</span><button class="glyphicon glyphicon-unchecked"></button>`;
 				document.getElementById('list').appendChild(p);
 				var btn = p.getElementsByTagName('button')[0];
+				isClick[i]=false;
 				btn.onclick = function(){
-					removeClass(this,'glyphicon-unchecked');
-					addClass(this,'glyphicon-ok');
-					counters.push({
-						"id":results[i].id,
-						"type":results[i].type
-					});
+					if(!isClick[i]){
+						removeClass(this,'glyphicon-unchecked');
+						addClass(this,'glyphicon-ok');
+						counters.push({
+							"counterId":results[i].id,
+							"type":results[i].type
+						});
+					}else{
+						removeClass(this,'glyphicon-ok');
+						addClass(this,'glyphicon-unchecked');
+						counters.pop();
+					}
+					isClick[i] = !isClick[i];
 				}
+			}
+
+
+			var submit = document.getElementById('confirm');
+			submit.onclick = function(){
+				$.ajax({
+					url:'/api/v1/counterUser/'+userId,
+					type:'POST',
+					data:{counters},
+					success:function(){
+						window.location = 'checker.html?userId'+userId;
+					}
+				})
 			}
 		}
 	})
 
 
-	var submit = document.getElementById('confirm');
-	submit.onclick = function(){
-		$.ajax({
-			url:'/api/v1/counterUser/'+userId,
-			type:'POST',
-			data:{counters},
-			success:function(){
-				window.location = 'checker.html';
-			}
-		})
-	}
+
 }
