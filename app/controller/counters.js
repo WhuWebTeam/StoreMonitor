@@ -12,17 +12,27 @@ module.exports = app => {
         }
 
 
-        // get info of counters
-        async getCounters() {
-            this.ctx.body = await this.service.counters.query({});
-        }
+        // get counters info assigned to some user
+        async getMyCounter() {
 
+            // get userId
+            const user = this.ctx.params.userId;
+            // console.log(user);
 
-        // get info of some counter specified by id, type, shopId or details
-        async getCounter() {
-            const counter = this.ctx.request.body;
+            if (!await this.service.userswm.exists(user)) {
+                this.ctx.body = this.service.util.generateResponse(400, `user doesn't exists`);
+                return;
+            }
 
-            this.ctx.body = await this.service.counters.query(counter);
+            const str = `select c.id, shopId, c.type from counters c
+                        inner join counterUser cu on c.id = cu.counterId
+                        where cu.userId =  $1`;
+
+            const counters = await this.app.db.query(str, [user]);
+            this.ctx.body = {
+                code: 200,
+                data: counters
+            };
         }
 
 
