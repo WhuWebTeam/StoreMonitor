@@ -41,12 +41,51 @@ module.exports = app => {
         // retrieve some counters from some user
         async retrieveCounters() {
 
+            const userId = this.ctx.params.userId;
+            const counters = this.ctx.request.body;
+    
+            let retrive = true;
+            for (const counter of counters.counters) {
+                if (!await this.service.counterUser.delete({ userId, counterId: counter.counterId }) 
+                    || await this.service.counters.update({ assigned: false}, { id: counter.counterId})) {
+                    retrive = false;
+                }
+            }
+
+            // retrive some counter failed
+            if (!retrive) {
+                this.ctx.body = this.service.util.generateResponse(404, 'retrive some counter failed');
+                return;
+            }
+
+            this.ctx.body = this.service.util.generateResponse(204, 'retrivw counter successed');
         }
+
 
         // retrive some users' all counters
         async oneKeyRetrive() {
 
-            // get the users 
+            // get the user's id
+            const user = this.ctx.params.userId;
+
+            // set counters' status of this user
+            let str = `update counters c set assigned = false
+                        where c.id in(
+                            select counterId from counterUser where userId = $1)`;
+
+            try {
+                await this.app.db.query(str, [user]);
+
+                // retrive counters from some user
+                if (!await this.service.counterUser.delete({ userId: user })) {
+                    this.ctx.body = this.service.util.generateResponse(404, 'delete counterUser record failed');
+                    return;
+                }
+
+                this.ctx.body = this.service.util.generateResponse(204, 'delete counterUser record successed');
+            } catch (err) {
+                this.ctx.body = this.service.util.generateResponse(203, 'set assigned status of counters assigned to some user failed');
+            }
         }
     }
 

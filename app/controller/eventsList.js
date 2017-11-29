@@ -45,24 +45,28 @@ module.exports = app => {
                             select counterId, status, createAt
                             from eventsList) e on e.counterId = cu.counterId
                         where e.status = $2 and to_timestamp(e.createAt) > now() - interval $3`;
+                        
+            try {
+                let working = await this.app.db.query(str, [userId, 0, during]);
+                working = working[0] && +working[0].count || 0;
 
-            let working = await this.app.db.query(str, [userId, 0, during]);
-            working = working[0] && +working[0].count || 0;
+                let store = await this.app.db.query(str, [userId, 1, during]);
+                store = store[0] && +store[0].count || 0;
 
-            let store = await this.app.db.query(str, [userId, 1, during]);
-            store = store[0] && +store[0].count || 0;
-
-            let commit = await this.app.db.query(str, [userId, 2, during]);
-            commit = commit[0] && +commit[0].count || 0;
-        
-            this.ctx.body = {
-                code: 200,
-                data: {
-                    working,
-                    store,
-                    commit
-                }
-            };
+                let commit = await this.app.db.query(str, [userId, 2, during]);
+                commit = commit[0] && +commit[0].count || 0;
+            
+                this.ctx.body = {
+                    code: 200,
+                    data: {
+                        working,
+                        store,
+                        commit
+                    }
+                };
+            } catch(err) {
+                this.ctx.body = this.service.util.generateResponse(400, `get user's count statistics failed`);
+            }
         }
 
 
@@ -79,15 +83,20 @@ module.exports = app => {
             
             // get count of events completed the last day
             const str = `select count(distinct sysKey) from eventTAT where type = 2 and to_timestamp(actionTime) > now() - interval '1 d'`;
-            const completed = await this.app.db.query(str, []);
 
-            this.ctx.body = {
-                code: 200,
-                data: {
-                    dealing,
-                    completed
-                }
-            };
+            try {
+                const completed = await this.app.db.query(str, []);
+
+                this.ctx.body = {
+                    code: 200,
+                    data: {
+                        dealing,
+                        completed
+                    }
+                };
+            } catch(err) {
+                this.ctx.body = this.service.util.generateResponse(400, 'get count statisitc of today failed');
+            }
         }
 
 
@@ -118,22 +127,26 @@ module.exports = app => {
                     values.push(180);
                     break;
             }
-            
-            // get the count of bills during the limit time 
-            let str = `select count(transId) from bills where to_timestamp(ts) > now() - interval '$1 day'`;
-            let bills = this.app.db.query(str, values);
-            bills = bills[0] && bills[0].count || 0;
 
-            // get the count of events during the limit time
-            str = `select count(transId) from eventsList where to_timestamp(ts) > now() - interval '$1 day'`;
-            let events = this.app.db.query(str, values);
-            events = events[0] && events[0].count || 0;
+            try {
+                // get the count of bills during the limit time 
+                let str = `select count(transId) from bills where to_timestamp(ts) > now() - interval '$1 day'`;
+                let bills = this.app.db.query(str, values);
+                bills = bills[0] && bills[0].count || 0;
 
-            this.ctx.body = {
-                code: 200,
-                data: {
-                    rate: events ? bills / events : 0
+                // get the count of events during the limit time
+                str = `select count(transId) from eventsList where to_timestamp(ts) > now() - interval '$1 day'`;
+                let events = this.app.db.query(str, values);
+                events = events[0] && events[0].count || 0;
+
+                this.ctx.body = {
+                    code: 200,
+                    data: {
+                        rate: events ? bills / events : 0
+                    }
                 }
+            } catch(err) {
+                this.ctx.body = this.service.util.generateResponse(400, 'get events rate failed');
             }
         } 
 
@@ -155,12 +168,15 @@ module.exports = app => {
                         inner join counterUser cu on cu.counterId = e.counterId
                         where cu.userId = $1 and to_timestamp(createAt) > now() - interval $2 and status = $3`;
 
-
-            let eventsList = await this.app.db.query(str, [userId, during, status]);
-            this.ctx.body = {
-                code: 200,
-                data: eventsList
-            };
+            try {
+                let eventsList = await this.app.db.query(str, [userId, during, status]);
+                this.ctx.body = {
+                    code: 200,
+                    data: eventsList
+                };
+            } catch(err) {
+                this.ctx.body = this.service.util.generateResponse(400, 'get info of events count in some condition failed');
+            }
         }
 
 
