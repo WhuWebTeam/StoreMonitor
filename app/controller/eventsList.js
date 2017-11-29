@@ -32,10 +32,29 @@ module.exports = app => {
          */
         async getCount() {
 
-            const working = await this.service.eventsList.count({ status: 0 }, ['id']);
-            const store = await this.service.eventsList.count({ status: 1 }, ['id']);
-            const commit = await this.service.eventsList.count({ status: 2 }, ['id']);
+            // get user's register code
+            const userId = this.ctx.params.userId;
+            const during = this.app.config.time.graphShowTime;
 
+            const str = `select count(cu.counterId)
+                        from (
+                            select counterId
+                            from counterUser
+                            where userId = $1) cu
+                        inner join (
+                            select counterId, status, createAt
+                            from eventsList) e on e.counterId = cu.counterId
+                        where e.status = $2 and to_timestamp(e.createAt) > now() - interval $3`;
+
+            let working = await this.app.db.query(str, [userId, 0, during]);
+            working = working[0] && +working[0].count || 0;
+
+            let store = await this.app.db.query(str, [userId, 1, during]);
+            store = store[0] && +store[0].count || 0;
+
+            let commit = await this.app.db.query(str, [userId, 2, during]);
+            commit = commit[0] && +commit[0].count || 0;
+        
             this.ctx.body = {
                 code: 200,
                 data: {
@@ -127,10 +146,17 @@ module.exports = app => {
          */
         async getEventListByStatus() {
 
+            const userId = this.ctx.params.userId;
             const status = +this.ctx.params.status || 0;
+            const during = this.app.config.time.graphShowTime;
 
-            const eventsList = await this.service.eventsList.query({ status }, ['sysKey', 'cashierId', 'cashierName',
-                'counterId', 'counterType', 'transId', 'createAt', 'editResult']);
+            const str = `select sysKey, cashierId, cashierName, e.counterId, counterType, transId, createAt, editResult
+                        from eventsList e
+                        inner join counterUser cu on cu.counterId = e.counterId
+                        where cu.userId = $1 and to_timestamp(createAt) > now() - interval $2 and status = $3`;
+
+
+            let eventsList = await this.app.db.query(str, [userId, during, status]);
             this.ctx.body = {
                 code: 200,
                 data: eventsList

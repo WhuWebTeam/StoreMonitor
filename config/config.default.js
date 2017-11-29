@@ -132,6 +132,16 @@ module.exports = appInfo => {
         districtManage: 3
     };
 
+    
+    /**
+     * Default Time config
+     * @member {Object} Config#time
+     * @property {String} time.graphShowTime - front-end's graph show time
+     * @since 1.0.0
+     */
+    Config.time = {
+        graphShowTime: '6 m',
+    }
 
     return Config;
 }

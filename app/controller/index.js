@@ -3,6 +3,7 @@ module.exports = app => {
 
         // Home page
         async home() {
+            console.log(this.app.config.time);
             this.ctx.redirect('/public/checker.html');
         }
 
