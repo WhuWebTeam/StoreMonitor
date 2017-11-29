@@ -1,5 +1,5 @@
 window.onload = function(){
-	// 192.168.216.132:7001/api/v1/wmHomePage/1
+	// 192.168.216.132:7001/api/v1/wmHomePage/2
 	const userId = getSearchString('userId');
 
 	$.ajax({

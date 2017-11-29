@@ -16,7 +16,7 @@
 	#set{
 		position: absolute;
 		top: 5px;
-		left: 10px;
+		right: 10px;
 	}
 	#title{
 		background-color: #578;
@@ -135,17 +135,18 @@
 	}
 	ul li{
 		background-color: #E0F2F7;
-		width: 30%;
 		height: 30px;
 		line-height: 30px;
 		border:1px solid #7b5252;
 		font-size: 1.2em;
 		text-align: center;
+		list-style-type: none;
 	}
 	#counter{
 		z-index: 100;
+		width: 30%;
+		right: 0px;
 		position: absolute; 
-		width:100%;
 	}
 }
 	
