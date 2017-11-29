@@ -13,10 +13,10 @@
 		width: 100%;
 		background-color: #b94747;
 	}
-	#counter{
+	#set{
 		position: absolute;
 		top: 5px;
-		right: 10px;
+		left: 10px;
 	}
 	#title{
 		background-color: #578;
@@ -132,6 +132,20 @@
 		width: 30%;
 		text-align: left;
 		white-space:nowrap;
+	}
+	ul li{
+		background-color: #E0F2F7;
+		width: 30%;
+		height: 30px;
+		line-height: 30px;
+		border:1px solid #7b5252;
+		font-size: 1.2em;
+		text-align: center;
+	}
+	#counter{
+		z-index: 100;
+		position: absolute; 
+		width:100%;
 	}
 }
 	

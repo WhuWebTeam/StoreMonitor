@@ -4,10 +4,10 @@ window.onload = function(){
 	const userId = getSearchString('userId');
 
 
-	var btn = document.getElementById('counter');
-	btn.onclick = function(){
-		window.location = 'checkout.html?userId'=userId;
-	}
+	// var btn = document.getElementById('counter');
+	// btn.onclick = function(){
+	// 	window.location = 'checkout.html?userId='+userId;
+	// }
 
 	/* get num of events */
 	function getNum(){
@@ -104,7 +104,7 @@ window.onload = function(){
 									
 								}
 							})
-							window.location = `details.html?id=${sys}&status=${type}`;
+							window.location = `details.html?syskey=${sys}&status=${type}&userId=${userId}`;
 						}
 					}(syskey);	
 

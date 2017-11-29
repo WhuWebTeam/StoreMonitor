@@ -49,7 +49,7 @@ window.onload = function(){
 					type:'POST',
 					data:{counters},
 					success:function(){
-						window.location = 'checker.html?userId'+userId;
+						window.location = 'checker.html?userId='+userId;
 					}
 				})
 			}
