@@ -1,9 +1,8 @@
+const listType = getSearchString('listType');
+const userId = getSearchString('userId');
+
 window.onload = function(){
 	
-	const listType = getSearchString('listType');
-	const userId = getSearchString('userId');
-
-
 	// var btn = document.getElementById('counter');
 	// btn.onclick = function(){
 	// 	window.location = 'checkout.html?userId='+userId;
