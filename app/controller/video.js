@@ -15,7 +15,6 @@ module.exports = app => {
         // get data from DVA system
         async getDVAData() {
             const DVA = this.ctx.request.body;
-            console.log(DVA);
 
             /* parse DVA data and store them to database */
             // format counter
@@ -85,7 +84,6 @@ module.exports = app => {
                 bill.counterId = DVA.RegID || '0000000000';
                 bill.productId = billEle.Sku || '0000000000';
                 bill.cashierId = DVA.CashierID || '0000000000';
-                bill.sysKey = DVA.TransID + billEle.Ts;
                 if (!await this.service.bills.insert(bill)) {
                     await this.service.logger.logDefault('error', `bill(${bill}) exists`);
                 } else {

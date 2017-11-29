@@ -22,6 +22,9 @@ window.onload = function()
 
 // get syskey &status
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> master
 
         function getStatus(status)
         {
@@ -98,10 +101,13 @@ window.onload = function()
               document.getElementById('status').innerHTML = pairs[results.data.status];
               
               document.getElementById("example_video_1").src = results.data.videourl;
+<<<<<<< HEAD
 =======
               document.getElementById('Url').src =results.data.videourl;
               document.getElementById('example_video_1').poster =results.data.pic1url;
 >>>>>>> a82f0d657ad7e2eab5d0e98f32217776548423ee
+=======
+>>>>>>> master
 
               document.getElementById('Name').value = results.data.cashiername?results.data.cashiername:results.data.cashierid?results.data.cashierid:'pos机';
               document.getElementById("Name").disabled=true;
@@ -137,6 +143,7 @@ window.onload = function()
               mes.setAttribute('id','state'+i.toString() );
               mes.innerHTML = results.data[i].name;
               document.getElementById('mySelect').appendChild(mes);
+<<<<<<< HEAD
             }
 
             for(var num = 0 ;num < results.data.length; num++){
@@ -152,6 +159,23 @@ window.onload = function()
                     results.data[num].name = tt ;
                 }
             }
+=======
+            }
+
+            for(var num = 0 ;num < results.data.length; num++){
+                var temp = 'state' + num.toString();          
+                document.getElementById(temp.toString()).innerHTML= '';
+                //results.data[num].name;
+            }
+
+            for(var num = 0 ;num < results.data.length ; num++){
+                if (results.data[num].name == check_result){
+                    var tt = results.data[0].name ;
+                    results.data[0].name = results.data[num].name; 
+                    results.data[num].name = tt ;
+                }
+            }
+>>>>>>> master
             
             for(var num = 0 ;num < results.data.length; num++){
                 var temp = 'state' + num.toString();          
@@ -166,6 +190,9 @@ window.onload = function()
         getStatus(status);
         getNum();
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> master
   
   }
 
@@ -213,6 +240,7 @@ window.onload = function()
           else  alert("请正确填写金额");
         }
       }
+<<<<<<< HEAD
   }
 =======
         getResult();
@@ -258,3 +286,6 @@ window.onload = function()
   // }
   */
 >>>>>>> a82f0d657ad7e2eab5d0e98f32217776548423ee
+=======
+  }
+>>>>>>> master

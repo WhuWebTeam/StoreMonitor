@@ -176,9 +176,10 @@ module.exports = app => {
          */
         async insert(counterUser) {
 
+            console.log(counterUser);
             // format counterUser's attributes
             counterUser = this.service.util.setTableValue(this.table, counterUser);
-
+            console.log(counterUser);
 
             // counterUser.counterId and countrUser.userId doesn't exist
             if (!counterUser.userId || !counterUser.counterId) {

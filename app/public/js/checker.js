@@ -8,7 +8,7 @@ window.onload = function(){
 
 	var btn = document.getElementById('counter');
 	btn.onclick = function(){
-		window.location = 'checkout.html'
+		window.location = 'checkout.html';
 	}
 
 	/* get num of events */
@@ -84,15 +84,15 @@ window.onload = function(){
 
 					if(type == 1){
 						div.innerHTML =`
-								<p class="top"><span class='a'>${time}</span><span class='b'>${results[i].transid}</span><span class="glyphicon ${glyphiconType} c" aria-hidden="true"></span></p>
+								<p class="top"><span>${time}</span><span>${results[i].transid}</span><span class="glyphicon ${glyphiconType}" aria-hidden="true"></span></p>
 								
-								<p class="bottom"><span class='a'>${name}</span><span class='b'>款台: ${results[i].counterid}</span><span class='c'>结果:${results[i].editresult?results[i].editresult:' 暂无'}</span><button class = "btn btn-sm btn-primary">提交</button</p>
+								<p class="bottom"><span>${name}</span><span>款台: ${results[i].counterid}</span><span>结果:${results[i].editresult?results[i].editresult:' 暂无'}</span><button class = "btn btn-sm btn-primary">提交</button</p>
 						`;
 					}else{
 						div.innerHTML =`
-								<p class="top"><span class='a'>${time}</span><span class='b'>${results[i].transid}</span><span class="glyphicon ${glyphiconType} c" aria-hidden="true"></span></p>
+								<p class="top"><span>${time}</span><span>${results[i].transid}</span><span class="glyphicon ${glyphiconType}" aria-hidden="true"></span></p>
 
-								<p class="bottom"><span class='a'>${name}</span><span class='b'>款台: ${results[i].counterid}</span><span class='c'>结果:${results[i].editresult?results[i].editresult:' 暂无'}</span></p>
+								<p class="bottom"><span>${name}</span><span>款台: ${results[i].counterid}</span><span>结果:${results[i].editresult?results[i].editresult:' 暂无'}</span></p>
 						`;
 					}
 					

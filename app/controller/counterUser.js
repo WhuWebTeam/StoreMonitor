@@ -81,12 +81,12 @@ module.exports = app => {
 
             // counter assigned flag
             let assigned = true;
-            for (const counter of counters) {
-                if (await this.service.counters.insert({ userId, counterId: counter.counterId, type: counterUser.type })) {
+            for (const counter of counters.counters) {
+                if (!await this.service.counterUser.insert({ userId, counterId: counter.counterId, type: counter.type })) {
                     assigned = false;
                 }
 
-                await this.service.counters.update({ assigned: true }, { id: counterId });
+                await this.service.counters.update({ assigned: true }, { id: counter.counterId });
             }
 
             if (!assigned) {

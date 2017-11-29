@@ -11,25 +11,38 @@ module.exports = app => {
     // app.delete('/api/v1/counterUser/:userId', 'counterUser.retrieveCounters'); //  retrieve some counters specified by counterId from users specified by userId
 }
 
-    // get assigned info condition query
-    // app.post('/api/v1/counterUser', 'counterUser.getCounterUser');
-    // one or more attributes of the following object
-    // {
-    //     id,
-    //     counterId,
-    //     userId,
-    //     type   
-    // }
 
-    // assign some counter specified by counterId to some user specified by userId
-    // app.post('/api/v1/counterUser/:userId/:counterId', 'counterUser.assignCounter');
-    // counterId and userId must exists
-    // {
-    //     counterId,
-    //     userId,
-    //     type   
-    // }
+
+// get assigned info condition query
+// app.post('/api/v1/counterUser', 'counterUser.getCounterUser');
+// one or more attributes of the following object
+// {
+//     id,
+//     counterId,
+//     userId,
+//     type   
+// }
+
+
+
+//app.post('/api/v1/counterUser/:userId', 'counterUser.assignCounters'); // assign some counter specified by counterId to some user specified by userId
+// 
+// {
+//     counters: 
+//     [
+//         {
+//             counterId,
+//             type,
+//         },
+//         {
+//             counterId,
+//             type
+//         }
+//     ]
+// }    
+
+
 
     
-    // retrieve some counter specified by counterId from user specified by userId
-    // app.delete('/api/v1/counterUser/:userId/:counterId', 'counterUser.retrieveCounter');
+//retrieve some counter specified by counterId from user specified by userId
+//app.delete('/api/v1/counterUser/:userId/:counterId', 'counterUser.retrieveCounter');

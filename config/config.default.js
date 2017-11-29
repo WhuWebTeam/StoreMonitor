@@ -117,5 +117,31 @@ module.exports = appInfo => {
         }
     };
 
+    
+    /**
+     * level of wmuser
+     * @member {Object} Config#userLevel
+     * @property {Number} userLevel.manager - manager level
+     * @property {Number} userLevel.storeManager - storeManager level
+     * @property {NNumber} userLevel.districtManager -districtManager level
+     * @since 1.0.0
+     */
+    Config.userLevel = {
+        manager: 1,
+        storeManager: 2,
+        districtManage: 3
+    };
+
+    
+    /**
+     * Default Time config
+     * @member {Object} Config#time
+     * @property {String} time.graphShowTime - front-end's graph show time
+     * @since 1.0.0
+     */
+    Config.time = {
+        graphShowTime: '6 m',
+    }
+
     return Config;
 }
