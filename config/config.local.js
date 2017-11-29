@@ -53,5 +53,21 @@ module.exports = app => {
         }
     };
 
+    
+    /**
+     * level of wmuser
+     * @member {Object} Config#userLevel
+     * @property {Number} userLevel.manager - manager level
+     * @property {Number} userLevel.storeManager - storeManager level
+     * @property {NNumber} userLevel.districtManager -districtManager level
+     * @since 1.0.0
+     */
+    Config.userLevel = {
+        manager: 1,
+        storeManager: 2,
+        districtManage: 3
+    };
+
+
     return Config;
 }
