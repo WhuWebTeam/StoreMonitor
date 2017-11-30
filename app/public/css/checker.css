@@ -13,7 +13,7 @@
 		width: 100%;
 		background-color: #b94747;
 	}
-	#counter{
+	#set{
 		position: absolute;
 		top: 5px;
 		right: 10px;
@@ -119,7 +119,7 @@
 	}
 	.bottom  span:first-child{
 		display: inline-block;
-		width: 27%;
+		width: 28%;
 		text-align: center;
 	}
 	.bottom  span:nth-child(2){
@@ -132,6 +132,21 @@
 		width: 30%;
 		text-align: left;
 		white-space:nowrap;
+	}
+	ul li{
+		background-color: #E0F2F7;
+		height: 30px;
+		line-height: 30px;
+		border:1px solid #7b5252;
+		font-size: 1.2em;
+		text-align: center;
+		list-style-type: none;
+	}
+	#counter{
+		z-index: 100;
+		width: 30%;
+		right: 0px;
+		position: absolute; 
 	}
 }
 	
