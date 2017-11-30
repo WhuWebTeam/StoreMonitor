@@ -26,7 +26,7 @@ module.exports = app => {
 
             const str = `select c.id, shopId, c.type from counters c
                         inner join counterUser cu on c.id = cu.counterId
-                        where cu.userId =  $1`;
+                        where cu.userId =  $1 order by c.id`;
 
             try {
                 const counters = await this.app.db.query(str, [user]);

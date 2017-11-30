@@ -3,7 +3,7 @@ module.exports = app => {
 
         // Home page
         async home() {
-            this.ctx.redirect('/public/checker.html');
+            this.ctx.redirect('/public/home3.html');
         }
 
 
