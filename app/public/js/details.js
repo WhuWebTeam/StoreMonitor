@@ -1,5 +1,3 @@
-
-
 var status = getSearchString('status') ;
 var syskey = getSearchString('syskey') ;
 
@@ -31,21 +29,6 @@ window.onload = function()
               }
         }
 
-/*handle csrf*/
-  var csrftoken = Cookies.get('csrfToken');
-  function csrfSafeMethod(method) {
-    // these HTTP methods do not require CSRF protection
-    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
-  }
-  $.ajaxSetup({
-    beforeSend: function(xhr, settings) {
-      if (!csrfSafeMethod(settings.type)   && !this.crossDomain) {
-        xhr.setRequestHeader('x-csrf-token', csrftoken);
-      }
-    },
-  });
-  /*handle csrf*/
-
      function getNum(){
           var pairs = {
             '0' :'未处置',
@@ -57,6 +40,8 @@ window.onload = function()
             type:'GET',
             success:function(results){
               
+              console.log("/api/v1/eventsList/editInfo/"+syskey);
+
               var check_result = results.data.editresult;
 
               document.getElementById('date').innerHTML = dateFormat(results.data.createat);
@@ -128,6 +113,18 @@ window.onload = function()
   
   }
 
+  function back(){
+     if(status == 0){
+       window.location=`checker.html?listType=0`;
+      }
+      else if(status == 1){
+        window.location=`checker.html?listType=1`;
+      }
+      else if(status == 2){
+        window.location=`checker.html?listType=2`;
+      }
+   }
+
   function submit(){
 
           var ss = $("#mySelect option:selected").text(); 
@@ -137,7 +134,7 @@ window.onload = function()
           var productName = document.getElementById('Prod_Name').value ;
           var price = document.getElementById('Price').value ;
         if(status == 2){
-        window.location=`checker.html?listType=2&userId=${userId}`;
+        window.location=`checker.html?listType=2`;
          }
         else {
           if( comments !='' && productName !='' && (price > 0)){
