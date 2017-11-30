@@ -8,7 +8,7 @@ window.onload = function(){
 		url:'/api/v1/counters/myCounter/' + userId,
 		type:'GET',
 		success:function(results){
-			console.log(userId);
+			
 			results = results.data;
 			if(results.length == 0){
 				var mes =document.createElement('p');
