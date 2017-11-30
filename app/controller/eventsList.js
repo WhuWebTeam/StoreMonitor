@@ -85,7 +85,8 @@ module.exports = app => {
             const str = `select count(distinct sysKey) from eventTAT where type = 2 and to_timestamp(actionTime) > now() - interval '1 d'`;
 
             try {
-                const completed = await this.app.db.query(str, []);
+                let completed = await this.app.db.query(str, []);
+                completed = completed[0] && completed[0].count || 0;
 
                 this.ctx.body = {
                     code: 200,
@@ -110,7 +111,7 @@ module.exports = app => {
 
             // get the limit time duration
             const time = this.ctx.params.day;
-            
+            console.log(time);
             // set the duration time
             const values = [];
             switch(time.toLowerCase()) {
@@ -128,21 +129,22 @@ module.exports = app => {
                     break;
             }
 
+                console.log(values);
             try {
                 // get the count of bills during the limit time 
                 let str = `select count(transId) from bills where to_timestamp(ts) > now() - interval '$1 day'`;
-                let bills = this.app.db.query(str, values);
+                let bills = await this.app.db.query(str, values);
                 bills = bills[0] && bills[0].count || 0;
 
                 // get the count of events during the limit time
                 str = `select count(transId) from eventsList where to_timestamp(ts) > now() - interval '$1 day'`;
-                let events = this.app.db.query(str, values);
+                let events = await this.app.db.query(str, values);
                 events = events[0] && events[0].count || 0;
 
                 this.ctx.body = {
                     code: 200,
                     data: {
-                        rate: events ? bills / events : 0
+                        rate: events ? events / bills : 0
                     }
                 }
             } catch(err) {
