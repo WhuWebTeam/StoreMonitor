@@ -53,11 +53,13 @@ window.onload = function(){
 			success:function(results){
 				var results = results.data;
 				var sysArr=[];
+				results.sort(sortByHappen);
 				if(results.length == 0){
 					var mes =document.createElement('p');
 					//addClass(mes,'no');
 					mes.setAttribute('class','no');
 					mes.innerHTML = '没有待处理的事件';
+					//$('#list').prepend(mes);
 					document.getElementById('list').appendChild(mes);
 				}
 				
@@ -176,7 +178,9 @@ window.onload = function(){
 			url:'/api/v1/eventsList/graph/'+type,
 			type:'get',
 			success:function(results){
-				draw(results.data);
+				var graphData = results.data;
+				graphData.sort(sortByTime);
+				draw(graphData);
 			}
 		})
 	}

@@ -182,3 +182,19 @@ function CookieStorage(path, maxage) {  // Arguments specify lifetime and scope
         this.length = 0;
     };
 }
+
+
+/* sort function */
+function sortById(a,b){
+    return a.id-b.id;
+}
+function sortByTime(a,b){
+    a = parseInt(a.t.split('-').join(''));
+    b = parseInt(b.t.split('-').join(''));
+    return a-b;
+}
+function sortByHappen(a,b){
+    a = parseInt(a.createat.split('-').join(''));
+    b = parseInt(b.createat.split('-').join(''));
+    return a-b;
+}
