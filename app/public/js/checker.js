@@ -1,20 +1,17 @@
+const listType = getSearchString('listType');
+const userId = getSearchString('userId');
+
 window.onload = function(){
 	
-	var url = window.location.href.split('?')[1],
-			listType;
-	if(url){
-		listType = parseInt(url.split('=')[1]);
-	}
-
-	var btn = document.getElementById('counter');
-	btn.onclick = function(){
-		window.location = 'checkout.html';
-	}
+	// var btn = document.getElementById('counter');
+	// btn.onclick = function(){
+	// 	window.location = 'checkout.html?userId='+userId;
+	// }
 
 	/* get num of events */
 	function getNum(){
 		$.ajax({
-			url:'/api/v1/eventsList/count',
+			url:'/api/v1/eventsList/count/'+userId,
 			type:'GET',
 			//data:
 			success:function(results){
@@ -49,7 +46,7 @@ window.onload = function(){
 		}
 
 		$.ajax({
-			url:'/api/v1/eventsList/list/'+type,
+			url:'/api/v1/eventsList/list/'+type+'/'+userId,
 			type:'get',
 			success:function(results){
 				var results = results.data;
@@ -106,7 +103,7 @@ window.onload = function(){
 									
 								}
 							})
-							window.location = `details.html?id=${sys}&status=${type}`;
+							window.location = `details.html?syskey=${sys}&status=${type}&userId=${userId}`;
 						}
 					}(syskey);	
 
