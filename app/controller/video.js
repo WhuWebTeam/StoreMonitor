@@ -93,7 +93,7 @@ module.exports = app => {
 
                 // format eventList
                 let eventList = {};
-                eventList.sysKey = DVA.ShopID + DVA.TransID + billEle.Ts || '00000000000000000000000';
+                eventList.sysKey = bill.sysKey;
                 eventList.transId = DVA.TransID || '0000000000';
                 eventList.ts = billEle.Ts || 0;
                 eventList.createAt = Date.parse(new Date());
