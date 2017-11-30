@@ -1,6 +1,7 @@
 var set = document.getElementById('set');
 var counter = document.getElementById('counter');
-
+var cookie = new CookieStorage('/');
+const userId = cookie.getItem('userId');
 
 set.onclick = function(){
 	/*control show and hide*/
@@ -17,15 +18,15 @@ set.onclick = function(){
 /*bind button to achive page jump*/
 
 $('#myCounter').click(function(){
-	window.location = `myCounter.html?userId=${userId}`;
+	window.location = `myCounter.html`;
 })
 
 $('#addCounter').click(function(){
-	window.location = `checkout.html?userId=${userId}`;
+	window.location = `checkout.html`;
 })
 
 $('#retryCounter').click(function(){
-	window.location = `retryCounter.html?userId=${userId}`;
+	window.location = `retryCounter.html`;
 })
 
 $('#oneKeyRetry').click(function(){
@@ -35,7 +36,7 @@ $('#oneKeyRetry').click(function(){
 			type:'delete',
 			success:function(){
 				if(confirm('成功删除所有绑定！,点击确定进入新增款台页，点击取消回到主页')){
-					window.location = 'checkout.html?userId='+ userId;
+					window.location = 'checkout.html';
 				}else{
 					window.location.reload();
 				}

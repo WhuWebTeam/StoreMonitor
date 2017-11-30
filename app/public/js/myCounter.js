@@ -1,10 +1,14 @@
 window.onload = function(){
-	const userId = getSearchString('userId');
+	//const userId = getSearchString('userId');
+	var cookie = new CookieStorage('/');
+	const userId = cookie.getItem('userId');
+
 
 	$.ajax({
 		url:'/api/v1/counters/myCounter/' + userId,
 		type:'GET',
 		success:function(results){
+			
 			results = results.data;
 			if(results.length == 0){
 				var mes =document.createElement('p');
@@ -24,7 +28,7 @@ window.onload = function(){
 
 			var submit = document.getElementById('confirm');
 			submit.onclick = function(){
-				window.location = 'checker.html?userId='+ userId;		
+				window.location = 'checker.html';		
 			}
 		}
 	})

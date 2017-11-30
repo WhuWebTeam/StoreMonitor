@@ -1,23 +1,8 @@
-function getSearchString(key) {
-     // 获取URL中?之后的字符
-     var str = location.search;
-     str = str.substring(1,str.length);
-     
-     // 以&分隔字符串，获得类似name=xiaoli这样的元素数组
-     var arr = str.split("&");
-     var obj = new Object();
-     
-    // 将每一个数组元素以=分隔并赋给obj对象    
-    for(var i = 0; i < arr.length; i++) {
-        var tmp_arr = arr[i].split("=");
-        obj[decodeURIComponent(tmp_arr[0])] = decodeURIComponent(tmp_arr[1]);
-    }
-    return obj[key];
-}
-
 var status = getSearchString('status') ;
 var syskey = getSearchString('syskey') ;
-var userId = getSearchString('userId') ;
+
+var cookie = new CookieStorage('/');
+const userId = cookie.getItem('userId');
 
 
 function dateFormat(timestamp) {
@@ -43,21 +28,6 @@ window.onload = function()
           document.getElementById('btn').innerHTML = "返回";
               }
         }
-
-/*handle csrf*/
-  var csrftoken = Cookies.get('csrfToken');
-  function csrfSafeMethod(method) {
-    // these HTTP methods do not require CSRF protection
-    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
-  }
-  $.ajaxSetup({
-    beforeSend: function(xhr, settings) {
-      if (!csrfSafeMethod(settings.type)   && !this.crossDomain) {
-        xhr.setRequestHeader('x-csrf-token', csrftoken);
-      }
-    },
-  });
-  /*handle csrf*/
 
      function getNum(){
           var pairs = {
@@ -145,13 +115,13 @@ window.onload = function()
 
   function back(){
      if(status == 0){
-       window.location=`checker.html?listType=0&userId=${userId}`;
+       window.location=`checker.html?listType=0`;
       }
       else if(status == 1){
-        window.location=`checker.html?listType=1&userId=${userId}`;
+        window.location=`checker.html?listType=1`;
       }
       else if(status == 2){
-        window.location=`checker.html?listType=2&userId=${userId}`;
+        window.location=`checker.html?listType=2`;
       }
    }
 
@@ -164,7 +134,7 @@ window.onload = function()
           var productName = document.getElementById('Prod_Name').value ;
           var price = document.getElementById('Price').value ;
         if(status == 2){
-        window.location=`checker.html?listType=2&userId=${userId}`;
+        window.location=`checker.html?listType=2`;
          }
         else {
           if( comments !='' && productName !='' && (price > 0)){
@@ -185,7 +155,7 @@ window.onload = function()
                   console.log(this.url);
                 }
               })
-              window.location=`checker.html?listType=1&userId=${userId}`;
+              window.location=`checker.html?listType=1`;
               }
           });
         }    

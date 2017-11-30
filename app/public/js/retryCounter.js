@@ -1,6 +1,6 @@
 window.onload = function(){
-	// 192.168.216.132:7001/api/v1/wmHomePage/1
-	const userId = getSearchString('userId');
+	var cookie = new CookieStorage('/');
+	const userId = cookie.getItem('userId');
 
 	$.ajax({
 		url:'/api/v1/counters/myCounter/' + userId,
@@ -54,13 +54,13 @@ window.onload = function(){
 							type:'delete',
 							data:{counters},
 							success:function(){
-								window.location = 'checker.html?userId='+ userId;
+								window.location = 'checker.html';
 							}
 						})
 					}	
 				}else{
 					if(confirm('您未解除与任何款台的绑定')){
-						window.location = 'checker.html?userId='+ userId;
+						window.location = 'checker.html';
 					}
 				}
 				

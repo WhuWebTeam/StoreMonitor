@@ -1,12 +1,14 @@
-const listType = getSearchString('listType');
-const userId = getSearchString('userId');
-
 window.onload = function(){
-	
-	// var btn = document.getElementById('counter');
-	// btn.onclick = function(){
-	// 	window.location = 'checkout.html?userId='+userId;
-	// }
+
+	const listType = getSearchString('listType');
+	if(getSearchString('userId')){
+		const userId = getSearchString('userId');
+		var cookie = new CookieStorage('/');
+		cookie.setItem('userId',userId);
+	}else{
+		var cookie = new CookieStorage('/');
+		const userId = cookie.getItem('userId');
+	}
 
 	/* get num of events */
 	function getNum(){
@@ -103,7 +105,7 @@ window.onload = function(){
 									
 								}
 							})
-							window.location = `details.html?syskey=${sys}&status=${type}&userId=${userId}`;
+							window.location = `details.html?syskey=${sys}&status=${type}`;
 						}
 					}(syskey);	
 
