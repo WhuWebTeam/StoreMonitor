@@ -15,11 +15,9 @@ function getSearchString(key) {
     return obj[key];
 }
 
-
 var status = getSearchString('status') ;
 var syskey = getSearchString('syskey') ;
 var userId = getSearchString('userId') ;
-
 
 
 function dateFormat(timestamp) {
@@ -72,6 +70,8 @@ window.onload = function()
             type:'GET',
             success:function(results){
               
+              console.log("/api/v1/eventsList/editInfo/"+syskey);
+
               var check_result = results.data.editresult;
 
               document.getElementById('date').innerHTML = dateFormat(results.data.createat);
@@ -142,6 +142,18 @@ window.onload = function()
         getNum();
   
   }
+
+  function back(){
+     if(status == 0){
+       window.location=`checker.html?listType=0&userId=${userId}`;
+      }
+      else if(status == 1){
+        window.location=`checker.html?listType=1&userId=${userId}`;
+      }
+      else if(status == 2){
+        window.location=`checker.html?listType=2&userId=${userId}`;
+      }
+   }
 
   function submit(){
 
