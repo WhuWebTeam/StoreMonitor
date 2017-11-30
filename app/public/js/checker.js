@@ -2,14 +2,15 @@ window.onload = function(){
 
 	const listType = getSearchString('listType');
 	if(getSearchString('userId')){
-		const userId = getSearchString('userId');
+		var userId = getSearchString('userId');
 		var cookie = new CookieStorage('/');
 		cookie.setItem('userId',userId);
 	}else{
 		var cookie = new CookieStorage('/');
-		const userId = cookie.getItem('userId');
+		var userId = cookie.getItem('userId');
 	}
 
+	
 	/* get num of events */
 	function getNum(){
 		$.ajax({
@@ -58,9 +59,11 @@ window.onload = function(){
 					//addClass(mes,'no');
 					mes.setAttribute('class','no');
 					mes.innerHTML = '没有待处理的事件';
+					//$('#list').prepend(mes);
 					document.getElementById('list').appendChild(mes);
 				}
 				
+
 
 				if(type==1&&results.length){
 					var btn = document.createElement('button');
@@ -69,7 +72,7 @@ window.onload = function(){
 					btn.innerHTML = '提交所有';
 					document.getElementById('list').appendChild(btn);		
 				}
-
+				sortFun(results,'createat',true);
 				for(let i=0;i<results.length;i++){
 
 					var syskey = results[i].syskey;
@@ -176,7 +179,9 @@ window.onload = function(){
 			url:'/api/v1/eventsList/graph/'+type,
 			type:'get',
 			success:function(results){
-				draw(results.data);
+				var graphData = results.data;
+				sortFun(graphData,'t',true)
+				draw(graphData);
 			}
 		})
 	}

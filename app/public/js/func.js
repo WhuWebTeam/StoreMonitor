@@ -182,3 +182,17 @@ function CookieStorage(path, maxage) {  // Arguments specify lifetime and scope
         this.length = 0;
     };
 }
+
+
+/* sort function */
+
+function sortFun(arr,attr,upDown){
+    upDown = upDown || 1; //默认按照升序排序
+    arr.sort(function(a,b){
+        if(a[attr]>b[attr]){
+            return upDown;
+        }else{
+            return -upDown;
+        }
+    })
+}

@@ -11,6 +11,8 @@ window.onload = function(){
 		var userId = cookie.getItem('userId');
 	}  //const 常量只在其声明的块级作用域内有效
 
+
+	
 	$.ajax({
 		url:'/api/v1/counters/notAssaigned',
 		type:'GET',
@@ -28,6 +30,12 @@ window.onload = function(){
 				mes.innerHTML = '没有待分配的款台';
 				document.getElementById('list').appendChild(mes);
 			}
+
+
+			sortFun(results,'id',true);
+
+
+
 			for(let i=0;i<results.length;i++){
 				var p = document.createElement('p');
 				p.setAttribute('class','li');
