@@ -32,8 +32,7 @@ window.onload = function(){
 			}
 
 
-			
-			results.sort(sortById);
+			sortFun(results,'id',true);
 
 
 

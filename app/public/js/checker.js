@@ -2,14 +2,15 @@ window.onload = function(){
 
 	const listType = getSearchString('listType');
 	if(getSearchString('userId')){
-		const userId = getSearchString('userId');
+		var userId = getSearchString('userId');
 		var cookie = new CookieStorage('/');
 		cookie.setItem('userId',userId);
 	}else{
 		var cookie = new CookieStorage('/');
-		const userId = cookie.getItem('userId');
+		var userId = cookie.getItem('userId');
 	}
 
+	
 	/* get num of events */
 	function getNum(){
 		$.ajax({
@@ -53,7 +54,6 @@ window.onload = function(){
 			success:function(results){
 				var results = results.data;
 				var sysArr=[];
-				results.sort(sortByHappen);
 				if(results.length == 0){
 					var mes =document.createElement('p');
 					//addClass(mes,'no');
@@ -64,6 +64,7 @@ window.onload = function(){
 				}
 				
 
+
 				if(type==1&&results.length){
 					var btn = document.createElement('button');
 					btn.setAttribute('class','btn btn-info');
@@ -71,7 +72,7 @@ window.onload = function(){
 					btn.innerHTML = '提交所有';
 					document.getElementById('list').appendChild(btn);		
 				}
-
+				sortFun(results,'createat',true);
 				for(let i=0;i<results.length;i++){
 
 					var syskey = results[i].syskey;
@@ -179,7 +180,7 @@ window.onload = function(){
 			type:'get',
 			success:function(results){
 				var graphData = results.data;
-				graphData.sort(sortByTime);
+				sortFun(graphData,'t',true)
 				draw(graphData);
 			}
 		})

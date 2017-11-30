@@ -1,9 +1,57 @@
+<!DOCTYPE html>
 <html>
-    <head>
-        <meta charset = "utf-8"/>
-        <title>district manager</title>
-    </head>
-    <body>
-        <h1 style = "text-align: center; color: red">district manager</h1>
-    </body>
+<head>
+	<title>LPS银线防损系统</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+	<link rel="stylesheet" type="text/css" href="bootstrap-3.3.7-dist/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="css/districtManager.css">
+</head>
+<body>
+	<p id="title">
+		防损系统管理
+		<span id="set" class="glyphicon glyphicon-list"></span>
+	</p>
+
+	<div id="shop" style="display: none">
+		<ul>
+			<li id="myShop">区域门店</li>
+			<li id="addShop">新增绑定</li>
+			<li id="retryShop">解除绑定</li>
+			<li id="oneKeyRetry">解除所有</li>
+		</ul>
+	</div>
+	<p id="title1">本日状况</p>
+	<div id="event">
+		<p id="left">
+			<span></span>
+			处理中
+		</p>
+		<p id="right">
+			<span></span>
+			已完成
+		</p>
+	</div>
+	<div id="graph">
+		 <span class="title">防损事件</span>
+		 <span class="sel">
+		 	<button class="day   btn btn-success btn-sm down">按天</button>
+		 	<button class="week  btn btn-success btn-sm">按周</button>
+		 	<button class="month btn btn-success btn-sm">按月</button>
+		 </span>
+		 <div id="content"></div>
+	</div>
+
+	
+	<script type="text/javascript" src="bootstrap-3.3.7-dist/jquery/jquery.min.js"></script>
+	<script type="text/javascript" src="bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+	<script src="js/libs/js.cookie.min.js"></script>
+	<script src="js/libs/echarts.js"></script>
+	<script type="text/javascript" src="js/func.js"></script>
+	<script type="text/javascript" src="js/districtManager.js"></script>
+	<script type="text/javascript" src="js/setShop.js"></script>
+
+	
+	
+</body>
 </html>

@@ -185,16 +185,14 @@ function CookieStorage(path, maxage) {  // Arguments specify lifetime and scope
 
 
 /* sort function */
-function sortById(a,b){
-    return a.id-b.id;
-}
-function sortByTime(a,b){
-    a = parseInt(a.t.split('-').join(''));
-    b = parseInt(b.t.split('-').join(''));
-    return a-b;
-}
-function sortByHappen(a,b){
-    a = parseInt(a.createat.split('-').join(''));
-    b = parseInt(b.createat.split('-').join(''));
-    return a-b;
+
+function sortFun(arr,attr,upDown){
+    upDown = upDown || 1; //默认按照升序排序
+    arr.sort(function(a,b){
+        if(a[attr]>b[attr]){
+            return upDown;
+        }else{
+            return -upDown;
+        }
+    })
 }

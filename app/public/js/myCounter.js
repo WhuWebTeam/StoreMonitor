@@ -17,6 +17,7 @@ window.onload = function(){
 				mes.innerHTML = '您还没有绑定的款台';
 				document.getElementById('list').appendChild(mes);
 			}
+			sortFun(results,'id',true);
 			for(let i=0;i<results.length;i++){
 				var p = document.createElement('p');
 				p.setAttribute('class','li');
