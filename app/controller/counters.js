@@ -17,7 +17,6 @@ module.exports = app => {
 
             // get userId
             const user = this.ctx.params.userId;
-            // console.log(user);
 
             if (!await this.service.userswm.exists(user)) {
                 this.ctx.body = this.service.util.generateResponse(400, `user doesn't exists`);
