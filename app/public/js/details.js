@@ -15,11 +15,9 @@ function getSearchString(key) {
     return obj[key];
 }
 
-
 var status = getSearchString('status') ;
 var syskey = getSearchString('syskey') ;
 var userId = getSearchString('userId') ;
-
 
 
 function dateFormat(timestamp) {
@@ -32,10 +30,6 @@ window.onload = function()
 {
 
 // get syskey &status
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> master
 
         function getStatus(status)
         {
@@ -47,22 +41,10 @@ window.onload = function()
           document.getElementById("Note").disabled=true;
           document.getElementById("mySelect").disabled=true;
           document.getElementById('btn').innerHTML = "返回";
-=======
-        function getStatus(status)
-        {
-        if (status == 2){
-        	document.getElementById("Name").disabled=true;
-        	document.getElementById("Id").disabled=true;
-        	document.getElementById("Prod_Name").disabled=true;
-        	document.getElementById("Price").disabled=true;
-        	document.getElementById("Note").disabled=true;
-        	document.getElementById('btn').innerHTML = "返回";
->>>>>>> a82f0d657ad7e2eab5d0e98f32217776548423ee
               }
         }
 
 /*handle csrf*/
-<<<<<<< HEAD
   var csrftoken = Cookies.get('csrfToken');
   function csrfSafeMethod(method) {
     // these HTTP methods do not require CSRF protection
@@ -78,23 +60,6 @@ window.onload = function()
   /*handle csrf*/
 
      function getNum(){
-=======
-	var csrftoken = Cookies.get('csrfToken');
-	function csrfSafeMethod(method) {
-	  // these HTTP methods do not require CSRF protection
-	  return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
-	}
-	$.ajaxSetup({
-	  beforeSend: function(xhr, settings) {
-	    if (!csrfSafeMethod(settings.type)	 && !this.crossDomain) {
-	      xhr.setRequestHeader('x-csrf-token', csrftoken);
-	    }
-	  },
-	});
-	/*handle csrf*/
-
-      function getNum(){
->>>>>>> a82f0d657ad7e2eab5d0e98f32217776548423ee
           var pairs = {
             '0' :'未处置',
             '1' :'待提交',
@@ -105,20 +70,14 @@ window.onload = function()
             type:'GET',
             success:function(results){
               
+              console.log("/api/v1/eventsList/editInfo/"+syskey);
+
               var check_result = results.data.editresult;
 
-<<<<<<< HEAD
               document.getElementById('date').innerHTML = dateFormat(results.data.createat);
               document.getElementById('status').innerHTML = pairs[results.data.status];
               
               document.getElementById("example_video_1").src = results.data.videourl;
-<<<<<<< HEAD
-=======
-              document.getElementById('Url').src =results.data.videourl;
-              document.getElementById('example_video_1').poster =results.data.pic1url;
->>>>>>> a82f0d657ad7e2eab5d0e98f32217776548423ee
-=======
->>>>>>> master
 
               document.getElementById('Name').value = results.data.cashiername?results.data.cashiername:results.data.cashierid?results.data.cashierid:'pos机';
               document.getElementById("Name").disabled=true;
@@ -154,7 +113,6 @@ window.onload = function()
               mes.setAttribute('id','state'+i.toString() );
               mes.innerHTML = results.data[i].name;
               document.getElementById('mySelect').appendChild(mes);
-<<<<<<< HEAD
             }
 
             for(var num = 0 ;num < results.data.length; num++){
@@ -170,23 +128,6 @@ window.onload = function()
                     results.data[num].name = tt ;
                 }
             }
-=======
-            }
-
-            for(var num = 0 ;num < results.data.length; num++){
-                var temp = 'state' + num.toString();          
-                document.getElementById(temp.toString()).innerHTML= '';
-                //results.data[num].name;
-            }
-
-            for(var num = 0 ;num < results.data.length ; num++){
-                if (results.data[num].name == check_result){
-                    var tt = results.data[0].name ;
-                    results.data[0].name = results.data[num].name; 
-                    results.data[num].name = tt ;
-                }
-            }
->>>>>>> master
             
             for(var num = 0 ;num < results.data.length; num++){
                 var temp = 'state' + num.toString();          
@@ -199,12 +140,20 @@ window.onload = function()
     
         getStatus(status);
         getNum();
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> master
   
   }
+
+  function back(){
+     if(status == 0){
+       window.location=`checker.html?listType=0&userId=${userId}`;
+      }
+      else if(status == 1){
+        window.location=`checker.html?listType=1&userId=${userId}`;
+      }
+      else if(status == 2){
+        window.location=`checker.html?listType=2&userId=${userId}`;
+      }
+   }
 
   function submit(){
 
@@ -250,52 +199,4 @@ window.onload = function()
           else  alert("请正确填写金额");
         }
       }
-<<<<<<< HEAD
   }
-=======
-        getResult();
-  } 
-
-  function submit(){
-        var editResult = document.getElementById('state1').value;
-        var comments = document.getElementById('Note').value ;
-        var productName = document.getElementById('Prod_Name').value ;
-        var price = document.getElementById('Price').value ;
-        console.log(editResult);
-        console.log(comments);
-        console.log(productName);
-        console.log(price);
-        console.log("/api/v1/eventsList/"+syskey);
-
-        $.ajax({
-          url:"/api/v1/eventsList/"+syskey,
-          type:'POST',
-          data:{
-            'editResult' : editResult,
-            'comments'  : comments,
-            'productName' :productName,
-            'price' : price
-          },
-          success:function(data){
-		  //window.location = `home.html`;
-          
-
-      }
-
-        })
-    }
-
-  /*
-  // app.put('/api/v1/eventsList/:sysKey', 'eventsList.eventEdit'); // modify some eventList's info
-  // attributes of the following object
-  // {
-  //     editResult,
-  //     comments,
-  //     productName,
-  //     price
-  // }
-  */
->>>>>>> a82f0d657ad7e2eab5d0e98f32217776548423ee
-=======
-  }
->>>>>>> master
