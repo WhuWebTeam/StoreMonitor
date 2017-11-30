@@ -169,20 +169,33 @@ module.exports = app => {
          * @public
          * @function insert
          * @param {Object} counterUser - counterUser record waited to insert into counterUser
+         * @param {Object} table - judge which table to use (0: users, 1: userswm)
          * @return {Promise<Boolean>}
          * true when insert counterUser record successed
          * false when insert counterUser record failed
          * @since 1.0.0
          */
-        async insert(counterUser) {
+        async insert(counterUser, table) {
 
-            console.log(counterUser);
             // format counterUser's attributes
             counterUser = this.service.util.setTableValue(this.table, counterUser);
-            console.log(counterUser);
 
             // counterUser.counterId and countrUser.userId doesn't exist
             if (!counterUser.userId || !counterUser.counterId) {
+                return false;
+            }
+
+            // counter doesn't exists
+            if (!await this.service.counters.exists(counterUser.counterId)) {
+                return false;
+            }
+
+            // user doesn't exist
+            if (!table && !await this.service.users.exists(counterUser.userId)){
+                return false;
+            }
+
+            if (table && !await this.service.userswm.exists(counterUser.userId)) {
                 return false;
             }
 
