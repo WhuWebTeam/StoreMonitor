@@ -13,6 +13,7 @@
 		<caption><h3 class ="text-center container">事件详情</h3></caption>
 		<tbody>
 			<tr>
+				<td class ="btn btn-primary  btn-block text-center" width="40px" onclick="back()">返回</td>
 				<td class ="text-center container lead" id="date">Date</td>
 				<td class ="text-center container lead" id="status">Status</td>
 			</tr>
@@ -22,6 +23,7 @@
 	<div class="panel panel-default container">
 	    <div class="panel-body">
 			<video id="example_video_1" class="video-js vjs-default-skin .img-responsive " controls preload="none" width="100%" height="100%"
+			poster="" 
 	      data-setup="{}">
 	    	<source id="Url" src="">
 	    	<track kind="captions" src="demo.captions.vtt" srclang="en" label="English"></track><!-- Tracks need an ending tag thanks to IE9 -->
@@ -106,6 +108,7 @@
 <script type="text/javascript" src="bootstrap-3.3.7-dist/jquery/jquery.min.js"></script>
 <script type="text/javascript" src="bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
 <script src="js/libs/js.cookie.min.js"></script>
+<script type="text/javascript" src="js/func.js"></script>
 <script type="text/javascript" src="js/details.js"></script>
 </body>
 </html>

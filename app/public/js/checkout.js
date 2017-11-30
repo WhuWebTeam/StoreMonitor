@@ -1,11 +1,23 @@
 window.onload = function(){
 	// 192.168.216.132:7001/api/v1/wmHomePage/2
-	const userId = getSearchString('userId');
+	// http://121.201.13.217:27002/api/v1/wmHomePage/2
+
+	if(getSearchString('userId')){
+		var userId = getSearchString('userId');
+		var cookie = new CookieStorage('/');
+		cookie.setItem('userId',userId);
+	}else{
+		var cookie = new CookieStorage('/');
+		var userId = cookie.getItem('userId');
+	}  //const 常量只在其声明的块级作用域内有效
 
 	$.ajax({
 		url:'/api/v1/counters/notAssaigned',
 		type:'GET',
 		success:function(results){
+
+			
+
 			var counters=[];
 			var isClick=[];
 			results = results.data;
@@ -41,23 +53,23 @@ window.onload = function(){
 				}
 			}
 
-
 			var submit = document.getElementById('confirm');
-			submit.onclick = function(){
-				if(counters.length){
-					$.ajax({
-						url:'/api/v1/counterUser/'+userId,
-						type:'POST',
-						data:{counters},
-						success:function(){
-							window.location = 'checker.html?userId='+ userId;
+			submit.onclick = (function(){
+				return 	function(){
+							if(counters.length){
+								$.ajax({
+									url:'/api/v1/counterUser/' + userId,
+									type:'POST',
+									data:{counters},
+									success:function(){
+										window.location = 'checker.html';
+									}
+								})
+							}else{
+								window.location = 'checker.html';
+							}
 						}
-					})
-				}else{
-					window.location = 'checker.html?userId='+ userId;
-				}
-				
-			}
+			}(userId));
 		}
 	})
 
