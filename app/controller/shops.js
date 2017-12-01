@@ -37,7 +37,7 @@ module.exports = app => {
 
 
         // get shops not assigned
-        async () {
+        async getShopsNotAssainged() {
             const str = `select s.id, s.name from shops s
                         where s.areaId in(
                             select id from areas
@@ -112,7 +112,7 @@ module.exports = app => {
             }
         }
 
-        
+
         // retrive all shops from some user
         async oneKeyRetrive() {
             const user = this.ctx.params.userId;

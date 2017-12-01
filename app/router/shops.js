@@ -6,7 +6,7 @@ module.exports = app => {
     app.get('/api/v1/shops/notAssigned', 'shops.getShopsNotAssainged'); // get shops not assined
     app.get('/api/v1/shops/assigned', 'shops.getShopsAssigned'); // get shops assigned
     app.put('/api/v1/shops/assign/:userId', 'shops.assignedShops'); // assigned some shops to district manager
-    app.delete('/api/v1/shops/retrive/:userId', 'shos.retriveShops'); // retrive some shops from some user
+    app.delete('/api/v1/shops/retrive/:userId', 'shops.retriveShops'); // retrive some shops from some user
     app.delete('/api/v1/shops/oneKeyRetrive/:userId', 'shops.oneKeyRetrive'); // retrive all shops from some user
 }
 
