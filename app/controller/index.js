@@ -41,7 +41,7 @@ module.exports = app => {
                     return;
                 }
                 
-                this.ctx.redirect(`public/addShop.html?userId=${userId}`);
+                this.ctx.redirect(`/public/addShop.html?userId=${userId}`);
                 return;
             }
 
