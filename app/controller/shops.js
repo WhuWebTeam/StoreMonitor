@@ -77,7 +77,55 @@ module.exports = app => {
         // assigned some shops to some manager
         async assignedShops() {
 
+            const user = this.ctx.params.userId;
+            const counters = this.ctx.request.body;
+            const str  = `update shops set areaId = (
+                            select max(id) from areas 
+                            where manager = $1)
+                        where id = $2`;
 
+            try {
+                for (const counter of counters.counters) {
+                    await this.app.db.query(str, [user, counter.shopId]);
+                }
+
+                this.ctx.body = this.service.util.generateResponse(403, 'assigned shops to some manager successed');
+            } catch (err) {
+                this.service.util.generateResponse(403, 'assigned some shops to some manager');
+            }
+        }
+
+        // retrive some shops from some user
+        async retriveShops() {
+            const user = this.ctx.params.userId;
+            const counters = this.ctx.request.body;
+            const str = `update shops set areaId = '' where id = $1`
+
+            try {
+                for (const counter of counters.counters) {
+                    await this.app.db.query(str, [counter.shopId]);
+                }
+
+                this.ctx.body = this.service.util.generateResponse(403, 'retrive shops from some manager successed');
+            } catch (err) {
+                this.service.util.generateResponse(203, 'retrieve shops from some manager failed ')
+            }
+        }
+
+        
+        // retrive all shops from some user
+        async oneKeyRetrive() {
+            const user = this.ctx.params.userId;
+            const str = `update shops set areaId = ''
+                        where areaId in 
+                            (select id from areas where manager = $1)`;
+            try {
+                await this.app.db.query(str, [user]);
+
+                this.ctx.body = this.service.util.generateResponse(403, 'one key retrive successed');
+            } catch (err) {
+                this.ctx.body = this.service.util.generateResponse(403, 'one key retrive failed');
+            }
         }
     }
 
