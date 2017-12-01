@@ -2,45 +2,48 @@ module.exports = app => {
     // app.controller.shops' index test
     app.get('/api/v1/shops/index', 'shops.index');
 
-    app.get('/api/v1/shops', 'shops.getShops'); // get shops' info
-    app.put('/api/v1/shops/:shopId', 'shops.modifyShop'); // modify info of some shop specified by shop id
-    app.put('/api/v1/shops/areaId/:shopId', 'shops.changeShopArea'); // change shops position
-    app.post('/api/v1/shops/query', 'shops.getShop'); // get info of shops specified by id, areaId, name or details
-    app.post('/api/v1/shops', 'shops.addShop'); // add a new shops
+    app.get('/api/v1/shops/:userId', 'shops.getMyShops'); // get district manager's shops
+    app.get('/api/v1/shops/notAssigned', 'shops.getShopsNotAssainged'); // get shops not assined
+    app.get('/api/v1/shops/assigned', 'shops.getShopsAssigned'); // get shops assigned
+    app.put('/api/v1/shops/assign/:userId', 'shops.assignedShops'); // assigned some shops to district manager
+    app.delete('/api/v1/shops/retrive/:userId', 'shops.retriveShops'); // retrive some shops from some user
+    app.delete('/api/v1/shops/oneKeyRetrive/:userId', 'shops.oneKeyRetrive'); // retrive all shops from some user
 }
 
-// app.put('/api/v1/shops/:shopId', 'shops.modifyShop'); // modify info of some shop specified by shop id 
-// :shopId shop's serial number
+
+
+// app.put('/api/v1/shops/assign', 'shops.assignedShops'); // assigned some shops to district manager
 // {
-//     areaId,
-//     name,
-//     details
+//     shops: 
+//     [
+//         {
+//             shopId
+//         },
+//         {
+//             shopId
+//         }
+//     ]
 // }
 
 
 
-// app.put('/api/v1/shops/areaId/:shopId', 'shops.changeShopArea'); // change shops position
-// :shopId shop's serail number
+// app.delete('/api/v1/shops/retrive/:userId', 'shos.retriveShops'); // retrive some shops from some user
 // {
-//     areaId
+//     shops: 
+//     [
+//         {
+//             shopId
+//         },
+//         {
+//             shopId
+//         }
+//     ]
 // }
 
 
 
-// app.post('/api/v1/shops/query', 'shops.getShop'); // get info of shops specified by id, areaId, name, detail
-// attributes belongs to the following object
+// app.delete('/api/v1/shops/oneKeyRetrive/:userId', 'shops.oneKeyRetrive'); // retrive all shops from some user
+// no thing include the following object
 // {
-//     id,
-//     areaId,
-//     name,
-//     details
-// }
 
-
-// app.post('/api/v1/shops', 'shops.addShop'); // add a new shops
-// attributes belongs to the following object, id must exists
-// {
-//     shopId,
-//     name,
-//     details
 // }
