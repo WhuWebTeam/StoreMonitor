@@ -1,6 +1,0 @@
-[
-	{
-		'name':'ycq',
-		'word':'love'
-	}
-]
