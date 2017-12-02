@@ -56,7 +56,13 @@
 		border:1px solid #D8D8D8;
 		background-color: white;
 	}
-	#graph .title{
+	#dot{
+		clear: both;
+		margin-top: 20px;
+		border:1px solid #D8D8D8;
+		background-color: white;
+	}
+	div .title{
 	    display:inline-block;
 	    line-height: 30px;
 	    width:80px;
@@ -79,7 +85,11 @@
 	#graph .down{
 		background-color: grey;
 	}
-	#content{
+	#contentGraph{
+		width: 100%;
+		height: 300px;
+	}
+	#contentDot{
 		width: 100%;
 		height: 300px;
 	}

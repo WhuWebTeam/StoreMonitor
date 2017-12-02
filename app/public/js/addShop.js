@@ -9,9 +9,7 @@ window.onload = function(){
 	}else{
 		var cookie = new CookieStorage('/');
 		var userId = cookie.getItem('userId');
-	}  //const 常量只在其声明的块级作用域内有效
-
-
+	}
 	
 	$.ajax({
 		url:'/api/v1/shops/notAssigned',
@@ -20,7 +18,7 @@ window.onload = function(){
 
 			
 
-			var counters=[];
+			var shops=[];
 			var isClick=[];
 			results = results.data;
 			if(results.length == 0){
@@ -47,14 +45,14 @@ window.onload = function(){
 					if(!isClick[i]){
 						removeClass(this,'glyphicon-unchecked');
 						addClass(this,'glyphicon-ok');
-						counters.push({
-							"counterId":results[i].id,
+						shops.push({
+							"shopId":results[i].id,
 							"type":results[i].type
 						});
 					}else{
 						removeClass(this,'glyphicon-ok');
 						addClass(this,'glyphicon-unchecked');
-						counters.pop();
+						shops.pop();
 					}
 					isClick[i] = !isClick[i];
 				}
@@ -63,11 +61,11 @@ window.onload = function(){
 			var submit = document.getElementById('confirm');
 			submit.onclick = (function(){
 				return 	function(){
-							if(counters.length){
+							if(shops.length){
 								$.ajax({
 									url:'/api/v1/shopUser/' + userId,
 									type:'POST',
-									data:{counters},
+									data:{shops},
 									success:function(){
 										window.location = 'districtManager.html';
 									}
