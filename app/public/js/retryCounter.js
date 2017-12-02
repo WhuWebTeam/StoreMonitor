@@ -13,7 +13,7 @@ window.onload = function(){
 				var mes =document.createElement('p');
 				//addClass(mes,'no');
 				mes.setAttribute('class','no');
-				mes.innerHTML = '没有待分配的款台';
+				mes.innerHTML = '没有待解除的款台';
 				document.getElementById('list').appendChild(mes);
 			}
 			sortFun(results,'id',true);
