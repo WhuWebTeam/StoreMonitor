@@ -77,41 +77,39 @@ module.exports = app => {
         */
        async getManageDealCount() {
 
-           // get user's register code
-           const userId = this.ctx.params.userId;
-           const during = this.app.config.time.graphShowTime;
+            const user = this.ctx.params.userId;
+            const day = this.ctx.params.day;
+            let str = `select to_char(to_timestamp(e.ts/1000), $2) as t, count(e.id) from eventsList e
+                      inner join shopUser su on su.shopId = e.shopId
+                      where su.userId = $1
+                      group by t order by t desc`;
+            let values = [user];
 
-           const str = `select count(su.shopId)
-                        from (
-                            select shopId
-                            from shopUser
-                            where userId = $1) su
-                        inner join (
-                            select shopId, status, createAt
-                            from eventsList) e on e.shopId = su.shopId
-                        where e.status = $2 and to_timestamp(e.createAt) > now() - interval $3`;
-                       
-           try {
-               let working = await this.app.db.query(str, [userId, 0, during]);
-               working = working[0] && +working[0].count || 0;
+            switch(day.toLowerCase()) {
+                case 'day':
+                    values.push('YYYY-MM-DD');
+                    break;
+                case 'month':
+                    values.push('YYYY-MM');
+                    break;
+                default:
+                    str = `select count(transId), to_char(to_timestamp(ts/1000), 'YYYYMM') y, to_char(to_timestamp(ts/1000), 'W') w from eventsList e
+                          inner join shopUser su on su.shopId = e.shopId
+                          where su.userId = $1
+                          group by y, w
+                          order by y, w`;
+                    break;
+            }
 
-               let store = await this.app.db.query(str, [userId, 1, during]);
-               store = store[0] && +store[0].count || 0;
-
-               let commit = await this.app.db.query(str, [userId, 2, during]);
-               commit = commit[0] && +commit[0].count || 0;
-           
-               this.ctx.body = {
-                   code: 200,
-                   data: {
-                       working,
-                       store,
-                       commit
-                   }
-               };
-           } catch(err) {
-               this.ctx.body = this.service.util.generateResponse(400, `get user's count statistics failed`);
-           }
+            try {
+                const eventsList = await this.app.db.query(str, values);
+                this.ctx.body = {
+                    code: 200,
+                    data: eventsList
+                }
+            } catch(err) {
+                this.ctx.body = this.service.util.generateResponse(400, 'get store count statistics eventsList status failed');
+            }
        }
 
 
@@ -236,10 +234,7 @@ module.exports = app => {
                         const rate = {};
                         rate.total = bills[i].count;
                         rate.shopId = bills[i].shopid;
-                        rate.rate = 0;
-                        if (!rate.total) {
-                            rate.rate = eventsList[i].count / bills[i].count;
-                        }
+                        rate.error = eventsList[i].count;
                         rates.push(rate);
                     }
                 }
