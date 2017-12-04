@@ -282,21 +282,21 @@ module.exports = app => {
                                 from (
                                     select count(e.transId) error, e.shopId, e.cashierId from  eventsList e
                                     inner join shopUser su on e.shopId = su.shopId
-                                    where to_timestamp(ts) > now() - interval '$1 d' and userId = $2
+                                    where to_timestamp(ts) > now() - interval '$2 d' and userId = $1
                                     group by e.shopId, e.cashierId order by e.shopId, e.cashierId) err 
                                 inner join (
                                     select count(b.transId) total, b.shopId, b.cashierId from  bills b
                                     inner join shopUser su on b.shopId = su.shopId
-                                    where to_timestamp(ts) > now() - interval '$1 d' and userId = $2
+                                    where to_timestamp(ts) > now() - interval '$2 d' and userId = $1
                                     group by b.shopId, b.cashierId order by b.shopId, b.cashierId) tol on err.shopId = tol.shopId and err.cashierId = tol.cashierId
-                                    ) r on c.id = r.cashierId`;
-                const errorRate = await this.app.db.query(str, [user, time]);
+                                    ) r on c.id = r.cashierId`;             
+                const errorRate = await this.app.db.query(str, values);
                 this.ctx.body = {
                     code: 200,
                     data: errorRate
                 };
             } catch(err) {
-                this.ctx.body = this.service.util.generateResponse(400, `get cashiers' error event rate failed`);
+                this.ctx.body = this.service.util.generateResponse(400, `get cashiers' event rate failed`);
             }
         }
 
