@@ -14,7 +14,7 @@ window.onload = function(){
 	/* get num of events */
 	function getNum(){
 		$.ajax({
-			url:'/api/v1/eventsList/count/'+userId,
+			url:'/api/v1/eventsList/count/checker/'+userId,
 			type:'GET',
 			//data:
 			success:function(results){
@@ -176,7 +176,7 @@ window.onload = function(){
 	function getGraph(type){
 		//console.log(type);
 		$.ajax({
-			url:'/api/v1/eventsList/graph/'+type,
+			url:'/api/v1/eventsList/countGraph/checker/'+type,
 			type:'get',
 			success:function(results){
 				var graphData = results.data;

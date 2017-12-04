@@ -12,7 +12,7 @@ window.onload = function(){
 	/* get num of events */
 	function getNum(){
 		$.ajax({
-			url:'/api/v1/eventsList/dayCount/'+userId,
+			url:'/api/v1/eventsList/count/manager/'+userId,
 			type:'GET',
 			//data:
 			success:function(results){
@@ -29,7 +29,7 @@ window.onload = function(){
 	function getGraph(type){
 		//console.log(type);
 		$.ajax({
-			url:'/api/v1/eventsList/graph/'+type,
+			url:'/api/v1/eventsList/countGraph/manager/'+userId+'/'+type,
 			type:'get',
 			success:function(results){
 				var graphData = results.data;
@@ -143,17 +143,18 @@ window.onload = function(){
 
 	function getDot(){
 		$.ajax({
-			url:'/api/v1/eventsList/errorRate/'+userId,
+			url:'/api/v1/eventsList/errorRate/graph/'+userId,
 			type:'get',
 			success:function(results){
 				var dotData = results.data;
+				console.log(dotData);
 				drawDot(dotData);
 			}
 		})
 	}
 	/*draw graph*/
 	var myDot;
-	function drawDot(){
+	function drawDot(dotData){
 			if (myDot != null && myDot != "" && myDot != undefined) {
 			        myDot.dispose();
 			}
@@ -206,12 +207,15 @@ window.onload = function(){
 			        {
 			            name:'某门店',
 			            type:'scatter',
-			            data: [[2000, 10], [3000, 24], [8000, 100],[4000, 36], [1000, 37]
-			            ]
+			            // data: [[2000, 10], [3000, 24], [8000, 100],[4000, 36], [1000, 37]
+			            // ]
 			        }
 			    ]
 			};
-			                    
+			
+			option.series[0].data = dotData.map(function(x){
+		    	return [x.total,x.error];
+		    });                   
 
 			myDot.setOption(option);
 
@@ -224,6 +228,5 @@ window.onload = function(){
 
    	getNum();
    	getGraph('day');
-   	//getDot();  //后人实际数据，后台暂未接通
-   	drawDot();  //模拟测试数据
+   	getDot();  //后人实际数据，后台暂未接通
 }
