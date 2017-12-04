@@ -11,9 +11,12 @@ module.exports = app => {
     app.get('/api/v1/evensList/index', 'eventsList.index');
 
     app.get('/api/v1/eventsList/count/:userId', 'eventsList.getCount'); // get count of eventsList total, unconfirmed, confirmed
-    app.get('/api/v1/eventsList/dayCount', 'eventsList.getDayCount'); // get last day's count in dealing and completed
-    app.get('/api/v1/eventsList/rate/:day', 'eventsList.getEventsRate'); // get the rate of events count during some time(day: 'week', 'month', '3month', '6month')
+    app.get('/api/v1/eventsList/count/manager/:userId', 'eventsList.getManageDealCount'); //get the total, uncomfirmed, confirmed count of store manager and district manager
+    app.get('/api/v1/eventsList/dayCount/:userId', 'eventsList.getDayCount'); // get last day's count in dealing and completed
+    app.get('/api/v1/eventsList/rate/:day/:userId', 'eventsList.getEventsRate'); // get the rate of events count during some time(day: 'week', 'month', '3month', '6month')
+    app.get('/api/v1/eventsList/rate/statistic/manager/:userId', 'eventsList.getRateGrahp'); // get the rate graph statistic of shops
     app.get('/api/v1/eventsList/list/:status/:userId', 'eventsList.getEventListByStatus'); // get list of eventList record by status
+    app.get('/api/v1/eventsList/list/manager/:status/:userId', 'eventsList.getManageEventListByStatus'); // get list of store manager and district manager
     app.get('/api/v1/eventsList/list/:status/:result', 'eventsList.getEventList'); // get list of eventList record by status and result used to filer
     app.get('/api/v1/eventsList/graph/:day', 'eventsList.getEventsListGraph'); // get statistics graph of eventsList (day: 'day', 'month', 'week')
     app.get('/api/v1/eventsList/editInfo/:sysKey', 'eventsList.getEditInfo'); // get some event's edit information
