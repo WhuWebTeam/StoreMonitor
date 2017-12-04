@@ -300,7 +300,7 @@ module.exports = app => {
             }
 
             try {
-                const eventsList = this.app.db.query(str, values);
+                const eventsList = await this.app.db.query(str, values);
                 return eventsList;
             } catch(err) {
                 return [];
