@@ -109,6 +109,7 @@ module.exports = app => {
                 eventList.counterId = DVA.RegID || '0000000000';
                 eventList.counterType = DVA.RegType || 'pos';
                 eventList.cashierId = DVA.CashierID || '0000000000';
+                eventList.shopId = DVA.ShopID || '0000000000';
                 if (bill.eventFlag.toLowerCase() !== 'normal' &&  await this.service.eventsList.insert(eventList)) {
                     await this.service.logger.logDefault('running', `insert bill(${eventList}) to bills successed`);
                 } else if (bill.eventFlag.toLowerCase() !== 'normal') {

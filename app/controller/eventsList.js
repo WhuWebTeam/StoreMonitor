@@ -69,6 +69,51 @@ module.exports = app => {
             }
         }
 
+        /**
+        * Get count of eventsList total, unconfirmed, confirmed
+        * @public
+        * @method EventsList#getManageDealCount
+        * @since 1.0.0
+        */
+       async getManageDealCount() {
+
+           // get user's register code
+           const userId = this.ctx.params.userId;
+           const during = this.app.config.time.graphShowTime;
+
+           const str = `select count(su.shopId)
+                        from (
+                            select shopId
+                            from shopUser
+                            where userId = $1) su
+                        inner join (
+                            select shopId, status, createAt
+                            from eventsList) e on e.shopId = su.shopId
+                        where e.status = $2 and to_timestamp(e.createAt) > now() - interval $3`;
+                       
+           try {
+               let working = await this.app.db.query(str, [userId, 0, during]);
+               working = working[0] && +working[0].count || 0;
+
+               let store = await this.app.db.query(str, [userId, 1, during]);
+               store = store[0] && +store[0].count || 0;
+
+               let commit = await this.app.db.query(str, [userId, 2, during]);
+               commit = commit[0] && +commit[0].count || 0;
+           
+               this.ctx.body = {
+                   code: 200,
+                   data: {
+                       working,
+                       store,
+                       commit
+                   }
+               };
+           } catch(err) {
+               this.ctx.body = this.service.util.generateResponse(400, `get user's count statistics failed`);
+           }
+       }
+
 
         /**
          * Get the count of events wating to be dealed and completedthe last day
@@ -78,14 +123,25 @@ module.exports = app => {
          */
         async getDayCount() {
 
-            // get count of events waiting to be dealed
-            const dealing = await this.service.eventsList.count({ status: 0 }, ['id']);
+            const user = this.ctx.params.userId;
             
-            // get count of events completed the last day
-            const str = `select count(distinct sysKey) from eventTAT where type = 2 and to_timestamp(actionTime) > now() - interval '1 d'`;
-
             try {
-                let completed = await this.app.db.query(str, []);
+                let str = `select count(transId) from eventsList e
+                        inner join shopUser su on e.shopId = su.shopId
+                        where su.userId = $1 and e.status = 0`;
+                
+                
+                let dealing = await this.app.db.query(str, [user]);
+                dealing = dealing[0] && dealing[0].count || 0;
+                
+                // get count of events completed the last day
+                str = `select count(distinct et.sysKey) from eventTAT et
+                      inner join eventsList e on e.sysKey = et.sysKey
+                      inner join shopUser su on e.shopId = su.shopId
+                      where su.userId = $1 and et.type = 2 and to_timestamp(actionTime) > now() - interval '1 d'`;
+
+            
+                let completed = await this.app.db.query(str, [user]);
                 completed = completed[0] && completed[0].count || 0;
 
                 this.ctx.body = {
@@ -109,11 +165,12 @@ module.exports = app => {
          */
         async getEventsRate() {
 
+            const user = this.ctx.params.userId;
+
             // get the limit time duration
             const time = this.ctx.params.day;
-            console.log(time);
             // set the duration time
-            const values = [];
+            const values = [user];
             switch(time.toLowerCase()) {
                 case 'week':
                     values.push(7);
@@ -129,22 +186,29 @@ module.exports = app => {
                     break;
             }
 
-                console.log(values);
             try {
                 // get the count of bills during the limit time 
-                let str = `select count(transId) from bills where to_timestamp(ts) > now() - interval '$1 day'`;
+                let str = `select count(transId) from bills b
+                          inner join shopUser su on su.shopId = b.shopId
+                          where userId = $1 and to_timestamp(ts) > now() - interval '$2 day'`;
                 let bills = await this.app.db.query(str, values);
                 bills = bills[0] && bills[0].count || 0;
 
                 // get the count of events during the limit time
-                str = `select count(transId) from eventsList where to_timestamp(ts) > now() - interval '$1 day'`;
+                str = `select count(transId) from eventsList e
+                      inner join shopUser su on su.shopId = e.shopId
+                      where userId = $1 and to_timestamp(ts) > now() - interval '$2 day'`;
                 let events = await this.app.db.query(str, values);
                 events = events[0] && events[0].count || 0;
+                let rate = 0;
+                if (!bills) {
+                    rate = events / bills;
+                }
 
                 this.ctx.body = {
                     code: 200,
                     data: {
-                        rate: events ? events / bills : 0
+                        rate
                     }
                 }
             } catch(err) {
@@ -169,6 +233,71 @@ module.exports = app => {
                         from eventsList e
                         inner join counterUser cu on cu.counterId = e.counterId
                         where cu.userId = $1 and to_timestamp(createAt) > now() - interval $2 and status = $3`;
+
+            try {
+                let eventsList = await this.app.db.query(str, [userId, during, status]);
+                this.ctx.body = {
+                    code: 200,
+                    data: eventsList
+                };
+            } catch(err) {
+                this.ctx.body = this.service.util.generateResponse(400, 'get info of events count in some condition failed');
+            }
+        }
+
+
+        async getRateGrahp() {
+            const user = this.ctx.params.userId;
+            let str = `select count(b.transId), b.shopId from  bills b
+                      inner join shopUser su on b.shopId = su.shopId
+                      where to_timestamp(ts) > now() - interval '6 m' and userId = $1
+                      group by b.shopId order by b.shopId`;
+            const rates = [];
+            try {
+                const bills = await this.app.db.query(str, [user]);
+            
+                str = `select count(e.transId), e.shopId from  eventsList e
+                      inner join shopUser su on e.shopId = su.shopId
+                      where to_timestamp(ts) > now() - interval '6 m' and userId = $1
+                      group by e.shopId order by e.shopId`;
+                const eventsList = await this.app.db.query(str, [user]);
+                for (let i = 0; i < bills.length && i < eventsList.length; i++) {
+                    if (bills[i].shopId === eventsList[i].shopId) {
+                        const rate = {};
+                        rate.total = bills[i].count;
+                        rate.shopId = bills[i].shopid;
+                        rate.rate = 0;
+                        if (!rate.total) {
+                            rate.rate = eventsList[i].count / bills[i].count;
+                        }
+                        rates.push(rate);
+                    }
+                }
+                this.ctx.body = {
+                    code: 200,
+                    data: rates
+                };
+        } catch (err) {
+            this.ctx.body = this.service.util.generateResponse(400, 'get store error rate statistics failed');
+        }
+    }
+
+        /**
+         * Get list of eventsList record
+         * @public
+         * @method EventsList#getManageEventListByStatus
+         * @since 1.0.0
+         */
+        async getManageEventListByStatus() {
+
+            const userId = this.ctx.params.userId;
+            const status = +this.ctx.params.status || 0;
+            const during = this.app.config.time.graphShowTime;
+
+            const str = `select sysKey, cashierId, cashierName, e.counterId, counterType, transId, createAt, editResult
+                        from eventsList e
+                        inner join shopUser su on su.shopId = e.shopId
+                        where su.userId = $1 and to_timestamp(createAt) > now() - interval $2 and status = $3`;
 
             try {
                 let eventsList = await this.app.db.query(str, [userId, during, status]);
