@@ -12,7 +12,7 @@ window.onload = function(){
 	/* get num of events */
 	function getNum(){
 		$.ajax({
-			url:'/api/v1/eventsList/dayCount',
+			url:'/api/v1/eventsList/dayCount/'+userId,
 			type:'GET',
 			//data:
 			success:function(results){
