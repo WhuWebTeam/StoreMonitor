@@ -107,6 +107,27 @@ ALTER TABLE public.counters
 
 
 
+###
+
+```postgre
+
+CREATE TABLE public.shopUser
+(
+    id serial primary key,
+    userId varchar(50),
+    shopId varchar(50),
+    type varchar(50)
+) 
+WITH (
+  OIDS = FALSE
+)
+;
+ALTER TABLE public.shopUser
+  OWNER TO company;
+
+```
+
+
 ### shops
 
 ```postgre

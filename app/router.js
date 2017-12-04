@@ -29,4 +29,5 @@ module.exports = app => {
     require('./router/video')(app);
     require('./router/editResultList')(app);
     require('./router/eventTAT')(app);
+    require('./router/shopUser')(app);
 }

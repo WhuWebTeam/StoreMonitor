@@ -34,7 +34,18 @@ module.exports = app => {
             }
 
             // wu mei user is district manager
-            this.ctx.redirect(`/public/districtManager.html?userId=${userId}`);
+            if (level === this.app.config.userLevel.districtManager) {
+                const assigned = await this.service.shopUser.count({ userId }, ['id']);
+                if (assigned) {       
+                    this.ctx.redirect(`/public/districtManager.html?userId=${userId}`);
+                    return;
+                }
+                
+                this.ctx.redirect(`/public/addShop.html?userId=${userId}`);
+                return;
+            }
+
+            redirect('/public/404.html');
         }
 
 

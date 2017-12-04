@@ -129,7 +129,7 @@ module.exports = appInfo => {
     Config.userLevel = {
         manager: 1,
         storeManager: 2,
-        districtManage: 3
+        districtManager: 3
     };
 
     

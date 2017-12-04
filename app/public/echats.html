@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+	<style type="text/css">
+		#contentDot{
+			width:100%;
+			height: 300px;
+		}
+	</style>
+	<script type="text/javascript" src="bootstrap-3.3.7-dist/jquery/jquery.min.js"></script>
+	<script type="text/javascript" src="bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+	<script src="js/libs/js.cookie.min.js"></script>
+	<script src="js/libs/echarts.js"></script>
+	<script type="text/javascript">
+		window.onload = function(){
+			var myDot;
+			function drawDot(){
+					if (myDot != null && myDot != "" && myDot != undefined) {
+					        myDot.dispose();
+					}
+					myDot = echarts.init(document.getElementById('contentDot'));
+
+					option = {
+					    title : {
+					        text: '差错率',
+					    },
+					    tooltip : {
+					        trigger: 'axis',
+					        showDelay : 0, 
+					        axisPointer:{
+					            show: true,
+					            type : 'cross',
+					            lineStyle: {
+					                type : 'dashed',
+					                width : 1
+					            }
+					        }
+					    },
+					    toolbox: {
+					        show : true,
+					        feature : {
+					            mark : {show: true},
+					            dataZoom : {show: true},
+					            dataView : {show: true, readOnly: false},
+					            restore : {show: true}
+					        }
+					    },
+					    xAxis : [
+					        {
+					            type : 'value',
+					            scale:true,
+					            axisLabel : {
+					                formatter: '{value} cm'
+					            }
+					        }
+					    ],
+					    yAxis : [
+					        {
+					            type : 'value',
+					            scale:true,
+					            axisLabel : {
+					                formatter: '{value} kg'
+					            }
+					        }
+					    ],
+					    series : [
+					        {
+					            name:'男性',
+					            type:'scatter',
+					            data: [[174.0, 65.6], [175.3, 71.8], [193.5, 80.7], [186.5, 72.6], [187.2, 78.8]
+					            ]
+					        }
+					    ]
+					};
+					                    
+
+					myDot.setOption(option);
+
+			}
+			drawDot();
+		}
+	</script>
+</head>
+<body>
+	<div id="contentDot"></div>
+</body>
+</html>

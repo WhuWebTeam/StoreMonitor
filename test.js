@@ -1,16 +1,7 @@
-const arr = [1, 2, 3, 4]
+const arr = [];
 
-function sort(arr, attribute, flag) {
-    arr.sort((e1, e2) => {
-        if (e1[attribute] > e2[attribute]) {
-            return flag;
-        }
-
-        return !flag;
-    })
+if (arr) {
+    console.log(true);
+} else {
+    console.log(false);
 }
-
-
-sort(arr, 'name', true);
-
-console.log(arr);

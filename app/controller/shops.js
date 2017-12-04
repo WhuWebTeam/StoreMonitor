@@ -12,57 +12,63 @@ module.exports = app => {
         }
 
         
-        // get info of all shops
-        async getShops() {
-            this.ctx.body = await this.service.shops.query({});
-        }
+        // get user's shop
+        async getMyShops() {
+            const user = this.ctx.params.userId;
+            const str = `select s.id, s.name, s.type from shops s
+                        inner join shopUser su on s.id = su.shopId
+                        where su.userId = $1`;
 
-
-        // get info of shops with condition query or not
-        async getShop() {
-            const shop = this.ctx.request.body;
-
-            this.ctx.body = await this.service.shops.query(shop);
-        }
-
-
-
-        async modifyShop() {
-            const id = this.ctx.params.shopId;
-
-            // shop object without id
-            let shop = this.ctx.request.body;
-            
-            // add id to shop object
-            shop.id = id;
-
-            this.ctx.body = await this.service.shops.update(shop);
-        }
-
-
-        async changeShopArea() {
-            const id = this.ctx.params.shopId;
-
-            // shop object with areaId attribute only and without id
-            let shop = this.ctx.request.body;
-
-            // add id attributes to shop
-            shop.id = id;
-
-            this.ctx.body = await this.service.shops.update(shop);
-        }
-
-
-        // insert a new shop record to shops
-        async addShop() {
-            const shop = await this.ctx.request.body;
-
-            // shop exists
-            if (!await this.servcie.shops.insert(shop)) {
-                this.ctx.body = this.service.util.generateResponse(400, 'shop exists');
+            if (!await this.service.userswm.exists(user)) {
+                this.ctx.body = this.servic.util.generateResponse(400, `user doesn.t exist`);
+                return;
             }
+        
+            try {
+                const shops = await this.app.db.query(str, [user]);
+                this.ctx.body = {
+                    code: 200,
+                    data: shops
+                };
+            } catch (err) {
+                this.ctx.body = this.service.util.generateResponse(400, `get my shops' info failed`);
+            }
+        }
 
-            this.ctx.body = this.service.util.generateResponse(200, 'add shop record successed');
+
+        // get shops not assigned
+        async getShopsNotAssainged() {
+            const str = `select s.id, s.name, s.type from shops s
+                        where s.id not in
+                            (select shopId from shopUser)`;
+            
+            try {
+                const shops = await this.app.db.query(str, []);
+                this.ctx.body = {
+                    code: 200,
+                    data: shops
+                };
+            } catch (err) {
+                this.ctx.body = this.service.util.generateResponse(400, `get shops not assigned failed`);
+            }
+        }
+
+
+        // get shops assgined to some manager
+        async getShopsAssigned() {
+            const str = `select s.id, s.name, s.type from shops s
+                        where s.id in
+                            (select shopId from shopUser)`;
+            
+            try {
+                const shops = await this.app.db.query(str, []);
+                this.ctx.body = {
+                    code: 200,
+                    data: shops
+                };
+            } catch (err) {
+                this.ctx.body = this.service.util.generateResponse(400, `get shops assigned failed`);
+            }
         }
     }
 
