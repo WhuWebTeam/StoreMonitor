@@ -147,7 +147,6 @@ window.onload = function(){
 			type:'get',
 			success:function(results){
 				var dotData = results.data;
-				console.log(dotData);
 				drawDot(dotData);
 			}
 		})

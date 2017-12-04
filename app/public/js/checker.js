@@ -49,7 +49,7 @@ window.onload = function(){
 		}
 
 		$.ajax({
-			url:'/api/v1/eventsList/list/'+type+'/'+userId,
+			url:'/api/v1/eventsList/list/checker/common/'+type+'/'+userId,
 			type:'get',
 			success:function(results){
 				var results = results.data;

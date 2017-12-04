@@ -25,7 +25,7 @@ window.onload = function(){
 				var mes =document.createElement('p');
 				//addClass(mes,'no');
 				mes.setAttribute('class','no');
-				mes.innerHTML = '没有待分配的商店';
+				mes.innerHTML = '没有待分配的门店';
 				document.getElementById('list').appendChild(mes);
 			}
 
