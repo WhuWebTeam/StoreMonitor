@@ -166,9 +166,8 @@ module.exports = app => {
         async getEventsRate() {
 
             const user = this.ctx.params.userId;
-
-            // get the limit time duration
             const time = this.ctx.params.day;
+
             // set the duration time
             const values = [user];
             switch(time.toLowerCase()) {
@@ -217,36 +216,7 @@ module.exports = app => {
         } 
 
 
-        /**
-         * Get list of eventsList record
-         * @public
-         * @method EventsList#getEventListByStatus
-         * @since 1.0.0
-         */
-        async getEventListByStatus() {
-
-            const userId = this.ctx.params.userId;
-            const status = +this.ctx.params.status || 0;
-            const during = this.app.config.time.graphShowTime;
-
-            const str = `select sysKey, cashierId, cashierName, e.counterId, counterType, transId, createAt, editResult
-                        from eventsList e
-                        inner join counterUser cu on cu.counterId = e.counterId
-                        where cu.userId = $1 and to_timestamp(createAt) > now() - interval $2 and status = $3`;
-
-            try {
-                let eventsList = await this.app.db.query(str, [userId, during, status]);
-                this.ctx.body = {
-                    code: 200,
-                    data: eventsList
-                };
-            } catch(err) {
-                this.ctx.body = this.service.util.generateResponse(400, 'get info of events count in some condition failed');
-            }
-        }
-
-
-        async getRateGrahp() {
+        async getErrorRateGraph() {
             const user = this.ctx.params.userId;
             let str = `select count(b.transId), b.shopId from  bills b
                       inner join shopUser su on b.shopId = su.shopId
@@ -281,6 +251,88 @@ module.exports = app => {
             this.ctx.body = this.service.util.generateResponse(400, 'get store error rate statistics failed');
         }
     }
+
+
+        /**
+         *  get the error rate of list of shops(day: 'week', 'month', '3month', '6month')
+         * @method EventsList#getErrorRateList
+         * @since 1.0.0
+         */
+        async getErrorRateList() {
+
+            const user = this.ctx.params.userId;
+            const time = this.ctx.params.day;
+
+            // set the duration time
+            const values = [user];
+            switch(time.toLowerCase()) {
+                case 'week':
+                    values.push(7);
+                    break;
+                case 'month':
+                    values.push(30);
+                    break;
+                case '3month':
+                    values.push(90);
+                    break;
+                default:
+                    values.push(180);
+                    break;
+            }
+
+            try {
+                const str = `select name, c.id, total, error, errorRate from cashiers c
+                            inner join(
+                                select tol.cashierId, total, error, error / total errorRate
+                                from (
+                                    select count(e.transId) error, e.shopId, e.cashierId from  eventsList e
+                                    inner join shopUser su on e.shopId = su.shopId
+                                    where to_timestamp(ts) > now() - interval '$1 d' and userId = $2
+                                    group by e.shopId, e.cashierId order by e.shopId, e.cashierId) err 
+                                inner join (
+                                    select count(b.transId) total, b.shopId, b.cashierId from  bills b
+                                    inner join shopUser su on b.shopId = su.shopId
+                                    where to_timestamp(ts) > now() - interval '$1 d' and userId = $2
+                                    group by b.shopId, b.cashierId order by b.shopId, b.cashierId) tol on err.shopId = tol.shopId and err.cashierId = tol.cashierId
+                                    ) r on c.id = r.cashierId`;
+                const errorRate = await this.app.db.query(str, [user, time]);
+                this.ctx.body = {
+                    code: 200,
+                    data: errorRate
+                };
+            } catch(err) {
+                this.ctx.body = this.service.util.generateResponse(400, `get cashiers' error event rate failed`);
+            }
+        }
+
+        /**
+         * Get list of eventsList record
+         * @public
+         * @method EventsList#getEventListByStatus
+         * @since 1.0.0
+         */
+        async getEventListByStatus() {
+
+            const userId = this.ctx.params.userId;
+            const status = +this.ctx.params.status || 0;
+            const during = this.app.config.time.graphShowTime;
+
+            const str = `select sysKey, cashierId, cashierName, e.counterId, counterType, transId, createAt, editResult
+                        from eventsList e
+                        inner join counterUser cu on cu.counterId = e.counterId
+                        where cu.userId = $1 and to_timestamp(createAt) > now() - interval $2 and status = $3`;
+
+            try {
+                let eventsList = await this.app.db.query(str, [userId, during, status]);
+                this.ctx.body = {
+                    code: 200,
+                    data: eventsList
+                };
+            } catch(err) {
+                this.ctx.body = this.service.util.generateResponse(400, 'get info of events count in some condition failed');
+            }
+        }
+
 
         /**
          * Get list of eventsList record

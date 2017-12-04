@@ -26,6 +26,39 @@ module.exports = app => {
 
 
         /**
+         * get manager's response time(day: 'week', 'month', '3month', '6month')
+         */
+        async getResponseTime() {
+
+            const user = this.ctx.params.userId;
+            const time = this.ctx.params.day;
+
+            // set the duration time
+            const values = [user];
+            switch(time.toLowerCase()) {
+                case 'week':
+                    values.push(7);
+                    break;
+                case 'month':
+                    values.push(30);
+                    break;
+                case '3month':
+                    values.push(90);
+                    break;
+                default:
+                    values.push(180);
+                    break;
+            }
+
+            try {
+
+            } catch (err) {
+                
+            }
+        }
+
+
+        /**
          * Log open event's time(type:0)
          * @public
          * @function eventTAT#eventOpenTime
