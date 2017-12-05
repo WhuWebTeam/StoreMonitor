@@ -34,7 +34,7 @@ module.exports = app => {
 
 
 
-// app.put('/api/v1/eventsList/:sysKey', 'eventsList.eventEdit'); // modify some eventList's info
+// app.put('/api/v1/eventsList/editInfo/:sysKey', 'eventsList.eventEdit'); // modify some eventList's info
 // attributes of the following object
 // {
 //     editResult,
