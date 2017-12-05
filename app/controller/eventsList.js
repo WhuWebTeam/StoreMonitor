@@ -77,41 +77,39 @@ module.exports = app => {
         */
        async getManageDealCount() {
 
-           // get user's register code
-           const userId = this.ctx.params.userId;
-           const during = this.app.config.time.graphShowTime;
+            const user = this.ctx.params.userId;
+            const day = this.ctx.params.day;
+            let str = `select to_char(to_timestamp(e.ts/1000), $2) as t, count(e.id) from eventsList e
+                      inner join shopUser su on su.shopId = e.shopId
+                      where su.userId = $1
+                      group by t order by t desc`;
+            let values = [user];
 
-           const str = `select count(su.shopId)
-                        from (
-                            select shopId
-                            from shopUser
-                            where userId = $1) su
-                        inner join (
-                            select shopId, status, createAt
-                            from eventsList) e on e.shopId = su.shopId
-                        where e.status = $2 and to_timestamp(e.createAt) > now() - interval $3`;
-                       
-           try {
-               let working = await this.app.db.query(str, [userId, 0, during]);
-               working = working[0] && +working[0].count || 0;
+            switch(day.toLowerCase()) {
+                case 'day':
+                    values.push('YYYY-MM-DD');
+                    break;
+                case 'month':
+                    values.push('YYYY-MM');
+                    break;
+                default:
+                    str = `select count(transId), to_char(to_timestamp(ts/1000), 'YYYYMM') y, to_char(to_timestamp(ts/1000), 'W') w from eventsList e
+                          inner join shopUser su on su.shopId = e.shopId
+                          where su.userId = $1
+                          group by y, w
+                          order by y, w`;
+                    break;
+            }
 
-               let store = await this.app.db.query(str, [userId, 1, during]);
-               store = store[0] && +store[0].count || 0;
-
-               let commit = await this.app.db.query(str, [userId, 2, during]);
-               commit = commit[0] && +commit[0].count || 0;
-           
-               this.ctx.body = {
-                   code: 200,
-                   data: {
-                       working,
-                       store,
-                       commit
-                   }
-               };
-           } catch(err) {
-               this.ctx.body = this.service.util.generateResponse(400, `get user's count statistics failed`);
-           }
+            try {
+                const eventsList = await this.app.db.query(str, values);
+                this.ctx.body = {
+                    code: 200,
+                    data: eventsList
+                }
+            } catch(err) {
+                this.ctx.body = this.service.util.generateResponse(400, 'get store count statistics eventsList status failed');
+            }
        }
 
 
@@ -166,9 +164,8 @@ module.exports = app => {
         async getEventsRate() {
 
             const user = this.ctx.params.userId;
-
-            // get the limit time duration
             const time = this.ctx.params.day;
+
             // set the duration time
             const values = [user];
             switch(time.toLowerCase()) {
@@ -217,6 +214,92 @@ module.exports = app => {
         } 
 
 
+        async getErrorRateGraph() {
+            const user = this.ctx.params.userId;
+            let str = `select count(b.transId), b.shopId from  bills b
+                      inner join shopUser su on b.shopId = su.shopId
+                      where to_timestamp(ts) > now() - interval '6 m' and userId = $1
+                      group by b.shopId order by b.shopId`;
+            const rates = [];
+            try {
+                const bills = await this.app.db.query(str, [user]);
+            
+                str = `select count(e.transId), e.shopId from  eventsList e
+                      inner join shopUser su on e.shopId = su.shopId
+                      where to_timestamp(ts) > now() - interval '6 m' and userId = $1
+                      group by e.shopId order by e.shopId`;
+                const eventsList = await this.app.db.query(str, [user]);
+                for (let i = 0; i < bills.length && i < eventsList.length; i++) {
+                    if (bills[i].shopId === eventsList[i].shopId) {
+                        const rate = {};
+                        rate.total = bills[i].count;
+                        rate.shopId = bills[i].shopid;
+                        rate.error = eventsList[i].count;
+                        rates.push(rate);
+                    }
+                }
+                this.ctx.body = {
+                    code: 200,
+                    data: rates
+                };
+        } catch (err) {
+            this.ctx.body = this.service.util.generateResponse(400, 'get store error rate statistics failed');
+        }
+    }
+
+
+        /**
+         *  get the error rate of list of shops(day: 'week', 'month', '3month', '6month')
+         * @method EventsList#getErrorRateList
+         * @since 1.0.0
+         */
+        async getErrorRateList() {
+
+            const user = this.ctx.params.userId;
+            const time = this.ctx.params.day;
+
+            // set the duration time
+            const values = [user];
+            switch(time.toLowerCase()) {
+                case 'week':
+                    values.push(7);
+                    break;
+                case 'month':
+                    values.push(30);
+                    break;
+                case '3month':
+                    values.push(90);
+                    break;
+                default:
+                    values.push(180);
+                    break;
+            }
+
+            try {
+                const str = `select name, c.id, total, error, errorRate from cashiers c
+                            inner join(
+                                select tol.cashierId, total, error, error / total errorRate
+                                from (
+                                    select count(e.transId) error, e.shopId, e.cashierId from  eventsList e
+                                    inner join shopUser su on e.shopId = su.shopId
+                                    where to_timestamp(ts) > now() - interval '$2 d' and userId = $1
+                                    group by e.shopId, e.cashierId order by e.shopId, e.cashierId) err 
+                                inner join (
+                                    select count(b.transId) total, b.shopId, b.cashierId from  bills b
+                                    inner join shopUser su on b.shopId = su.shopId
+                                    where to_timestamp(ts) > now() - interval '$2 d' and userId = $1
+                                    group by b.shopId, b.cashierId order by b.shopId, b.cashierId) tol on err.shopId = tol.shopId and err.cashierId = tol.cashierId
+                                    ) r on c.id = r.cashierId`;             
+                const errorRate = await this.app.db.query(str, values);
+                this.ctx.body = {
+                    code: 200,
+                    data: errorRate
+                };
+            } catch(err) {
+                this.ctx.body = this.service.util.generateResponse(400, `get cashiers' event rate failed`);
+            }
+        }
+
         /**
          * Get list of eventsList record
          * @public
@@ -245,42 +328,6 @@ module.exports = app => {
             }
         }
 
-
-        async getRateGrahp() {
-            const user = this.ctx.params.userId;
-            let str = `select count(b.transId), b.shopId from  bills b
-                      inner join shopUser su on b.shopId = su.shopId
-                      where to_timestamp(ts) > now() - interval '6 m' and userId = $1
-                      group by b.shopId order by b.shopId`;
-            const rates = [];
-            try {
-                const bills = await this.app.db.query(str, [user]);
-            
-                str = `select count(e.transId), e.shopId from  eventsList e
-                      inner join shopUser su on e.shopId = su.shopId
-                      where to_timestamp(ts) > now() - interval '6 m' and userId = $1
-                      group by e.shopId order by e.shopId`;
-                const eventsList = await this.app.db.query(str, [user]);
-                for (let i = 0; i < bills.length && i < eventsList.length; i++) {
-                    if (bills[i].shopId === eventsList[i].shopId) {
-                        const rate = {};
-                        rate.total = bills[i].count;
-                        rate.shopId = bills[i].shopid;
-                        rate.rate = 0;
-                        if (!rate.total) {
-                            rate.rate = eventsList[i].count / bills[i].count;
-                        }
-                        rates.push(rate);
-                    }
-                }
-                this.ctx.body = {
-                    code: 200,
-                    data: rates
-                };
-        } catch (err) {
-            this.ctx.body = this.service.util.generateResponse(400, 'get store error rate statistics failed');
-        }
-    }
 
         /**
          * Get list of eventsList record
