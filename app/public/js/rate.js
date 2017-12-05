@@ -1,6 +1,9 @@
+<<<<<<< HEAD
 var cookie = new CookieStorage('/');
 var userId = cookie.getItem('userId');
 
+=======
+>>>>>>> master
 var cashList =["收银员","收银次数","事件次数","出错率"];
 var managerList=["防损员","事件次数","三分钟内","五分钟内","五分钟以上"]
 var sta = 0;
@@ -62,7 +65,10 @@ function getHead(results){
     	idCell.innerHTML = results[i]; 
      	row.appendChild(idCell); 
 		}  
+<<<<<<< HEAD
 	//console.log(row);
+=======
+>>>>>>> master
     return row; //返回tr数据      
     }      
 
@@ -70,7 +76,10 @@ function showTable(freq) {
 //app.get('/api/v1/eventsList/errorRate/:day/:userId', (day: 'week', 'month', '3month', '6month')
 //data":[{"name":null,"id":"WME20150003","total":"50","error":"1","errorrate":"0"},
 	$.ajax({
+<<<<<<< HEAD
             //url:"/api/v1/eventsList/rate/"+userId+freq,
+=======
+>>>>>>> master
             url:"/api/v1/eventsList/errorRate/list/"+userId+'/'+freq,
             type:'GET',
             success:function(results){     
@@ -106,7 +115,10 @@ function getDataRow(h){
     jobCell.setAttribute("class", "text-center");
     jobCell.innerHTML = h.errorrate;  
     row.appendChild(jobCell); 
+<<<<<<< HEAD
     console.log(row);
+=======
+>>>>>>> master
 
     return row;       
      }      
@@ -123,11 +135,19 @@ function doReset()
 function drawP(freq){
 	//api/v1/eventsList/rate/:userId/:day
 	$.ajax({
+<<<<<<< HEAD
             //url:"/api/v1/eventsList/rate/"+userId+"/"+freq, 
             url:"/api/v1/eventsList/rate/"+userId+'/'+freq,
             type:'GET', 
             success:function(results){   //get the pie data;
 		
+=======
+          
+            url:"/api/v1/eventsList/rate/"+userId+'/'+freq,
+            type:'GET', 
+            success:function(results){   //get the pie data;
+
+>>>>>>> master
 			var myChart;
 			myChart = echarts.init(document.getElementById('drawP'));
 			option = {
@@ -152,7 +172,11 @@ function drawP(freq){
             radius : '55%',
             center: ['50%', '50%'],
             data:[
+<<<<<<< HEAD
                 {value:results.rate, name:'事件次数'},
+=======
+                {value:+(results.data.rate), name:'事件次数'},
+>>>>>>> master
                 {value:1, name:'总次数'},
                
             ],

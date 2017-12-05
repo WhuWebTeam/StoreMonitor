@@ -40,7 +40,7 @@ window.onload = function()
             type:'GET',
             success:function(results){
               
-              console.log("/api/v1/eventsList/editInfo/"+syskey);
+              //console.log("/api/v1/eventsList/editInfo/"+syskey);
 
               var check_result = results.data.editresult;
 
