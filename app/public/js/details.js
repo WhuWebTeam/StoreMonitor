@@ -40,7 +40,7 @@ window.onload = function()
             type:'GET',
             success:function(results){
               
-              console.log("/api/v1/eventsList/editInfo/"+syskey);
+              //console.log("/api/v1/eventsList/editInfo/"+syskey);
 
               var check_result = results.data.editresult;
 
@@ -139,7 +139,7 @@ window.onload = function()
         else {
           if( comments !='' && productName !='' && (price > 0)){
           $.ajax({
-            url:"/api/v1/eventsList/" + syskey,
+            url:"/api/v1/eventsList/editInfo/" + syskey,
             type:'put',
             data:{
               'editResult' : editResult,
