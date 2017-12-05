@@ -1,4 +1,5 @@
 window.onload = function(){
+	
 	var status = getSearchString('status') ;
 	var syskey = getSearchString('syskey') ;
 
@@ -18,25 +19,25 @@ window.onload = function(){
 	}
 
 	function submit(){
-        var editResult = $("#mySelect option:selected").text();
-        var comments = document.getElementById('Note').value ;
-        var productName = document.getElementById('Prod_Name').value ;
-        var price = document.getElementById('Price').value ;
+	    var editResult = $("#mySelect option:selected").text();
+	    var comments = document.getElementById('Note').value ;
+	    var productName = document.getElementById('Prod_Name').value ;
+	    var price = document.getElementById('Price').value ;
 
-        if(status == 2){
-      		window.location=`checker.html?listType=2`;
-       	}
-      	else{
-        	if(comments !='' && productName !='' && (price > 0)){
-        		$.ajax({
-          			url:"/api/v1/eventsList/editInfo/" + syskey,
+	    if(status == 2){
+	  		window.location=`checker.html?listType=2`;
+	   	}
+	  	else{
+	    	if(comments !='' && productName !='' && (price > 0)){
+	    		$.ajax({
+	      			url:"/api/v1/eventsList/editInfo/" + syskey,
 		          	type:'put',
 		         	data:{
 		            	'editResult' : editResult,
 		            	'comments'  : comments,
 		            	'productName' :productName,
 		            	'price' : price
-            		},
+	        		},
 	          		success:function(data){
 	            		$.ajax({
 		                	url:'/api/v1/eventTAT/storeTime/'+syskey,
@@ -47,9 +48,9 @@ window.onload = function(){
 			            })
 			            window.location=`checker.html?listType=1`;
 	        	    }
-        		});
-     		}    
-      		else{        
+	    		});
+	 		}    
+	  		else{        
 		        if(comments ==''){
 	            	alert("请正确填写备注");
 	        	}
@@ -58,14 +59,14 @@ window.onload = function(){
 	          	}
 	        	else  
 	        		alert("请正确填写金额");
-	        	}
-	    	}
-		}
+	        }
+	    }
 	}
+
 
 	function getResult(check_result){
 	    $.ajax({
-        	url:"/api/v1/editResultList",
+	    	url:"/api/v1/editResultList",
 	        type:'GET',
 	        success:function(results){
 		        for (var i = 0; i < results.data.length; i++) {
@@ -95,7 +96,7 @@ window.onload = function(){
 	  		}
 	    })
 	}
-	
+
 	function getNum(){
 	    var pairs = {
 	      	'0' :'未处置',
@@ -122,11 +123,12 @@ window.onload = function(){
 	    })
 	}
 
-	
+
 
 
 	$('#back').click(back);
 	$('#btn').click(submit);
 	getNum();
+
 
 }

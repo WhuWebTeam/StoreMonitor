@@ -282,7 +282,7 @@ window.onload = function(){
 
     /* add press event of day week and month */
     var btn = document.getElementById('graph').getElementsByTagName('button');
-   	Array.prototype.map.call(btn,function(item,index){
+   	Array.prototype.forEach.call(btn,function(item,index){
     	item.onclick = function(){
     		/*handle style*/
     		var alr_down = document.getElementsByClassName('down')[0];
@@ -306,7 +306,7 @@ window.onload = function(){
 
    	/* add press event of event */
    	var btn = document.getElementById('event').getElementsByTagName('p');
-   	Array.prototype.map.call(btn,function(item,index){
+   	Array.prototype.forEach.call(btn,function(item,index){
    		item.onclick = function(){
    			getList(index);
    		}

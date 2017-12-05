@@ -6,13 +6,6 @@
 	<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
 	<link rel="stylesheet" type="text/css" href="bootstrap-3.3.7-dist/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="css/districtManager.css">
-	<style>
-	#xq span{
-	    padding:1% 2%;
-	    font-size:12px;
-	    background:#ddd;
-	    }
-	</style>
 </head>
 <body>
 	<p id="title">
@@ -55,25 +48,23 @@
 
 	
 
-<table class="table table-striped table-bordered">
-	<thead>
-		<tr>
-			<th class ="text-center container">收银员</th>
-		</tr>
-	</thead>	
-</table>
+	<p id="listTitle">收银员</p>
 
-<div id="xq">
- 	<span id="thisWeek" onclick="thisWeek()">本周</span>
- 	<span id="thisMonth" onclick="thisMonth()">本月</span> 
- 	<span id="threeMonth" onclick="threeMonth()">近三个月</span> 
- 	<span id="halfYear" onclick="halfYear()">近半年</span> 
- </div>
-<table class="table table-bordered">
-	<thead id ="tbHead"></thead>
-	<tbody id="tbMain"></tbody>
-</table>
-<div id="drawP" style="width: 250px;height:350px;"></div>
+	<div id="timeSel">
+	 	<button class="tdown">本周</button>
+	 	<button >本月</button> 
+	 	<button >近三个月</button> 
+	 	<button >近半年</button> 
+	</div>
+
+	<div id="table">
+		<table class="table table-bordered">
+			<thead id="tbHead"></thead>
+			<tbody id="tbMain"></tbody>
+		</table>
+	</div>
+	<hr>
+	<div id="pie"></div>
 
 
 	<script type="text/javascript" src="bootstrap-3.3.7-dist/jquery/jquery.min.js"></script>
@@ -83,7 +74,6 @@
 	<script type="text/javascript" src="js/func.js"></script>
 	<script type="text/javascript" src="js/districtManager.js"></script>
 	<script type="text/javascript" src="js/setShop.js"></script>
-
 	<script type="text/javascript" src="js/rate.js"></script>
 
 	
