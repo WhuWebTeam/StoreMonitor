@@ -190,6 +190,7 @@ module.exports = app => {
                           where userId = $1 and to_timestamp(ts) > now() - interval '$2 day'`;
                 let bills = await this.app.db.query(str, values);
                 bills = bills[0] && bills[0].count || 0;
+            
 
                 // get the count of events during the limit time
                 str = `select count(transId) from eventsList e
@@ -198,7 +199,7 @@ module.exports = app => {
                 let events = await this.app.db.query(str, values);
                 events = events[0] && events[0].count || 0;
                 let rate = 0;
-                if (!bills) {
+                if (bills) {
                     rate = events / bills;
                 }
 
