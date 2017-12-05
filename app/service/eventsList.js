@@ -41,7 +41,8 @@ module.exports = app => {
                 pic1Url: undefined,
                 pic2Url: undefined,
                 pic3Url: undefined,
-                pic4Url: undefined
+                pic4Url: undefined,
+                shopId: undefined
             };
         }
 
