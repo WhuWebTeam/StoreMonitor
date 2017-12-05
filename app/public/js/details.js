@@ -139,7 +139,7 @@ window.onload = function()
         else {
           if( comments !='' && productName !='' && (price > 0)){
           $.ajax({
-            url:"/api/v1/eventsList/" + syskey,
+            url:"/api/v1/eventsList/editInfo/" + syskey,
             type:'put',
             data:{
               'editResult' : editResult,
