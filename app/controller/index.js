@@ -52,8 +52,8 @@ module.exports = app => {
         // Clear all  record in database
         async clear() {
             const tables = [
-                'users', 'authorities', 'counterUser', 'counters', 'shops', 'areas', 'products', 'customers',
-                'cashiers', 'bills', 'eventsList', 'cashierSalesInfo', 'customerSalesInfo', 'productSalesInfo'
+                'authorities', 'counterUser', 'counters', 'shops', 'areas', 'products', 'customers', 'shopUser',
+                'cashiers', 'bills', 'eventsList', 'cashierSalesInfo', 'customerSalesInfo', 'productSalesInfo', 'eventTAT',
             ];
 
             tables.map(async table => {
