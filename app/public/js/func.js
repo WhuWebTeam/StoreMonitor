@@ -35,7 +35,6 @@
 	}
 /* handle time */
 
-
 /*handle csrf*/
 	var csrftoken = Cookies.get('csrfToken');
 	function csrfSafeMethod(method) {
