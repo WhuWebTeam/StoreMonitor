@@ -1,3 +1,6 @@
+var cookie = new CookieStorage('/');
+var userId = cookie.getItem('userId');
+
 var cashList =["收银员","收银次数","事件次数","出错率"];
 var managerList=["防损员","事件次数","三分钟内","五分钟内","五分钟以上"]
 var sta = 0;
@@ -59,7 +62,7 @@ function getHead(results){
     	idCell.innerHTML = results[i]; 
      	row.appendChild(idCell); 
 		}  
-	console.log(row);
+	//console.log(row);
     return row; //返回tr数据      
     }      
 
@@ -68,7 +71,7 @@ function showTable(freq) {
 //data":[{"name":null,"id":"WME20150003","total":"50","error":"1","errorrate":"0"},
 	$.ajax({
             //url:"/api/v1/eventsList/rate/"+userId+freq,
-            url:"/api/v1/eventsList/errorRate/list/5/"+freq,
+            url:"/api/v1/eventsList/errorRate/list/"+userId+'/'+freq,
             type:'GET',
             success:function(results){     
    			var tbody = document.getElementById('tbMain');   
@@ -121,10 +124,10 @@ function drawP(freq){
 	//api/v1/eventsList/rate/:userId/:day
 	$.ajax({
             //url:"/api/v1/eventsList/rate/"+userId+"/"+freq, 
-            url:"/api/v1/eventsList/rate/5/"+freq,
+            url:"/api/v1/eventsList/rate/"+userId+'/'+freq,
             type:'GET', 
             success:function(results){   //get the pie data;
-			
+		
 			var myChart;
 			myChart = echarts.init(document.getElementById('drawP'));
 			option = {
