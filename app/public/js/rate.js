@@ -83,7 +83,7 @@ function drawPie(freq){
         	    legend: {
             	   orient: 'vertical',
             	   left: 'left',
-            	   data: ['事件次数','总次数']
+            	   data: ['事件次数','正确收银']
         		},
                 series : [
                     {
@@ -93,7 +93,7 @@ function drawPie(freq){
                         center: ['50%', '50%'],
                         data:[
                             {value:+(results.data.rate), name:'事件次数'},
-                            {value:1-(results.data.rate), name:'总次数'},   
+                            {value:1-(results.data.rate), name:'正确收银'},   
                         ],
                         itemStyle: {
                             emphasis: {

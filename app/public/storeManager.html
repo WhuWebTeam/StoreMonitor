@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>LPS银线防损系统</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+	<link rel="stylesheet" type="text/css" href="bootstrap-3.3.7-dist/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="css/districtManager.css">
+</head>
+<body>
+	<p id="title">
+		防损系统管理
+	</p>
+
+	<p id="title1">本日状况</p>
+	<div id="event">
+		<p id="left">
+			<span></span>
+			处理中
+		</p>
+		<p id="right">
+			<span></span>
+			已完成
+		</p>
+	</div>
+	<div id="graph">
+		 <span class="title">防损事件</span>
+		 <span class="sel">
+		 	<button class="day   btn btn-success btn-sm down">按天</button>
+		 	<button class="week  btn btn-success btn-sm">按周</button>
+		 	<button class="month btn btn-success btn-sm">按月</button>
+		 </span>
+		 <div id="contentGraph"></div>
+	</div>
+	<div id="dot">
+		 <span class="title">差错率</span>
+		 <div id="contentDot"></div>
+	</div>
+
+	
+
+	<p id="listTitle">收银员</p>
+
+	<div id="timeSel">
+	 	<button class="tdown">本周</button>
+	 	<button >本月</button> 
+	 	<button >近三个月</button> 
+	 	<button >近半年</button> 
+	</div>
+
+	<div id="table">
+		<table class="table table-bordered">
+			<thead id="tbHead"></thead>
+			<tbody id="tbMain"></tbody>
+		</table>
+	</div>
+	<hr>
+	<div id="pie"></div>
+
+
+	<script type="text/javascript" src="bootstrap-3.3.7-dist/jquery/jquery.min.js"></script>
+	<script type="text/javascript" src="bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+	<script src="js/libs/js.cookie.min.js"></script>
+	<script src="js/libs/echarts.js"></script>
+	<script type="text/javascript" src="js/func.js"></script>
+	<script type="text/javascript" src="js/storeManager.js"></script>
+	<script type="text/javascript" src="js/rate.js"></script>
+
+	
+	
+</body>
+</html>
