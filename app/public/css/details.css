@@ -47,3 +47,8 @@ input:focus{
     border: 2px solid #EDF0F5;
     text-align: center;
 }
+#btn{
+	text-align: center;
+	margin: 0 auto;
+	display: block;
+}

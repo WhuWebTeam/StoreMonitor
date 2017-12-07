@@ -3,17 +3,16 @@
 <head>
 	<meta charset="utf-8"> <title>事件详情</title>
     <meta name="viewport" content="width=device-width initial-scale=1.0">
-    <!-- Bootstratep -->
-    <link rel="stylesheet" type="text/css" href="bootstrap-3.3.7-dist/css/bootstrap.min.css">
-    <link href="./css/details.css" rel="stylesheet" type="text/css"/>     
+    <link rel="stylesheet" type="text/css" href="bootstrap-3.3.7-dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="./css/details.css"/> 
+       
 </head>
 <body>
-
 	<table class="table table-striped table-bordered ">
 		<caption><h3 class ="text-center container">事件详情</h3></caption>
 		<tbody>
 			<tr>
-				<td class ="btn btn-primary  btn-block text-center" width="40px" onclick="back()">返回</td>
+				<td class ="btn btn-primary  btn-block text-center" id="back">返回</td>
 				<td class ="text-center container lead" id="date">Date</td>
 				<td class ="text-center container lead" id="status">Status</td>
 			</tr>
@@ -24,7 +23,7 @@
 	    <div class="panel-body">
 			<video id="example_video_1" class="video-js vjs-default-skin .img-responsive " controls preload="none" width="100%" height="100%"
 			poster="" 
-	      data-setup="{}">
+	      	data-setup="{}">
 	    	<source id="Url" src="">
 	    	<track kind="captions" src="demo.captions.vtt" srclang="en" label="English"></track><!-- Tracks need an ending tag thanks to IE9 -->
 	    	<track kind="details.html?id=137661511781978384&status=1subtitles" src="demo.captions.vtt" srclang="en" label="English"></track><!-- Tracks need an ending tag thanks to IE9 -->
@@ -48,25 +47,17 @@
 					   placeholder="交易单号" value="" >
 			</div>
 		</div>
+		<div class="form-group">
+			<label class="col-xs-3 control-label col-xs-9">审核结论</label>
+				<div class="col-xs-9">
+					<form role="form">
+					<select select id ="mySelect" class="form-control">
+					</select>
+				</form>
+			</div>
+		</div>
 	</form>
 
-	<form class="form-horizontal container " role="form">
-	<div class="form-group">
-		<label class="col-xs-3 control-label col-xs-9">审核结论</label>
-			<div class="col-xs-9">
-				<form role="form">
-				<select select id ="mySelect" class="form-control">
-				<!--
-					<option id ="state0"></option>
-					<option id ="state1"></option>
-					<option id ="state2"></option>
-					<option id ="state3"></option>
-				-->
-				</select>
-			</form>
-		</div>
-	</div>
-	</form>
 
 	<form class="form-horizontal container" role="form">
 		<div class="form-group">
@@ -101,14 +92,14 @@
 		</div>
 	</form>
 
-	<div class="text-center container"> 
-		 <button id="btn" class="btn btn-primary btn-lg" onclick="submit()">保存</button>
-	</div>
+	<button id="btn" class="btn btn-primary btn-lg">保存</button>
+
 
 <script type="text/javascript" src="bootstrap-3.3.7-dist/jquery/jquery.min.js"></script>
 <script type="text/javascript" src="bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
 <script src="js/libs/js.cookie.min.js"></script>
-<script type="text/javascript" src="js/func.js"></script>
-<script type="text/javascript" src="js/details.js"></script>
+<script src="js/func.js"></script>
+<script src="js/details.js"></script>
+
 </body>
 </html>
