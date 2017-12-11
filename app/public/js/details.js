@@ -6,98 +6,30 @@ window.onload = function(){
 	var cookie = new CookieStorage('/');
 	var userId = cookie.getItem('userId');
 
-	function back(){
-	    if(status == 0){
-	     window.location=`checker.html?listType=0`;
-	    }
-	    else if(status == 1){
-	      window.location=`checker.html?listType=1`;
-	    }
-	    else if(status == 2){
-	      window.location=`checker.html?listType=2`;
-	    }
-	}
-
-	function submit(){
-	    var editResult = $("#mySelect option:selected").text();
-	    var comments = document.getElementById('Note').value ;
-	    var productName = document.getElementById('Prod_Name').value ;
-	    var price = document.getElementById('Price').value ;
-
-	    if(status == 2){
-	  		window.location=`checker.html?listType=2`;
-	   	}
-	  	else{
-	    	if(comments !='' && productName !='' && (price > 0)){
-	    		$.ajax({
-	      			url:"/api/v1/eventsList/editInfo/" + syskey,
-		          	type:'put',
-		         	data:{
-		            	'editResult' : editResult,
-		            	'comments'  : comments,
-		            	'productName' :productName,
-		            	'price' : price
-	        		},
-	          		success:function(data){
-	            		$.ajax({
-		                	url:'/api/v1/eventTAT/storeTime/'+syskey,
-		                	type:'POST',
-		                	success:function(){
-	               				console.log(this.url);
-	    		            }
-			            })
-			            window.location=`checker.html?listType=1`;
-	        	    }
-	    		});
-	 		}    
-	  		else{        
-		        if(comments ==''){
-	            	alert("请正确填写备注");
-	        	}
-	        	else if (productName ==''){
-	            	alert("请正确填写商品名称");
-	          	}
-	        	else  
-	        		alert("请正确填写金额");
-	        }
-	    }
-	}
-
-
-	function getResult(check_result){
+	function editResultList(preResult){
 	    $.ajax({
 	    	url:"/api/v1/editResultList",
 	        type:'GET',
 	        success:function(results){
-		        for (var i = 0; i < results.data.length; i++) {
-			        var mes =document.createElement('option');
-			        mes.setAttribute('id','state'+i.toString() );
-			        mes.innerHTML = results.data[i].name;
-			        document.getElementById('mySelect').appendChild(mes);
-		        } 
-
-		      	for(var num = 0 ;num < results.data.length; num++){
-			        var temp = 'state' + num.toString();          
-			        document.getElementById(temp.toString()).innerHTML= '';
-			    }
-
-			    for(var num = 0 ;num < results.data.length ; num++){
-			        if (results.data[num].name == check_result){
-			            var tt = results.data[0].name ;
-			            results.data[0].name = results.data[num].name; 
-			            results.data[num].name = tt ;
-			        }
-			    }
-			      
-			    for(var num = 0 ;num < results.data.length; num++){
-			        var temp = 'state' + num.toString();          
-			        document.getElementById(temp.toString()).innerHTML= results.data[num].name;
-			    }
+	        	var data = results.data;
+	        	var select = document.getElementById('result');
+	        	if(preResult){
+	        		var option = document.createElement('option');
+	        		option.setAttribute('selected','');
+	        		option.innerHTML = preResult;
+	        		select.appendChild(option); 
+	        	} 
+	        	for(let i=0;i<data.length;i++){
+	        		if(data[i].name == preResult) continue;
+	        		var option = document.createElement('option');
+	        		option.innerHTML = data[i].name;
+	        		select.appendChild(option);
+	        	}
 	  		}
 	    })
-	}
+	}  /*handle select menu*/
 
-	function getNum(){
+	function getInfo(){
 	    var pairs = {
 	      	'0' :'未处置',
 	      	'1' :'待提交',
@@ -107,28 +39,97 @@ window.onload = function(){
 	      	url:"/api/v1/eventsList/editInfo/"+syskey,
 	      	type:'GET',
 	      	success:function(results){
-		        var check_result = results.data.editresult;
-		        document.getElementById('date').innerHTML = handleTime(results.data.createat);
-		        document.getElementById('status').innerHTML = pairs[results.data.status];
-		        document.getElementById("example_video_1").src = results.data.videourl;
-		        document.getElementById('Name').value = results.data.cashiername?results.data.cashiername:results.data.cashierid?results.data.cashierid:'pos机';
-		        document.getElementById("Name").disabled=true;
-		        document.getElementById('Id').value = results.data.transid;
-		        document.getElementById("Id").disabled=true;
-		        document.getElementById('Note').value = results.data.comments;
-		        document.getElementById('Prod_Name').value =results.data.productname;
-		        document.getElementById('Price').value = results.data.price;
-		        getResult(check_result);
+		        var data = results.data;
+		        $('#date').html(handleTime(data.createat));
+		        $('#status').html(pairs[data.status]);
+		        $("source")[0].src = data.videourl;
+		        $('#name').val(data.cashiername?data.cashiername:data.cashierid?data.cashierid:'pos机');
+		        $('#id').val(data.transid);
+		        $('#note').val(data.comments);
+		        $('#prod').val(data.productname);
+		        $('#price').val(data.price);
+		        editResultList(data.editresult); /* handle Optional results and previous result*/
 	        }
 	    })
-	}
+	}  /*write info*/
+
+	function submit(){
+	    var editResult = $("#result option:selected").text();
+	    var comments = $('#note').val() ;
+	    var productName = $('#prod').val() ;
+	    var price = $('#price').val() ;
+
+	    if(status == 2){
+	  		window.location=`checker.html?listType=2`;
+	   	}
+	  	else{
+    		$.ajax({
+      			url:"/api/v1/eventsList/editInfo/" + syskey,
+	          	type:'put',
+	         	data:{
+	            	'editResult' : editResult,
+	            	'comments'  : comments,
+	            	'productName' :productName,
+	            	'price' : price
+        		},
+          		success:function(data){
+            		$.ajax({
+	                	url:'/api/v1/eventTAT/storeTime/'+syskey,
+	                	type:'POST'
+		            })
+		            window.location=`checker.html?listType=1`;
+        	    }
+    		});
+	    }
+	} /*submit the form*/
+	
 
 
+	getInfo();
+	$('#scan').css('height',$('#scan').css('width'));
+ 	$('#back').click(function(){
+		window.location = `checker.html?listType=${status}`;
+	});
+ 	$('#btn').click(submit);
 
 
-	$('#back').click(back);
-	$('#btn').click(submit);
-	getNum();
+ 	if(status != 0){
+ 		$("#result").css('border','1px solid #ccc');
+ 		$("#note").css('border','1px solid #ccc');
+ 		$("#prod").css('border','1px solid #ccc');
+ 		$("#price").css('border','1px solid #ccc');
+ 		$('#btn').removeAttr('disabled');
+ 		if(status == 2){
+ 			$('#result').attr('disabled','');
+ 			$('#note').attr('disabled','');
+ 			$('#prod').attr('disabled','');
+ 			$('#price').attr('disabled','');
+ 		}
+ 	}
 
+	$("#result").change(function(){
+		this.style.border = '1px solid #ccc';
+	})
+	$("#note").change(function(){
+		this.style.border = $('#note').val()?'1px solid #ccc':'1px solid red';
+	})
+	$("#prod").change(function(){
+		this.style.border = $('#prod').val()?'1px solid #ccc':'1px solid red';
+	})
+	$("#price").change(function(){
+		this.style.border = $('#price').val()>0?'1px solid #ccc':'1px solid red';
+	})
+	$(":input").bind('input propertychange',function(){ 
+		var editResult = $("#result option:selected").text();
+		var comments = $('#note').val();
+		var productName = $('#prod').val() ;
+		var price = $('#price').val() ;
 
+		if(editResult!='审核结论'&&comments&&productName&&price>0){
+			$('#btn').removeAttr('disabled');
+		}else{
+			$('#btn').attr('disabled','');
+		} 
+	});
+ 	
 }

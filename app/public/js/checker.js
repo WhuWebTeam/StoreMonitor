@@ -72,7 +72,7 @@ window.onload = function(){
 					btn.innerHTML = '提交所有';
 					document.getElementById('list').appendChild(btn);		
 				}
-				sortFun(results,'createat',true);
+				sortFun(results,'createat',-1);
 				for(let i=0;i<results.length;i++){
 
 					var syskey = results[i].syskey;
@@ -93,7 +93,6 @@ window.onload = function(){
 					}else{
 						div.innerHTML =`
 								<p class="top"><span>${time}</span><span>${results[i].transid}</span><span class="glyphicon ${glyphiconType}" aria-hidden="true"></span></p>
-
 								<p class="bottom"><span>${name}</span><span>款台: ${results[i].counterid}</span><span>结果:${results[i].editresult?results[i].editresult:' 暂无'}</span></p>
 						`;
 					}
@@ -199,20 +198,20 @@ window.onload = function(){
 			                text: '防损事件统计表',
 			                subtext: '次数'
 			            },
+			            grid : {
+					        left : '15%', 
+					        right:   '15%',
+					    },
 			            tooltip : {
 			                trigger: 'axis'
 			            },
-			            // legend: {
-			            //     data:['最高气温','最低气温']
-			            // },
 			            toolbox: {
 			                show : true,
 			                feature : {
 			                    mark : {show: true},
 			                    dataView : {show: true, readOnly: false},
 			                    magicType : {show: true, type: ['line', 'bar']},
-			                    restore : {show: true},
-			                    //saveAsImage : {show: true}
+			                    restore : {show: true}
 			                }
 			            },
 			            calculable : true,
@@ -221,7 +220,6 @@ window.onload = function(){
 			                    type : 'category',
 			                    boundaryGap : false,
 			                    data : []
-			                    //data : ['周一','周二','周三','周四','周五','周六']
 			                }
 			            ],
 			            yAxis : [
@@ -236,7 +234,6 @@ window.onload = function(){
 			                {
 			                    name:'防损事件次数',
 			                    type:'line',
-			                    //data:[11, 11, 15, 18, 12, 9],
 			                    data:[],
 			                    markPoint : {
 			                        data : [
@@ -249,22 +246,7 @@ window.onload = function(){
 			                            {type : 'average', name: '平均值'}
 			                        ]
 			                    }
-			                },
-			                // {
-				               //     name:'最低气温',
-				               //     type:'line',
-				               //     data:[1, -2, 2, 5, 3, 2, 0],
-				               //     markPoint : {
-				               //         data : [
-				               //             {name : '周最低', value : -2, xAxis: 1, yAxis: -1.5}
-				               //         ]
-				               //     },
-				               //     markLine : {
-				               //         data : [
-				               //             {type : 'average', name : '平均值'}
-				               //         ]
-				               //     }
-			               	// }
+			                }
 			                 
 			            ]
 			        };

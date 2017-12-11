@@ -2,98 +2,38 @@
 <html>
 <head>
 	<meta charset="utf-8"> <title>事件详情</title>
-    <meta name="viewport" content="width=device-width initial-scale=1.0">
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
     <link rel="stylesheet" type="text/css" href="bootstrap-3.3.7-dist/css/bootstrap.min.css"/>
     <link rel="stylesheet" type="text/css" href="./css/details.css"/> 
        
 </head>
 <body>
-	<table class="table table-striped table-bordered ">
-		<caption><h3 class ="text-center container">事件详情</h3></caption>
-		<tbody>
-			<tr>
-				<td class ="btn btn-primary  btn-block text-center" id="back">返回</td>
-				<td class ="text-center container lead" id="date">Date</td>
-				<td class ="text-center container lead" id="status">Status</td>
-			</tr>
-		</tbody>
-	</table>
+	<h3>事件详情</h3>
+	<p id="title"><span id="back">返回</span><span id="date">Date</span><span id="status">Status</span></p>
 
-	<div class="panel panel-default container">
-	    <div class="panel-body">
-			<video id="example_video_1" class="video-js vjs-default-skin .img-responsive " controls preload="none" width="100%" height="100%"
-			poster="" 
-	      	data-setup="{}">
-	    	<source id="Url" src="">
-	    	<track kind="captions" src="demo.captions.vtt" srclang="en" label="English"></track><!-- Tracks need an ending tag thanks to IE9 -->
-	    	<track kind="details.html?id=137661511781978384&status=1subtitles" src="demo.captions.vtt" srclang="en" label="English"></track><!-- Tracks need an ending tag thanks to IE9 -->
-			</video>
-		</div>
-	</div>
-
-	<form class="form-horizontal container" role="form">
-		<div class="form-group">
-			<label class="col-xs-3 control-label col-xs-9">收银员</label>
-			<div class="col-xs-9">	
-				<input type="text"class="form-control " id="Name" 
-					   placeholder="收银员" value="" >
-			</div>
-		</div>
-
-		<div class="form-group">
-			<label class="col-xs-3 control-label col-xs-9">交易单号</label>
-			<div class="col-xs-9">
-				<input type="text" class="form-control" id="Id" 
-					   placeholder="交易单号" value="" >
-			</div>
-		</div>
-		<div class="form-group">
-			<label class="col-xs-3 control-label col-xs-9">审核结论</label>
-				<div class="col-xs-9">
-					<form role="form">
-					<select select id ="mySelect" class="form-control">
-					</select>
-				</form>
-			</div>
-		</div>
-	</form>
-
-
-	<form class="form-horizontal container" role="form">
-		<div class="form-group">
-			<label  class="col-xs-3 control-label col-xs-9">备注</label>
-			<div class="col-xs-9">
-				<input type="text" class="form-control" id="Note" 
-					   placeholder="此项必填" required="required"  value="">
-			</div>
-		</div>
-
-		<div class="form-group">
-			<label  class="col-xs-3 control-label col-xs-9">商品名称</label>
-			<div class="col-xs-5">
-				<input type="text" class="form-control"  required="required" id="Prod_Name" 
-					   placeholder="此项必填" value="" >
-
-			</div>
-			
-			<div class="col-xs-3 control-label col-xs-9">
-				<p>
-	   			<button type="button" class=" btn btn-primary btn-lg btn-block richScan" >扫一扫</button>
-	   			</p >
-			</div>
-		</div>
-
-		<div class="form-group">
-			<label  class="col-xs-3 control-label">金额</label>
-			<div class="col-xs-5">
-				<input type="text" class="form-control " required="required" id="Price" 
-					   placeholder="填写>0的数" value="" >
-			</div>		
-		</div>
-	</form>
-
-	<button id="btn" class="btn btn-primary btn-lg">保存</button>
-
+	<video id="video" controls  width="100%">
+		<source src="http://192.168.73.130/pic.qiantucdn.com/58pic/shipin/17/09/84/17098445.mp4">
+	</video>
+		
+	<form id="form">
+		<label>收银员</label>
+		<input  type="text" name="name" id="name" disabled placeholder="收银员"><br>
+		<label>交易单号</label>
+		<input  type="text" name="id" id="id" disabled placeholder="交易单号"><br>
+		<label>审核结论</label>
+		<select id="result" placeholder="审核结论" class="required">
+			 <option disabled selected style='display:none;'>审核结论</option>
+		</select><br>
+		<label>备注</label>
+		<input type="text" name="note" id="note" placeholder="备注" class="required"><br>
+		<label>商品名称</label>
+		<input class="narrow required" type="text" name="prod"  id="prod"  placeholder="商品名称">
+		<button id="scan" class="btn btn-info"><span>扫一扫</span></button><br>
+		<label>金额</label>
+		<input class="narrow required" type="number" name="price" id="price"  placeholder="金额">
+	</form>	
+	<button id="btn" class="btn btn-primary btn-lg" disabled="">保存</button>
+	
 
 <script type="text/javascript" src="bootstrap-3.3.7-dist/jquery/jquery.min.js"></script>
 <script type="text/javascript" src="bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
