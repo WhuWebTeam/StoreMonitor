@@ -1,54 +1,78 @@
-.container {
-		padding-right: 15px;
-		padding-left: 15px;
-		margin-right: auto;
-		margin-left: auto;
-		}
-.box{
-	position: relative;
+*{
+	margin: 0;
+	padding: 0;
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
 }
-.name,.money{
-	height: 40px;
-	line-height: 40px;
+h3{
+		text-align: center;
+		margin-bottom: 20px;
 }
-.name span,.money span{
-	width: 80px;
+#title span{
 	display: inline-block;
-	color: #6E7880;
+	height: 34px;
+	line-height: 34px;
+	text-align: center;
+	font-size: 14px;
+}
+#title span:nth-child(1){
+	background-color: rgb(51,122,183);
+	width:25%;
+	color: white;
+}
+#title span:nth-child(2){
+	background-color: #F2F2F2;
+	width:50%;
+	color: black;
+}
+#title span:nth-child(3){
+	background-color: #C4BDD2;
+	width:25%;
+	color: black;
+	white-space: nowrap;
+}
+video{
+	margin-bottom: 20px;
+}
+label,input,select{
+	height: 40px;
+	line-height: 38px;
+	margin-bottom:10px ;
+	display: inline-block;
+}
+label{
+	width: 23%;
 	text-align: right;
 }
-.money i{
-	position: absolute;
-	font-style: normal;
-    left: 90px;
-    top: 42px;
-    color: #6E7880;
-}
-input{
-	border:1px solid #EDF0F5;
-    height: 30px;
-	width: 50%;
+input,select{
+	width: 65%;
+	color: #555;
+	border: 1px solid #ccc;
 	border-radius: 4px;
-	outline: none;
-	padding-left: 20px;
+	margin-left: 15px;
 }
-.name input{
-	padding-left: 10px;
+.narrow{
+	width: 35%;
 }
-input:focus{
-	border: 1px solid #1FB5FF;
+
+#scan{
+	width: 80px;
+	background-color: #377FBE;
+	border-radius: 50%;
+	float: right;
+	margin-right: 8%;
+	margin-top: 10px;
 }
-.richScan{
-	position: absolute;
-	right: 3%;
-    top: 8px;
-    width: auto;
-    height: 80px;
-    border: 2px solid #EDF0F5;
-    text-align: center;
-}
-#btn{
+
+#scan span{
 	text-align: center;
-	margin: 0 auto;
-	display: block;
+	line-height: inherit;
+}
+
+#btn{
+	width: 100%;
+	margin-top: 20px;
+}
+
+.required{
+	border:1px solid red;
 }

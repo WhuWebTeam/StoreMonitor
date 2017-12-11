@@ -3,17 +3,19 @@ var shop = document.getElementById('shop');
 var cookie = new CookieStorage('/');
 var userId = cookie.getItem('userId');
 
+
 set.onclick = function(){
 	/*control show and hide*/
 	if(shop.style.display=='none'){
 		shop.style.display='block';
-	}else{
+	}
+	preventBubble(event);
+}
+document.body.onclick = function(){
+	if(shop.style.display=='block'){
 		shop.style.display='none';
 	}
-
-
 }
-
 
 /*bind button to achive page jump*/
 
